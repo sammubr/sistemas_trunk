@@ -3,24 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
         <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/web/pages/usuario/cadastro.xhtml</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/forms/UsuarioCadastro.java</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/login/Logoff.java</file>
         <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/forms/ArquivoDeMovimento.java</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/forms/BancoCadastro.java</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/login/Login.java</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/login/FiltroSeguranca.java</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/persistencia/ConsultaGeral.java</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/persistencia/Persistencia.java</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/persistencia/ConverterConta.java</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/forms/ContaBancariaCadastro.java</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/forms/ContaBancariaMovimentos.java</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/forms/ContaContabilCadastro.java</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/persistencia/ConverterBanco.java</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/web/WEB-INF/web.xml</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/conf/persistence.xml</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/web/WEB-INF/faces-config.xml</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/web/WEB-INF/beans.xml</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/conf/MANIFEST.MF</file>
-        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/hibernate.cfg.xml</file>
     </open-files>
 </project-private>

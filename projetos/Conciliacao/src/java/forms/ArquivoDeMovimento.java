@@ -28,7 +28,7 @@ public class ArquivoDeMovimento {
                 lista.add(scanner.nextLine().trim());
             }
 
-
+//teste agora
 
 
         } catch (IOException e) {
