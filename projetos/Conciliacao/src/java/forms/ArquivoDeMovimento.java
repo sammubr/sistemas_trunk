@@ -19,18 +19,11 @@ public class ArquivoDeMovimento {
     List<String> lista = new ArrayList<>();
 
     ArquivoDeMovimento(Part file) {
-
-
         try {
             Scanner scanner = new Scanner(file.getInputStream());
-
             while (scanner.hasNext()) {
                 lista.add(scanner.nextLine().trim());
             }
-
-//teste agora
-
-
         } catch (IOException e) {
             System.out.println("Falha ao tentar ler arquivo! " + e.getMessage());
         }
