@@ -16,5 +16,11 @@
         <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/forms/ContaBancariaMovimentos.java</file>
         <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/forms/ContaContabilCadastro.java</file>
         <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/persistencia/ConverterBanco.java</file>
+        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/web/WEB-INF/web.xml</file>
+        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/conf/persistence.xml</file>
+        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/web/WEB-INF/faces-config.xml</file>
+        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/web/WEB-INF/beans.xml</file>
+        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/conf/MANIFEST.MF</file>
+        <file>file:/home/samuel/Documentos/sistemas_trunk/projetos/Conciliacao/src/java/hibernate.cfg.xml</file>
     </open-files>
 </project-private>

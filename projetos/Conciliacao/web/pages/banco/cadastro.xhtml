@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <link href="../../css/menu/styles.css" rel="stylesheet" type="text/css"/>
+    <link href="../../css/crud.css" rel="stylesheet" type="text/css"/>
+
+    <ui:composition template="../templates/master.xhtml">
+
+        <ui:define name="conteudo">
+
+            <p:panel  id="pnlCadastro" header="#{bundle.FormCadastroBancos}" toggleable="false" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" >  
+
+                <h:form id="form" styleClass="jsfcrud_list_form">
+
+                    <p:outputPanel id="pnlGrid" >
+
+                        <p:panel rendered="#{bancoCadastro.gridVisivel}"  >
+
+
+
+                            <p:panel id="dados">
+
+                                <p:toolbar id="toolbar" >  
+                                    <p:toolbarGroup align="left">  
+
+                                        <p:commandButton title="#{bundle.CreateLink}"  action="#{bancoCadastro.criaNovo}" icon="ui-icon-document" ajax="false" />                                                
+                                    </p:toolbarGroup>  
+                                </p:toolbar>                         
+
+                                <p:dataTable id="dataTable" value="#{bancoCadastro.listaDeBancos}" var="item"
+                                             rowStyleClass="jsfcrud_odd_row,jsfcrud_even_row" 
+                                             paginator="true" rows="5"  
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">  
+
+                                    <p:column >
+                                        <f:facet name="header">
+                                            <p:outputLabel value="#{bundle.ListBancoTitle_Descricao}"/>
+                                        </f:facet>
+                                        <p:outputLabel value="#{item.descricao}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <p:outputLabel value="#{bundle.ListBancoTitle_Codigo}"/>
+                                        </f:facet>
+                                        <p:outputLabel value="#{item.codigo}"/>
+                                    </p:column>
+
+
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <p:outputLabel value="&nbsp;"/>
+                                        </f:facet>
+                                        <p:commandButton title="#{bundle.EditLink}" action="#{bancoCadastro.edita}" update=":form:tabela" ajax="false" icon="ui-icon-pencil"/>
+                                        <p:commandButton title="#{bundle.DestroyLink}" action="#{bancoCadastro.exclui}" update=":form:tabela" ajax="false" icon="ui-icon-trash"/>                            
+                                    </p:column>
+                                </p:dataTable> 
+
+                            </p:panel>
+
+                        </p:panel>
+
+                    </p:outputPanel>
+
+                    <p:outputPanel id="pnlItem"   >
+
+                        <p:panel rendered="#{bancoCadastro.itemVisivel}">
+
+                            <p:toolbar>
+                                <p:toolbarGroup align="left"  >
+                                    <p:commandButton id="salvar" title="#{bundle.SaveLink}" actionListener="#{bancoCadastro.persiste}"  ajax="false" icon="ui-icon-disk" />
+                                    <p:commandButton title="#{bundle.VoltarLink}" actionListener="#{bancoCadastro.mostraGrid}" ajax="false" immediate="true" icon="ui-icon-arrowreturnthick-1-w" />
+                                </p:toolbarGroup>
+                            </p:toolbar>
+
+                            <p:panelGrid columns="2">
+
+                                <p:outputLabel value="#{bundle.CreateBancoLabel_descricao}" for="descricao" />
+                                <p:inputText id="descricao" value="#{bancoCadastro.banco.descricao}" title="#{bundle.CreateBancoTitle_descricao}" required="true" requiredMessage="#{bundle.CreateBancoRequiredMessage_descricao}"/>
+
+
+
+                                <p:outputLabel value="#{bundle.CreateBancoLabel_codigo}" for="codigo" />
+                                <p:spinner id="codigo" value="#{bancoCadastro.banco.codigo}" title="#{bundle.CreateBancoTitle_codigo}" required="true" requiredMessage="#{bundle.CreateBancoRequiredMessage_codigo}"/>
+
+                            </p:panelGrid>                   
+
+                        </p:panel>
+
+                    </p:outputPanel>
+
+                </h:form>
+
+            </p:panel>                  
+
+        </ui:define>  
+
+    </ui:composition>
+
+</html>
