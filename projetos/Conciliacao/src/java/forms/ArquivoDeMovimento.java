@@ -17,7 +17,8 @@ import javax.servlet.http.Part;
 public class ArquivoDeMovimento {
 
     List<String> lista = new ArrayList<>();
-//samuel
+
+    
     ArquivoDeMovimento(Part file) {
         try {
             Scanner scanner = new Scanner(file.getInputStream());

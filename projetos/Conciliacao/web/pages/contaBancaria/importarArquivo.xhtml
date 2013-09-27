@@ -19,7 +19,7 @@
 
 
                     <p:selectOneMenu id="conta" value="#{contaBancariaMovimentos.contaBancariaSelecionada}" converter="converterConta" >
-                        <f:selectItem itemLabel="Selecione uma conta bancária" itemValue="" />
+                        <f:selectItem itemLabel="#{bundle.SelecionarContaBancaria}" itemValue="" />
                         <f:selectItems value="#{contaBancariaMovimentos.listaContasBancarias}" var="item" itemLabel="#{item.descricao}" itemValue="#{item}"/>                   
                         
                     </p:selectOneMenu>

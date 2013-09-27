@@ -109,7 +109,7 @@
 
                                 <p:outputLabel value="#{bundle.CreateContaBancariaLabel_banco}" for="banco" />
                                 <p:selectOneMenu id="banco" value="#{contaBancariaCadastro.contaBancaria.banco}" converter="converterBanco" >
-                                    <f:selectItem itemLabel="Selecione um banco" itemValue="" />
+                                    <f:selectItem itemLabel="#{bundle.SelecionarBanco}" itemValue="" />
                                     <f:selectItems value="#{contaBancariaCadastro.listaDeBancos}" var="item" itemValue="#{item}" itemLabel="#{item.descricao}" />
                                 </p:selectOneMenu>                          
 
