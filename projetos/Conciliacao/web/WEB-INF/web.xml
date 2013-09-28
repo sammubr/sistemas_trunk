@@ -69,9 +69,8 @@
     </filter>
     <filter-mapping>
         <filter-name>FiltroSeguranca</filter-name>
-        <url-pattern>/pages/*</url-pattern>        
+        <url-pattern>/pages/*</url-pattern>      
     </filter-mapping>
-    
     
     
     
@@ -86,8 +85,6 @@
         <filter-name>Logoff</filter-name>
         <url-pattern>/login.xhtml</url-pattern>        
     </filter-mapping>
-    
-    
     
     
     
