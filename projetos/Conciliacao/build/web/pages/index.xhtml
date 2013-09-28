@@ -6,13 +6,33 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="../css/menu/styles.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/layout.css" rel="stylesheet" type="text/css"/>
     </h:head>
 
 
     <h:body>
-        <ui:composition template="templates/master.xhtml">
-        </ui:composition>            
+
+
+
+        <ui:insert name="topo" >
+            <ui:include src="templates/menu.xhtml" />
+        </ui:insert>
+
+
+
+        <ui:insert name="conteudo"></ui:insert>
+
+
+
+
+        <ui:insert name="rodape" >
+            <ui:include src="templates/rodape.xhtml" />
+        </ui:insert>     
+
+
+
+
+
     </h:body>
 
 

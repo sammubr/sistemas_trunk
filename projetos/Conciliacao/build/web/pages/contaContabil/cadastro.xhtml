@@ -6,21 +6,18 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <link href="../../css/menu/styles.css" rel="stylesheet" type="text/css"/>
-    <link href="../../css/crud.css" rel="stylesheet" type="text/css"/>
 
-    <ui:composition template="../templates/master.xhtml">
+    <ui:composition template="../index.xhtml">
 
         <ui:define name="conteudo">
 
             <p:panel  id="pnlCadastro" header="#{bundle.FormCadastroContaContabil}" toggleable="false" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" >  
 
-                <h:form id="form" styleClass="jsfcrud_list_form">
+                <h:form id="form">
 
                     <p:outputPanel id="pnlGrid" >
 
                         <p:panel rendered="#{contaContabilCadastro.gridVisivel}"  >
-
 
 
                             <p:panel id="dados">
