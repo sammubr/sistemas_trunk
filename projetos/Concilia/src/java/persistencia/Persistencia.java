@@ -26,7 +26,9 @@ public class Persistencia {
             tx.commit();
             return true;
         } catch (Exception e) {
-            tx.rollback();
+            if (tx != null) {
+                tx.rollback();
+            }
             e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return false;
@@ -45,7 +47,9 @@ public class Persistencia {
             tx.commit();
             return true;
         } catch (Exception e) {
-            tx.rollback();
+            if (tx != null) {
+                tx.rollback();
+            }
             e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return false;

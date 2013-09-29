@@ -39,7 +39,6 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaBancariaMovimento.findByHistorico", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.historico = :historico"),
     @NamedQuery(name = "ContaBancariaMovimento.findByIdcontaBancariaMovimento", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.idcontaBancariaMovimento = :idcontaBancariaMovimento")})
 public class ContaBancariaMovimento extends Persistencia  implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
     @Column(name = "data_mov")
@@ -52,7 +51,7 @@ public class ContaBancariaMovimento extends Persistencia  implements Serializabl
     @Size(max = 20)
     @Column(name = "numdoc")
     private String numdoc;
-    @Size(max = 20)
+    @Size(max = 50)
     @Column(name = "historico")
     private String historico;
     @Id
