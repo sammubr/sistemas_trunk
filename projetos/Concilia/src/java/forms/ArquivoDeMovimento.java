@@ -31,6 +31,17 @@ public class ArquivoDeMovimento {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("Falha ao tentar ler arquivo!"));
         }
         
+        for (int i = 0; i < lista.size()-1; i++) {
+            
+            
+            
+            
+            
+            
+            
+        }
+        
+        
         
         
         

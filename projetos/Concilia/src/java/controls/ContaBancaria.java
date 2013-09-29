@@ -46,10 +46,6 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaBancaria.findByTagNumDoc", query = "SELECT c FROM ContaBancaria c WHERE c.tagNumDoc = :tagNumDoc"),
     @NamedQuery(name = "ContaBancaria.findByTagHistorico", query = "SELECT c FROM ContaBancaria c WHERE c.tagHistorico = :tagHistorico")})
 public class ContaBancaria extends Persistencia implements Serializable {
-    @Size(max = 20)
-    @Column(name = "tag_identificador_transacao")
-    private String tagIdentificadorTransacao;
-    private static final long serialVersionUID = 1L;
     @Column(name = "agencia")
     private Integer agencia;
     @Column(name = "agencia_digito")
@@ -83,8 +79,12 @@ public class ContaBancaria extends Persistencia implements Serializable {
     @Size(max = 20)
     @Column(name = "tag_historico")
     private String tagHistorico;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "conta")
-    private Collection<ContaBancariaMovimento> contaBancariaMovimentoCollection;
+    @Size(max = 20)
+    @Column(name = "tag_inicio_movimento")
+    private String tagInicioMovimento;
+    @Size(max = 20)
+    @Column(name = "tag_fim_movimento")
+    private String tagFimMovimento;
     @JoinColumn(name = "banco", referencedColumnName = "idbanco")
     @ManyToOne
     private Banco banco;
@@ -189,13 +189,20 @@ public class ContaBancaria extends Persistencia implements Serializable {
         this.tagHistorico = tagHistorico;
     }
 
-    @XmlTransient
-    public Collection<ContaBancariaMovimento> getContaBancariaMovimentoCollection() {
-        return contaBancariaMovimentoCollection;
+    public String getTagInicioMovimento() {
+        return tagInicioMovimento;
     }
 
-    public void setContaBancariaMovimentoCollection(Collection<ContaBancariaMovimento> contaBancariaMovimentoCollection) {
-        this.contaBancariaMovimentoCollection = contaBancariaMovimentoCollection;
+    public void setTagInicioMovimento(String tagInicioMovimento) {
+        this.tagInicioMovimento = tagInicioMovimento;
+    }
+
+    public String getTagFimMovimento() {
+        return tagFimMovimento;
+    }
+
+    public void setTagFimMovimento(String tagFimMovimento) {
+        this.tagFimMovimento = tagFimMovimento;
     }
 
     public Banco getBanco() {
@@ -229,14 +236,6 @@ public class ContaBancaria extends Persistencia implements Serializable {
     @Override
     public String toString() {
         return "controls.ContaBancaria[ idcontaBancaria=" + idcontaBancaria + " ]";
-    }
-
-    public String getTagIdentificadorTransacao() {
-        return tagIdentificadorTransacao;
-    }
-
-    public void setTagIdentificadorTransacao(String tagIdentificadorTransacao) {
-        this.tagIdentificadorTransacao = tagIdentificadorTransacao;
     }
     
 }
