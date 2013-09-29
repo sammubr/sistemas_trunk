@@ -25,6 +25,7 @@ public class Logoff implements Filter {
         HttpSession session = ((HttpServletRequest) req).getSession();
         
         session.setAttribute("usuario", null);
+        session.invalidate();
         chain.doFilter(request, response);
     }
 
