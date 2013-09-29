@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/conciliacao</property>
-    <property name="hibernate.connection.username">postgres</property>
-    <property name="hibernate.connection.password">123456</property>
-    <property name="hibernate.show_sql">true</property>
-    <property name="hibernate.format_sql">true</property>
-    <property name="hibernate.poolsize">10</property>
-    <property name="hibernate.current_session_context_class">thread</property>
-    <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
-    <mapping class="controls.Usuario"/>
-    <mapping class="controls.Banco"/>
-    <mapping class="controls.ContaBancaria"/>
-    <mapping class="controls.ContaContabil"/>
-    <mapping class="controls.ContaBancariaMovimento"/>
-  </session-factory>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/conciliacao</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">123456</property>
+    
+        <property name="hibernate.connection.useUnicode">true</property>
+        <property name="hibernate.connection.characterEncoding">UTF-8</property>
+        <property name="hibernate.connection.charSet">UTF-8</property>
+    
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.poolsize">10</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
+        <mapping class="controls.Usuario"/>
+        <mapping class="controls.Banco"/>
+        <mapping class="controls.ContaBancaria"/>
+        <mapping class="controls.ContaContabil"/>
+        <mapping class="controls.ContaBancariaMovimento"/>
+    </session-factory>
 </hibernate-configuration>
