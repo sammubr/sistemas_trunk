@@ -18,9 +18,10 @@ import util.JsfUtil;
  */
 public class ArquivoDeMovimento {
 
-    private List<String> lista = new ArrayList<>();
-
     void importaMovimentacao(Part file) {
+
+        List<String> lista = new ArrayList<>();
+
         try {
             Scanner scanner = new Scanner(file.getInputStream());
             while (scanner.hasNext()) {
@@ -29,6 +30,11 @@ public class ArquivoDeMovimento {
         } catch (IOException e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("Falha ao tentar ler arquivo!"));
         }
-
+        
+        
+        
+        
+        
+        
     }
 }

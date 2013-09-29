@@ -77,7 +77,6 @@
             
                 
                         
-                        
     <filter>
         <filter-name>Logoff</filter-name>
         <filter-class>login.Logoff</filter-class>
