@@ -7,8 +7,10 @@ package forms;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 import javax.servlet.http.Part;
+import util.JsfUtil;
 
 /**
  *
@@ -16,19 +18,17 @@ import javax.servlet.http.Part;
  */
 public class ArquivoDeMovimento {
 
-    List<String> lista = new ArrayList<>();
+    private List<String> lista = new ArrayList<>();
 
-    
-    ArquivoDeMovimento(Part file) {
+    void importaMovimentacao(Part file) {
         try {
             Scanner scanner = new Scanner(file.getInputStream());
             while (scanner.hasNext()) {
                 lista.add(scanner.nextLine().trim());
             }
         } catch (IOException e) {
-            System.out.println("Falha ao tentar ler arquivo! " + e.getMessage());
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("Falha ao tentar ler arquivo!"));
         }
-
 
     }
 }

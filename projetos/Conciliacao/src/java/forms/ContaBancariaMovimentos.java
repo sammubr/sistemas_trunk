@@ -192,6 +192,7 @@ public class ContaBancariaMovimentos implements Serializable {
      */
    
     public void upload() {
-        ArquivoDeMovimento arquivo = new ArquivoDeMovimento(file);        
+        ArquivoDeMovimento arquivo = new ArquivoDeMovimento();
+        arquivo.importaMovimentacao(file);
     }
 }
