@@ -6,32 +6,37 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="../css/layout.css" rel="stylesheet" type="text/css"/>
+        <link href="/Conciliacao/css/layout.css" rel="stylesheet" type="text/css"/>
     </h:head>
-
 
     <h:body>
 
+	<div class="content">
+		<div class="top_block menu">
+			<div class="content">
+
+                    <ui:insert name="topo" >
+                        <ui:include src="templates/menu.xhtml" />
+                    </ui:insert>
+
+			</div>
+		</div>
 
 
-        <ui:insert name="topo" >
-            <ui:include src="templates/menu.xhtml" />
-        </ui:insert>
+            <ui:insert name="conteudo"></ui:insert>
 
 
+		<div class="bottom_block rodape">
+			<div class="content">
 
-        <ui:insert name="conteudo"></ui:insert>
-
-
-
-
-        <ui:insert name="rodape" >
-            <ui:include src="templates/rodape.xhtml" />
-        </ui:insert>     
+                    <ui:insert name="rodape" >
+                        <ui:include src="templates/rodape.xhtml" />
+                    </ui:insert>     
 
 
-
-
+			</div>
+		</div>
+	</div>
 
     </h:body>
 
