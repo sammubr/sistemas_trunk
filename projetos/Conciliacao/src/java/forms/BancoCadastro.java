@@ -6,6 +6,8 @@ package forms;
 
 import controls.Banco;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.faces.model.CollectionDataModel;
@@ -87,7 +89,9 @@ public class BancoCadastro implements Serializable {
     }
 
     private void geraListaDeBancos() {
-        this.listaDeBancos = new CollectionDataModel(ConsultaGeral.consultaTodos(Banco.class, "descricao"));
+        List<String> ordem = new ArrayList<>();
+        ordem.add("descricao");        
+        this.listaDeBancos = new CollectionDataModel(ConsultaGeral.consultaTodos(Banco.class, null, null, ordem));
     }
 
     public void mostraGrid() {

@@ -6,11 +6,14 @@ package persistencia;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.ResourceBundle;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import util.JsfUtil;
 import util.NewHibernateUtil;
 
 /**
@@ -19,7 +22,7 @@ import util.NewHibernateUtil;
  */
 public class ConsultaGeral {
 
-    public static Collection<Persistencia> consultaTodos(Class classe, String ordem) {
+    public static Collection<Persistencia> consultaTodos(Class classe, List<String> atributos, List<Object> valores, List<String> ordem) {
 
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
@@ -28,34 +31,17 @@ public class ConsultaGeral {
             tx = session.beginTransaction();
             Criteria crit = session.createCriteria(classe);
 
-            if (!ordem.equals("")) {
-                crit.addOrder(Order.asc(ordem));
+            if (atributos != null) {
+                for (int i = 0; i < atributos.size(); i++) {
+                    crit.add(Restrictions.eq(atributos.get(i), valores.get(i)));
+                }
             }
-
-            lista = crit.list();
-        } catch (Exception e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return lista;
-
-    }
-
-    public static Collection consulta(Class classe, String atributo, Object valor, String ordem) {
-
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
-        Transaction tx = null;
-        Collection<Persistencia> lista = null;
-        try {
-            tx = session.beginTransaction();
-            Criteria crit = session.createCriteria(classe);
-            crit.add(Restrictions.eq(atributo, valor));
-            if (!ordem.equals("")) {
-                crit.addOrder(Order.asc(ordem));
+            if (ordem != null) {
+                for (int i = 0; i < ordem.size(); i++) {
+                    if (!ordem.get(i).equals("")) {
+                        crit.addOrder(Order.asc(ordem.get(i)));
+                    }
+                }
             }
             lista = crit.list();
         } catch (Exception e) {
@@ -63,13 +49,15 @@ public class ConsultaGeral {
                 tx.rollback();
             }
             e.printStackTrace();
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("ConsultaErrorOccured"));
         } finally {
             session.close();
         }
         return lista;
+
     }
 
-    public static Object consulta(Class classe, List<String> atributos, List<String> valores) {
+    public static Object consulta(Class classe, List<String> atributos, List<Object> valores) {
 
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
@@ -88,9 +76,95 @@ public class ConsultaGeral {
                 tx.rollback();
             }
             e.printStackTrace();
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("ConsultaErrorOccured"));
         } finally {
             session.close();
         }
         return objeto;
     }
+    
+    
+    
+    //-----------------------------------TESTAR!!!!!!!!!!!!!!
+    
+    
+    protected static Collection<Persistencia> consulta(String consulta) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        Collection<Persistencia> lista = null;
+        try {
+            Query q;
+            tx = session.beginTransaction();
+            q = session.createQuery(consulta);
+            lista = q.list();
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return lista;
+    }
+
+    protected Collection<Persistencia> consultaTodos() {
+        return consulta("FROM " + this.getClass().getName() + " as u");
+    }
+
+    protected Collection<Persistencia> consultaTodos(String ordem) {
+        return consulta("FROM " + this.getClass().getName() + " as u order by u." + ordem);
+    }
+
+    protected int registrosCom() {
+        return count("select from " + this.getClass().getName() + " as u");
+    }
+
+    protected Collection<Persistencia> registrosCom(String campo, String conteudo) {
+        return consulta("from " + this.getClass().getName() + " as u where u." + campo + " = " + conteudo);
+    }
+
+    protected Collection<Persistencia> registrosCom(String campo, Integer conteudo) {
+        return consulta("from " + this.getClass().getName() + " as u where u." + campo + " = " + conteudo);
+    }
+
+    protected int count(String consulta) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        int lista = 0;
+        try {
+            Query q;
+            tx = session.beginTransaction();
+            q = session.createQuery(consulta);
+            lista = q.list().size();
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return lista;
+    }
+
+    protected List<Object> findRange(int[] range) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        List<Object> lista = null;
+        try {
+            Query q;
+            tx = session.beginTransaction();
+            String consulta = "FROM " + this.getClass();
+            q = session.createQuery(consulta);
+            q.setMaxResults(range[1] - range[0]);
+            q.setFirstResult(range[0]);
+            lista = q.list();
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return lista;
+    }
+    
+    
+    
 }

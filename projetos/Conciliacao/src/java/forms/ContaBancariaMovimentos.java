@@ -7,6 +7,7 @@ package forms;
 import controls.ContaBancaria;
 import controls.ContaBancariaMovimento;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
@@ -64,8 +65,19 @@ public class ContaBancariaMovimentos implements Serializable {
         this.listaMovimentos = listaMovimentos;
     }
 
-    private void filtraListaMovimentos() {
-        this.listaMovimentos = new CollectionDataModel(ConsultaGeral.consulta(ContaBancariaMovimento.class, "conta", contaBancariaSelecionada, "dataMov"));
+    private void filtraListaMovimentos() {    
+        
+        List<String> atributos = new ArrayList<>();
+        atributos.add("conta");        
+             
+        List<Object> valores = new ArrayList<>();
+        valores.add(contaBancariaSelecionada);        
+                     
+        List<String> ordem = new ArrayList<>();
+        ordem.add("dataMov");        
+        
+        
+        this.listaMovimentos = new CollectionDataModel(ConsultaGeral.consultaTodos(ContaBancariaMovimento.class, atributos, valores, ordem));
     }
 
     public void mostraGrid() {
@@ -137,8 +149,10 @@ public class ContaBancariaMovimentos implements Serializable {
         this.contaSelecionada = contaSelecionada;
     }
 
-    private void geraListaDeContasBancarias() {
-        this.listaContasBancarias = (List) ConsultaGeral.consultaTodos(ContaBancaria.class, "descricao");
+    private void geraListaDeContasBancarias() {        
+        List<String> ordem = new ArrayList<>();
+        ordem.add("descricao");        
+        this.listaContasBancarias = (List) ConsultaGeral.consultaTodos(ContaBancaria.class, null, null, ordem);
     }
 
     /**

@@ -6,6 +6,8 @@ package forms;
 
 import controls.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.faces.model.CollectionDataModel;
@@ -87,7 +89,9 @@ public class UsuarioCadastro implements Serializable {
     }
 
     private void geraListaDeUsuarios() {
-        this.listaDeUsuarios = new CollectionDataModel(ConsultaGeral.consultaTodos(Usuario.class, "nome"));
+        List<String> ordem = new ArrayList<>();
+        ordem.add("nome");
+        this.listaDeUsuarios = new CollectionDataModel(ConsultaGeral.consultaTodos(Usuario.class, null, null, ordem));
     }
 
     public void mostraGrid() {

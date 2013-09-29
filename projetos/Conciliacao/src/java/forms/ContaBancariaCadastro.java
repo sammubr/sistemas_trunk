@@ -7,6 +7,7 @@ package forms;
 import controls.Banco;
 import controls.ContaBancaria;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
@@ -89,11 +90,15 @@ public class ContaBancariaCadastro implements Serializable {
     }
 
     private void geraListaDeContasBancarias() {
-        this.listaDeContasBancarias = new CollectionDataModel(ConsultaGeral.consultaTodos(ContaBancaria.class, "descricao"));
+        List<String> ordem = new ArrayList<>();
+        ordem.add("descricao");        
+        this.listaDeContasBancarias = new CollectionDataModel(ConsultaGeral.consultaTodos(ContaBancaria.class, null, null, ordem));
     }
 
-    public List getListaDeBancos() {
-        return (List) ConsultaGeral.consultaTodos(Banco.class, "descricao");
+    public List getListaDeBancos() {       
+        List<String> ordem = new ArrayList<>();
+        ordem.add("descricao");        
+        return (List) ConsultaGeral.consultaTodos(Banco.class, null, null, ordem);
     }
 
     public void mostraGrid() {

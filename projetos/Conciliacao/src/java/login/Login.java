@@ -24,7 +24,7 @@ public class Login extends javax.servlet.http.HttpServlet {
         List<String> atributos = new ArrayList<>();
         atributos.add("login");
         atributos.add("senha");
-        List<String> valores = new ArrayList<>();
+        List<Object> valores = new ArrayList<>();
         valores.add(request.getParameter("login"));
         valores.add(request.getParameter("senha"));
 

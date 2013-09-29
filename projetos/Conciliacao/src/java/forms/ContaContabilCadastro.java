@@ -6,6 +6,8 @@ package forms;
 
 import controls.ContaContabil;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.faces.model.CollectionDataModel;
@@ -86,8 +88,10 @@ public class ContaContabilCadastro implements Serializable {
         this.itemVisivel = itemVisivel;
     }
 
-    private void geraListaDeContasContabeis() {
-        this.listaDeContasContabeis = new CollectionDataModel(ConsultaGeral.consultaTodos(ContaContabil.class, "descricao"));
+    private void geraListaDeContasContabeis() {        
+        List<String> ordem = new ArrayList<>();
+        ordem.add("descricao");        
+        this.listaDeContasContabeis = new CollectionDataModel(ConsultaGeral.consultaTodos( ContaContabil.class, null, null, ordem));
     }
 
     public void mostraGrid() {
