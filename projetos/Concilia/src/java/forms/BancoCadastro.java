@@ -14,17 +14,16 @@ import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import persistencia.ConsultaGeral;
 import util.JsfUtil;
 
 @Named("bancoCadastro")
 @ViewScoped
 public class BancoCadastro implements Serializable {
 
-    private Banco banco;
-    private DataModel listaDeBancos;
-    private boolean gridVisivel;
-    private boolean itemVisivel;
+    private Banco fBanco;
+    private DataModel fListaDeBancos;
+    private boolean fGridVisivel;
+    private boolean fItemVisivel;
 
     @PostConstruct
     public void abreForm() {
@@ -36,62 +35,63 @@ public class BancoCadastro implements Serializable {
      * @return the banco
      */
     public Banco getBanco() {
-        return banco;
+        return fBanco;
     }
 
     /**
      * @param banco the banco to set
      */
     public void setBanco(Banco banco) {
-        this.banco = banco;
+        this.fBanco = banco;
     }
 
     /**
      * @return the listaDeBancos
      */
     public DataModel getListaDeBancos() {
-        return listaDeBancos;
+        return fListaDeBancos;
     }
 
     /**
      * @param listaDeBancos the listaDeBancos to set
      */
     public void setListaDeBancos(DataModel listaBancos) {
-        this.listaDeBancos = listaBancos;
+        this.fListaDeBancos = listaBancos;
     }
 
     /**
      * @return the gridVisivel
      */
     public boolean isGridVisivel() {
-        return gridVisivel;
+        return fGridVisivel;
     }
 
     /**
      * @param gridVisivel the gridVisivel to set
      */
     public void setGridVisivel(boolean gridVisivel) {
-        this.gridVisivel = gridVisivel;
+        this.fGridVisivel = gridVisivel;
     }
 
     /**
      * @return the itemVisivel
      */
     public boolean isItemVisivel() {
-        return itemVisivel;
+        return fItemVisivel;
     }
 
     /**
      * @param itemVisivel the itemVisivel to set
      */
     public void setItemVisivel(boolean itemVisivel) {
-        this.itemVisivel = itemVisivel;
+        this.fItemVisivel = itemVisivel;
     }
 
     private void geraListaDeBancos() {
         List<String> ordem = new ArrayList<>();
-        ordem.add("descricao");        
-        this.listaDeBancos = new CollectionDataModel(ConsultaGeral.consultaTodos(Banco.class, null, null, ordem));
+        ordem.add("descricao");  
+        Banco banco = new Banco();
+        this.fListaDeBancos = new CollectionDataModel(banco.obter(null, null, ordem));
     }
 
     public void mostraGrid() {
@@ -106,7 +106,7 @@ public class BancoCadastro implements Serializable {
     }
 
     public void criaNovo() {
-        banco = new Banco();
+        fBanco = new Banco();
         mostraItem();
     }
 
@@ -116,7 +116,7 @@ public class BancoCadastro implements Serializable {
     }
 
     public void persiste() {
-        if (banco.persiste()) {
+        if (fBanco.persiste()) {
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
             geraListaDeBancos();
             mostraGrid();
@@ -124,8 +124,8 @@ public class BancoCadastro implements Serializable {
     }
 
     public void exclui() {
-        banco = (Banco) getListaDeBancos().getRowData();
-        if (banco.exclui()) {
+        fBanco = (Banco) getListaDeBancos().getRowData();
+        if (fBanco.exclui()) {
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
             geraListaDeBancos();
         }

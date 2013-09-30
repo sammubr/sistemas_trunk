@@ -27,8 +27,13 @@ public class Login extends javax.servlet.http.HttpServlet {
         List<Object> valores = new ArrayList<>();
         valores.add(request.getParameter("login"));
         valores.add(request.getParameter("senha"));
+        
+        Usuario usuario = new Usuario();
+        
+        usuario = (Usuario) usuario.obter(atributos, valores);
+        
 
-        Usuario usuario = (Usuario) ConsultaGeral.consulta(Usuario.class, atributos, valores);
+        //Usuario usuario = (Usuario) ConsultaGeral.consulta(Usuario.class, atributos, valores);
 
         if (usuario == null) {
             request.getSession().setAttribute("msg", "Login ou senha incorretos!");

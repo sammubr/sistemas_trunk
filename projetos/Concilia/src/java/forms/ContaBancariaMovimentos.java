@@ -16,21 +16,20 @@ import javax.faces.model.DataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.Part;
-import persistencia.ConsultaGeral;
 import util.JsfUtil;
 
 @Named("contaBancariaMovimentos")
 @ViewScoped
 public class ContaBancariaMovimentos implements Serializable {
 
-    private List<ContaBancaria> listaContasBancarias;
-    private ContaBancaria contaBancariaSelecionada;
-    private DataModel listaMovimentos;
-    private boolean gridVisivel;
-    private boolean itemVisivel;
-    private boolean contaSelecionada = false;
-    private ContaBancariaMovimento contaBancariaMovimento;
-    private String arquivoDeMovimentos;
+    private List<ContaBancaria> fListaDeContasBancarias;
+    private ContaBancaria fContaBancariaSelecionada;
+    private DataModel fListaDeMovimentos;
+    private boolean fGridVisivel;
+    private boolean fItemVisivel;
+    private boolean fContaSelecionada = false;
+    private ContaBancariaMovimento fContaBancariaMovimento;
+    private String fArquivoDeMovimento;
 
     @PostConstruct
     public void abreForm() {
@@ -39,45 +38,44 @@ public class ContaBancariaMovimentos implements Serializable {
     }
 
     public List<ContaBancaria> getListaContasBancarias() {
-        return listaContasBancarias;
+        return fListaDeContasBancarias;
     }
 
     public void setListaContasBancarias(List<ContaBancaria> listaContasBancarias) {
-        this.listaContasBancarias = listaContasBancarias;
+        this.fListaDeContasBancarias = listaContasBancarias;
     }
 
     public ContaBancaria getContaBancariaSelecionada() {
-        return contaBancariaSelecionada;
+        return fContaBancariaSelecionada;
     }
 
     public void setContaBancariaSelecionada(ContaBancaria contaBancariaSelecionada) {
         setContaSelecionada(contaBancariaSelecionada != null);
-        this.contaBancariaSelecionada = contaBancariaSelecionada;
+        this.fContaBancariaSelecionada = contaBancariaSelecionada;
         filtraListaMovimentos();
 
     }
 
     public DataModel getListaMovimentos() {
-        return listaMovimentos;
+        return fListaDeMovimentos;
     }
 
     public void setListaMovimentos(DataModel listaMovimentos) {
-        this.listaMovimentos = listaMovimentos;
+        this.fListaDeMovimentos = listaMovimentos;
     }
 
-    private void filtraListaMovimentos() {    
-        
+    private void filtraListaMovimentos() {
+
         List<String> atributos = new ArrayList<>();
-        atributos.add("conta");        
-             
+        atributos.add("conta");
+
         List<Object> valores = new ArrayList<>();
-        valores.add(contaBancariaSelecionada);        
-                     
+        valores.add(fContaBancariaSelecionada);
+
         List<String> ordem = new ArrayList<>();
-        ordem.add("dataMov");        
-        
-        
-        this.listaMovimentos = new CollectionDataModel(ConsultaGeral.consultaTodos(ContaBancariaMovimento.class, atributos, valores, ordem));
+        ordem.add("dataMov");
+        ContaBancariaMovimento contaBancariaMovimento = new ContaBancariaMovimento();
+        this.fListaDeMovimentos = new CollectionDataModel(contaBancariaMovimento.obter(atributos, valores, ordem));
     }
 
     public void mostraGrid() {
@@ -91,19 +89,19 @@ public class ContaBancariaMovimentos implements Serializable {
     }
 
     public boolean isGridVisivel() {
-        return gridVisivel;
+        return fGridVisivel;
     }
 
     public void setGridVisivel(boolean gridVisivel) {
-        this.gridVisivel = gridVisivel;
+        this.fGridVisivel = gridVisivel;
     }
 
     public boolean isItemVisivel() {
-        return itemVisivel;
+        return fItemVisivel;
     }
 
     public void setItemVisivel(boolean itemVisivel) {
-        this.itemVisivel = itemVisivel;
+        this.fItemVisivel = itemVisivel;
     }
 
     public void edita() {
@@ -112,15 +110,15 @@ public class ContaBancariaMovimentos implements Serializable {
     }
 
     public ContaBancariaMovimento getContaBancariaMovimento() {
-        return contaBancariaMovimento;
+        return fContaBancariaMovimento;
     }
 
     public void setContaBancariaMovimento(ContaBancariaMovimento contaBancariaMovimento) {
-        this.contaBancariaMovimento = contaBancariaMovimento;
+        this.fContaBancariaMovimento = contaBancariaMovimento;
     }
 
     public void persiste() {
-        if (contaBancariaMovimento.persiste()) {
+        if (fContaBancariaMovimento.persiste()) {
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
             filtraListaMovimentos();
             mostraGrid();
@@ -128,45 +126,47 @@ public class ContaBancariaMovimentos implements Serializable {
     }
 
     public void exclui() {
-        contaBancariaMovimento = (ContaBancariaMovimento) getListaMovimentos().getRowData();
-        if (contaBancariaMovimento.exclui()) {
+        fContaBancariaMovimento = (ContaBancariaMovimento) getListaMovimentos().getRowData();
+        if (fContaBancariaMovimento.exclui()) {
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
             filtraListaMovimentos();
         }
     }
 
     public void criaNovo() {
-        contaBancariaMovimento = new ContaBancariaMovimento();
-        contaBancariaMovimento.setConta(contaBancariaSelecionada);
+        fContaBancariaMovimento = new ContaBancariaMovimento();
+        fContaBancariaMovimento.setConta(fContaBancariaSelecionada);
         mostraItem();
     }
 
     public boolean isContaSelecionada() {
-        return contaSelecionada;
+        return fContaSelecionada;
     }
 
     public void setContaSelecionada(boolean contaSelecionada) {
-        this.contaSelecionada = contaSelecionada;
+        this.fContaSelecionada = contaSelecionada;
     }
 
-    private void geraListaDeContasBancarias() {        
+    private void geraListaDeContasBancarias() {
         List<String> ordem = new ArrayList<>();
-        ordem.add("descricao");        
-        this.listaContasBancarias = (List) ConsultaGeral.consultaTodos(ContaBancaria.class, null, null, ordem);
+        ordem.add("descricao");
+        ContaBancaria contaBancaria = new ContaBancaria();
+        this.fListaDeContasBancarias = (List) contaBancaria.obter(null, null, ordem);
+        
     }
 
     /**
      * @return the arquivoDeMovimentos
      */
     public String getArquivoDeMovimentos() {
-        return arquivoDeMovimentos;
+        return fArquivoDeMovimento;
     }
 
     /**
      * @param arquivoDeMovimentos the arquivoDeMovimentos to set
      */
     public void setArquivoDeMovimentos(String arquivoDeMovimentos) {
-        this.arquivoDeMovimentos = arquivoDeMovimentos;
+        this.fArquivoDeMovimento = arquivoDeMovimentos;
     }
     
     //----------------------------------------------------------------------
@@ -193,6 +193,6 @@ public class ContaBancariaMovimentos implements Serializable {
    
     public void upload() {
         ArquivoDeMovimento arquivo = new ArquivoDeMovimento();
-        arquivo.importaMovimentacao(contaBancariaSelecionada,file);
+        arquivo.importaMovimentacao(fContaBancariaSelecionada,file);
     }
-}
+    }

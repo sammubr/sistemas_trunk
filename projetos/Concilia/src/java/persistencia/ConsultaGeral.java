@@ -22,7 +22,7 @@ import util.NewHibernateUtil;
  */
 public class ConsultaGeral {
 
-    public static Collection<Persistencia> consultaTodos(Class classe, List<String> atributos, List<Object> valores, List<String> ordem) {
+    public static Collection<Persistencia> consultaTodos2(Class classe, List<String> atributos, List<Object> valores, List<String> ordem) {
 
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
@@ -57,7 +57,7 @@ public class ConsultaGeral {
 
     }
 
-    public static Object consulta(Class classe, List<String> atributos, List<Object> valores) {
+    public static Object consulta2(Class classe, List<String> atributos, List<Object> valores) {
 
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
@@ -88,7 +88,7 @@ public class ConsultaGeral {
     //-----------------------------------TESTAR!!!!!!!!!!!!!!
     
     
-    protected static Collection<Persistencia> consulta(String consulta) {
+    protected static Collection<Persistencia> consulta2(String consulta) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
         Collection<Persistencia> lista = null;
@@ -106,27 +106,27 @@ public class ConsultaGeral {
         return lista;
     }
 
-    protected Collection<Persistencia> consultaTodos() {
-        return consulta("FROM " + this.getClass().getName() + " as u");
+    protected Collection<Persistencia> consultaTodos2() {
+        return consulta2("FROM " + this.getClass().getName() + " as u");
     }
 
-    protected Collection<Persistencia> consultaTodos(String ordem) {
-        return consulta("FROM " + this.getClass().getName() + " as u order by u." + ordem);
+    protected Collection<Persistencia> consultaTodos2(String ordem) {
+        return consulta2("FROM " + this.getClass().getName() + " as u order by u." + ordem);
     }
 
     protected int registrosCom() {
-        return count("select from " + this.getClass().getName() + " as u");
+        return count2("select from " + this.getClass().getName() + " as u");
     }
 
-    protected Collection<Persistencia> registrosCom(String campo, String conteudo) {
-        return consulta("from " + this.getClass().getName() + " as u where u." + campo + " = " + conteudo);
+    protected Collection<Persistencia> registrosCom2(String campo, String conteudo) {
+        return consulta2("from " + this.getClass().getName() + " as u where u." + campo + " = " + conteudo);
     }
 
-    protected Collection<Persistencia> registrosCom(String campo, Integer conteudo) {
-        return consulta("from " + this.getClass().getName() + " as u where u." + campo + " = " + conteudo);
+    protected Collection<Persistencia> registrosCom2(String campo, Integer conteudo) {
+        return consulta2("from " + this.getClass().getName() + " as u where u." + campo + " = " + conteudo);
     }
 
-    protected int count(String consulta) {
+    protected int count2(String consulta) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
         int lista = 0;
@@ -144,7 +144,7 @@ public class ConsultaGeral {
         return lista;
     }
 
-    protected List<Object> findRange(int[] range) {
+    protected List<Object> findRange2(int[] range) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
         List<Object> lista = null;

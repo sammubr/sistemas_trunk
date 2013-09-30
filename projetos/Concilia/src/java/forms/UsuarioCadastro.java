@@ -14,17 +14,18 @@ import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import persistencia.ConsultaGeral;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import util.JsfUtil;
 
 @Named("usuarioCadastro")
 @ViewScoped
 public class UsuarioCadastro implements Serializable {
 
-    private Usuario usuario;
-    private DataModel listaDeUsuarios;
-    private boolean gridVisivel;
-    private boolean itemVisivel;
+    private Usuario fUsuario;
+    private DataModel fListaDeUsuarios;
+    private boolean fGridVisivel;
+    private boolean fItemVisivel;
 
     @PostConstruct
     public void abreForm() {
@@ -33,65 +34,66 @@ public class UsuarioCadastro implements Serializable {
     }
 
     /**
-     * @return the usuario
+     * @return the fUsuario
      */
     public Usuario getUsuario() {
-        return usuario;
+        return fUsuario;
     }
 
     /**
-     * @param usuario the usuario to set
+     * @param fUsuario the fUsuario to set
      */
     public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+        this.fUsuario = usuario;
     }
 
     /**
      * @return the listaDeUsuarios
      */
     public DataModel getListaDeUsuarios() {
-        return listaDeUsuarios;
+        return fListaDeUsuarios;
     }
 
     /**
      * @param listaDeUsuarios the listaDeUsuarios to set
      */
     public void setListaDeUsuarios(DataModel listaUsuarios) {
-        this.listaDeUsuarios = listaUsuarios;
+        this.fListaDeUsuarios = listaUsuarios;
     }
 
     /**
      * @return the gridVisivel
      */
     public boolean isGridVisivel() {
-        return gridVisivel;
+        return fGridVisivel;
     }
 
     /**
      * @param gridVisivel the gridVisivel to set
      */
     public void setGridVisivel(boolean gridVisivel) {
-        this.gridVisivel = gridVisivel;
+        this.fGridVisivel = gridVisivel;
     }
 
     /**
      * @return the itemVisivel
      */
     public boolean isItemVisivel() {
-        return itemVisivel;
+        return fItemVisivel;
     }
 
     /**
      * @param itemVisivel the itemVisivel to set
      */
     public void setItemVisivel(boolean itemVisivel) {
-        this.itemVisivel = itemVisivel;
+        this.fItemVisivel = itemVisivel;
     }
 
     private void geraListaDeUsuarios() {
         List<String> ordem = new ArrayList<>();
         ordem.add("nome");
-        this.listaDeUsuarios = new CollectionDataModel(ConsultaGeral.consultaTodos(Usuario.class, null, null, ordem));
+        Usuario usuario = new Usuario();
+        this.fListaDeUsuarios = new CollectionDataModel(usuario.obter(null, null, ordem));        
     }
 
     public void mostraGrid() {
@@ -106,7 +108,7 @@ public class UsuarioCadastro implements Serializable {
     }
 
     public void criaNovo() {
-        usuario = new Usuario();
+        fUsuario = new Usuario();
         mostraItem();
     }
 
@@ -116,7 +118,7 @@ public class UsuarioCadastro implements Serializable {
     }
 
     public void persiste() {
-        if (usuario.persiste()) {
+        if (fUsuario.persiste()) {
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
             geraListaDeUsuarios();
             mostraGrid();
@@ -124,8 +126,8 @@ public class UsuarioCadastro implements Serializable {
     }
 
     public void exclui() {
-        usuario = (Usuario) getListaDeUsuarios().getRowData();
-        if (usuario.exclui()) {
+        fUsuario = (Usuario) getListaDeUsuarios().getRowData();
+        if (fUsuario.exclui()) {
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
             geraListaDeUsuarios();
         }

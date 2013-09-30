@@ -15,17 +15,16 @@ import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import persistencia.ConsultaGeral;
 import util.JsfUtil;
 
 @Named("contaBancariaCadastro")
 @ViewScoped
 public class ContaBancariaCadastro implements Serializable {
 
-    private ContaBancaria contaBancaria;
-    private DataModel listaDeContasBancarias;
-    private boolean gridVisivel;
-    private boolean itemVisivel;
+    private ContaBancaria fContaBancaria;
+    private DataModel fListaDeContasBancarias;
+    private boolean fGridVisivel;
+    private boolean fItemVisivel;
 
     @PostConstruct
     public void abreForm() {
@@ -37,68 +36,70 @@ public class ContaBancariaCadastro implements Serializable {
      * @return the contaBancaria
      */
     public ContaBancaria getContaBancaria() {
-        return contaBancaria;
+        return fContaBancaria;
     }
 
     /**
      * @param contaBancaria the contaBancaria to set
      */
     public void setContaBancaria(ContaBancaria contaBancaria) {
-        this.contaBancaria = contaBancaria;
+        this.fContaBancaria = contaBancaria;
     }
 
     /**
      * @return the listaDeContasBancarias
      */
     public DataModel getListaDeContasBancarias() {
-        return listaDeContasBancarias;
+        return fListaDeContasBancarias;
     }
 
     /**
      * @param listaDeContasBancarias the listaDeContasBancarias to set
      */
     public void setListaDeContasBancarias(DataModel listaContas) {
-        this.listaDeContasBancarias = listaContas;
+        this.fListaDeContasBancarias = listaContas;
     }
 
     /**
      * @return the gridVisivel
      */
     public boolean isGridVisivel() {
-        return gridVisivel;
+        return fGridVisivel;
     }
 
     /**
      * @param gridVisivel the gridVisivel to set
      */
     public void setGridVisivel(boolean gridVisivel) {
-        this.gridVisivel = gridVisivel;
+        this.fGridVisivel = gridVisivel;
     }
 
     /**
      * @return the itemVisivel
      */
     public boolean isItemVisivel() {
-        return itemVisivel;
+        return fItemVisivel;
     }
 
     /**
      * @param itemVisivel the itemVisivel to set
      */
     public void setItemVisivel(boolean itemVisivel) {
-        this.itemVisivel = itemVisivel;
+        this.fItemVisivel = itemVisivel;
     }
 
     private void geraListaDeContasBancarias() {
         List<String> ordem = new ArrayList<>();
         ordem.add("descricao");        
-        this.listaDeContasBancarias = new CollectionDataModel(ConsultaGeral.consultaTodos(ContaBancaria.class, null, null, ordem));
+        ContaBancaria contaBancaria = new ContaBancaria();
+        this.fListaDeContasBancarias = new CollectionDataModel(contaBancaria.obter(null, null, ordem));
     }
 
     public List getListaDeBancos() {       
         List<String> ordem = new ArrayList<>();
-        ordem.add("descricao");        
-        return (List) ConsultaGeral.consultaTodos(Banco.class, null, null, ordem);
+        ordem.add("descricao");
+        Banco banco = new Banco();
+        return (List) banco.obter(null, null, ordem);
     }
 
     public void mostraGrid() {
@@ -113,7 +114,7 @@ public class ContaBancariaCadastro implements Serializable {
     }
 
     public void criaNovo() {
-        contaBancaria = new ContaBancaria();
+        fContaBancaria = new ContaBancaria();
         mostraItem();
     }
 
@@ -123,7 +124,7 @@ public class ContaBancariaCadastro implements Serializable {
     }
 
     public void persiste() {
-        if (contaBancaria.persiste()) {
+        if (fContaBancaria.persiste()) {
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
             geraListaDeContasBancarias();
             mostraGrid();
@@ -131,8 +132,8 @@ public class ContaBancariaCadastro implements Serializable {
     }
 
     public void exclui() {
-        contaBancaria = (ContaBancaria) getListaDeContasBancarias().getRowData();
-        if (contaBancaria.exclui()) {
+        fContaBancaria = (ContaBancaria) getListaDeContasBancarias().getRowData();
+        if (fContaBancaria.exclui()) {
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
             geraListaDeContasBancarias();
         }
