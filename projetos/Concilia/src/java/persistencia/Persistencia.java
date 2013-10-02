@@ -21,7 +21,7 @@ import util.NewHibernateUtil;
  */
 public class Persistencia {
 
-    public boolean persiste() {
+    public void persiste() {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
         try {
@@ -29,20 +29,19 @@ public class Persistencia {
             session.saveOrUpdate(this);
             session.flush();
             tx.commit();
-            return true;
         } catch (Exception e) {
             if (tx != null) {
                 tx.rollback();
             }
             e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            return false;
+            throw e;
         } finally {
             session.close();
         }
     }
 
-    public boolean exclui() {
+    public void exclui() {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
         try {
@@ -50,14 +49,13 @@ public class Persistencia {
             session.delete(this);
             session.flush();
             tx.commit();
-            return true;
         } catch (Exception e) {
             if (tx != null) {
                 tx.rollback();
             }
             e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            return false;
+            throw e;
         } finally {
             session.close();
         }
@@ -84,12 +82,14 @@ public class Persistencia {
                 }
             }
             lista = crit.list();
+            tx.commit();
         } catch (Exception e) {
             if (tx != null) {
                 tx.rollback();
             }
             e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("ConsultaErrorOccured"));
+            throw e;
         } finally {
             session.close();
         }
@@ -111,12 +111,14 @@ public class Persistencia {
             if (crit.list().size() > 0) {
                 objeto = crit.list().get(0);
             }
+            tx.commit();
         } catch (Exception e) {
             if (tx != null) {
                 tx.rollback();
             }
             e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("ConsultaErrorOccured"));
+            throw e;
         } finally {
             session.close();
         }

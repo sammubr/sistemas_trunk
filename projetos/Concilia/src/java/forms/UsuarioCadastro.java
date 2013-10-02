@@ -14,8 +14,6 @@ import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import util.JsfUtil;
 
 @Named("usuarioCadastro")
@@ -93,7 +91,7 @@ public class UsuarioCadastro implements Serializable {
         List<String> ordem = new ArrayList<>();
         ordem.add("nome");
         Usuario usuario = new Usuario();
-        this.fListaDeUsuarios = new CollectionDataModel(usuario.obter(null, null, ordem));        
+        this.fListaDeUsuarios = new CollectionDataModel(usuario.obter(null, null, ordem));
     }
 
     public void mostraGrid() {
@@ -118,18 +116,18 @@ public class UsuarioCadastro implements Serializable {
     }
 
     public void persiste() {
-        if (fUsuario.persiste()) {
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
-            geraListaDeUsuarios();
-            mostraGrid();
-        }
+        fUsuario.persiste();
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
+        geraListaDeUsuarios();
+        mostraGrid();
+
     }
 
     public void exclui() {
         fUsuario = (Usuario) getListaDeUsuarios().getRowData();
-        if (fUsuario.exclui()) {
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
-            geraListaDeUsuarios();
-        }
+        fUsuario.exclui();
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
+        geraListaDeUsuarios();
+
     }
 }

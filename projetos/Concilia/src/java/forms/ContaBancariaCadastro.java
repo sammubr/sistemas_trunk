@@ -90,12 +90,12 @@ public class ContaBancariaCadastro implements Serializable {
 
     private void geraListaDeContasBancarias() {
         List<String> ordem = new ArrayList<>();
-        ordem.add("descricao");        
+        ordem.add("descricao");
         ContaBancaria contaBancaria = new ContaBancaria();
         this.fListaDeContasBancarias = new CollectionDataModel(contaBancaria.obter(null, null, ordem));
     }
 
-    public List getListaDeBancos() {       
+    public List getListaDeBancos() {
         List<String> ordem = new ArrayList<>();
         ordem.add("descricao");
         Banco banco = new Banco();
@@ -124,18 +124,18 @@ public class ContaBancariaCadastro implements Serializable {
     }
 
     public void persiste() {
-        if (fContaBancaria.persiste()) {
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
-            geraListaDeContasBancarias();
-            mostraGrid();
-        }
+        fContaBancaria.persiste();
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
+        geraListaDeContasBancarias();
+        mostraGrid();
+
     }
 
     public void exclui() {
         fContaBancaria = (ContaBancaria) getListaDeContasBancarias().getRowData();
-        if (fContaBancaria.exclui()) {
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
-            geraListaDeContasBancarias();
-        }
+        fContaBancaria.exclui();
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
+        geraListaDeContasBancarias();
+
     }
 }

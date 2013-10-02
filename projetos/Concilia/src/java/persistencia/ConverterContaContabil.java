@@ -4,7 +4,7 @@
  */
 package persistencia;
 
-import controls.Banco;
+import controls.ContaContabil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.component.UIComponent;
@@ -16,33 +16,34 @@ import javax.faces.convert.FacesConverter;
  *
  * @author samuel
  */
-@FacesConverter(value = "converterBanco")
-public class ConverterBanco implements Converter {
+@FacesConverter(value = "converterContaContabil")
+public class ConverterContaContabil implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if (value != null && !value.equals("")) {
-
-            Banco banco = new Banco();
+        if (value != null && !value.equals("")) {            
+            
+            ContaContabil contaContabil = new ContaContabil();
 
             List<String> atributos = new ArrayList<>();
-            atributos.add("idbanco");
+            atributos.add("idcontaContabil");
 
             List<Object> valores = new ArrayList<>();
             valores.add(Integer.valueOf(value));
 
-            return banco.obter(atributos, valores);
-
-
+            return contaContabil.obter(atributos, valores);            
+            
+            
+            
         }
         return null;
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value instanceof Banco) {
-            Banco banco = (Banco) value;
-            return String.valueOf(banco.getIdbanco());
+        if (value instanceof ContaContabil) {
+            ContaContabil contaBancaria = (ContaContabil) value;
+            return String.valueOf(contaBancaria.getIdcontaContabil());
         }
         return "";
     }

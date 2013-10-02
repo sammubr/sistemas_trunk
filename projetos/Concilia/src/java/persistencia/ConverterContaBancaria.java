@@ -5,27 +5,36 @@
 package persistencia;
 
 import controls.ContaBancaria;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
-import util.NewHibernateUtil;
 
 /**
  *
  * @author samuel
  */
-@FacesConverter(value = "converterConta")
-public class ConverterConta implements Converter {
+@FacesConverter(value = "converterContaBancaria")
+public class ConverterContaBancaria implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if (value != null && !value.equals("")) {
-            Criteria crit = NewHibernateUtil.getSessionFactory().openSession().createCriteria(ContaBancaria.class);
-            crit.add(Restrictions.eq("idcontaBancaria", Integer.valueOf(value)));
-            return crit.list().get(0);
+
+            ContaBancaria contaBancaria = new ContaBancaria();
+
+            List<String> atributos = new ArrayList<>();
+            atributos.add("idcontaBancaria");
+
+            List<Object> valores = new ArrayList<>();
+            valores.add(Integer.valueOf(value));
+
+            return contaBancaria.obter(atributos, valores);            
+            
+            
+            
         }
         return null;
     }

@@ -89,7 +89,7 @@ public class BancoCadastro implements Serializable {
 
     private void geraListaDeBancos() {
         List<String> ordem = new ArrayList<>();
-        ordem.add("descricao");  
+        ordem.add("descricao");
         Banco banco = new Banco();
         this.fListaDeBancos = new CollectionDataModel(banco.obter(null, null, ordem));
     }
@@ -116,18 +116,17 @@ public class BancoCadastro implements Serializable {
     }
 
     public void persiste() {
-        if (fBanco.persiste()) {
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
-            geraListaDeBancos();
-            mostraGrid();
-        }
+        fBanco.persiste();
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
+        geraListaDeBancos();
+        mostraGrid();
     }
 
     public void exclui() {
         fBanco = (Banco) getListaDeBancos().getRowData();
-        if (fBanco.exclui()) {
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
-            geraListaDeBancos();
-        }
+        fBanco.exclui();
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
+        geraListaDeBancos();
+
     }
 }

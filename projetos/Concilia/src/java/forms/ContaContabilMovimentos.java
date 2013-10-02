@@ -4,9 +4,9 @@
  */
 package forms;
 
-import diversos.ArquivoMovimentoContaBancaria;
-import controls.ContaBancaria;
-import controls.ContaBancariaMovimento;
+import controls.ContaContabil;
+import controls.ContaContabilMovimento;
+import diversos.ArquivoMovimentoContaContabil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,40 +19,40 @@ import javax.inject.Named;
 import javax.servlet.http.Part;
 import util.JsfUtil;
 
-@Named("contaBancariaMovimentos")
+@Named("contaContabilMovimentos")
 @ViewScoped
-public class ContaBancariaMovimentos implements Serializable {
+public class ContaContabilMovimentos implements Serializable {
 
-    private List<ContaBancaria> fListaDeContasBancarias;
-    private ContaBancaria fContaBancariaSelecionada;
+    private List<ContaContabil> fListaDeContasContabeis;
+    private ContaContabil fContaContabilSelecionada;
     private DataModel fListaDeMovimentos;
     private boolean fGridVisivel;
     private boolean fItemVisivel;
     private boolean fContaSelecionada = false;
-    private ContaBancariaMovimento fContaBancariaMovimento;
+    private ContaContabilMovimento fContaContabilMovimento;
     private String fArquivoDeMovimento;
 
     @PostConstruct
     public void abreForm() {
-        geraListaDeContasBancarias();
+        geraListaDeContasContabeis();
         mostraGrid();
     }
 
-    public List<ContaBancaria> getListaContasBancarias() {
-        return fListaDeContasBancarias;
+    public List<ContaContabil> getListaContasContabeis() {
+        return fListaDeContasContabeis;
     }
 
-    public void setListaContasBancarias(List<ContaBancaria> listaContasBancarias) {
-        this.fListaDeContasBancarias = listaContasBancarias;
+    public void setListaContasContabeis(List<ContaContabil> listaContasContabeis) {
+        this.fListaDeContasContabeis = listaContasContabeis;
     }
 
-    public ContaBancaria getContaBancariaSelecionada() {
-        return fContaBancariaSelecionada;
+    public ContaContabil getContaContabilSelecionada() {
+        return fContaContabilSelecionada;
     }
 
-    public void setContaBancariaSelecionada(ContaBancaria contaBancariaSelecionada) {
-        setContaSelecionada(contaBancariaSelecionada != null);
-        this.fContaBancariaSelecionada = contaBancariaSelecionada;
+    public void setContaContabilSelecionada(ContaContabil contaContabilSelecionada) {
+        setContaSelecionada(contaContabilSelecionada != null);
+        this.fContaContabilSelecionada = contaContabilSelecionada;
         filtraListaMovimentos();
 
     }
@@ -71,12 +71,12 @@ public class ContaBancariaMovimentos implements Serializable {
         atributos.add("conta");
 
         List<Object> valores = new ArrayList<>();
-        valores.add(fContaBancariaSelecionada);
+        valores.add(fContaContabilSelecionada);
 
         List<String> ordem = new ArrayList<>();
         ordem.add("dataMov");
-        ContaBancariaMovimento contaBancariaMovimento = new ContaBancariaMovimento();
-        this.fListaDeMovimentos = new CollectionDataModel(contaBancariaMovimento.obter(atributos, valores, ordem));
+        ContaContabilMovimento contaContabilMovimento = new ContaContabilMovimento();
+        this.fListaDeMovimentos = new CollectionDataModel(contaContabilMovimento.obter(atributos, valores, ordem));
     }
 
     public void mostraGrid() {
@@ -106,20 +106,20 @@ public class ContaBancariaMovimentos implements Serializable {
     }
 
     public void edita() {
-        setContaBancariaMovimento((ContaBancariaMovimento) getListaMovimentos().getRowData());
+        setContaContabilMovimento((ContaContabilMovimento) getListaMovimentos().getRowData());
         mostraItem();
     }
 
-    public ContaBancariaMovimento getContaBancariaMovimento() {
-        return fContaBancariaMovimento;
+    public ContaContabilMovimento getContaContabilMovimento() {
+        return fContaContabilMovimento;
     }
 
-    public void setContaBancariaMovimento(ContaBancariaMovimento contaBancariaMovimento) {
-        this.fContaBancariaMovimento = contaBancariaMovimento;
+    public void setContaContabilMovimento(ContaContabilMovimento contaContabilMovimento) {
+        this.fContaContabilMovimento = contaContabilMovimento;
     }
 
     public void persiste() {
-        fContaBancariaMovimento.persiste();
+        fContaContabilMovimento.persiste();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
         filtraListaMovimentos();
         mostraGrid();
@@ -127,16 +127,16 @@ public class ContaBancariaMovimentos implements Serializable {
     }
 
     public void exclui() {
-        fContaBancariaMovimento = (ContaBancariaMovimento) getListaMovimentos().getRowData();
-        fContaBancariaMovimento.exclui();
+        fContaContabilMovimento = (ContaContabilMovimento) getListaMovimentos().getRowData();
+        fContaContabilMovimento.exclui();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
         filtraListaMovimentos();
 
     }
 
     public void criaNovo() {
-        fContaBancariaMovimento = new ContaBancariaMovimento();
-        fContaBancariaMovimento.setConta(fContaBancariaSelecionada);
+        fContaContabilMovimento = new ContaContabilMovimento();
+        fContaContabilMovimento.setConta(fContaContabilSelecionada);
         mostraItem();
     }
 
@@ -148,11 +148,11 @@ public class ContaBancariaMovimentos implements Serializable {
         this.fContaSelecionada = contaSelecionada;
     }
 
-    private void geraListaDeContasBancarias() {
+    private void geraListaDeContasContabeis() {
         List<String> ordem = new ArrayList<>();
         ordem.add("descricao");
-        ContaBancaria contaBancaria = new ContaBancaria();
-        this.fListaDeContasBancarias = (List) contaBancaria.obter(null, null, ordem);
+        ContaContabil contaContabil = new ContaContabil();
+        this.fListaDeContasContabeis = (List) contaContabil.obter(null, null, ordem);
 
     }
 
@@ -189,7 +189,7 @@ public class ContaBancariaMovimentos implements Serializable {
      * @return the fileContent
      */
     public void upload() {
-        ArquivoMovimentoContaBancaria arquivo = new ArquivoMovimentoContaBancaria();
-        arquivo.importaMovimentacao(fContaBancariaSelecionada, file);
+        ArquivoMovimentoContaContabil arquivo = new ArquivoMovimentoContaContabil();
+        arquivo.importaMovimentacao(fContaContabilSelecionada, file);
     }
 }

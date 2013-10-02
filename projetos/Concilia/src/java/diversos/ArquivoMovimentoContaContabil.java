@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package forms;
+package diversos;
 
-import controls.ContaBancaria;
-import controls.ContaBancariaMovimento;
+import controls.ContaContabil;
+import controls.ContaContabilMovimento;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -22,30 +22,30 @@ import util.JsfUtil;
  *
  * @author samuel
  */
-public class ArquivoDeMovimento {
+public class ArquivoMovimentoContaContabil {
 
-    void importaMovimentacao(ContaBancaria contaBancariaSelecionada, Part file) {
+    public void importaMovimentacao(ContaContabil contaContabilSelecionada, Part file) {
 
         List<String> linhasArquivo;
         linhasArquivo = importaLinhas(file);
 
         for (int i = 0; i < linhasArquivo.size() - 1; i++) {
 
-            if (linhasArquivo.get(i).equals(contaBancariaSelecionada.getTagInicioMovimento())) {
+            if (linhasArquivo.get(i).equals(contaContabilSelecionada.getTagInicioMovimento())) {
 
 
-                ContaBancariaMovimento movimento = new ContaBancariaMovimento();
-                movimento.setConta(contaBancariaSelecionada);
+                ContaContabilMovimento movimento = new ContaContabilMovimento();
+                movimento.setConta(contaContabilSelecionada);
 
                 i++;
 
-                while (!linhasArquivo.get(i).equals(contaBancariaSelecionada.getTagFimMovimento())) {
+                while (!linhasArquivo.get(i).equals(contaContabilSelecionada.getTagFimMovimento())) {
 
-                    if (!linhasArquivo.get(i).equals(contaBancariaSelecionada.getTagFimMovimento())) {
+                    if (!linhasArquivo.get(i).equals(contaContabilSelecionada.getTagFimMovimento())) {
 
-                        if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getTagData()) != -1) {
+                        if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagData()) != -1) {
 
-                            String dataMov = linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagData().length());
+                            String dataMov = linhasArquivo.get(i).substring(contaContabilSelecionada.getTagData().length());
 
                             try {
                                 movimento.setDataMov(tagStringToDate(dataMov));
@@ -54,24 +54,24 @@ public class ArquivoDeMovimento {
                             }
                         }
 
-                        if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getTagValor()) != -1) {
-                            movimento.setValor(Float.parseFloat(linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagValor().length())));
+                        if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagValor()) != -1) {
+                            movimento.setValor(Float.parseFloat(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagValor().length())));
                         }
 
 
-                        if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getTagNumDoc()) != -1) {
-                            movimento.setNumdoc(linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagNumDoc().length()));
+                        if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagNumDoc()) != -1) {
+                            movimento.setNumdoc(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagNumDoc().length()));
                         }
 
-                        if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getTagHistorico()) != -1) {
+                        if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagHistorico()) != -1) {
 
-                            String historico = linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagHistorico().length());
+                            String historico = linhasArquivo.get(i).substring(contaContabilSelecionada.getTagHistorico().length());
 
                             if (historico.length() > 50) {
-                                movimento.setHistorico(linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagHistorico().length(), 50));
+                                movimento.setHistorico(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagHistorico().length(), 50));
 
                             } else {
-                                movimento.setHistorico(linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagHistorico().length()));
+                                movimento.setHistorico(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagHistorico().length()));
 
                             }
 

@@ -87,9 +87,9 @@ public class ContaContabilCadastro implements Serializable {
         this.fItemVisivel = itemVisivel;
     }
 
-    private void geraListaDeContasContabeis() {        
+    private void geraListaDeContasContabeis() {
         List<String> ordem = new ArrayList<>();
-        ordem.add("descricao");        
+        ordem.add("descricao");
         ContaContabil contaContabil = new ContaContabil();
         this.fListaDeContasContabeis = new CollectionDataModel(contaContabil.obter(null, null, ordem));
     }
@@ -116,18 +116,18 @@ public class ContaContabilCadastro implements Serializable {
     }
 
     public void persiste() {
-        if (fContaContabil.persiste()) {
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
-            geraListaDeContasContabeis();
-            mostraGrid();
-        }
+        fContaContabil.persiste();
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
+        geraListaDeContasContabeis();
+        mostraGrid();
+
     }
 
     public void exclui() {
         fContaContabil = (ContaContabil) getListaDeContasContabeis().getRowData();
-        if (fContaContabil.exclui()) {
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
-            geraListaDeContasContabeis();
-        }
+        fContaContabil.exclui();
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
+        geraListaDeContasContabeis();
+
     }
 }
