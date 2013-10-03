@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="../index.xhtml">
+    <ui:composition template="../index.xhtml" >
 
         <ui:define name="conteudo">
 
@@ -60,6 +60,26 @@
                         <p:panelGrid columns="2">
                             <p:outputLabel value="#{bundle.CreateContaContabilLabel_descricao}" for="descricao" />
                             <p:inputText id="descricao" value="#{contaContabilCadastro.contaContabil.descricao}" title="#{bundle.CreateContaContabilTitle_descricao}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_descricao}"/>
+
+                            <p:outputLabel value="#{bundle.CreateContaContabilLabel_tagValor}" for="tag_valor" />
+                            <p:inputText id="tag_valor" value="#{contaContabilCadastro.contaContabil.tagValor}" title="#{bundle.CreateContaContabilTitle_tagValor}" />
+
+                            <p:outputLabel value="#{bundle.CreateContaContabilLabel_tagData}" for="tag_data" />
+                            <p:inputText id="tag_data" value="#{contaContabilCadastro.contaContabil.tagData}" title="#{bundle.CreateContaContabilTitle_tagData}" />
+
+                            <p:outputLabel value="#{bundle.CreateContaContabilLabel_tagNumDoc}" for="tag_num_doc" />
+                            <p:inputText id="tag_num_doc" value="#{contaContabilCadastro.contaContabil.tagNumDoc}" title="#{bundle.CreateContaContabilTitle_tagNumDoc}" />
+
+                            <p:outputLabel value="#{bundle.CreateContaContabilLabel_tagHistorico}" for="tag_historico" />
+                            <p:inputText id="tag_historico" value="#{contaContabilCadastro.contaContabil.tagHistorico}" title="#{bundle.CreateContaContabilTitle_tagHistorico}" />
+
+                            <p:outputLabel value="#{bundle.CreateContaContabilLabel_tagInicioMovimento}" for="tag_inicio_movimento" />
+                            <p:inputText id="tag_inicio_movimento" value="#{contaContabilCadastro.contaContabil.tagInicioMovimento}" title="#{bundle.CreateContaContabilTitle_tagInicioMovimento}" />
+
+                            <p:outputLabel value="#{bundle.CreateContaContabilLabel_tagFimMovimento}" for="tag_fim_movimento" />
+                            <p:inputText id="tag_fim_movimento" value="#{contaContabilCadastro.contaContabil.tagFimMovimento}" title="#{bundle.CreateContaContabilTitle_tagFimMovimento}" />
+
+
                         </p:panelGrid>                   
 
                     </p:panel>
