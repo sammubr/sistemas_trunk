@@ -12,12 +12,10 @@
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
-        
     </servlet>    
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
-        
     </servlet-mapping>
 
     
@@ -109,7 +107,17 @@
         <param-value>redmond</param-value>  
     </context-param>  
     
-       
+    
+    
+    <filter> 
+        <filter-name>primeUploadFilter</filter-name> 
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class> 
+    </filter> 
+    <filter-mapping> 
+        <filter-name>primeUploadFilter</filter-name> 
+        <servlet-name>Faces Servlet</servlet-name> 
+    </filter-mapping>
+   
         
     
 </web-app>

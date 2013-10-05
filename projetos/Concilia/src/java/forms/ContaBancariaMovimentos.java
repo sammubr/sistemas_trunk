@@ -16,7 +16,7 @@ import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.servlet.http.Part;
+import org.primefaces.model.UploadedFile;
 import util.JsfUtil;
 
 @Named("contaBancariaMovimentos")
@@ -169,21 +169,15 @@ public class ContaBancariaMovimentos implements Serializable {
     public void setArquivoDeMovimentos(String arquivoDeMovimentos) {
         this.fArquivoDeMovimento = arquivoDeMovimentos;
     }
-    private Part file;
-
-    /**
-     * @return the file
-     */
-    public Part getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(Part file) {
-        this.file = file;
-    }
+    private UploadedFile file;  
+  
+    public UploadedFile getFile() {  
+        return file;  
+    }  
+  
+    public void setFile(UploadedFile file) {  
+        this.file = file;  
+    }  
 
     /**
      * @return the fileContent

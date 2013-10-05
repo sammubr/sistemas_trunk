@@ -24,8 +24,8 @@
 
 
 
-                    <h:inputFile id="file" value="#{contaBancariaMovimentos.file}" />
-                    <p:commandButton value="Importar" action="#{contaBancariaMovimentos.upload}"/>
+                    <p:fileUpload id="file" value="#{contaBancariaMovimentos.file}" mode="simple" />
+                    <p:commandButton value="Importar" actionListener="#{contaBancariaMovimentos.upload}" ajax="false" />
 
 
 

@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-import javax.servlet.http.Part;
+import org.primefaces.model.UploadedFile;
 import util.JsfUtil;
 
 /**
@@ -24,7 +24,7 @@ import util.JsfUtil;
  */
 public class ArquivoMovimentoContaBancaria {
 
-    public void importaMovimentacao(ContaBancaria contaBancariaSelecionada, Part file) {
+    public void importaMovimentacao(ContaBancaria contaBancariaSelecionada, UploadedFile file) {
 
         List<String> linhasArquivo;
         linhasArquivo = importaLinhas(file);
@@ -120,12 +120,12 @@ public class ArquivoMovimentoContaBancaria {
 
     }
 
-    private List<String> importaLinhas(Part file) {
+    private List<String> importaLinhas(UploadedFile file) {
 
         List<String> lista = new ArrayList<>();
 
         try {
-            Scanner scanner = new Scanner(file.getInputStream());
+            Scanner scanner = new Scanner(file.getInputstream());
             while (scanner.hasNext()) {
                 lista.add(scanner.nextLine().trim());
             }

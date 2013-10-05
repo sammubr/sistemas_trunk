@@ -14,65 +14,65 @@
 
     <h:body>
 
-        <div class="top_block menu">
-            <div class="content">
-                <h:form>  
+		<div class="top_block menu">
+			<div class="content">
+        <h:form>  
 
-                    <p:growl id="growl" sticky="false" life="5000" />  
+            <p:growl id="growl" sticky="false" life="5000" />  
 
-                    <p:menubar autoDisplay="false" > 
-
-
-                        <p:submenu label="Cadastros">
-                            <p:menuitem value="Usuários" url="/pages/usuario/cadastro.xhtml" />  
-                            <p:menuitem value="Bancos" url="/pages/banco/cadastro.xhtml" />   
-                            <p:menuitem value="Contas bancárias" url="/pages/contaBancaria/cadastro.xhtml" />  
-                            <p:menuitem value="Contas contábeis" url="/pages/contaContabil/cadastro.xhtml" /> 
+            <p:menubar autoDisplay="false" > 
 
 
-                        </p:submenu>
+                <p:submenu label="Cadastros">
+                    <p:menuitem value="Usuários" url="/pages/usuario/cadastro.xhtml" />  
+                    <p:menuitem value="Bancos" url="/pages/banco/cadastro.xhtml" />   
+                    <p:menuitem value="Contas bancárias" url="/pages/contaBancaria/cadastro.xhtml" />  
+                    <p:menuitem value="Contas contábeis" url="/pages/contaContabil/cadastro.xhtml" /> 
 
 
-
-                        <p:submenu label="Movimentações" >
-
-
-                            <p:submenu label="Contas bancárias">
-                                <p:menuitem value="Cadastro manual" url="/pages/contaBancaria/movimentos.xhtml" />  
-                                <p:menuitem value="Importar arquivo" url="/pages/contaBancaria/importarArquivo.xhtml" />  
-
-                            </p:submenu>
-
-                            <p:submenu label="Contas contábeis">
-                                <p:menuitem value="Cadastro manual" url="/pages/contaContabil/movimentos.xhtml" />  
-                                <p:menuitem value="Importar arquivo" url="/pages/contaContabil/importarArquivo.xhtml" />  
-
-                            </p:submenu>
+                </p:submenu>
 
 
 
-                        </p:submenu>
+                <p:submenu label="Movimentações" >
 
 
-                        <p:submenu label="Relatórios">
+                    <p:submenu label="Contas bancárias">
+                        <p:menuitem value="Cadastro manual" url="/pages/contaBancaria/movimentos.xhtml" />  
+                        <p:menuitem value="Importar arquivo" url="/pages/contaBancaria/importarArquivo.xhtml" />  
+
+                    </p:submenu>
+
+                    <p:submenu label="Contas contábeis">
+                        <p:menuitem value="Cadastro manual" url="/pages/contaContabil/movimentos.xhtml" />  
+                        <p:menuitem value="Importar arquivo" url="/pages/contaContabil/importarArquivo.xhtml" />  
+
+                    </p:submenu>
 
 
-                        </p:submenu>
+
+                </p:submenu>
 
 
-                        <p:menuitem value="Logoff" url="/login.xhtml" />  
+                <p:submenu label="Relatórios">
+
+
+                </p:submenu>
+
+
+                <p:menuitem value="Logoff" url="/login.xhtml" />  
 
 
 
 
-                    </p:menubar>
+            </p:menubar>
 
 
 
-                </h:form>
+        </h:form>
 
-            </div>
-        </div>
+			</div>
+		</div>
     </h:body>
 
 </html>
