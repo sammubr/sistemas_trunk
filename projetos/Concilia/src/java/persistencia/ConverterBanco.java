@@ -18,6 +18,7 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(value = "converterBanco")
 public class ConverterBanco implements Converter {
+    
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {

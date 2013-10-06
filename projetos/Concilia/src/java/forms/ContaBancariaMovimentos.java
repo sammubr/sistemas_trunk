@@ -31,6 +31,7 @@ public class ContaBancariaMovimentos implements Serializable {
     private boolean fContaSelecionada = false;
     private ContaBancariaMovimento fContaBancariaMovimento;
     private String fArquivoDeMovimento;
+    private UploadedFile file;  
 
     @PostConstruct
     public void abreForm() {
@@ -64,6 +65,14 @@ public class ContaBancariaMovimentos implements Serializable {
     public void setListaMovimentos(DataModel listaMovimentos) {
         this.fListaDeMovimentos = listaMovimentos;
     }
+    
+    public UploadedFile getFile() {  
+        return file;  
+    }  
+  
+    public void setFile(UploadedFile file) {  
+        this.file = file;  
+    }  
 
     private void filtraListaMovimentos() {
 
@@ -169,19 +178,7 @@ public class ContaBancariaMovimentos implements Serializable {
     public void setArquivoDeMovimentos(String arquivoDeMovimentos) {
         this.fArquivoDeMovimento = arquivoDeMovimentos;
     }
-    private UploadedFile file;  
   
-    public UploadedFile getFile() {  
-        return file;  
-    }  
-  
-    public void setFile(UploadedFile file) {  
-        this.file = file;  
-    }  
-
-    /**
-     * @return the fileContent
-     */
     public void upload() {
         ArquivoMovimentoContaBancaria arquivo = new ArquivoMovimentoContaBancaria();
         arquivo.importaMovimentacao(fContaBancariaSelecionada, file);

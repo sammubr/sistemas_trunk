@@ -61,6 +61,15 @@
                             <p:outputLabel value="#{bundle.CreateContaContabilLabel_descricao}" for="descricao" />
                             <p:inputText id="descricao" value="#{contaContabilCadastro.contaContabil.descricao}" title="#{bundle.CreateContaContabilTitle_descricao}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_descricao}"/>
 
+                            <p:outputLabel value="#{bundle.CreateContaContabilLabel_saldoInicial}" for="saldo_inicial" />
+                            <p:inputText id="saldo_inicial" value="#{contaContabilCadastro.contaContabil.saldoInicial}" title="#{bundle.CreateContaContabilTitle_saldoInicial}" >
+                                <f:convertNumber pattern="#0.00" />                              
+                                <p:ajax event="blur" update="saldo_inicial"  /> 
+                            </p:inputText>                            
+                            
+                            
+                            
+                            
                             <p:outputLabel value="#{bundle.CreateContaContabilLabel_tagValor}" for="tag_valor" />
                             <p:inputText id="tag_valor" value="#{contaContabilCadastro.contaContabil.tagValor}" title="#{bundle.CreateContaContabilTitle_tagValor}" />
 

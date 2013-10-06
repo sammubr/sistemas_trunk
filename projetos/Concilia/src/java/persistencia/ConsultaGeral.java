@@ -20,6 +20,8 @@ import util.NewHibernateUtil;
  *
  * @author samuel
  */
+
+
 public class ConsultaGeral {
 //
 //    public static Collection<Persistencia> consultaTodos2(Class classe, List<String> atributos, List<Object> valores, List<String> ordem) {

@@ -28,80 +28,45 @@ public class ArquivoMovimentoContaBancaria {
 
         List<String> linhasArquivo;
         linhasArquivo = importaLinhas(file);
+        ContaBancariaMovimento movimento = new ContaBancariaMovimento();
 
         for (int i = 0; i < linhasArquivo.size() - 1; i++) {
 
             if (linhasArquivo.get(i).equals(contaBancariaSelecionada.getTagInicioMovimento())) {
-
-
-                ContaBancariaMovimento movimento = new ContaBancariaMovimento();
+                movimento = new ContaBancariaMovimento();
                 movimento.setConta(contaBancariaSelecionada);
+            }
 
-                i++;
-
-                while (!linhasArquivo.get(i).equals(contaBancariaSelecionada.getTagFimMovimento())) {
-
-                    if (!linhasArquivo.get(i).equals(contaBancariaSelecionada.getTagFimMovimento())) {
-
-                        if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getTagData()) != -1) {
-
-                            String dataMov = linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagData().length());
-
-                            try {
-                                movimento.setDataMov(tagStringToDate(dataMov));
-                            } catch (ParseException ex) {
-                                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("Erro ao converter data!"));
-                            }
-                        }
-
-                        if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getTagValor()) != -1) {
-                            movimento.setValor(Float.parseFloat(linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagValor().length())));
-                        }
-
-
-                        if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getTagNumDoc()) != -1) {
-                            movimento.setNumdoc(linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagNumDoc().length()));
-                        }
-
-                        if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getTagHistorico()) != -1) {
-
-                            String historico = linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagHistorico().length());
-
-                            if (historico.length() > 50) {
-                                movimento.setHistorico(linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagHistorico().length(), 50));
-
-                            } else {
-                                movimento.setHistorico(linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagHistorico().length()));
-
-                            }
-
-                        }
-
-                    }
-
-                    i++;
-
-                }
-
-
-
-
+            if (linhasArquivo.get(i).equals(contaBancariaSelecionada.getTagFimMovimento())) {
                 movimento.persiste();
+            }
 
+            if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getTagData()) != -1) {
+                String dataMov = linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagData().length());
+                try {
+                    movimento.setDataMov(tagStringToDate(dataMov));
+                } catch (ParseException ex) {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("ConverterDataErro"));
+                }
+            }
 
-
-
-
-
-
-
-
-
+            if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getTagValor()) != -1) {
+                movimento.setValor(Float.parseFloat(linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagValor().length())));
             }
 
 
+            if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getTagNumDoc()) != -1) {
+                movimento.setNumdoc(linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagNumDoc().length()));
+            }
 
-
+            if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getTagHistorico()) != -1) {
+                String historico = linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagHistorico().length());
+                if (historico.length() > 50) {
+                    movimento.setHistorico(linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagHistorico().length(), 50));
+                } else {
+                    movimento.setHistorico(linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagHistorico().length()));
+                }
+            }
         }
 
         JsfUtil.addSuccessMessage("Importação concluída");
@@ -131,7 +96,7 @@ public class ArquivoMovimentoContaBancaria {
             }
 
         } catch (IOException e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("Falha ao tentar ler arquivo!"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("LeituraArquivoErro"));
         }
 
         return lista;
