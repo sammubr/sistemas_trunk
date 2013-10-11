@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -35,6 +37,9 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaContabil.findByDescricao", query = "SELECT c FROM ContaContabil c WHERE c.descricao = :descricao"),
     @NamedQuery(name = "ContaContabil.findByIdcontaContabil", query = "SELECT c FROM ContaContabil c WHERE c.idcontaContabil = :idcontaContabil")})
 public class ContaContabil extends Persistencia implements Serializable {
+    @JoinColumn(name = "rel_contabilidade_banco", referencedColumnName = "id")
+    @ManyToOne
+    private RelContabilidadeBanco relContabilidadeBanco;
     @Size(max = 20)
     @Column(name = "tag_historico")
     private String tagHistorico;
@@ -185,6 +190,14 @@ public class ContaContabil extends Persistencia implements Serializable {
 
     public void setTagHistorico(String tagHistorico) {
         this.tagHistorico = tagHistorico;
+    }
+
+    public RelContabilidadeBanco getRelContabilidadeBanco() {
+        return relContabilidadeBanco;
+    }
+
+    public void setRelContabilidadeBanco(RelContabilidadeBanco relContabilidadeBanco) {
+        this.relContabilidadeBanco = relContabilidadeBanco;
     }
     
 }

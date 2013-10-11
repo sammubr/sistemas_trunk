@@ -38,7 +38,7 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaContabilMovimento.findByValor", query = "SELECT c FROM ContaContabilMovimento c WHERE c.valor = :valor"),
     @NamedQuery(name = "ContaContabilMovimento.findByNumdoc", query = "SELECT c FROM ContaContabilMovimento c WHERE c.numdoc = :numdoc"),
     @NamedQuery(name = "ContaContabilMovimento.findByHistorico", query = "SELECT c FROM ContaContabilMovimento c WHERE c.historico = :historico")})
-public class ContaContabilMovimento extends Persistencia  implements Serializable {
+public class ContaContabilMovimento extends Persistencia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)

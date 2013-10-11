@@ -46,6 +46,9 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaBancaria.findByTagNumDoc", query = "SELECT c FROM ContaBancaria c WHERE c.tagNumDoc = :tagNumDoc"),
     @NamedQuery(name = "ContaBancaria.findByTagHistorico", query = "SELECT c FROM ContaBancaria c WHERE c.tagHistorico = :tagHistorico")})
 public class ContaBancaria extends Persistencia implements Serializable {
+    @JoinColumn(name = "rel_contabilidade_banco", referencedColumnName = "id")
+    @ManyToOne
+    private RelContabilidadeBanco relContabilidadeBanco;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "conta")
     private Collection<ContaBancariaMovimento> contaBancariaMovimentoCollection;
     @Column(name = "agencia")
@@ -247,6 +250,14 @@ public class ContaBancaria extends Persistencia implements Serializable {
 
     public void setContaBancariaMovimentoCollection(Collection<ContaBancariaMovimento> contaBancariaMovimentoCollection) {
         this.contaBancariaMovimentoCollection = contaBancariaMovimentoCollection;
+    }
+
+    public RelContabilidadeBanco getRelContabilidadeBanco() {
+        return relContabilidadeBanco;
+    }
+
+    public void setRelContabilidadeBanco(RelContabilidadeBanco relContabilidadeBanco) {
+        this.relContabilidadeBanco = relContabilidadeBanco;
     }
     
 }
