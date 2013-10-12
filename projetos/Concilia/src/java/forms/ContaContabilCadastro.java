@@ -117,7 +117,7 @@ public class ContaContabilCadastro implements Serializable {
 
     public void persiste() {
         fContaContabil.persiste();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"),"");
         geraListaDeContasContabeis();
         mostraGrid();
 
@@ -126,7 +126,7 @@ public class ContaContabilCadastro implements Serializable {
     public void exclui() {
         fContaContabil = (ContaContabil) getListaDeContasContabeis().getRowData();
         fContaContabil.exclui();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"),"");
         geraListaDeContasContabeis();
 
     }

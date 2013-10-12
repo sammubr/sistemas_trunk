@@ -80,6 +80,13 @@
 
                                 <p:column >
                                     <f:facet name="header">
+                                        <p:outputLabel value="#{bundle.ListContaBancariaMovimentoTitle_id}"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{item.idcontaBancariaMovimento}"/>
+                                </p:column>                                
+
+                                <p:column >
+                                    <f:facet name="header">
                                         <p:outputLabel value="#{bundle.ListContaBancariaMovimentoTitle_valor}"/>
                                     </f:facet>
                                     <h:outputText value="#{item.valor}" >

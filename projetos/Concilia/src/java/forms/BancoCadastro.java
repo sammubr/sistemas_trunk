@@ -117,7 +117,7 @@ public class BancoCadastro implements Serializable {
 
     public void persiste() {
         fBanco.persiste();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"),"");
         geraListaDeBancos();
         mostraGrid();
     }
@@ -125,7 +125,7 @@ public class BancoCadastro implements Serializable {
     public void exclui() {
         fBanco = (Banco) getListaDeBancos().getRowData();
         fBanco.exclui();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"),"");
         geraListaDeBancos();
 
     }

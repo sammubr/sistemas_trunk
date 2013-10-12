@@ -34,7 +34,7 @@ public class Persistencia {
                 tx.rollback();
             }
             e.printStackTrace();
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"), e);
             throw e;
         } finally {
             session.close();
@@ -54,7 +54,7 @@ public class Persistencia {
                 tx.rollback();
             }
             e.printStackTrace();
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"), e);
             throw e;
         } finally {
             session.close();
@@ -88,7 +88,7 @@ public class Persistencia {
                 tx.rollback();
             }
             e.printStackTrace();
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("ConsultaErrorOccured"));
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("ConsultaErrorOccured"), e);
             throw e;
         } finally {
             session.close();
@@ -117,7 +117,7 @@ public class Persistencia {
                 tx.rollback();
             }
             e.printStackTrace();
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("ConsultaErrorOccured"));
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("ConsultaErrorOccured"), e);
             throw e;
         } finally {
             session.close();

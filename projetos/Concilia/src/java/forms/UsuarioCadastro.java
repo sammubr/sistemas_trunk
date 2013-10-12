@@ -117,7 +117,7 @@ public class UsuarioCadastro implements Serializable {
 
     public void persiste() {
         fUsuario.persiste();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
         geraListaDeUsuarios();
         mostraGrid();
 
@@ -126,7 +126,7 @@ public class UsuarioCadastro implements Serializable {
     public void exclui() {
         fUsuario = (Usuario) getListaDeUsuarios().getRowData();
         fUsuario.exclui();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
         geraListaDeUsuarios();
 
     }

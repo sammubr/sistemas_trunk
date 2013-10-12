@@ -65,7 +65,7 @@ public class ContaContabilMovimentos implements Serializable {
     public void setListaMovimentos(DataModel listaMovimentos) {
         this.fListaDeMovimentos = listaMovimentos;
     }
-    
+
     public UploadedFile getFile() {
         return file;
     }
@@ -73,7 +73,7 @@ public class ContaContabilMovimentos implements Serializable {
     public void setFile(UploadedFile file) {
         this.file = file;
     }
-    
+
     private void filtraListaMovimentos() {
 
         List<String> atributos = new ArrayList<>();
@@ -129,7 +129,7 @@ public class ContaContabilMovimentos implements Serializable {
 
     public void persiste() {
         fContaContabilMovimento.persiste();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
         filtraListaMovimentos();
         mostraGrid();
 
@@ -138,7 +138,7 @@ public class ContaContabilMovimentos implements Serializable {
     public void exclui() {
         fContaContabilMovimento = (ContaContabilMovimento) getListaMovimentos().getRowData();
         fContaContabilMovimento.exclui();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
         filtraListaMovimentos();
 
     }
@@ -180,7 +180,27 @@ public class ContaContabilMovimentos implements Serializable {
     }
 
     public void upload() {
-        ArquivoMovimentoContaContabil arquivo = new ArquivoMovimentoContaContabil();
-        arquivo.importaMovimentacao(fContaContabilSelecionada, file);
+
+        if (contaSelecionada()) {
+            ArquivoMovimentoContaContabil arquivo = new ArquivoMovimentoContaContabil();
+            arquivo.importaMovimentacao(fContaContabilSelecionada, file);
+        } else {
+            JsfUtil.addErrorMessage("Erro ao importar arquivo!", "Para importar um arquivo, é necessário preencher todas as TAGS no cadastro de contas contábeis.");
+        }
+
+    }
+
+    private boolean contaSelecionada() {
+
+        if (fContaContabilSelecionada.getTagData().isEmpty()
+                || fContaContabilSelecionada.getTagFimMovimento().isEmpty()
+                || fContaContabilSelecionada.getTagHistorico().isEmpty()
+                || fContaContabilSelecionada.getTagInicioMovimento().isEmpty()
+                || fContaContabilSelecionada.getTagNumDoc().isEmpty()
+                || fContaContabilSelecionada.getTagValor().isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

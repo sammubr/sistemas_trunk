@@ -120,7 +120,7 @@ public class RelacionamentoCadastro implements Serializable {
 
     public void persiste() {
         fRelacionamento.persiste();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"),"");
         geraListaDeRelacionamentos();
         mostraGrid();
     }
@@ -128,7 +128,7 @@ public class RelacionamentoCadastro implements Serializable {
     public void exclui() {
         fRelacionamento = (RelContabilidadeBanco) getListaDeRelacionamentos().getRowData();
         fRelacionamento.exclui();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"),"");
         geraListaDeRelacionamentos();
 
     }

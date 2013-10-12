@@ -31,7 +31,7 @@ public class ContaBancariaMovimentos implements Serializable {
     private boolean fContaSelecionada = false;
     private ContaBancariaMovimento fContaBancariaMovimento;
     private String fArquivoDeMovimento;
-    private UploadedFile file;  
+    private UploadedFile file;
 
     @PostConstruct
     public void abreForm() {
@@ -65,14 +65,14 @@ public class ContaBancariaMovimentos implements Serializable {
     public void setListaMovimentos(DataModel listaMovimentos) {
         this.fListaDeMovimentos = listaMovimentos;
     }
-    
-    public UploadedFile getFile() {  
-        return file;  
-    }  
-  
-    public void setFile(UploadedFile file) {  
-        this.file = file;  
-    }  
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
 
     private void filtraListaMovimentos() {
 
@@ -84,6 +84,7 @@ public class ContaBancariaMovimentos implements Serializable {
 
         List<String> ordem = new ArrayList<>();
         ordem.add("dataMov");
+        ordem.add("idcontaBancariaMovimento");
         ContaBancariaMovimento contaBancariaMovimento = new ContaBancariaMovimento();
         this.fListaDeMovimentos = new CollectionDataModel(contaBancariaMovimento.obter(atributos, valores, ordem));
     }
@@ -129,7 +130,7 @@ public class ContaBancariaMovimentos implements Serializable {
 
     public void persiste() {
         fContaBancariaMovimento.persiste();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
         filtraListaMovimentos();
         mostraGrid();
 
@@ -138,7 +139,7 @@ public class ContaBancariaMovimentos implements Serializable {
     public void exclui() {
         fContaBancariaMovimento = (ContaBancariaMovimento) getListaMovimentos().getRowData();
         fContaBancariaMovimento.exclui();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
         filtraListaMovimentos();
 
     }
@@ -178,9 +179,29 @@ public class ContaBancariaMovimentos implements Serializable {
     public void setArquivoDeMovimentos(String arquivoDeMovimentos) {
         this.fArquivoDeMovimento = arquivoDeMovimentos;
     }
-  
+
     public void upload() {
-        ArquivoMovimentoContaBancaria arquivo = new ArquivoMovimentoContaBancaria();
-        arquivo.importaMovimentacao(fContaBancariaSelecionada, file);
+
+        if (contaSelecionada()) {
+            ArquivoMovimentoContaBancaria arquivo = new ArquivoMovimentoContaBancaria();
+            arquivo.importaMovimentacao(fContaBancariaSelecionada, file);
+        } else {
+            JsfUtil.addErrorMessage("Erro ao importar arquivo!", "Para importar um arquivo, é necessário preencher todas as TAGS no cadastro de contas bancárias.");
+        }
+
+    }
+
+    private boolean contaSelecionada() {
+
+        if (fContaBancariaSelecionada.getTagData().isEmpty()
+                || fContaBancariaSelecionada.getTagFimMovimento().isEmpty()
+                || fContaBancariaSelecionada.getTagHistorico().isEmpty()
+                || fContaBancariaSelecionada.getTagInicioMovimento().isEmpty()
+                || fContaBancariaSelecionada.getTagNumDoc().isEmpty()
+                || fContaBancariaSelecionada.getTagValor().isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

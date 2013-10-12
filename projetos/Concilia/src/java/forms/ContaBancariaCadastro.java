@@ -125,7 +125,7 @@ public class ContaBancariaCadastro implements Serializable {
 
     public void persiste() {
         fContaBancaria.persiste();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"));
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"),"");
         geraListaDeContasBancarias();
         mostraGrid();
 
@@ -134,7 +134,7 @@ public class ContaBancariaCadastro implements Serializable {
     public void exclui() {
         fContaBancaria = (ContaBancaria) getListaDeContasBancarias().getRowData();
         fContaBancaria.exclui();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"));
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"),"");
         geraListaDeContasBancarias();
 
     }
