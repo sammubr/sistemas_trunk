@@ -109,7 +109,7 @@ public class RelacionamentoCadastro implements Serializable {
 
     public void criaNovo() {
         fRelacionamento = new RelContabilidadeBanco();
-        geraListaDeContasBancarias();
+        //geraListaDeContasBancarias();
         mostraItem();
     }
 
@@ -149,18 +149,17 @@ public class RelacionamentoCadastro implements Serializable {
 
     private void geraListaDeContasBancarias() {
 
+//        List<String> atributos = new ArrayList<>();
+//        atributos.add("relContabilidadeBanco");
 
-        List<String> atributos = new ArrayList<>();
-        atributos.add("relContabilidadeBanco");
-
-        List<Object> valores = new ArrayList<>();
-        valores.add(fRelacionamento);
+//        List<Object> valores = new ArrayList<>();
+//        valores.add(fRelacionamento);
 
         List<String> ordem = new ArrayList<>();
         ordem.add("descricao");
 
         ContaBancaria contaBancaria = new ContaBancaria();
-        this.fListaDeContasBancarias = new CollectionDataModel(contaBancaria.obter(atributos, valores, ordem));
+        this.fListaDeContasBancarias = new CollectionDataModel(contaBancaria.obter(null, null, ordem));
 
 
 
