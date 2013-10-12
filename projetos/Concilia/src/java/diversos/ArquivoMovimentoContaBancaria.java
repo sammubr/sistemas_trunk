@@ -7,6 +7,7 @@ package diversos;
 import controls.ContaBancaria;
 import controls.ContaBancariaMovimento;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,7 +52,7 @@ public class ArquivoMovimentoContaBancaria {
             }
 
             if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getTagValor()) != -1) {
-                movimento.setValor(Float.parseFloat(linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagValor().length())));
+                movimento.setValor(new BigDecimal(linhasArquivo.get(i).substring(contaBancariaSelecionada.getTagValor().length())));
             }
 
 

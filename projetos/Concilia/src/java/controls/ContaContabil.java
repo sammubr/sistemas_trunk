@@ -5,6 +5,7 @@
 package controls;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -37,12 +38,6 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaContabil.findByDescricao", query = "SELECT c FROM ContaContabil c WHERE c.descricao = :descricao"),
     @NamedQuery(name = "ContaContabil.findByIdcontaContabil", query = "SELECT c FROM ContaContabil c WHERE c.idcontaContabil = :idcontaContabil")})
 public class ContaContabil extends Persistencia implements Serializable {
-    @JoinColumn(name = "rel_contabilidade_banco", referencedColumnName = "id")
-    @ManyToOne
-    private RelContabilidadeBanco relContabilidadeBanco;
-    @Size(max = 20)
-    @Column(name = "tag_historico")
-    private String tagHistorico;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -55,7 +50,7 @@ public class ContaContabil extends Persistencia implements Serializable {
     private String descricao;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "saldo_inicial")
-    private Float saldoInicial;
+    private BigDecimal saldoInicial;
     @Size(max = 20)
     @Column(name = "tag_valor")
     private String tagValor;
@@ -71,6 +66,12 @@ public class ContaContabil extends Persistencia implements Serializable {
     @Size(max = 20)
     @Column(name = "tag_fim_movimento")
     private String tagFimMovimento;
+    @Size(max = 20)
+    @Column(name = "tag_historico")
+    private String tagHistorico;
+    @JoinColumn(name = "rel_contabilidade_banco", referencedColumnName = "id")
+    @ManyToOne
+    private RelContabilidadeBanco relContabilidadeBanco;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "conta")
     private Collection<ContaContabilMovimento> contaContabilMovimentoCollection;
 
@@ -102,11 +103,11 @@ public class ContaContabil extends Persistencia implements Serializable {
         this.descricao = descricao;
     }
 
-    public Float getSaldoInicial() {
+    public BigDecimal getSaldoInicial() {
         return saldoInicial;
     }
 
-    public void setSaldoInicial(Float saldoInicial) {
+    public void setSaldoInicial(BigDecimal saldoInicial) {
         this.saldoInicial = saldoInicial;
     }
 
@@ -150,6 +151,22 @@ public class ContaContabil extends Persistencia implements Serializable {
         this.tagFimMovimento = tagFimMovimento;
     }
 
+    public String getTagHistorico() {
+        return tagHistorico;
+    }
+
+    public void setTagHistorico(String tagHistorico) {
+        this.tagHistorico = tagHistorico;
+    }
+
+    public RelContabilidadeBanco getRelContabilidadeBanco() {
+        return relContabilidadeBanco;
+    }
+
+    public void setRelContabilidadeBanco(RelContabilidadeBanco relContabilidadeBanco) {
+        this.relContabilidadeBanco = relContabilidadeBanco;
+    }
+
     @XmlTransient
     public Collection<ContaContabilMovimento> getContaContabilMovimentoCollection() {
         return contaContabilMovimentoCollection;
@@ -183,21 +200,6 @@ public class ContaContabil extends Persistencia implements Serializable {
     public String toString() {
         return "controls.ContaContabil[ idcontaContabil=" + idcontaContabil + " ]";
     }
-
-    public String getTagHistorico() {
-        return tagHistorico;
-    }
-
-    public void setTagHistorico(String tagHistorico) {
-        this.tagHistorico = tagHistorico;
-    }
-
-    public RelContabilidadeBanco getRelContabilidadeBanco() {
-        return relContabilidadeBanco;
-    }
-
-    public void setRelContabilidadeBanco(RelContabilidadeBanco relContabilidadeBanco) {
-        this.relContabilidadeBanco = relContabilidadeBanco;
-    }
+    
     
 }

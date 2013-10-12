@@ -7,6 +7,7 @@ package diversos;
 import controls.ContaContabil;
 import controls.ContaContabilMovimento;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,7 +52,7 @@ public class ArquivoMovimentoContaContabil {
             }
 
             if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagValor()) != -1) {
-                movimento.setValor(Float.parseFloat(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagValor().length())));
+                movimento.setValor(new BigDecimal(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagValor().length())));
             }
 
 

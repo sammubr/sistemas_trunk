@@ -5,6 +5,7 @@
 package controls;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -44,10 +45,11 @@ public class ContaBancariaMovimento extends Persistencia  implements Serializabl
     @Column(name = "data_mov")
     @Temporal(TemporalType.DATE)
     private Date dataMov;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "valor")
-    private float valor;
+    private BigDecimal valor;
     @Size(max = 20)
     @Column(name = "numdoc")
     private String numdoc;
@@ -59,6 +61,8 @@ public class ContaBancariaMovimento extends Persistencia  implements Serializabl
     @Basic(optional = false)
     @Column(name = "idconta_bancaria_movimento")
     private Integer idcontaBancariaMovimento;
+    @Column(name = "saldo")
+    private BigDecimal saldo;
     @JoinColumn(name = "conta", referencedColumnName = "idconta_bancaria")
     @ManyToOne(optional = false)
     private ContaBancaria conta;
@@ -70,7 +74,7 @@ public class ContaBancariaMovimento extends Persistencia  implements Serializabl
         this.idcontaBancariaMovimento = idcontaBancariaMovimento;
     }
 
-    public ContaBancariaMovimento(Integer idcontaBancariaMovimento, Date dataMov, float valor) {
+    public ContaBancariaMovimento(Integer idcontaBancariaMovimento, Date dataMov, BigDecimal valor) {
         this.idcontaBancariaMovimento = idcontaBancariaMovimento;
         this.dataMov = dataMov;
         this.valor = valor;
@@ -84,11 +88,11 @@ public class ContaBancariaMovimento extends Persistencia  implements Serializabl
         this.dataMov = dataMov;
     }
 
-    public float getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(float valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 
@@ -114,6 +118,14 @@ public class ContaBancariaMovimento extends Persistencia  implements Serializabl
 
     public void setIdcontaBancariaMovimento(Integer idcontaBancariaMovimento) {
         this.idcontaBancariaMovimento = idcontaBancariaMovimento;
+    }
+
+    public BigDecimal getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(BigDecimal saldo) {
+        this.saldo = saldo;
     }
 
     public ContaBancaria getConta() {
@@ -148,5 +160,7 @@ public class ContaBancariaMovimento extends Persistencia  implements Serializabl
     public String toString() {
         return "controls.ContaBancariaMovimento[ idcontaBancariaMovimento=" + idcontaBancariaMovimento + " ]";
     }
+    
+    
     
 }

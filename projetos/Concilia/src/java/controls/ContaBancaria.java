@@ -5,6 +5,7 @@
 package controls;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -46,11 +47,6 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaBancaria.findByTagNumDoc", query = "SELECT c FROM ContaBancaria c WHERE c.tagNumDoc = :tagNumDoc"),
     @NamedQuery(name = "ContaBancaria.findByTagHistorico", query = "SELECT c FROM ContaBancaria c WHERE c.tagHistorico = :tagHistorico")})
 public class ContaBancaria extends Persistencia implements Serializable {
-    @JoinColumn(name = "rel_contabilidade_banco", referencedColumnName = "id")
-    @ManyToOne
-    private RelContabilidadeBanco relContabilidadeBanco;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "conta")
-    private Collection<ContaBancariaMovimento> contaBancariaMovimentoCollection;
     @Column(name = "agencia")
     private Integer agencia;
     @Column(name = "agencia_digito")
@@ -71,7 +67,7 @@ public class ContaBancaria extends Persistencia implements Serializable {
     private String descricao;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "saldo_inicial")
-    private Float saldoInicial;
+    private BigDecimal saldoInicial;
     @Size(max = 20)
     @Column(name = "tag_valor")
     private String tagValor;
@@ -90,8 +86,13 @@ public class ContaBancaria extends Persistencia implements Serializable {
     @Size(max = 20)
     @Column(name = "tag_fim_movimento")
     private String tagFimMovimento;
-    @JoinColumn(name = "banco", referencedColumnName = "idbanco")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "conta")
+    private Collection<ContaBancariaMovimento> contaBancariaMovimentoCollection;
+    @JoinColumn(name = "rel_contabilidade_banco", referencedColumnName = "id")
     @ManyToOne
+    private RelContabilidadeBanco relContabilidadeBanco;
+    @JoinColumn(name = "banco", referencedColumnName = "idbanco")
+    @ManyToOne(optional = false)
     private Banco banco;
 
     public ContaBancaria() {
@@ -154,11 +155,11 @@ public class ContaBancaria extends Persistencia implements Serializable {
         this.descricao = descricao;
     }
 
-    public Float getSaldoInicial() {
+    public BigDecimal getSaldoInicial() {
         return saldoInicial;
     }
 
-    public void setSaldoInicial(Float saldoInicial) {
+    public void setSaldoInicial(BigDecimal saldoInicial) {
         this.saldoInicial = saldoInicial;
     }
 
@@ -210,6 +211,23 @@ public class ContaBancaria extends Persistencia implements Serializable {
         this.tagFimMovimento = tagFimMovimento;
     }
 
+    @XmlTransient
+    public Collection<ContaBancariaMovimento> getContaBancariaMovimentoCollection() {
+        return contaBancariaMovimentoCollection;
+    }
+
+    public void setContaBancariaMovimentoCollection(Collection<ContaBancariaMovimento> contaBancariaMovimentoCollection) {
+        this.contaBancariaMovimentoCollection = contaBancariaMovimentoCollection;
+    }
+
+    public RelContabilidadeBanco getRelContabilidadeBanco() {
+        return relContabilidadeBanco;
+    }
+
+    public void setRelContabilidadeBanco(RelContabilidadeBanco relContabilidadeBanco) {
+        this.relContabilidadeBanco = relContabilidadeBanco;
+    }
+
     public Banco getBanco() {
         return banco;
     }
@@ -241,23 +259,6 @@ public class ContaBancaria extends Persistencia implements Serializable {
     @Override
     public String toString() {
         return "controls.ContaBancaria[ idcontaBancaria=" + idcontaBancaria + " ]";
-    }
-
-    @XmlTransient
-    public Collection<ContaBancariaMovimento> getContaBancariaMovimentoCollection() {
-        return contaBancariaMovimentoCollection;
-    }
-
-    public void setContaBancariaMovimentoCollection(Collection<ContaBancariaMovimento> contaBancariaMovimentoCollection) {
-        this.contaBancariaMovimentoCollection = contaBancariaMovimentoCollection;
-    }
-
-    public RelContabilidadeBanco getRelContabilidadeBanco() {
-        return relContabilidadeBanco;
-    }
-
-    public void setRelContabilidadeBanco(RelContabilidadeBanco relContabilidadeBanco) {
-        this.relContabilidadeBanco = relContabilidadeBanco;
     }
     
 }

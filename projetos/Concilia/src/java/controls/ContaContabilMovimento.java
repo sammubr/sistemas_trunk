@@ -5,6 +5,7 @@
 package controls;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -49,16 +50,19 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
     @Column(name = "data_mov")
     @Temporal(TemporalType.DATE)
     private Date dataMov;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "valor")
-    private float valor;
+    private BigDecimal valor;
     @Size(max = 20)
     @Column(name = "numdoc")
     private String numdoc;
     @Size(max = 50)
     @Column(name = "historico")
     private String historico;
+    @Column(name = "saldo")
+    private BigDecimal saldo;
     @JoinColumn(name = "conta", referencedColumnName = "idconta_contabil")
     @ManyToOne(optional = false)
     private ContaContabil conta;
@@ -70,7 +74,7 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
         this.idcontaContabilMovimento = idcontaContabilMovimento;
     }
 
-    public ContaContabilMovimento(Integer idcontaContabilMovimento, Date dataMov, float valor) {
+    public ContaContabilMovimento(Integer idcontaContabilMovimento, Date dataMov, BigDecimal valor) {
         this.idcontaContabilMovimento = idcontaContabilMovimento;
         this.dataMov = dataMov;
         this.valor = valor;
@@ -92,11 +96,11 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
         this.dataMov = dataMov;
     }
 
-    public float getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(float valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 
@@ -114,6 +118,14 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
 
     public void setHistorico(String historico) {
         this.historico = historico;
+    }
+
+    public BigDecimal getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(BigDecimal saldo) {
+        this.saldo = saldo;
     }
 
     public ContaContabil getConta() {
@@ -148,5 +160,6 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
     public String toString() {
         return "controls.ContaContabilMovimento[ idcontaContabilMovimento=" + idcontaContabilMovimento + " ]";
     }
+    
     
 }
