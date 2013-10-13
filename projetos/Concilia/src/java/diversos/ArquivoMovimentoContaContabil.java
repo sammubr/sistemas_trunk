@@ -25,53 +25,53 @@ import util.JsfUtil;
  */
 public class ArquivoMovimentoContaContabil {
 
-    public void importaMovimentacao(ContaContabil contaContabilSelecionada, UploadedFile file) {
+    public void importaMovimentacao(ContaContabil contaContabilSelecionada, UploadedFile file) throws Exception {
 
         List<String> linhasArquivo;
         linhasArquivo = importaLinhas(file);
         ContaContabilMovimento movimento = new ContaContabilMovimento();
+        Integer contador = 0;
 
-        try {
+        for (int i = 0; i < linhasArquivo.size() - 1; i++) {
 
-            for (int i = 0; i < linhasArquivo.size() - 1; i++) {
-
-                if (linhasArquivo.get(i).equals(contaContabilSelecionada.getTagInicioMovimento())) {
-                    movimento = new ContaContabilMovimento();
-                    movimento.setConta(contaContabilSelecionada);
-                }
-
-                if (linhasArquivo.get(i).equals(contaContabilSelecionada.getTagFimMovimento())) {
-                    movimento.persiste();
-                }
-
-                if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagData()) != -1) {
-                    String dataMov = linhasArquivo.get(i).substring(contaContabilSelecionada.getTagData().length());
-                    movimento.setDataMov(tagStringToDate(dataMov));
-                }
-
-                if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagValor()) != -1) {
-                    movimento.setValor(new BigDecimal(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagValor().length())));
-                }
-
-
-                if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagNumDoc()) != -1) {
-                    movimento.setNumdoc(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagNumDoc().length()));
-                }
-
-                if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagHistorico()) != -1) {
-                    String historico = linhasArquivo.get(i).substring(contaContabilSelecionada.getTagHistorico().length());
-                    if (historico.length() > 50) {
-                        movimento.setHistorico(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagHistorico().length(), 50));
-                    } else {
-                        movimento.setHistorico(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagHistorico().length()));
-                    }
-                }
+            if (linhasArquivo.get(i).equals(contaContabilSelecionada.getTagInicioMovimento())) {
+                movimento = new ContaContabilMovimento();
+                movimento.setConta(contaContabilSelecionada);
             }
 
-            JsfUtil.addSuccessMessage("Importação concluída", "");
+            if (linhasArquivo.get(i).equals(contaContabilSelecionada.getTagFimMovimento())) {
+                movimento.persiste();
+                contador++;
+            }
 
-        } catch (ParseException ex) {
-            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("ConverterDataErro"), ex);
+            if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagData()) != -1) {
+                String dataMov = linhasArquivo.get(i).substring(contaContabilSelecionada.getTagData().length());
+                movimento.setDataMov(tagStringToDate(dataMov));
+            }
+
+            if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagValor()) != -1) {
+                movimento.setValor(new BigDecimal(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagValor().length())));
+            }
+
+
+            if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagNumDoc()) != -1) {
+                movimento.setNumdoc(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagNumDoc().length()));
+            }
+
+            if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagHistorico()) != -1) {
+                String historico = linhasArquivo.get(i).substring(contaContabilSelecionada.getTagHistorico().length());
+                if (historico.length() > 50) {
+                    movimento.setHistorico(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagHistorico().length(), 50));
+                } else {
+                    movimento.setHistorico(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagHistorico().length()));
+                }
+            }
+        }
+
+        if (contador == 0) {
+            JsfUtil.addErrorMessage("Nenhum movimento importado!", "Confira o layout do arquivo e as tags informadas.");
+        } else {
+            JsfUtil.addSuccessMessage("Importação concluída!", contador + " movimentos(s) importado(s).");
         }
     }
 

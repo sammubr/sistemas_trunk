@@ -16,6 +16,7 @@ import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import util.JsfUtil;
 
@@ -58,6 +59,9 @@ public class ContaContabilMovimentos implements Serializable {
 
     }
 
+    public void handleContaChange() {
+    }
+
     public DataModel getListaMovimentos() {
         return fListaDeMovimentos;
     }
@@ -84,6 +88,7 @@ public class ContaContabilMovimentos implements Serializable {
 
         List<String> ordem = new ArrayList<>();
         ordem.add("dataMov");
+        ordem.add("idcontaContabilMovimento");
         ContaContabilMovimento contaContabilMovimento = new ContaContabilMovimento();
         this.fListaDeMovimentos = new CollectionDataModel(contaContabilMovimento.obter(atributos, valores, ordem));
     }
@@ -179,28 +184,36 @@ public class ContaContabilMovimentos implements Serializable {
         this.fArquivoDeMovimento = arquivoDeMovimentos;
     }
 
-    public void upload() {
+    public void upload(FileUploadEvent event) {
 
-        if (contaSelecionada()) {
-            ArquivoMovimentoContaContabil arquivo = new ArquivoMovimentoContaContabil();
-            arquivo.importaMovimentacao(fContaContabilSelecionada, file);
-        } else {
-            JsfUtil.addErrorMessage("Erro ao importar arquivo!", "Para importar um arquivo, é necessário preencher todas as TAGS no cadastro de contas contábeis.");
+        try {
+            if (contaSelecionada()) {
+        file = event.getFile();
+                ArquivoMovimentoContaContabil arquivo = new ArquivoMovimentoContaContabil();
+                arquivo.importaMovimentacao(fContaContabilSelecionada, file);
+            }
+        } catch (Exception ex) {
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("ConverterDataErro"), ex);
         }
-
     }
 
     private boolean contaSelecionada() {
 
-        if (fContaContabilSelecionada.getTagData().isEmpty()
-                || fContaContabilSelecionada.getTagFimMovimento().isEmpty()
-                || fContaContabilSelecionada.getTagHistorico().isEmpty()
-                || fContaContabilSelecionada.getTagInicioMovimento().isEmpty()
-                || fContaContabilSelecionada.getTagNumDoc().isEmpty()
-                || fContaContabilSelecionada.getTagValor().isEmpty()) {
+        if (fContaContabilSelecionada == null) {
+            JsfUtil.addErrorMessage("Erro ao importar arquivo!", "Nenhuma conta selecionada");
             return false;
         } else {
-            return true;
+            if (fContaContabilSelecionada.getTagData().isEmpty()
+                    || fContaContabilSelecionada.getTagFimMovimento().isEmpty()
+                    || fContaContabilSelecionada.getTagHistorico().isEmpty()
+                    || fContaContabilSelecionada.getTagInicioMovimento().isEmpty()
+                    || fContaContabilSelecionada.getTagNumDoc().isEmpty()
+                    || fContaContabilSelecionada.getTagValor().isEmpty()) {
+                JsfUtil.addErrorMessage("Erro ao importar arquivo!", "Para importar um arquivo, é necessário preencher todas as tags no cadastro de contas contábeis.");
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 }

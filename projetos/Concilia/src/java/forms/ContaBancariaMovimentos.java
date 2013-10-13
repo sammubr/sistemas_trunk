@@ -16,6 +16,7 @@ import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import util.JsfUtil;
 
@@ -56,6 +57,9 @@ public class ContaBancariaMovimentos implements Serializable {
         this.fContaBancariaSelecionada = contaBancariaSelecionada;
         filtraListaMovimentos();
 
+    }
+
+    public void handleContaChange() {
     }
 
     public DataModel getListaMovimentos() {
@@ -180,28 +184,36 @@ public class ContaBancariaMovimentos implements Serializable {
         this.fArquivoDeMovimento = arquivoDeMovimentos;
     }
 
-    public void upload() {
+    public void upload(FileUploadEvent event) {
 
-        if (contaSelecionada()) {
-            ArquivoMovimentoContaBancaria arquivo = new ArquivoMovimentoContaBancaria();
-            arquivo.importaMovimentacao(fContaBancariaSelecionada, file);
-        } else {
-            JsfUtil.addErrorMessage("Erro ao importar arquivo!", "Para importar um arquivo, é necessário preencher todas as TAGS no cadastro de contas bancárias.");
+        try {
+            if (contaSelecionada()) {
+                file = event.getFile();
+                ArquivoMovimentoContaBancaria arquivo = new ArquivoMovimentoContaBancaria();
+                arquivo.importaMovimentacao(fContaBancariaSelecionada, file);
+            }
+        } catch (Exception ex) {
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("ConverterDataErro"), ex);
         }
-
     }
 
     private boolean contaSelecionada() {
 
-        if (fContaBancariaSelecionada.getTagData().isEmpty()
-                || fContaBancariaSelecionada.getTagFimMovimento().isEmpty()
-                || fContaBancariaSelecionada.getTagHistorico().isEmpty()
-                || fContaBancariaSelecionada.getTagInicioMovimento().isEmpty()
-                || fContaBancariaSelecionada.getTagNumDoc().isEmpty()
-                || fContaBancariaSelecionada.getTagValor().isEmpty()) {
+        if (fContaBancariaSelecionada == null) {
+            JsfUtil.addErrorMessage("Erro ao importar arquivo!", "Nenhuma conta selecionada");
             return false;
         } else {
-            return true;
+            if (fContaBancariaSelecionada.getTagData().isEmpty()
+                    || fContaBancariaSelecionada.getTagFimMovimento().isEmpty()
+                    || fContaBancariaSelecionada.getTagHistorico().isEmpty()
+                    || fContaBancariaSelecionada.getTagInicioMovimento().isEmpty()
+                    || fContaBancariaSelecionada.getTagNumDoc().isEmpty()
+                    || fContaBancariaSelecionada.getTagValor().isEmpty()) {
+                JsfUtil.addErrorMessage("Erro ao importar arquivo!", "Para importar um arquivo, é necessário preencher todas as tags no cadastro de contas bancárias.");
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 }

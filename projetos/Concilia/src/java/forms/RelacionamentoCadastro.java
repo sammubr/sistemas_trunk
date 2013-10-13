@@ -164,4 +164,10 @@ public class RelacionamentoCadastro implements Serializable {
 
 
     }
+    
+    public void addContaBancaria(){
+        
+    }
+    
+    
 }

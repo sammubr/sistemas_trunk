@@ -2,158 +2,64 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-
-    <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    </h:head>
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="index.xhtml">
 
         <ui:define name="conteudo">
 
-            <p:panel  id="formCadastro" header="#{bundle.FormCadastroRelacionamentos}" toggleable="false" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" >  
+            <p:panel id="formCadastro" header="#{bundle.FormCadastroRelacionamentos}" toggleable="false" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" >  
 
-                <h:form id="form">
+                <p:outputPanel rendered="#{relacionamentoCadastro.gridVisivel}"  >
 
-                    <p:panel rendered="#{relacionamentoCadastro.gridVisivel}"  >
+                    <p:toolbar id="toolbar" >  
+                        <p:toolbarGroup align="left">  
+                            <p:commandButton title="#{bundle.CreateLink}"  action="#{relacionamentoCadastro.criaNovo}" icon="ui-icon-document" update="form" />                                                
+                        </p:toolbarGroup>  
+                    </p:toolbar> 
 
-                        <p:toolbar id="toolbar" >  
-                            <p:toolbarGroup align="left">  
+                    <p:dataTable id="dataTable" value="#{relacionamentoCadastro.listaDeRelacionamentos}" var="item"
+                                 rowStyleClass="jsfcrud_odd_row,jsfcrud_even_row" 
+                                 paginator="true" rows="5"  
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">  
 
-                                <p:commandButton title="#{bundle.CreateLink}"  action="#{relacionamentoCadastro.criaNovo}" icon="ui-icon-document" ajax="false" />                                                
-                            </p:toolbarGroup>  
-                        </p:toolbar>                         
+                        <p:column >
+                            <f:facet name="header">
+                                <p:outputLabel value="#{bundle.ListRelacionamentoTitle_Descricao}"/>
+                            </f:facet>
+                            <p:outputLabel value="#{item.descricao}"/>
+                        </p:column>
 
-                        <p:dataTable id="dataTable" value="#{relacionamentoCadastro.listaDeRelacionamentos}" var="item"
-                                     rowStyleClass="jsfcrud_odd_row,jsfcrud_even_row" 
-                                     paginator="true" rows="5"  
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">  
-
-                            <p:column >
-                                <f:facet name="header">
-                                    <p:outputLabel value="#{bundle.ListRelacionamentoTitle_Descricao}"/>
-                                </f:facet>
-                                <p:outputLabel value="#{item.descricao}"/>
-                            </p:column>
-
-
-                            <p:column>
-                                <f:facet name="header">
-                                    <p:outputLabel value="&nbsp;"/>
-                                </f:facet>
-                                <p:commandButton title="#{bundle.EditLink}" action="#{relacionamentoCadastro.edita}" update=":form:tabela" ajax="false" icon="ui-icon-pencil"/>
-                                <p:commandButton title="#{bundle.DestroyLink}" action="#{relacionamentoCadastro.exclui}" update=":form:tabela" ajax="false" icon="ui-icon-trash"/>                            
-                            </p:column>
-                        </p:dataTable> 
-
-                    </p:panel>
-
-                    <p:panel rendered="#{relacionamentoCadastro.itemVisivel}">
-
-                        <p:toolbar>
-                            <p:toolbarGroup align="left"  >
-                                <p:commandButton id="salvar" title="#{bundle.SaveLink}" actionListener="#{relacionamentoCadastro.persiste}"  ajax="false" icon="ui-icon-disk" />
-                                <p:commandButton title="#{bundle.VoltarLink}" actionListener="#{relacionamentoCadastro.mostraGrid}" ajax="false" immediate="true" icon="ui-icon-arrowreturnthick-1-w" />
-                            </p:toolbarGroup>
-                        </p:toolbar>
-
-                        <p:panelGrid columns="2">
-
-                            <p:outputLabel value="#{bundle.CreateRelacionamentoLabel_descricao}" for="descricao" />
-                            <p:inputText id="descricao" value="#{relacionamentoCadastro.relacionamento.descricao}" title="#{bundle.CreateRelacionamentoTitle_descricao}" required="true" requiredMessage="#{bundle.CreateRelacionamentoRequiredMessage_descricao}"/>
-
-                        </p:panelGrid>   
-
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        <p:tabView id="tabView">
-
-                            <p:tab id="tab1" title="Contas bancárias">
-
-                                <p:toolbar id="toolbar" >  
-                                    <p:toolbarGroup align="left">  
-                                        <p:commandButton title="#{bundle.AddLink}"  action="#{relacionamentoCadastro.addContaBancaria}" icon="ui-icon-plus" ajax="false" />                                                
-                                    </p:toolbarGroup>  
-                                </p:toolbar>    
-
-                                <p:dataTable id="dataTableContasBancarias" value="#{relacionamentoCadastro.listaDeContasBancarias}" var="item"
-                                             rowStyleClass="jsfcrud_odd_row,jsfcrud_even_row" 
-                                             paginator="true" rows="5"  
-                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">  
-
-                                    <p:column >
-                                        <f:facet name="header">
-                                            <p:outputLabel value="#{bundle.ListRelacionamentoTitle_Descricao}"/>
-                                        </f:facet>
-                                        <p:outputLabel value="#{item.descricao}"/>
-                                    </p:column>
+                        <p:column>
+                            <p:commandButton title="#{bundle.EditLink}" actionListener="#{relacionamentoCadastro.edita}" icon="ui-icon-pencil" update=":form" />
+                            <p:commandButton title="#{bundle.DestroyLink}" actionListener="#{relacionamentoCadastro.exclui}" icon="ui-icon-trash" update=":form" />                            
+                        </p:column>                            
 
 
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <p:outputLabel value="&nbsp;"/>
-                                        </f:facet>
-                                        <p:commandButton title="#{bundle.RemoveLink}" action="#{relacionamentoCadastro.removeContaBancaria}" update=":form:tabela" ajax="false" icon="ui-icon-minus"/>
-                                    </p:column>
-                                </p:dataTable>                                 
-
-                            </p:tab>
+                    </p:dataTable>                         
 
 
 
+                </p:outputPanel>
 
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
+                <p:outputPanel rendered="#{relacionamentoCadastro.itemVisivel}">
+                    <p:toolbar>
+                        <p:toolbarGroup align="left"  >
+                            <p:commandButton title="#{bundle.SaveLink}" actionListener="#{relacionamentoCadastro.persiste}" update="form" icon="ui-icon-disk" />
+                            <p:commandButton title="#{bundle.VoltarLink}" actionListener="#{relacionamentoCadastro.mostraGrid}" update="form" immediate="true" icon="ui-icon-arrowreturnthick-1-w" />
+                        </p:toolbarGroup>
+                    </p:toolbar>
 
-                            <p:tab id="tab2" title="Contas contábeis">
+                    <p:panelGrid columns="2">
 
+                        <p:outputLabel value="#{bundle.CreateRelacionamentoLabel_descricao}" for="descricao" />
+                        <p:inputText id="descricao" value="#{relacionamentoCadastro.relacionamento.descricao}" title="#{bundle.CreateRelacionamentoTitle_descricao}" required="true" requiredMessage="#{bundle.CreateRelacionamentoRequiredMessage_descricao}"/>
+
+                    </p:panelGrid>   
 
 
-
-
-
-                            </p:tab>
-
-
-
-                        </p:tabView>
-
-
-
-
-                    </p:panel>
-
-                </h:form>
+                </p:outputPanel>
 
             </p:panel>                  
 
