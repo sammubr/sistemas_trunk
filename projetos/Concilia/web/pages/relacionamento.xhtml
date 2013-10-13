@@ -19,7 +19,7 @@
                         </p:toolbarGroup>  
                     </p:toolbar> 
 
-                    <p:dataTable id="dataTable" value="#{relacionamentoCadastro.listaDeRelacionamentos}" var="item"
+                    <p:dataTable id="dataTable1" value="#{relacionamentoCadastro.listaDeRelacionamentos}" var="item"
                                  rowStyleClass="jsfcrud_odd_row,jsfcrud_even_row" 
                                  paginator="true" rows="5"  
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">  
@@ -58,6 +58,64 @@
 
                     </p:panelGrid>   
 
+                    <p:tabView id="tabView">  
+
+                        <p:tab id="tab1" title="Contas contábeis">
+
+                            <p:toolbar >  
+                                <p:toolbarGroup align="left">  
+                                    <p:commandButton title="#{bundle.CreateLink}"  actionListener="#{relacionamentoCadastro.addContaContabil}" icon="ui-icon-plus" />                                                
+                                </p:toolbarGroup>  
+                            </p:toolbar>                             
+                            <p:dataTable id="dataTable2" value="#{relacionamentoCadastro.listaDeContasContabeis}" var="item"
+                                         rowStyleClass="jsfcrud_odd_row,jsfcrud_even_row" 
+                                         paginator="true" rows="5"  
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">  
+
+                                <p:column >
+                                    <f:facet name="header">
+                                        <p:outputLabel value="#{bundle.ListContaContabilTitle_descricao}"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{item.descricao}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <p:commandButton title="#{bundle.EditLink}" actionListener="#{relacionamentoCadastro.removeContaContabil}" icon="ui-icon-minus" />
+                                </p:column>                            
+
+
+                            </p:dataTable>                              
+
+                        </p:tab>
+
+                        <p:tab id="tab2" title="Contas bancárias">
+                            <p:toolbar >  
+                                <p:toolbarGroup align="left">  
+                                    <p:commandButton title="#{bundle.CreateLink}"  actionListener="#{relacionamentoCadastro.addContaBancaria}" icon="ui-icon-plus" />                                                
+                                </p:toolbarGroup>  
+                            </p:toolbar>                             
+                            <p:dataTable id="dataTable3" value="#{relacionamentoCadastro.listaDeContasBancarias}" var="item"
+                                         rowStyleClass="jsfcrud_odd_row,jsfcrud_even_row" 
+                                         paginator="true" rows="5"  
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">  
+
+                                <p:column >
+                                    <f:facet name="header">
+                                        <p:outputLabel value="#{bundle.ListContaBancariaTitle_descricao}"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{item.descricao}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <p:commandButton title="#{bundle.EditLink}" actionListener="#{relacionamentoCadastro.removeContaBancaria}" icon="ui-icon-minus" />
+                                </p:column>                            
+
+
+                            </p:dataTable>  
+
+                        </p:tab>
+
+                    </p:tabView>
 
                 </p:outputPanel>
 

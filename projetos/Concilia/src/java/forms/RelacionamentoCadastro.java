@@ -24,6 +24,7 @@ public class RelacionamentoCadastro implements Serializable {
     private RelContabilidadeBanco fRelacionamento;
     private DataModel fListaDeRelacionamentos;
     private DataModel fListaDeContasBancarias;
+    private DataModel fListaDeContasContabeis;
     private boolean fGridVisivel;
     private boolean fItemVisivel;
 
@@ -120,7 +121,7 @@ public class RelacionamentoCadastro implements Serializable {
 
     public void persiste() {
         fRelacionamento.persiste();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"),"");
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
         geraListaDeRelacionamentos();
         mostraGrid();
     }
@@ -128,16 +129,21 @@ public class RelacionamentoCadastro implements Serializable {
     public void exclui() {
         fRelacionamento = (RelContabilidadeBanco) getListaDeRelacionamentos().getRowData();
         fRelacionamento.exclui();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"),"");
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
         geraListaDeRelacionamentos();
 
     }
 
-    /**
-     * @return the listaDeContasBancarias
-     */
     public DataModel getListaDeContasBancarias() {
         return fListaDeContasBancarias;
+    }
+
+    public DataModel getListaDeContasContabeis() {
+        return fListaDeContasContabeis;
+    }
+
+    public void setListaDeContasContabeis(DataModel listaDeContasContabeis) {
+        this.fListaDeContasContabeis = listaDeContasContabeis;
     }
 
     /**
@@ -161,13 +167,17 @@ public class RelacionamentoCadastro implements Serializable {
         ContaBancaria contaBancaria = new ContaBancaria();
         this.fListaDeContasBancarias = new CollectionDataModel(contaBancaria.obter(null, null, ordem));
 
-
-
     }
-    
-    public void addContaBancaria(){
-        
+
+    public void addContaBancaria() {
     }
-    
-    
+
+    public void removeContaBancaria() {
+    }
+
+    public void addContaContabil() {
+    }
+
+    public void removeContaContabil() {
+    }
 }
