@@ -108,7 +108,7 @@
                     <p:panelGrid columns="2">
 
                         <p:outputLabel value="#{bundle.CreateContaContabilLabel_dataMov}" for="dataMov" />
-                        <p:calendar pattern="dd/MM/yyyy" id="dataMov" value="#{contaContabilMovimentos.contaContabilMovimento.dataMov}" title="#{bundle.CreateContaContabilMovimentoTitle_dataMov}" required="true" requiredMessage="#{bundle.CreateContaContabilMovimentoRequiredMessage_dataMov}"/>
+                        <p:calendar locale="pt" pattern="dd/MM/yyyy" id="dataMov" value="#{contaContabilMovimentos.contaContabilMovimento.dataMov}" title="#{bundle.CreateContaContabilMovimentoTitle_dataMov}" required="true" requiredMessage="#{bundle.CreateContaContabilMovimentoRequiredMessage_dataMov}"/>
 
                         <p:outputLabel value="#{bundle.CreateContaContabilLabel_valor}" for="valor" />
                         <p:inputText id="valor" value="#{contaContabilMovimentos.contaContabilMovimento.valor}" title="#{bundle.CreateContaContabilMovimentoTitle_valor}" required="true" requiredMessage="#{bundle.CreateContaContabilMovimentoRequiredMessage_valor}">

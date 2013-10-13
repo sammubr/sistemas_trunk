@@ -101,7 +101,7 @@
                     <p:panelGrid columns="2">
 
                         <p:outputLabel value="#{bundle.CreateContaBancariaLabel_dataMov}" for="dataMov" />
-                        <p:calendar pattern="dd/MM/yyyy" id="dataMov" value="#{contaBancariaMovimentos.contaBancariaMovimento.dataMov}" title="#{bundle.CreateContaBancariaMovimentoTitle_dataMov}" required="true" requiredMessage="#{bundle.CreateContaBancariaMovimentoRequiredMessage_dataMov}"/>
+                        <p:calendar locale="pt" pattern="dd/MM/yyyy" id="dataMov" value="#{contaBancariaMovimentos.contaBancariaMovimento.dataMov}" title="#{bundle.CreateContaBancariaMovimentoTitle_dataMov}" required="true" requiredMessage="#{bundle.CreateContaBancariaMovimentoRequiredMessage_dataMov}"/>
 
                         <p:outputLabel value="#{bundle.CreateContaBancariaLabel_valor}" for="valor" />
                         <p:inputText id="valor" value="#{contaBancariaMovimentos.contaBancariaMovimento.valor}" title="#{bundle.CreateContaBancariaMovimentoTitle_valor}" required="true" requiredMessage="#{bundle.CreateContaBancariaMovimentoRequiredMessage_valor}">
