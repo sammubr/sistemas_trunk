@@ -116,10 +116,28 @@ public class RelacionamentoCadastro implements Serializable {
     }
 
     public void persiste() {
-        fRelacionamento.persiste();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
-        geraListaDeRelacionamentos();
-        mostraGrid();
+        
+        if (validaDadosInseridos()) {
+
+            fRelacionamento.persiste();
+
+            for (ContaContabil conta : fListaDeContasContabeis) {
+                conta.setRelContabilidadeBanco(fRelacionamento);
+                conta.persiste();
+            }
+
+            for (ContaBancaria conta : fListaDeContasBancarias) {
+                conta.setRelContabilidadeBanco(fRelacionamento);
+                conta.persiste();
+            }
+
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
+            geraListaDeRelacionamentos();
+            mostraGrid();
+        } else {
+            JsfUtil.addErrorMessage("Erro ao gravar relacionamento!", "É necessário selecionar ao menos uma conta contábil e uma conta bancária");
+
+        }
     }
 
     public void exclui() {
@@ -165,5 +183,12 @@ public class RelacionamentoCadastro implements Serializable {
         ContaContabil conta = (ContaContabil) event.getObject();
         addContaContabil(conta);
         JsfUtil.addSuccessMessage("Conta selecionada!", "Descrição: " + conta.getDescricao());
+    }
+
+    private boolean validaDadosInseridos() {
+
+        return fListaDeContasContabeis.size() > 0 && fListaDeContasBancarias.size() > 0;
+
+
     }
 }
