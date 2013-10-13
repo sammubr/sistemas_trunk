@@ -9,15 +9,29 @@
 
         <ui:define name="conteudo">
 
+
             <p:panel id="formCadastro" header="#{bundle.FormCadastroRelacionamentos}" toggleable="false" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" >  
+
+
+
 
                 <p:outputPanel rendered="#{relacionamentoCadastro.gridVisivel}"  >
 
+
+
                     <p:toolbar id="toolbar" >  
+
+
+
+
+
+
                         <p:toolbarGroup align="left">  
                             <p:commandButton title="#{bundle.CreateLink}"  action="#{relacionamentoCadastro.criaNovo}" icon="ui-icon-document" update="form" />                                                
                         </p:toolbarGroup>  
                     </p:toolbar> 
+
+
 
                     <p:dataTable id="dataTable1" value="#{relacionamentoCadastro.listaDeRelacionamentos}" var="item"
                                  rowStyleClass="jsfcrud_odd_row,jsfcrud_even_row" 
@@ -41,9 +55,11 @@
 
 
 
+
                 </p:outputPanel>
 
                 <p:outputPanel rendered="#{relacionamentoCadastro.itemVisivel}">
+
                     <p:toolbar>
                         <p:toolbarGroup align="left"  >
                             <p:commandButton title="#{bundle.SaveLink}" actionListener="#{relacionamentoCadastro.persiste}" update="form" icon="ui-icon-disk" />
@@ -58,13 +74,35 @@
 
                     </p:panelGrid>   
 
+
+
                     <p:tabView id="tabView">  
 
                         <p:tab id="tab1" title="Contas contábeis">
 
+
+
+
                             <p:toolbar >  
                                 <p:toolbarGroup align="left">  
-                                    <p:commandButton title="#{bundle.CreateLink}"  actionListener="#{relacionamentoCadastro.addContaContabil}" icon="ui-icon-plus" />                                                
+
+
+
+
+                                    <p:commandButton  title="#{bundle.AddLink}" icon="ui-icon-plus" 
+                                                      action="#{relacionamentoCadastro.chooseContaContabil}" immediate="true">  
+                                        <p:ajax event="dialogReturn" listener="#{relacionamentoCadastro.onContaContabilChosen}" 
+                                                update=":form" />  
+                                    </p:commandButton>  
+
+
+
+
+
+
+
+
+
                                 </p:toolbarGroup>  
                             </p:toolbar>                             
                             <p:dataTable id="dataTable2" value="#{relacionamentoCadastro.listaDeContasContabeis}" var="item"
@@ -80,7 +118,7 @@
                                 </p:column>
 
                                 <p:column>
-                                    <p:commandButton title="#{bundle.EditLink}" actionListener="#{relacionamentoCadastro.removeContaContabil}" icon="ui-icon-minus" />
+                                    <p:commandButton title="#{bundle.DestroyLink}" actionListener="#{relacionamentoCadastro.removeContaContabil(item)}" immediate="true" icon="ui-icon-minus" update=":form" />
                                 </p:column>                            
 
 
@@ -91,7 +129,18 @@
                         <p:tab id="tab2" title="Contas bancárias">
                             <p:toolbar >  
                                 <p:toolbarGroup align="left">  
-                                    <p:commandButton title="#{bundle.CreateLink}"  actionListener="#{relacionamentoCadastro.addContaBancaria}" icon="ui-icon-plus" />                                                
+
+                                    <p:commandButton  title="#{bundle.AddLink}" icon="ui-icon-plus" 
+                                                      action="#{relacionamentoCadastro.chooseContaBancaria}" immediate="true">  
+                                        <p:ajax event="dialogReturn" listener="#{relacionamentoCadastro.onContaBancariaChosen}" 
+                                                update=":form" />  
+                                    </p:commandButton>                                      
+
+
+
+
+
+
                                 </p:toolbarGroup>  
                             </p:toolbar>                             
                             <p:dataTable id="dataTable3" value="#{relacionamentoCadastro.listaDeContasBancarias}" var="item"
@@ -105,9 +154,39 @@
                                     </f:facet>
                                     <p:outputLabel value="#{item.descricao}"/>
                                 </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <p:outputLabel value="#{bundle.ListContaBancariaTitle_banco}"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{item.banco.descricao}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <p:outputLabel value="#{bundle.ListContaBancariaTitle_agencia}"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{item.agencia}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <p:outputLabel value="#{bundle.ListContaBancariaTitle_agencia_digito}"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{item.agenciaDigito}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <p:outputLabel value="#{bundle.ListContaBancariaTitle_numero}"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{item.numero}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <p:outputLabel value="#{bundle.ListContaBancariaTitle_numero_digito}"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{item.numeroDigito}"/>
+                                </p:column>
 
                                 <p:column>
-                                    <p:commandButton title="#{bundle.EditLink}" actionListener="#{relacionamentoCadastro.removeContaBancaria}" icon="ui-icon-minus" />
+                                    <p:commandButton title="#{bundle.DestroyLink}" actionListener="#{relacionamentoCadastro.removeContaBancaria(item)}" immediate="true" icon="ui-icon-minus" update=":form" />                                      
                                 </p:column>                            
 
 

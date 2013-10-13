@@ -5,6 +5,7 @@
 package forms;
 
 import controls.ContaBancaria;
+import controls.ContaContabil;
 import controls.RelContabilidadeBanco;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 import util.JsfUtil;
 
 @Named("relacionamentoCadastro")
@@ -23,8 +26,8 @@ public class RelacionamentoCadastro implements Serializable {
 
     private RelContabilidadeBanco fRelacionamento;
     private DataModel fListaDeRelacionamentos;
-    private DataModel fListaDeContasBancarias;
-    private DataModel fListaDeContasContabeis;
+    private List<ContaBancaria> fListaDeContasBancarias;
+    private List<ContaContabil> fListaDeContasContabeis;
     private boolean fGridVisivel;
     private boolean fItemVisivel;
 
@@ -34,60 +37,52 @@ public class RelacionamentoCadastro implements Serializable {
         mostraGrid();
     }
 
-    /**
-     * @return the banco
-     */
     public RelContabilidadeBanco getRelacionamento() {
         return fRelacionamento;
     }
 
-    /**
-     * @param banco the banco to set
-     */
     public void setRelacionamento(RelContabilidadeBanco relacionamento) {
         this.fRelacionamento = relacionamento;
     }
 
-    /**
-     * @return the listaDeBancos
-     */
     public DataModel getListaDeRelacionamentos() {
         return fListaDeRelacionamentos;
     }
 
-    /**
-     * @param listaDeBancos the listaDeBancos to set
-     */
     public void setListaDeRelacionamentos(DataModel listaRelacionamentos) {
         this.fListaDeRelacionamentos = listaRelacionamentos;
     }
 
-    /**
-     * @return the gridVisivel
-     */
     public boolean isGridVisivel() {
         return fGridVisivel;
     }
 
-    /**
-     * @param gridVisivel the gridVisivel to set
-     */
     public void setGridVisivel(boolean gridVisivel) {
         this.fGridVisivel = gridVisivel;
     }
 
-    /**
-     * @return the itemVisivel
-     */
     public boolean isItemVisivel() {
         return fItemVisivel;
     }
 
-    /**
-     * @param itemVisivel the itemVisivel to set
-     */
     public void setItemVisivel(boolean itemVisivel) {
         this.fItemVisivel = itemVisivel;
+    }
+
+    public List<ContaContabil> getListaDeContasContabeis() {
+        return fListaDeContasContabeis;
+    }
+
+    public void setListaDeContasContabeis(List<ContaContabil> listaDeContasContabeis) {
+        this.fListaDeContasContabeis = listaDeContasContabeis;
+    }
+
+    public List<ContaBancaria> getListaDeContasBancarias() {
+        return fListaDeContasBancarias;
+    }
+
+    public void setListaDeContasBancarias(List<ContaBancaria> listaDeContasBancarias) {
+        this.fListaDeContasBancarias = listaDeContasBancarias;
     }
 
     private void geraListaDeRelacionamentos() {
@@ -110,7 +105,8 @@ public class RelacionamentoCadastro implements Serializable {
 
     public void criaNovo() {
         fRelacionamento = new RelContabilidadeBanco();
-        //geraListaDeContasBancarias();
+        fListaDeContasContabeis = new ArrayList<>();
+        fListaDeContasBancarias = new ArrayList<>();
         mostraItem();
     }
 
@@ -131,53 +127,43 @@ public class RelacionamentoCadastro implements Serializable {
         fRelacionamento.exclui();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
         geraListaDeRelacionamentos();
-
     }
 
-    public DataModel getListaDeContasBancarias() {
-        return fListaDeContasBancarias;
+    public void addContaBancaria(ContaBancaria conta) {
+        fListaDeContasBancarias.add(conta);
     }
 
-    public DataModel getListaDeContasContabeis() {
-        return fListaDeContasContabeis;
+    public void removeContaBancaria(ContaBancaria conta) {
+        fListaDeContasBancarias.remove(conta);
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
     }
 
-    public void setListaDeContasContabeis(DataModel listaDeContasContabeis) {
-        this.fListaDeContasContabeis = listaDeContasContabeis;
+    public void addContaContabil(ContaContabil conta) {
+        fListaDeContasContabeis.add(conta);
     }
 
-    /**
-     * @param listaDeContasBancarias the listaDeContasBancarias to set
-     */
-    public void setListaDeContasBancarias(DataModel listaDeContasBancarias) {
-        this.fListaDeContasBancarias = listaDeContasBancarias;
+    public void removeContaContabil(ContaContabil conta) {
+        fListaDeContasContabeis.remove(conta);
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
     }
 
-    private void geraListaDeContasBancarias() {
-
-//        List<String> atributos = new ArrayList<>();
-//        atributos.add("relContabilidadeBanco");
-
-//        List<Object> valores = new ArrayList<>();
-//        valores.add(fRelacionamento);
-
-        List<String> ordem = new ArrayList<>();
-        ordem.add("descricao");
-
-        ContaBancaria contaBancaria = new ContaBancaria();
-        this.fListaDeContasBancarias = new CollectionDataModel(contaBancaria.obter(null, null, ordem));
-
+    public void chooseContaContabil() {
+        RequestContext.getCurrentInstance().openDialog("contaContabil/selectContaContabil.xhtml");
     }
 
-    public void addContaBancaria() {
+    public void chooseContaBancaria() {
+        RequestContext.getCurrentInstance().openDialog("contaBancaria/selectContaBancaria.xhtml");
     }
 
-    public void removeContaBancaria() {
+    public void onContaBancariaChosen(SelectEvent event) {
+        ContaBancaria conta = (ContaBancaria) event.getObject();
+        addContaBancaria(conta);
+        JsfUtil.addSuccessMessage("Conta selecionada!", "Descrição: " + conta.getDescricao());
     }
 
-    public void addContaContabil() {
-    }
-
-    public void removeContaContabil() {
+    public void onContaContabilChosen(SelectEvent event) {
+        ContaContabil conta = (ContaContabil) event.getObject();
+        addContaContabil(conta);
+        JsfUtil.addSuccessMessage("Conta selecionada!", "Descrição: " + conta.getDescricao());
     }
 }

@@ -9,17 +9,15 @@
         <link href="/Concilia/css/layout.css" rel="stylesheet" type="text/css"/>
     </h:head>
 
-
-
-
     <h:body>
 
         <div class="top_block menu">
+
             <div class="content">
+
                 <h:form>  
 
                     <p:menubar autoDisplay="false" > 
-
 
                         <p:submenu label="Cadastros">
                             <p:menuitem value="Usuários" url="/pages/usuario/cadastro.xhtml" />  
@@ -27,51 +25,36 @@
                             <p:menuitem value="Contas bancárias" url="/pages/contaBancaria/cadastro.xhtml" />  
                             <p:menuitem value="Contas contábeis" url="/pages/contaContabil/cadastro.xhtml" /> 
                             <p:menuitem value="Relacionamentos" url="/pages/relacionamento.xhtml" /> 
-
-
                         </p:submenu>
 
-
-
                         <p:submenu label="Movimentações" >
-
 
                             <p:submenu label="Contas bancárias">
                                 <p:menuitem value="Cadastrar movimento" url="/pages/contaBancaria/movimentos.xhtml" />  
                                 <p:menuitem value="Importar arquivo" url="/pages/contaBancaria/importarArquivo.xhtml" />  
-
                             </p:submenu>
 
                             <p:submenu label="Contas contábeis">
                                 <p:menuitem value="Cadastrar movimento" url="/pages/contaContabil/movimentos.xhtml" />  
                                 <p:menuitem value="Importar arquivo" url="/pages/contaContabil/importarArquivo.xhtml" />  
-
                             </p:submenu>
 
-
-
                         </p:submenu>
-
 
                         <p:submenu label="Relatórios">
 
-
                         </p:submenu>
-
 
                         <p:menuitem value="Logoff" url="/login.xhtml" />  
 
-
-
-
                     </p:menubar>
-
-
 
                 </h:form>
 
             </div>
+
         </div>
+
     </h:body>
 
 </html>

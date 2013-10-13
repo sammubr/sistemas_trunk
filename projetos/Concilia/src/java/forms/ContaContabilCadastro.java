@@ -14,6 +14,7 @@ import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 import util.JsfUtil;
 
 @Named("contaContabilCadastro")
@@ -31,58 +32,34 @@ public class ContaContabilCadastro implements Serializable {
         mostraGrid();
     }
 
-    /**
-     * @return the contaContabil
-     */
     public ContaContabil getContaContabil() {
         return fContaContabil;
     }
 
-    /**
-     * @param contaContabil the contaContabil to set
-     */
     public void setContaContabil(ContaContabil contaContabil) {
         this.fContaContabil = contaContabil;
     }
 
-    /**
-     * @return the listaDeContasContabeis
-     */
     public DataModel getListaDeContasContabeis() {
         return fListaDeContasContabeis;
     }
 
-    /**
-     * @param listaDeContaContasbeis the listaDeContasContabeis to set
-     */
     public void setListaDeContaContabils(DataModel listaContasContabeis) {
         this.fListaDeContasContabeis = listaContasContabeis;
     }
 
-    /**
-     * @return the gridVisivel
-     */
     public boolean isGridVisivel() {
         return fGridVisivel;
     }
 
-    /**
-     * @param gridVisivel the gridVisivel to set
-     */
     public void setGridVisivel(boolean gridVisivel) {
         this.fGridVisivel = gridVisivel;
     }
 
-    /**
-     * @return the itemVisivel
-     */
     public boolean isItemVisivel() {
         return fItemVisivel;
     }
 
-    /**
-     * @param itemVisivel the itemVisivel to set
-     */
     public void setItemVisivel(boolean itemVisivel) {
         this.fItemVisivel = itemVisivel;
     }
@@ -102,7 +79,6 @@ public class ContaContabilCadastro implements Serializable {
     public void mostraItem() {
         setGridVisivel(false);
         setItemVisivel(true);
-
     }
 
     public void criaNovo() {
@@ -117,17 +93,16 @@ public class ContaContabilCadastro implements Serializable {
 
     public void persiste() {
         fContaContabil.persiste();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"),"");
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
         geraListaDeContasContabeis();
         mostraGrid();
-
     }
 
     public void exclui() {
         fContaContabil = (ContaContabil) getListaDeContasContabeis().getRowData();
         fContaContabil.exclui();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"),"");
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
         geraListaDeContasContabeis();
-
     }
+
 }
