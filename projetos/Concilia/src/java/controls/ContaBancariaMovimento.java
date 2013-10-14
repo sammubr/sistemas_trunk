@@ -38,8 +38,10 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaBancariaMovimento.findByValor", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.valor = :valor"),
     @NamedQuery(name = "ContaBancariaMovimento.findByNumdoc", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.numdoc = :numdoc"),
     @NamedQuery(name = "ContaBancariaMovimento.findByHistorico", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.historico = :historico"),
-    @NamedQuery(name = "ContaBancariaMovimento.findByIdcontaBancariaMovimento", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.idcontaBancariaMovimento = :idcontaBancariaMovimento")})
-public class ContaBancariaMovimento extends Persistencia  implements Serializable {
+    @NamedQuery(name = "ContaBancariaMovimento.findByIdcontaBancariaMovimento", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.idcontaBancariaMovimento = :idcontaBancariaMovimento"),
+    @NamedQuery(name = "ContaBancariaMovimento.findBySaldo", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.saldo = :saldo")})
+public class ContaBancariaMovimento extends Persistencia implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
     @Column(name = "data_mov")
@@ -160,7 +162,5 @@ public class ContaBancariaMovimento extends Persistencia  implements Serializabl
     public String toString() {
         return "controls.ContaBancariaMovimento[ idcontaBancariaMovimento=" + idcontaBancariaMovimento + " ]";
     }
-    
-    
     
 }

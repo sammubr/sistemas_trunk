@@ -7,8 +7,10 @@ package controls;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +21,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import persistencia.Persistencia;
 
 /**
@@ -33,6 +37,7 @@ import persistencia.Persistencia;
     @NamedQuery(name = "RelContabilidadeBanco.findById", query = "SELECT r FROM RelContabilidadeBanco r WHERE r.id = :id"),
     @NamedQuery(name = "RelContabilidadeBanco.findByDescricao", query = "SELECT r FROM RelContabilidadeBanco r WHERE r.descricao = :descricao")})
 public class RelContabilidadeBanco extends Persistencia implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,9 +47,11 @@ public class RelContabilidadeBanco extends Persistencia implements Serializable 
     @Size(max = 50)
     @Column(name = "descricao")
     private String descricao;
-    @OneToMany(mappedBy = "relContabilidadeBanco")
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "relContabilidadeBanco")
+    @Fetch(FetchMode.SUBSELECT)
     private Collection<ContaContabil> contaContabilCollection;
-    @OneToMany(mappedBy = "relContabilidadeBanco")
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "relContabilidadeBanco")
+    @Fetch(FetchMode.SUBSELECT)
     private Collection<ContaBancaria> contaBancariaCollection;
 
     public RelContabilidadeBanco() {
@@ -112,5 +119,4 @@ public class RelContabilidadeBanco extends Persistencia implements Serializable 
     public String toString() {
         return "controls.RelContabilidadeBanco[ id=" + id + " ]";
     }
-    
 }

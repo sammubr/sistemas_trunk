@@ -35,9 +35,17 @@ import persistencia.Persistencia;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ContaContabil.findAll", query = "SELECT c FROM ContaContabil c"),
+    @NamedQuery(name = "ContaContabil.findByIdcontaContabil", query = "SELECT c FROM ContaContabil c WHERE c.idcontaContabil = :idcontaContabil"),
     @NamedQuery(name = "ContaContabil.findByDescricao", query = "SELECT c FROM ContaContabil c WHERE c.descricao = :descricao"),
-    @NamedQuery(name = "ContaContabil.findByIdcontaContabil", query = "SELECT c FROM ContaContabil c WHERE c.idcontaContabil = :idcontaContabil")})
+    @NamedQuery(name = "ContaContabil.findBySaldoInicial", query = "SELECT c FROM ContaContabil c WHERE c.saldoInicial = :saldoInicial"),
+    @NamedQuery(name = "ContaContabil.findByTagValor", query = "SELECT c FROM ContaContabil c WHERE c.tagValor = :tagValor"),
+    @NamedQuery(name = "ContaContabil.findByTagData", query = "SELECT c FROM ContaContabil c WHERE c.tagData = :tagData"),
+    @NamedQuery(name = "ContaContabil.findByTagNumDoc", query = "SELECT c FROM ContaContabil c WHERE c.tagNumDoc = :tagNumDoc"),
+    @NamedQuery(name = "ContaContabil.findByTagInicioMovimento", query = "SELECT c FROM ContaContabil c WHERE c.tagInicioMovimento = :tagInicioMovimento"),
+    @NamedQuery(name = "ContaContabil.findByTagFimMovimento", query = "SELECT c FROM ContaContabil c WHERE c.tagFimMovimento = :tagFimMovimento"),
+    @NamedQuery(name = "ContaContabil.findByTagHistorico", query = "SELECT c FROM ContaContabil c WHERE c.tagHistorico = :tagHistorico")})
 public class ContaContabil extends Persistencia implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -200,6 +208,5 @@ public class ContaContabil extends Persistencia implements Serializable {
     public String toString() {
         return "controls.ContaContabil[ idcontaContabil=" + idcontaContabil + " ]";
     }
-    
     
 }

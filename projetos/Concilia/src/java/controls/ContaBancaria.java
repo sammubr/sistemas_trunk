@@ -45,8 +45,11 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaBancaria.findByTagValor", query = "SELECT c FROM ContaBancaria c WHERE c.tagValor = :tagValor"),
     @NamedQuery(name = "ContaBancaria.findByTagData", query = "SELECT c FROM ContaBancaria c WHERE c.tagData = :tagData"),
     @NamedQuery(name = "ContaBancaria.findByTagNumDoc", query = "SELECT c FROM ContaBancaria c WHERE c.tagNumDoc = :tagNumDoc"),
-    @NamedQuery(name = "ContaBancaria.findByTagHistorico", query = "SELECT c FROM ContaBancaria c WHERE c.tagHistorico = :tagHistorico")})
+    @NamedQuery(name = "ContaBancaria.findByTagHistorico", query = "SELECT c FROM ContaBancaria c WHERE c.tagHistorico = :tagHistorico"),
+    @NamedQuery(name = "ContaBancaria.findByTagInicioMovimento", query = "SELECT c FROM ContaBancaria c WHERE c.tagInicioMovimento = :tagInicioMovimento"),
+    @NamedQuery(name = "ContaBancaria.findByTagFimMovimento", query = "SELECT c FROM ContaBancaria c WHERE c.tagFimMovimento = :tagFimMovimento")})
 public class ContaBancaria extends Persistencia implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Column(name = "agencia")
     private Integer agencia;
     @Column(name = "agencia_digito")

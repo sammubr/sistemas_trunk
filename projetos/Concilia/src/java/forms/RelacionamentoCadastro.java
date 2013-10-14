@@ -28,6 +28,8 @@ public class RelacionamentoCadastro implements Serializable {
     private DataModel fListaDeRelacionamentos;
     private List<ContaBancaria> fListaDeContasBancarias;
     private List<ContaContabil> fListaDeContasContabeis;
+    private List<ContaBancaria> fListaDeContasBancariasExcluidas;
+    private List<ContaContabil> fListaDeContasContabeisExcluidas;
     private boolean fGridVisivel;
     private boolean fItemVisivel;
 
@@ -112,13 +114,17 @@ public class RelacionamentoCadastro implements Serializable {
 
     public void edita() {
         setRelacionamento((RelContabilidadeBanco) getListaDeRelacionamentos().getRowData());
+        fListaDeContasContabeis = (List<ContaContabil>) getRelacionamento().getContaContabilCollection();
+        fListaDeContasBancarias = (List<ContaBancaria>) getRelacionamento().getContaBancariaCollection();
         mostraItem();
     }
 
     public void persiste() {
-        
+
         if (validaDadosInseridos()) {
 
+            fRelacionamento.setContaBancariaCollection(fListaDeContasBancarias);
+            fRelacionamento.setContaContabilCollection(fListaDeContasContabeis);
             fRelacionamento.persiste();
 
             for (ContaContabil conta : fListaDeContasContabeis) {
@@ -148,7 +154,12 @@ public class RelacionamentoCadastro implements Serializable {
     }
 
     public void addContaBancaria(ContaBancaria conta) {
-        fListaDeContasBancarias.add(conta);
+        if (fListaDeContasBancarias.contains(conta)) {
+            JsfUtil.addErrorMessage("Erro!", "A conta já está selecionada!");
+        } else {
+            fListaDeContasBancarias.add(conta);
+            JsfUtil.addSuccessMessage("Conta selecionada!", "Descrição: " + conta.getDescricao());
+        }
     }
 
     public void removeContaBancaria(ContaBancaria conta) {
@@ -157,7 +168,12 @@ public class RelacionamentoCadastro implements Serializable {
     }
 
     public void addContaContabil(ContaContabil conta) {
-        fListaDeContasContabeis.add(conta);
+        if (fListaDeContasContabeis.contains(conta)) {
+            JsfUtil.addErrorMessage("Erro!", "A conta já está selecionada!");
+        } else {
+            fListaDeContasContabeis.add(conta);
+            JsfUtil.addSuccessMessage("Conta selecionada!", "Descrição: " + conta.getDescricao());
+        }
     }
 
     public void removeContaContabil(ContaContabil conta) {
@@ -165,30 +181,65 @@ public class RelacionamentoCadastro implements Serializable {
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
     }
 
-    public void chooseContaContabil() {
-        RequestContext.getCurrentInstance().openDialog("contaContabil/selectContaContabil.xhtml");
+    public DataModel contasContabeisSemRelacionamento() {
+
+        List<String> atributos = new ArrayList<>();
+        atributos.add("relContabilidadeBanco");
+
+        List<Object> valores = new ArrayList<>();
+        valores.add(null);
+
+        List<String> ordem = new ArrayList<>();
+        ordem.add("descricao");
+
+        ContaContabil conta = new ContaContabil();
+        DataModel lista = new CollectionDataModel(conta.obter(atributos, valores, ordem));
+        return lista;
     }
 
-    public void chooseContaBancaria() {
-        RequestContext.getCurrentInstance().openDialog("contaBancaria/selectContaBancaria.xhtml");
+    public DataModel contasBancariasSemRelacionamento() {
+
+        List<String> atributos = new ArrayList<>();
+        atributos.add("relContabilidadeBanco");
+
+        List<Object> valores = new ArrayList<>();
+        valores.add(null);
+
+        List<String> ordem = new ArrayList<>();
+        ordem.add("descricao");
+
+        ContaBancaria conta = new ContaBancaria();
+        DataModel lista = new CollectionDataModel(conta.obter(atributos, valores, ordem));
+        return lista;
     }
 
     public void onContaBancariaChosen(SelectEvent event) {
         ContaBancaria conta = (ContaBancaria) event.getObject();
         addContaBancaria(conta);
-        JsfUtil.addSuccessMessage("Conta selecionada!", "Descrição: " + conta.getDescricao());
     }
 
     public void onContaContabilChosen(SelectEvent event) {
         ContaContabil conta = (ContaContabil) event.getObject();
         addContaContabil(conta);
-        JsfUtil.addSuccessMessage("Conta selecionada!", "Descrição: " + conta.getDescricao());
     }
 
     private boolean validaDadosInseridos() {
-
         return fListaDeContasContabeis.size() > 0 && fListaDeContasBancarias.size() > 0;
+    }
 
+    public List<ContaBancaria> getfListaDeContasBancariasExcluidas() {
+        return fListaDeContasBancariasExcluidas;
+    }
 
+    public void setfListaDeContasBancariasExcluidas(List<ContaBancaria> fListaDeContasBancariasExcluidas) {
+        this.fListaDeContasBancariasExcluidas = fListaDeContasBancariasExcluidas;
+    }
+
+    public List<ContaContabil> getfListaDeContasContabeisExcluidas() {
+        return fListaDeContasContabeisExcluidas;
+    }
+
+    public void setfListaDeContasContabeisExcluidas(List<ContaContabil> fListaDeContasContabeisExcluidas) {
+        this.fListaDeContasContabeisExcluidas = fListaDeContasContabeisExcluidas;
     }
 }

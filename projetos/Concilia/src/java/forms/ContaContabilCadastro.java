@@ -14,7 +14,6 @@ import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import org.primefaces.context.RequestContext;
 import util.JsfUtil;
 
 @Named("contaContabilCadastro")

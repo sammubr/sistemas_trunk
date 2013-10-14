@@ -7,6 +7,7 @@ package controls;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,29 +32,27 @@ import persistencia.Persistencia;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Banco.findAll", query = "SELECT b FROM Banco b"),
-    @NamedQuery(name = "Banco.findByDescricao", query = "SELECT b FROM Banco b WHERE b.descricao = :descricao"),
     @NamedQuery(name = "Banco.findByCodigo", query = "SELECT b FROM Banco b WHERE b.codigo = :codigo"),
-    @NamedQuery(name = "Banco.findByIdbanco", query = "SELECT b FROM Banco b WHERE b.idbanco = :idbanco")})
+    @NamedQuery(name = "Banco.findByIdbanco", query = "SELECT b FROM Banco b WHERE b.idbanco = :idbanco"),
+    @NamedQuery(name = "Banco.findByDescricao", query = "SELECT b FROM Banco b WHERE b.descricao = :descricao")})
 public class Banco extends Persistencia implements Serializable {
-    @OneToMany(mappedBy = "banco")
-    private Collection<ContaBancaria> contaBancariaCollection;
     private static final long serialVersionUID = 1L;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "codigo")
+    private int codigo;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idbanco")
     private Integer idbanco;
-    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "descricao")
     private String descricao;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "codigo")
-    private int codigo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "banco")
+    private Collection<ContaBancaria> contaBancariaCollection;
 
     public Banco() {
     }
@@ -62,18 +61,9 @@ public class Banco extends Persistencia implements Serializable {
         this.idbanco = idbanco;
     }
 
-    public Banco(Integer idbanco, String descricao, int codigo) {
+    public Banco(Integer idbanco, int codigo, String descricao) {
         this.idbanco = idbanco;
-        this.descricao = descricao;
         this.codigo = codigo;
-    }
-
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
@@ -91,6 +81,23 @@ public class Banco extends Persistencia implements Serializable {
 
     public void setIdbanco(Integer idbanco) {
         this.idbanco = idbanco;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    @XmlTransient
+    public Collection<ContaBancaria> getContaBancariaCollection() {
+        return contaBancariaCollection;
+    }
+
+    public void setContaBancariaCollection(Collection<ContaBancaria> contaBancariaCollection) {
+        this.contaBancariaCollection = contaBancariaCollection;
     }
 
     @Override
@@ -116,15 +123,6 @@ public class Banco extends Persistencia implements Serializable {
     @Override
     public String toString() {
         return "controls.Banco[ idbanco=" + idbanco + " ]";
-    }
-
-    @XmlTransient
-    public Collection<ContaBancaria> getContaBancariaCollection() {
-        return contaBancariaCollection;
-    }
-
-    public void setContaBancariaCollection(Collection<ContaBancaria> contaBancariaCollection) {
-        this.contaBancariaCollection = contaBancariaCollection;
     }
     
 }

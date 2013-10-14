@@ -90,7 +90,8 @@
 
 
                                     <p:commandButton  title="#{bundle.AddLink}" icon="ui-icon-plus" 
-                                                      action="#{relacionamentoCadastro.chooseContaContabil}" immediate="true">  
+                                                      action="#{dialogSelecionaContaContabil.abre}" immediate="true">  
+                                        <f:setPropertyActionListener target="#{dialogSelecionaContaContabil.listaDeContasContabeis}" value="#{relacionamentoCadastro.contasContabeisSemRelacionamento()}" />
                                         <p:ajax event="dialogReturn" listener="#{relacionamentoCadastro.onContaContabilChosen}" 
                                                 update=":form" />  
                                     </p:commandButton>  
@@ -131,11 +132,11 @@
                                 <p:toolbarGroup align="left">  
 
                                     <p:commandButton  title="#{bundle.AddLink}" icon="ui-icon-plus" 
-                                                      action="#{relacionamentoCadastro.chooseContaBancaria}" immediate="true">  
+                                                      action="#{dialogSelecionaContaBancaria.abre}" immediate="true">  
+                                        <f:setPropertyActionListener target="#{dialogSelecionaContaBancaria.listaDeContasBancarias}" value="#{relacionamentoCadastro.contasBancariasSemRelacionamento()}" />
                                         <p:ajax event="dialogReturn" listener="#{relacionamentoCadastro.onContaBancariaChosen}" 
                                                 update=":form" />  
-                                    </p:commandButton>                                      
-
+                                    </p:commandButton>  
 
 
 

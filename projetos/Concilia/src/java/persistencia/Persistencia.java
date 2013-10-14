@@ -71,7 +71,11 @@ public class Persistencia {
             Criteria crit = session.createCriteria(this.getClass());
             if (atributos != null) {
                 for (int i = 0; i < atributos.size(); i++) {
-                    crit.add(Restrictions.eq(atributos.get(i), valores.get(i)));
+                    if (valores.get(i) == null) {
+                        crit.add(Restrictions.isNull(atributos.get(i)));
+                    } else {
+                        crit.add(Restrictions.eq(atributos.get(i), valores.get(i)));
+                    }
                 }
             }
             if (ordem != null) {

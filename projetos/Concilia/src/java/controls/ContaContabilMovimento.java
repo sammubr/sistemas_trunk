@@ -38,8 +38,10 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaContabilMovimento.findByDataMov", query = "SELECT c FROM ContaContabilMovimento c WHERE c.dataMov = :dataMov"),
     @NamedQuery(name = "ContaContabilMovimento.findByValor", query = "SELECT c FROM ContaContabilMovimento c WHERE c.valor = :valor"),
     @NamedQuery(name = "ContaContabilMovimento.findByNumdoc", query = "SELECT c FROM ContaContabilMovimento c WHERE c.numdoc = :numdoc"),
-    @NamedQuery(name = "ContaContabilMovimento.findByHistorico", query = "SELECT c FROM ContaContabilMovimento c WHERE c.historico = :historico")})
+    @NamedQuery(name = "ContaContabilMovimento.findByHistorico", query = "SELECT c FROM ContaContabilMovimento c WHERE c.historico = :historico"),
+    @NamedQuery(name = "ContaContabilMovimento.findBySaldo", query = "SELECT c FROM ContaContabilMovimento c WHERE c.saldo = :saldo")})
 public class ContaContabilMovimento extends Persistencia implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -160,6 +162,5 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
     public String toString() {
         return "controls.ContaContabilMovimento[ idcontaContabilMovimento=" + idcontaContabilMovimento + " ]";
     }
-    
     
 }
