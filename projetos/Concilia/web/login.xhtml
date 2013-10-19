@@ -1,50 +1,45 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      lang="pt-br">
 
-    <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
 
-        <!-- CSS -->
+        <title>Sistema de conciliação bancária</title>
 
-        <link rel="stylesheet" href="/Concilia/css/login/reset.css"/>
-        <link rel="stylesheet" href="/Concilia/css/login/animate.css"/>
-        <link rel="stylesheet" href="/Concilia/css/login/styles.css"/>
+        <!-- Bootstrap core CSS -->
+        <link href="/Concilia/resources/bootstrap-3.0.0/dist/css/bootstrap.css" rel="stylesheet"/>
 
+        <!-- Custom styles for this template -->
+        <link href="/Concilia/resources/css/signin.css" rel="stylesheet"/>
 
-    </h:head>
-    <h:body>
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="../../assets/js/html5shiv.js"></script>
+          <script src="../../assets/js/respond.min.js"></script>
+        <![endif]-->
+    </head>
 
-        <div id="container">
+    <body>
 
-            <form method="POST" action="/Concilia/Login">
-                <h:form accept="POST" target="/Concilia/Login">
-                    
-                    <h:messages id="messages"/>  
+        <div class="container">
 
-                    <h:outputLabel for="username">#{bundle.CreateUsuarioLabel_login}</h:outputLabel>
-                    <td><input class="campo" type="text" name="login" /></td>
-
-                    <h:outputLabel  for="password">#{bundle.CreateUsuarioLabel_senha}</h:outputLabel>
-
-                    <td><input class="campo" type="password" name="senha" /></td>
-
-                    <div id="lower">
-                        <td colspan="2" align="center"><input type="submit" value="#{bundle.LoginButtonLogin}" /></td>
-                    </div><!--/ lower-->
-
-                </h:form>
+            <form class="form-signin" method="POST" action="/Concilia/Login">
+                <h2 class="form-signin-heading">Login</h2>
+                <input name="login" type="text" class="form-control" placeholder="Usuário" autofocus="true"/>
+                <input name="senha" type="password" class="form-control" placeholder="Senha"/>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Logar</button>
             </form>
 
-        </div><!--/ container-->
+        </div> <!-- /container -->
 
 
-
-
-
-
-    </h:body>
-
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+    </body>
 </html>
-

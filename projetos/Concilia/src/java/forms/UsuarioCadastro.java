@@ -22,13 +22,10 @@ public class UsuarioCadastro implements Serializable {
 
     private Usuario fUsuario;
     private DataModel fListaDeUsuarios;
-    private boolean fGridVisivel;
-    private boolean fItemVisivel;
 
     @PostConstruct
     public void abreForm() {
         geraListaDeUsuarios();
-        mostraGrid();
     }
 
     /**
@@ -59,34 +56,6 @@ public class UsuarioCadastro implements Serializable {
         this.fListaDeUsuarios = listaUsuarios;
     }
 
-    /**
-     * @return the gridVisivel
-     */
-    public boolean isGridVisivel() {
-        return fGridVisivel;
-    }
-
-    /**
-     * @param gridVisivel the gridVisivel to set
-     */
-    public void setGridVisivel(boolean gridVisivel) {
-        this.fGridVisivel = gridVisivel;
-    }
-
-    /**
-     * @return the itemVisivel
-     */
-    public boolean isItemVisivel() {
-        return fItemVisivel;
-    }
-
-    /**
-     * @param itemVisivel the itemVisivel to set
-     */
-    public void setItemVisivel(boolean itemVisivel) {
-        this.fItemVisivel = itemVisivel;
-    }
-
     private void geraListaDeUsuarios() {
         List<String> ordem = new ArrayList<>();
         ordem.add("nome");
@@ -94,32 +63,18 @@ public class UsuarioCadastro implements Serializable {
         this.fListaDeUsuarios = new CollectionDataModel(usuario.obter(null, null, ordem));
     }
 
-    public void mostraGrid() {
-        setGridVisivel(true);
-        setItemVisivel(false);
-    }
-
-    public void mostraItem() {
-        setGridVisivel(false);
-        setItemVisivel(true);
-
-    }
-
     public void criaNovo() {
         fUsuario = new Usuario();
-        mostraItem();
     }
 
     public void edita() {
         setUsuario((Usuario) getListaDeUsuarios().getRowData());
-        mostraItem();
     }
 
     public void persiste() {
         fUsuario.persiste();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
         geraListaDeUsuarios();
-        mostraGrid();
 
     }
 

@@ -1,14 +1,126 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
 
-    <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="/Concilia/css/layout.css" rel="stylesheet" type="text/css"/>
+        <title>Sistema de conciliação bancária</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="/Concilia/resources/bootstrap-3.0.0/dist/css/bootstrap.css" rel="stylesheet"/>
+
+        <!-- Custom styles for this template -->
+        <link href="/Concilia/resources/css/sticky-footer-navbar.css" rel="stylesheet"/>
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="../../assets/js/html5shiv.js"></script>
+          <script src="../../assets/js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <!-- Wrap all page content here -->
+        <div id="wrap">
+
+            <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Concilia</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Cadastros <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/Concilia/pages/usuario/cadastro.xhtml">Usuários</a></li>
+                                    <li><a href="/Concilia/pages/banco/cadastro.xhtml">Bancos</a></li>
+                                    <li><a href="/Concilia/pages/contaBancaria/cadastro.xhtml">Contas bancárias</a></li>
+                                    <li><a href="/Concilia/pages/contaContabil/cadastro.xhtml">Contas contábeis</a></li>
+                                    <li><a href="/Concilia/pages/relacionamento/cadastro.xhtml">Relacionamentos</a></li>
+                                </ul>
+                            </li>
+
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Movimentações <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#about">Contas bancárias</a></li>
+                                    <li><a href="#about">Contas contábeis</a></li>
+
+                                </ul>
+                            </li>
+
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Relatórios <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#about">About 1</a></li>
+                                    <li><a href="#about">About 2</a></li>
+                                    <li><a href="#about">About 3</a></li>
+                                    <li><a href="#about">About 4</a></li>
+                                </ul>
+                            </li>
+
+
+
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuário <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Alterar usuário</a></li>
+                                    <li><a href="#">Loggoff</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </div><!-- /.nav-collapse -->
+                </div><!-- /.container -->
+            </div><!-- /.navbar -->
+
+            <!-- Begin page content -->
+            <div class="container">
+
+                <p:growl id="growl" sticky="false" life="5000" showDetail="true" />
+
+
+                <ui:insert name="conteudo"></ui:insert>
+
+            </div>
+        </div>
+
+        <div id="footer">
+            <div class="container">
+                <p class="text-muted credit">sammubr@gmail.com</p>
+            </div>
+        </div>
+
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="/Concilia/resources/bootstrap-3.0.0/assets/js/jquery.js"></script>
+        <script src="/Concilia/resources/bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
         <script>
             PrimeFaces.locales['pt'] = {
                 closeText: 'Fechar',
@@ -37,48 +149,5 @@
                 allDayText: 'Todo o Dia'
             };
         </script>
-    </h:head>
-
-    <h:body>
-
-        <f:view encoding="ISO-8859-1"> 
-
-            <div class="content">
-                <div class="top_block menu">
-                    <div class="content">
-
-                        <ui:insert name="topo" >
-                            <ui:include src="templates/menu.xhtml" />
-                        </ui:insert>
-
-                    </div>
-                </div>
-
-                <h:form id="form" enctype="multipart/form-data" >
-                    <p:growl id="growl" sticky="false" life="5000" showDetail="true" />
-                                       
-                    
-                    
-                    <ui:insert name="conteudo"></ui:insert>
-                </h:form>
-
-
-                <div class="bottom_block rodape">
-                    <div class="content">
-
-                        <ui:insert name="rodape" >
-                            <ui:include src="templates/rodape.xhtml" />
-                        </ui:insert>     
-
-
-                    </div>
-                </div>
-
-            </div>
-
-        </f:view>
-
-    </h:body>
-
-
+    </body>
 </html>
