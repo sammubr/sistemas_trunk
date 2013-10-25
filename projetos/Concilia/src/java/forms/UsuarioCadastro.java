@@ -4,11 +4,9 @@
  */
 package forms;
 
-import com.sun.xml.bind.util.ListImpl;
 import controls.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -27,38 +25,32 @@ import util.JsfUtil;
 public class UsuarioCadastro implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
-    private Usuario usuario;
+    private Usuario item;
     private SortableDataModel<Usuario> lista;
     private boolean sortAscending = true;
-    private String filtro;
-    private Collection<Usuario> selectedDataList;
-    ;
-    private boolean selecionado;
-    private List<Usuario> selectedCars;
-    private List<Usuario> usuariosFiltrados;
+    private List<Usuario> itensSelecionados;
+    private String ordem;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
     public UsuarioCadastro() {
-        geraListaDeUsuarios();
+        ordem = "nome";
+        geraLista();
     }
 
-    private void geraListaDeUsuarios() {
+    private void geraLista() {
         Usuario consultaUsuario = new Usuario();
-        lista = new SortableDataModel<>(new CollectionDataModel(consultaUsuario.obter(null, null, null)));
-        usuariosFiltrados = new ArrayList<>();
-        for (int i = 0; i < this.lista.getRowCount(); i++) {
-            this.lista.setRowIndex(i);
-            usuariosFiltrados.add((Usuario) this.lista.getRowData());
-        }
+        List<String> ordem_temp = new ArrayList<>();
+        ordem_temp.add(ordem);
+        lista = new SortableDataModel<>(new CollectionDataModel(consultaUsuario.obter(null, null, ordem_temp)));
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
     public Usuario getUsuario() {
-        return usuario;
+        return item;
     }
 
     public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+        this.item = usuario;
     }
 
     public SortableDataModel<Usuario> getLista() {
@@ -77,12 +69,20 @@ public class UsuarioCadastro implements Serializable {
         this.sortAscending = sortAscending;
     }
 
-    public String getFiltro() {
-        return filtro;
+    public List<Usuario> getItensSelecionados() {
+        return itensSelecionados;
     }
 
-    public void setFiltro(String filtro) {
-        this.filtro = filtro;
+    public void setItensSelecionados(List<Usuario> itensSelecionados) {
+        this.itensSelecionados = itensSelecionados;
+    }
+
+    public String getOrdem() {
+        return ordem;
+    }
+
+    public void setOrdem(String ordem) {
+        this.ordem = ordem;
     }
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
@@ -93,7 +93,7 @@ public class UsuarioCadastro implements Serializable {
 
     public String persiste() {
         getUsuario().persiste();
-        geraListaDeUsuarios();
+        geraLista();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
         return "cadastroList.xhtml";
     }
@@ -104,10 +104,10 @@ public class UsuarioCadastro implements Serializable {
     }
 
     public void exclui() {
-        for (Usuario usuario2 : selectedCars) {
+        for (Usuario usuario2 : itensSelecionados) {
             usuario2.exclui();
         }
-        geraListaDeUsuarios();
+        geraLista();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
     }
 
@@ -118,6 +118,7 @@ public class UsuarioCadastro implements Serializable {
 // -------------------------------------------------------------- ORDEM DO GRID
 
     public String sortByNome() {
+        setOrdem("nome");
         if (isSortAscending()) {
             getLista().sortBy(new Comparator<Usuario>() {
                 @Override
@@ -140,6 +141,7 @@ public class UsuarioCadastro implements Serializable {
     }
 
     public String sortByLogin() {
+        setOrdem("login");
         if (isSortAscending()) {
             getLista().sortBy(new Comparator<Usuario>() {
                 @Override
@@ -162,6 +164,7 @@ public class UsuarioCadastro implements Serializable {
     }
 
     public String sortByNivel() {
+        setOrdem("nivel");
         if (isSortAscending()) {
             getLista().sortBy(new Comparator<Usuario>() {
                 @Override
@@ -181,60 +184,5 @@ public class UsuarioCadastro implements Serializable {
             setSortAscending(true);
         }
         return null;
-    }
-
-    public void adiciona(Usuario usuario2) {
-        if (selectedDataList == null) {
-            selectedDataList = new ArrayList<>();
-        }
-        if (isSelecionado()) {
-
-            selectedDataList.add(usuario2);
-        } else {
-            selectedDataList.remove(usuario2);
-        }
-
-    }
-
-    /**
-     * @return the selecionado
-     */
-    public boolean isSelecionado() {
-        return selecionado;
-    }
-
-    /**
-     * @param selecionado the selecionado to set
-     */
-    public void setSelecionado(boolean selecionado) {
-        this.selecionado = selecionado;
-    }
-
-    /**
-     * @return the selectedCars
-     */
-    public List<Usuario> getSelectedCars() {
-        return selectedCars;
-    }
-
-    /**
-     * @param selectedCars the selectedCars to set
-     */
-    public void setSelectedCars(List<Usuario> selectedCars) {
-        this.selectedCars = selectedCars;
-    }
-
-    /**
-     * @return the usuariosFiltrados
-     */
-    public List<Usuario> getUsuariosFiltrados() {
-        return usuariosFiltrados;
-    }
-
-    /**
-     * @param usuariosFiltrados the usuariosFiltrados to set
-     */
-    public void setUsuariosFiltrados(List<Usuario> usuariosFiltrados) {
-        this.usuariosFiltrados = usuariosFiltrados;
     }
 }

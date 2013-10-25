@@ -27,7 +27,7 @@
 
                     <ui:define name="cadastro_pesquisa">
 
-                        <input  type="text" class="form-control" value="#{usuarioCadastro.filtro}" placeholder="Digite para filtrar" >
+                        <input  type="text" class="form-control" placeholder="Digite para filtrar" >
                             <f:ajax event="keypress" listener="#{usuarioCadastro.filtraGrid()}"/>
                         </input>
 
@@ -46,13 +46,12 @@
 
                             <p:dataTable id="tabela" var="item" value="#{usuarioCadastro.lista}" tableStyleClass="table table-bordered table-hover"
                                          rowKey="#{item.idusuario}"
-                                         selection="#{usuarioCadastro.selectedCars}" selectionMode="multiple"
-                                         >         
+                                         selection="#{usuarioCadastro.itensSelecionados}" selectionMode="multiple">         
 
                                 <p:column >  
                                     <f:facet name="header">    
-                                        <h:commandLink action="#{usuarioCadastro.sortByNome}">
-                                            <f:ajax render="tabela"/>
+                                        <h:commandLink action="#{usuarioCadastro.sortByNome}" >
+                                            <f:ajax render="tabela" />
                                             #{bundle.ListUsuarioTitle_nome}
                                         </h:commandLink>                                        
                                     </f:facet>
@@ -62,7 +61,7 @@
                                 <p:column >  
                                     <f:facet name="header">    
                                         <h:commandLink action="#{usuarioCadastro.sortByLogin}">
-                                            <f:ajax render="tabela"/>
+                                            <f:ajax render="tabela"  />
                                             #{bundle.ListUsuarioTitle_login}
                                         </h:commandLink>                                        
                                     </f:facet>
@@ -71,8 +70,8 @@
 
                                 <p:column >  
                                     <f:facet name="header">    
-                                        <h:commandLink action="#{usuarioCadastro.sortByNivel}">
-                                            <f:ajax render="tabela"/>
+                                        <h:commandLink action="#{usuarioCadastro.sortByNivel}"> 
+                                            <f:ajax render="tabela" />
                                             #{bundle.ListUsuarioTitle_nivel}
                                         </h:commandLink>                                        
                                     </f:facet>
@@ -101,5 +100,24 @@
         </ui:define>  
 
     </ui:composition>
+
+    <style type="text/css">
+        .highlighted {
+            background-color: #eaf5fe;
+        }
+    </style>
+
+
+    <script type="text/javascript">
+                                            $('th').hover(function() {
+                                                var t = parseInt($(this).index()) + 1;
+                                                $('td:nth-child(' + t + ')').addClass('highlighted');
+                                            },
+                                                    function() {
+                                                        var t = parseInt($(this).index()) + 1;
+                                                        $('td:nth-child(' + t + ')').removeClass('highlighted');
+                                                    });
+    </script>
+
 </html>
 
