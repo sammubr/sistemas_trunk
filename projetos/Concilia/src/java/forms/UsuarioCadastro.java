@@ -4,13 +4,16 @@
  */
 package forms;
 
+import com.sun.xml.bind.util.ListImpl;
 import controls.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.CollectionDataModel;
-import javax.faces.model.DataModel;
 import javax.inject.Named;
 import persistencia.SortableDataModel;
 import util.JsfUtil;
@@ -28,6 +31,11 @@ public class UsuarioCadastro implements Serializable {
     private SortableDataModel<Usuario> lista;
     private boolean sortAscending = true;
     private String filtro;
+    private Collection<Usuario> selectedDataList;
+    ;
+    private boolean selecionado;
+    private List<Usuario> selectedCars;
+    private List<Usuario> usuariosFiltrados;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
     public UsuarioCadastro() {
@@ -37,6 +45,11 @@ public class UsuarioCadastro implements Serializable {
     private void geraListaDeUsuarios() {
         Usuario consultaUsuario = new Usuario();
         lista = new SortableDataModel<>(new CollectionDataModel(consultaUsuario.obter(null, null, null)));
+        usuariosFiltrados = new ArrayList<>();
+        for (int i = 0; i < this.lista.getRowCount(); i++) {
+            this.lista.setRowIndex(i);
+            usuariosFiltrados.add((Usuario) this.lista.getRowData());
+        }
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
@@ -91,15 +104,16 @@ public class UsuarioCadastro implements Serializable {
     }
 
     public void exclui() {
-        setUsuario((Usuario) getLista().getRowData());
-        getUsuario().exclui();
+        for (Usuario usuario2 : selectedCars) {
+            usuario2.exclui();
+        }
         geraListaDeUsuarios();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
     }
 
 // ------------------------------------------------------------- FILTRO DO GRID
     public void filtraGrid() {
-        String teste="teste";
+        String teste = "teste";
     }
 // -------------------------------------------------------------- ORDEM DO GRID
 
@@ -167,5 +181,60 @@ public class UsuarioCadastro implements Serializable {
             setSortAscending(true);
         }
         return null;
+    }
+
+    public void adiciona(Usuario usuario2) {
+        if (selectedDataList == null) {
+            selectedDataList = new ArrayList<>();
+        }
+        if (isSelecionado()) {
+
+            selectedDataList.add(usuario2);
+        } else {
+            selectedDataList.remove(usuario2);
+        }
+
+    }
+
+    /**
+     * @return the selecionado
+     */
+    public boolean isSelecionado() {
+        return selecionado;
+    }
+
+    /**
+     * @param selecionado the selecionado to set
+     */
+    public void setSelecionado(boolean selecionado) {
+        this.selecionado = selecionado;
+    }
+
+    /**
+     * @return the selectedCars
+     */
+    public List<Usuario> getSelectedCars() {
+        return selectedCars;
+    }
+
+    /**
+     * @param selectedCars the selectedCars to set
+     */
+    public void setSelectedCars(List<Usuario> selectedCars) {
+        this.selectedCars = selectedCars;
+    }
+
+    /**
+     * @return the usuariosFiltrados
+     */
+    public List<Usuario> getUsuariosFiltrados() {
+        return usuariosFiltrados;
+    }
+
+    /**
+     * @param usuariosFiltrados the usuariosFiltrados to set
+     */
+    public void setUsuariosFiltrados(List<Usuario> usuariosFiltrados) {
+        this.usuariosFiltrados = usuariosFiltrados;
     }
 }

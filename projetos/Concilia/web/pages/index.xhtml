@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -12,17 +13,8 @@
 
         <title>Sistema de conciliação bancária</title>
 
-        <!-- Bootstrap core CSS -->
         <link href="/Concilia/resources/bootstrap-3.0.0/dist/css/bootstrap.css" rel="stylesheet"/>
-
-        <!-- Custom styles for this template -->
         <link href="/Concilia/resources/css/sticky-footer-navbar.css" rel="stylesheet"/>
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-          <script src="../../assets/js/html5shiv.js"></script>
-          <script src="../../assets/js/respond.min.js"></script>
-        <![endif]-->      
     </h:head>
 
     <h:body>
@@ -107,39 +99,35 @@
                 </div><!-- /.navbar -->
 
                 <!-- Begin page content -->
-                <div class="container">
+                <div class="container" >
 
-
-                    <div class="alert alert-dismissable alert-success">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h:messages id="messages" showDetail="true" /> 
-                    </div>
-
-
-
-
+                    <p:growl id="messages" showDetail="true" /> 
 
                     <ui:insert name="index_conteudo"></ui:insert>
 
                 </div>
             </div>
 
-            <div id="footer">
+            <div id="footer" >
                 <div class="container">
                     <p class="text-muted credit">sammubr@gmail.com</p>
                 </div>
             </div>
 
-
-            <!-- Bootstrap core JavaScript
-            ================================================== -->
-            <!-- Placed at the end of the document so the pages load faster -->
+            <style type="text/css">
+                .ui-growl {
+                    position:absolute;
+                    top: 8%;
+                    z-index:9999;
+                }
+            </style>
             <script src="/Concilia/resources/bootstrap-3.0.0/assets/js/jquery.js"></script>
             <script src="/Concilia/resources/bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
 
         </f:view>
     </h:body>
     <script>
+
         PrimeFaces.locales['pt'] = {
             closeText: 'Fechar',
             prevText: 'Anterior',
