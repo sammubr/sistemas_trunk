@@ -27,13 +27,10 @@
 
                     <ui:define name="cadastro_pesquisa">
 
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Digite para filtrar"/>
-                            <span class="input-group-btn">
-                                <h:commandLink class="btn btn-default" type="button" actionListener="#{usuarioCadastro.filtraGrid()}" >Filtrar</h:commandLink>
-                            </span>
-                        </div><!-- /input-group -->
-
+                        <input type="text" class="form-control" placeholder="Digite para filtrar"/>
+                        <span class="input-group-btn">
+                            <h:commandLink class="btn btn-default" type="button" actionListener="#{usuarioCadastro.filtraGrid()}" >Filtrar</h:commandLink>
+                        </span>
 
                     </ui:define>         
 
@@ -82,8 +79,8 @@
                                     <h:outputText value="#{item.nivel}" />  
                                 </p:column>  
 
-                                <p:column style="width:5%">  
-                                    <h:commandLink title="Editar" action="#{usuarioCadastro.edita}" class="btn btn-default btn-sm" >
+                                <p:column style="width:2%">  
+                                    <h:commandLink title="Editar" action="#{usuarioCadastro.edita}" class="btn btn-toolbar btn-xs" >
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </h:commandLink>  
                                 </p:column>  
@@ -104,24 +101,6 @@
         </ui:define>  
 
     </ui:composition>
-
-    <style type="text/css">
-        .highlighted {
-            background-color: #eaf5fe;
-        }
-    </style>
-
-
-    <script type="text/javascript">
-        $('th').hover(function() {
-            var t = parseInt($(this).index()) + 1;
-            $('td:nth-child(' + t + ')').addClass('highlighted');
-        },
-                function() {
-                    var t = parseInt($(this).index()) + 1;
-                    $('td:nth-child(' + t + ')').removeClass('highlighted');
-                });
-    </script>
 
 </html>
 
