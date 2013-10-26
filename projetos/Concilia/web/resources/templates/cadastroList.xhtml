@@ -16,11 +16,13 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-left">  
-                <ui:insert name="cadastro_toolbar"></ui:insert> 
+                <div class="btn-group ">
+                    <ui:insert name="cadastro_toolbar"></ui:insert> 
+                </div>
             </ul>
 
-            <ul class="navbar-form navbar-left" role="search">                                    
-                <div class="form-group"> 
+            <ul class="navbar-form navbar-default" role="search">  
+                <div class="input-group col-lg-5">
                     <ui:insert name="cadastro_pesquisa"></ui:insert> 
                 </div>
             </ul>

@@ -29,11 +29,11 @@ public class UsuarioCadastro implements Serializable {
     private SortableDataModel<Usuario> lista;
     private boolean sortAscending = true;
     private List<Usuario> itensSelecionados;
-    private String ordem;
+    private String ordem = "nome";
+    private String filtro;
 
-// ---------------------------------------------------------------- CONSTRUCTOR    
+    // ---------------------------------------------------------------- CONSTRUCTOR    
     public UsuarioCadastro() {
-        ordem = "nome";
         geraLista();
     }
 
@@ -85,6 +85,14 @@ public class UsuarioCadastro implements Serializable {
         this.ordem = ordem;
     }
 
+    public String getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(String filtro) {
+        this.filtro = filtro;
+    }
+
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public String criaNovo() {
         setItem(new Usuario());
@@ -113,7 +121,24 @@ public class UsuarioCadastro implements Serializable {
 
 // ------------------------------------------------------------- FILTRO DO GRID
     public void filtraGrid() {
-        String teste = "teste";
+
+        if (getFiltro().equals("")) {
+            geraLista();
+        } else {
+
+            List<String> atributos = new ArrayList<>();
+            atributos.add(ordem);
+
+            List<Object> valores = new ArrayList<>();
+            valores.add(getFiltro());
+
+            List<String> ordem_temp = new ArrayList<>();
+            ordem_temp.add(ordem);
+
+            Usuario consulta = new Usuario();
+            lista = new SortableDataModel<>(new CollectionDataModel(consulta.obter(atributos, valores, ordem_temp)));
+
+        }
     }
 // -------------------------------------------------------------- ORDEM DO GRID
 

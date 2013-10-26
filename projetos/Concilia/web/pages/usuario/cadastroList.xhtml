@@ -27,9 +27,13 @@
 
                     <ui:define name="cadastro_pesquisa">
 
-                        <input  type="text" class="form-control" placeholder="Digite para filtrar" >
-                            <f:ajax event="keypress" listener="#{usuarioCadastro.filtraGrid()}"/>
-                        </input>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Digite para filtrar"/>
+                            <span class="input-group-btn">
+                                <h:commandLink class="btn btn-default" type="button" actionListener="#{usuarioCadastro.filtraGrid()}" >Filtrar</h:commandLink>
+                            </span>
+                        </div><!-- /input-group -->
+
 
                     </ui:define>         
 
