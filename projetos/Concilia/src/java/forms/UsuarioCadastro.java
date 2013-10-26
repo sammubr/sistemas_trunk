@@ -13,10 +13,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import util.JsfUtil;
 
-/**
- *
- * @author samuel
- */
 @Named("usuarioCadastro")
 @SessionScoped
 public class UsuarioCadastro implements Serializable {
@@ -72,6 +68,7 @@ public class UsuarioCadastro implements Serializable {
     public String persiste() {
         getItem().persiste();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
+        geraLista();
         return "cadastroList.xhtml";
     }
 
