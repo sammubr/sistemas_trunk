@@ -38,19 +38,19 @@ public class UsuarioCadastro implements Serializable {
     }
 
     private void geraLista() {
-        Usuario consultaUsuario = new Usuario();
         List<String> ordem_temp = new ArrayList<>();
         ordem_temp.add(ordem);
-        lista = new SortableDataModel<>(new CollectionDataModel(consultaUsuario.obter(null, null, ordem_temp)));
+        Usuario consulta = new Usuario();
+        lista = new SortableDataModel<>(new CollectionDataModel(consulta.obter(null, null, ordem_temp)));
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
-    public Usuario getUsuario() {
+    public Usuario getItem() {
         return item;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.item = usuario;
+    public void setItem(Usuario item) {
+        this.item = item;
     }
 
     public SortableDataModel<Usuario> getLista() {
@@ -87,25 +87,25 @@ public class UsuarioCadastro implements Serializable {
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public String criaNovo() {
-        setUsuario(new Usuario());
+        setItem(new Usuario());
         return "cadastroItem.xhtml";
     }
 
     public String persiste() {
-        getUsuario().persiste();
+        getItem().persiste();
         geraLista();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
         return "cadastroList.xhtml";
     }
 
     public String edita() {
-        setUsuario((Usuario) getLista().getRowData());
+        setItem((Usuario) getLista().getRowData());
         return "cadastroItem.xhtml";
     }
 
     public void exclui() {
-        for (Usuario usuario2 : itensSelecionados) {
-            usuario2.exclui();
+        for (Usuario itemSelecionado : itensSelecionados) {
+            itemSelecionado.exclui();
         }
         geraLista();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
