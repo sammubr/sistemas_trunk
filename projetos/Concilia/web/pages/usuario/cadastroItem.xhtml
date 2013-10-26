@@ -15,40 +15,34 @@
 
             <h:form id="form" >
 
-                <ui:decorate template="../../resources/templates/cadastroItem.xhtml">
+                <ui:decorate template="../../resources/templates/cadastroConteudo.xhtml">
 
                     <ui:define name="cadastro_toolbar">
                         <h:commandButton title="#{bundle.SaveLink}" class="btn btn-primary navbar-btn" action="#{usuarioCadastro.persiste}" value="Salvar"/>
                         <h:commandButton title="#{bundle.VoltarLink}" class="btn btn-primary navbar-btn" action="cadastroList.xhtml" immediate="true" value="Voltar" />
                     </ui:define>        
 
-                    <ui:define name="cadastro_item">                          
-
-
-
-
-
-
+                    <ui:define name="cadastro_conteudo">                          
 
                         <div class="form-group">
                             <label for="nome">#{bundle.CreateUsuarioLabel_nome}</label>
-                            <h:inputText id="nome" class="form-control" value="#{usuarioCadastro.item.nome}" title="#{bundle.CreateUsuarioTitle_nome}"
+                            <p:inputText id="nome" styleClass="form-control" value="#{usuarioCadastro.item.nome}" title="#{bundle.CreateUsuarioTitle_nome}"
                                          required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nome}"/>
                         </div>
 
                         <div class="form-group">
                             <label for="login">#{bundle.CreateUsuarioLabel_login}</label>
-                            <h:inputText id="login" class="form-control" value="#{usuarioCadastro.item.login}" title="#{bundle.CreateUsuarioTitle_login}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_login}"/>
+                            <p:inputText id="login" styleClass="form-control" value="#{usuarioCadastro.item.login}" title="#{bundle.CreateUsuarioTitle_login}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_login}"/>
                         </div>
 
                         <div class="form-group">
                             <label for="senha">#{bundle.CreateUsuarioLabel_senha}</label>
-                            <h:inputText id="senha" class="form-control" value="#{usuarioCadastro.item.senha}" title="#{bundle.CreateUsuarioTitle_senha}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_senha}"/>
+                            <p:inputText id="senha" styleClass="form-control" value="#{usuarioCadastro.item.senha}" title="#{bundle.CreateUsuarioTitle_senha}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_senha}"/>
                         </div>
 
                         <div class="form-group">
                             <label for="nivel">#{bundle.CreateUsuarioLabel_nivel}</label>                            
-                            <h:inputText id="nivel" class="form-control" value="#{usuarioCadastro.item.nivel}" title="#{bundle.CreateUsuarioTitle_nivel}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nivel}"/>
+                            <p:inputText id="nivel" styleClass="form-control" value="#{usuarioCadastro.item.nivel}" title="#{bundle.CreateUsuarioTitle_nivel}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nivel}"/>
 
                         </div>
 
@@ -62,7 +56,7 @@
     <script type="text/javascript">
         window.onload = function() {
             document.getElementById('form:nome').focus();
-        }
+        };
     </script>
 </html>
 

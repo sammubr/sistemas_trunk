@@ -16,83 +16,52 @@
 
             <h:form id="form">
 
-                <ui:decorate template="../../resources/templates/cadastroList.xhtml">
+                <ui:decorate template="../../resources/templates/cadastroConteudo.xhtml">
 
                     <ui:define name="cadastro_toolbar">
-                        <h:commandLink value="Inserir" title="#{bundle.CreateLink}" class="btn btn-primary navbar-btn" action="#{usuarioCadastro.criaNovo}"/>
-                        <h:commandLink value="Excluir" title="#{bundle.DestroyLink}" class="btn btn-primary navbar-btn" actionListener="#{usuarioCadastro.exclui}"/>
+                        <h:commandButton value="Inserir" title="#{bundle.CreateLink}" class="btn btn-primary navbar-btn" action="#{usuarioCadastro.criaNovo}"/>
+                        <h:commandButton value="Excluir" title="#{bundle.DestroyLink}" class="btn btn-primary navbar-btn" actionListener="#{usuarioCadastro.exclui}"/>                                               
+                    </ui:define>                    
 
+                    <ui:define name="cadastro_conteudo">
 
-                    </ui:define> 
-
-                    <ui:define name="cadastro_pesquisa">
-
-                        <input type="text" class="form-control" placeholder="Digite para filtrar"/>
-                        <span class="input-group-btn">
-                            <h:commandLink class="btn btn-default" type="button" actionListener="#{usuarioCadastro.filtraGrid()}" >Filtrar</h:commandLink>
-                        </span>
-
-                    </ui:define>         
-
-                    <ui:define name="cadastro_list">
-
-
-
-
-
-
-
-
-                        <div class="table-responsive" style="overflow:auto; width:100%; max-height: 550px;" >
+                        <div class="table-responsive" style="overflow:auto; width:100%; max-height: 550px;">
 
                             <p:dataTable id="tabela" var="item" value="#{usuarioCadastro.lista}" tableStyleClass="table table-bordered table-hover"
-                                         rowKey="#{item.idusuario}"
+                                         rowKey="#{item.idusuario}" emptyMessage="Nenhum registro encontrado." widgetVar="itemTable"
                                          selection="#{usuarioCadastro.itensSelecionados}" selectionMode="multiple">         
 
-                                <p:column >  
-                                    <f:facet name="header">    
-                                        <h:commandLink action="#{usuarioCadastro.sortByNome}" >
-                                            <f:ajax render="tabela" />
-                                            #{bundle.ListUsuarioTitle_nome}
-                                        </h:commandLink>                                        
-                                    </f:facet>
+                                <f:facet name="header" >  
+                                    <p:outputPanel>  
+                                        <h:outputText value="Filtrar todos os campos: " />  
+                                        <p:inputText id="globalFilter" onkeyup="itemTable.filter();" style="width:20%" />  
+                                    </p:outputPanel>  
+                                </f:facet>
+
+
+                                <p:column sortBy="nome" headerText="#{bundle.ListUsuarioTitle_nome}" filterBy="nome">  
                                     <h:outputText value="#{item.nome}" />  
                                 </p:column>  
 
-                                <p:column >  
-                                    <f:facet name="header">    
-                                        <h:commandLink action="#{usuarioCadastro.sortByLogin}">
-                                            <f:ajax render="tabela"  />
-                                            #{bundle.ListUsuarioTitle_login}
-                                        </h:commandLink>                                        
-                                    </f:facet>
+                                <p:column sortBy="login" headerText="#{bundle.ListUsuarioTitle_login}" filterBy="login">  
                                     <h:outputText value="#{item.login}" />  
                                 </p:column>  
 
-                                <p:column >  
-                                    <f:facet name="header">    
-                                        <h:commandLink action="#{usuarioCadastro.sortByNivel}"> 
-                                            <f:ajax render="tabela" />
-                                            #{bundle.ListUsuarioTitle_nivel}
-                                        </h:commandLink>                                        
-                                    </f:facet>
+                                <p:column sortBy="nivel" headerText="#{bundle.ListUsuarioTitle_nivel}" filterBy="nivel">  
                                     <h:outputText value="#{item.nivel}" />  
                                 </p:column>  
 
                                 <p:column style="width:2%">  
-                                    <h:commandLink title="Editar" action="#{usuarioCadastro.edita}" class="btn btn-toolbar btn-xs" >
+                                    <h:commandLink title="Editar" action="#{usuarioCadastro.edita(item)}" class="btn btn-toolbar btn-xs" >
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </h:commandLink>  
                                 </p:column>  
+                                
                             </p:dataTable>
 
                         </div> 
 
-
                     </ui:define>
-
-
-
 
                 </ui:decorate>        
 
@@ -101,6 +70,10 @@
         </ui:define>  
 
     </ui:composition>
-
+    <script type="text/javascript">
+                                            window.onload = function() {
+                                                document.getElementById('form:tabela:globalFilter').focus();
+                                            };
+    </script>
 </html>
 

@@ -7,13 +7,10 @@ package forms;
 import controls.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.model.CollectionDataModel;
 import javax.inject.Named;
-import persistencia.SortableDataModel;
 import util.JsfUtil;
 
 /**
@@ -26,22 +23,19 @@ public class UsuarioCadastro implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
     private Usuario item;
-    private SortableDataModel<Usuario> lista;
-    private boolean sortAscending = true;
+    private List<Usuario> lista;
     private List<Usuario> itensSelecionados;
-    private String ordem = "nome";
-    private String filtro;
 
-    // ---------------------------------------------------------------- CONSTRUCTOR    
+// ---------------------------------------------------------------- CONSTRUCTOR    
     public UsuarioCadastro() {
         geraLista();
     }
 
     private void geraLista() {
-        List<String> ordem_temp = new ArrayList<>();
-        ordem_temp.add(ordem);
+        List<String> ordem = new ArrayList<>();
+        ordem.add("nome");
         Usuario consulta = new Usuario();
-        lista = new SortableDataModel<>(new CollectionDataModel(consulta.obter(null, null, ordem_temp)));
+        lista = (List) consulta.obter(null, null, ordem);
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
@@ -53,20 +47,12 @@ public class UsuarioCadastro implements Serializable {
         this.item = item;
     }
 
-    public SortableDataModel<Usuario> getLista() {
+    public List<Usuario> getLista() {
         return lista;
     }
 
-    public void setLista(SortableDataModel<Usuario> lista) {
+    public void setLista(List<Usuario> lista) {
         this.lista = lista;
-    }
-
-    public boolean isSortAscending() {
-        return sortAscending;
-    }
-
-    public void setSortAscending(boolean sortAscending) {
-        this.sortAscending = sortAscending;
     }
 
     public List<Usuario> getItensSelecionados() {
@@ -77,22 +63,6 @@ public class UsuarioCadastro implements Serializable {
         this.itensSelecionados = itensSelecionados;
     }
 
-    public String getOrdem() {
-        return ordem;
-    }
-
-    public void setOrdem(String ordem) {
-        this.ordem = ordem;
-    }
-
-    public String getFiltro() {
-        return filtro;
-    }
-
-    public void setFiltro(String filtro) {
-        this.filtro = filtro;
-    }
-
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public String criaNovo() {
         setItem(new Usuario());
@@ -101,113 +71,34 @@ public class UsuarioCadastro implements Serializable {
 
     public String persiste() {
         getItem().persiste();
-        geraLista();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
         return "cadastroList.xhtml";
     }
 
-    public String edita() {
-        setItem((Usuario) getLista().getRowData());
+    public String edita(Usuario item) {
+        setItem(item);
         return "cadastroItem.xhtml";
     }
 
     public void exclui() {
-        for (Usuario itemSelecionado : itensSelecionados) {
-            itemSelecionado.exclui();
+        switch (itensSelecionados.size()) {
+            case 0:
+                JsfUtil.addErrorMessage("Não há registros para excluir!", "");
+                break;
+            case 1:
+                for (Usuario itemSelecionado : itensSelecionados) {
+                    itemSelecionado.exclui();
+                }
+                geraLista();
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
+                break;
+            default:
+                for (Usuario itemSelecionado : itensSelecionados) {
+                    itemSelecionado.exclui();
+                }
+                geraLista();
+                JsfUtil.addSuccessMessage("Registros excluídos com sucesso!", "");
+                break;
         }
-        geraLista();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
-    }
-
-// ------------------------------------------------------------- FILTRO DO GRID
-    public void filtraGrid() {
-
-        if (getFiltro().equals("")) {
-            geraLista();
-        } else {
-
-            List<String> atributos = new ArrayList<>();
-            atributos.add(ordem);
-
-            List<Object> valores = new ArrayList<>();
-            valores.add(getFiltro());
-
-            List<String> ordem_temp = new ArrayList<>();
-            ordem_temp.add(ordem);
-
-            Usuario consulta = new Usuario();
-            lista = new SortableDataModel<>(new CollectionDataModel(consulta.obter(atributos, valores, ordem_temp)));
-
-        }
-    }
-// -------------------------------------------------------------- ORDEM DO GRID
-
-    public String sortByNome() {
-        setOrdem("nome");
-        if (isSortAscending()) {
-            getLista().sortBy(new Comparator<Usuario>() {
-                @Override
-                public int compare(Usuario item1, Usuario item2) {
-                    return item1.getNome().compareTo(item2.getNome());
-                }
-            });
-            setSortAscending(false);
-        } else {
-            //descending order
-            getLista().sortBy(new Comparator<Usuario>() {
-                @Override
-                public int compare(Usuario item1, Usuario item2) {
-                    return item2.getNome().compareTo(item1.getNome());
-                }
-            });
-            setSortAscending(true);
-        }
-        return null;
-    }
-
-    public String sortByLogin() {
-        setOrdem("login");
-        if (isSortAscending()) {
-            getLista().sortBy(new Comparator<Usuario>() {
-                @Override
-                public int compare(Usuario item1, Usuario item2) {
-                    return item1.getLogin().compareTo(item2.getLogin());
-                }
-            });
-            setSortAscending(false);
-        } else {
-            //descending order
-            getLista().sortBy(new Comparator<Usuario>() {
-                @Override
-                public int compare(Usuario item1, Usuario item2) {
-                    return item2.getLogin().compareTo(item1.getLogin());
-                }
-            });
-            setSortAscending(true);
-        }
-        return null;
-    }
-
-    public String sortByNivel() {
-        setOrdem("nivel");
-        if (isSortAscending()) {
-            getLista().sortBy(new Comparator<Usuario>() {
-                @Override
-                public int compare(Usuario item1, Usuario item2) {
-                    return Integer.compare(item1.getNivel(), item2.getNivel());
-                }
-            });
-            setSortAscending(false);
-        } else {
-            //descending order
-            getLista().sortBy(new Comparator<Usuario>() {
-                @Override
-                public int compare(Usuario item1, Usuario item2) {
-                    return Integer.compare(item2.getNivel(), item1.getNivel());
-                }
-            });
-            setSortAscending(true);
-        }
-        return null;
     }
 }
