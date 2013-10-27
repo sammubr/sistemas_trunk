@@ -4,104 +4,99 @@
  */
 package forms;
 
+import controls.Banco;
 import controls.ContaContabil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javax.annotation.PostConstruct;
-import javax.faces.model.CollectionDataModel;
-import javax.faces.model.DataModel;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import util.JsfUtil;
 
 @Named("contaContabilCadastro")
-@ViewScoped
+@SessionScoped
 public class ContaContabilCadastro implements Serializable {
 
-    private ContaContabil fContaContabil;
-    private DataModel fListaDeContasContabeis;
-    private boolean fGridVisivel;
-    private boolean fItemVisivel;
+// ------------------------------------------------------------------ ATRIBUTOS
+    private ContaContabil item;
+    private List<ContaContabil> lista;
+    private List<ContaContabil> itensSelecionados;
 
-    @PostConstruct
-    public void abreForm() {
-        geraListaDeContasContabeis();
-        mostraGrid();
+// ---------------------------------------------------------------- CONSTRUCTOR    
+    public ContaContabilCadastro() {
+        geraLista();
     }
 
-    public ContaContabil getContaContabil() {
-        return fContaContabil;
-    }
-
-    public void setContaContabil(ContaContabil contaContabil) {
-        this.fContaContabil = contaContabil;
-    }
-
-    public DataModel getListaDeContasContabeis() {
-        return fListaDeContasContabeis;
-    }
-
-    public void setListaDeContaContabils(DataModel listaContasContabeis) {
-        this.fListaDeContasContabeis = listaContasContabeis;
-    }
-
-    public boolean isGridVisivel() {
-        return fGridVisivel;
-    }
-
-    public void setGridVisivel(boolean gridVisivel) {
-        this.fGridVisivel = gridVisivel;
-    }
-
-    public boolean isItemVisivel() {
-        return fItemVisivel;
-    }
-
-    public void setItemVisivel(boolean itemVisivel) {
-        this.fItemVisivel = itemVisivel;
-    }
-
-    private void geraListaDeContasContabeis() {
+    private void geraLista() {
         List<String> ordem = new ArrayList<>();
         ordem.add("descricao");
-        ContaContabil contaContabil = new ContaContabil();
-        this.fListaDeContasContabeis = new CollectionDataModel(contaContabil.obter(null, null, ordem));
+        ContaContabil consulta = new ContaContabil();
+        lista = (List) consulta.obter(null, null, ordem);
     }
 
-    public void mostraGrid() {
-        setGridVisivel(true);
-        setItemVisivel(false);
+// --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
+    public ContaContabil getItem() {
+        return item;
     }
 
-    public void mostraItem() {
-        setGridVisivel(false);
-        setItemVisivel(true);
+    public void setItem(ContaContabil item) {
+        this.item = item;
     }
 
-    public void criaNovo() {
-        fContaContabil = new ContaContabil();
-        mostraItem();
+    public List<ContaContabil> getLista() {
+        return lista;
     }
 
-    public void edita() {
-        setContaContabil((ContaContabil) getListaDeContasContabeis().getRowData());
-        mostraItem();
+    public void setLista(List<ContaContabil> lista) {
+        this.lista = lista;
     }
 
-    public void persiste() {
-        fContaContabil.persiste();
+    public List<ContaContabil> getItensSelecionados() {
+        return itensSelecionados;
+    }
+
+    public void setItensSelecionados(List<ContaContabil> itensSelecionados) {
+        this.itensSelecionados = itensSelecionados;
+    }
+
+// ----------------------------------------------------- MÉTODOS PARA PERSISTIR
+    public String criaNovo() {
+        setItem(new ContaContabil());
+        return "cadastroItem.xhtml";
+    }
+
+    public String persiste() {
+        getItem().persiste();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
-        geraListaDeContasContabeis();
-        mostraGrid();
+        geraLista();
+        return "cadastroList.xhtml";
+    }
+
+    public String edita(ContaContabil item) {
+        setItem(item);
+        return "cadastroItem.xhtml";
     }
 
     public void exclui() {
-        fContaContabil = (ContaContabil) getListaDeContasContabeis().getRowData();
-        fContaContabil.exclui();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
-        geraListaDeContasContabeis();
+        switch (itensSelecionados.size()) {
+            case 0:
+                JsfUtil.addErrorMessage("Não há registros para excluir!", "");
+                break;
+            case 1:
+                for (ContaContabil itemSelecionado : itensSelecionados) {
+                    itemSelecionado.exclui();
+                }
+                geraLista();
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
+                break;
+            default:
+                for (ContaContabil itemSelecionado : itensSelecionados) {
+                    itemSelecionado.exclui();
+                }
+                geraLista();
+                JsfUtil.addSuccessMessage("Registros excluídos com sucesso!", "");
+                break;
+        }
     }
-
 }
