@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../../resources/templates/cadastro.xhtml">        
+
+        <ui:define name="cadastro_titulo">
+            #{bundle.FormCadastroRelacionamentos}            
+        </ui:define>
+
+        <ui:define name="cadastro_conteudo">
+
+            <h:form id="form">
+
+                <ui:decorate template="../../resources/templates/cadastroConteudo.xhtml">
+
+                    <ui:define name="cadastro_toolbar">
+                        <h:commandButton value="Inserir" title="#{bundle.CreateLink}" class="btn btn-primary navbar-btn" action="#{relacionamentoCadastro.criaNovo}"/>
+                        <h:commandButton value="Excluir" title="#{bundle.DestroyLink}" class="btn btn-primary navbar-btn" actionListener="#{relacionamentoCadastro.exclui}"/>                                               
+                    </ui:define>                    
+
+                    <ui:define name="cadastro_conteudo">
+
+                        <div class="table-responsive" style="overflow:auto; width:100%; max-height: 550px;">
+
+                            <p:dataTable id="tabela" var="item" value="#{relacionamentoCadastro.lista}" tableStyleClass="table table-bordered table-hover"
+                                         rowKey="#{item.id}" emptyMessage="Nenhum registro encontrado." widgetVar="itemTable"
+                                         selection="#{relacionamentoCadastro.itensSelecionados}" selectionMode="multiple">         
+
+                                <p:column sortBy="descricao" headerText="#{bundle.ListRelacionamentoTitle_descricao}" filterBy="descricao" filterMatchMode="contains">  
+                                    <h:outputText value="#{item.descricao}" />  
+                                </p:column>  
+
+                                <p:column style="width:2%">  
+                                    <h:commandLink title="Editar" action="#{relacionamentoCadastro.edita(item)}" class="btn btn-toolbar btn-xs" >
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </h:commandLink>  
+                                </p:column>  
+                                
+                            </p:dataTable>
+
+                        </div> 
+
+                    </ui:define>
+
+                </ui:decorate>        
+
+
+            </h:form>
+        </ui:define>  
+
+    </ui:composition>
+    <script type="text/javascript">
+                                            window.onload = function() {
+                                                document.getElementById('form:tabela:globalFilter').focus();
+                                            };
+    </script>
+</html>
+

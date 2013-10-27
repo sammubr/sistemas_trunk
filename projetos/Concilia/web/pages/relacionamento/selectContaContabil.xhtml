@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">
+                    Contas contábeis</h4>
+            </div>
+            <h:form>  
+                <div class="modal-body">
+
+                    <p:dataTable id="dataTable" value="#{dialogSelecionaContaContabil.lista}" var="item"
+                                 rowStyleClass="jsfcrud_odd_row,jsfcrud_even_row" 
+                                 paginator="true" rows="5"  
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 rowKey="#{item.idcontaContabil}" selection="#{dialogSelecionaContaContabil.itensSelecionados}" selectionMode="multiple">
+
+                        <p:column >
+                            <f:facet name="header">
+                                <p:outputLabel value="#{bundle.ListContaContabilTitle_descricao}"/>
+                            </f:facet>
+                            <p:outputLabel value="#{item.descricao}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="&nbsp;"/>
+                            </f:facet>
+                            <p:commandButton icon="ui-icon-check" actionListener="#{dialogSelecionaContaContabil.selectFromDialog(item)}" /> 
+                        </p:column>      
+
+                    </p:dataTable>     
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <h:commandLink actionListener="#{dialogSelecionaContaContabil.teste}" class="btn btn-primary" >Save changes</h:commandLink>
+                </div>
+                
+            </h:form>  
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+
+</html> 

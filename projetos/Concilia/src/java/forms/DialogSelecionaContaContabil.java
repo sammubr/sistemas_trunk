@@ -2,8 +2,8 @@ package forms;
 
 import controls.ContaContabil;
 import java.io.Serializable;
+import java.util.List;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.model.DataModel;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
 
@@ -11,28 +11,42 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class DialogSelecionaContaContabil implements Serializable {
 
-    private DataModel fListaDeContasContabeis;
+    private List<ContaContabil> lista;
+    private List<ContaContabil> itensSelecionados;
 
     public DialogSelecionaContaContabil() {
     }
 
-    public DialogSelecionaContaContabil(DataModel fListaDeContasContabeis) {
-        this.fListaDeContasContabeis = fListaDeContasContabeis;
+    public DialogSelecionaContaContabil(List<ContaContabil> lista, List<ContaContabil> itensSelecionados) {
+        this.lista = lista;
+        this.itensSelecionados = itensSelecionados;
+    }
+
+    public List<ContaContabil> getLista() {
+        return lista;
+    }
+
+    public void setLista(List<ContaContabil> lista) {
+        this.lista = lista;
+    }
+
+    public List<ContaContabil> getItensSelecionados() {
+        return itensSelecionados;
+    }
+
+    public void setItensSelecionados(List<ContaContabil> itensSelecionados) {
+        this.itensSelecionados = itensSelecionados;
+    }
+
+    public void abre() {
+        RequestContext.getCurrentInstance().openDialog("selectContaContabil.xhtml");
     }
 
     public void selectFromDialog(ContaContabil conta) {
         RequestContext.getCurrentInstance().closeDialog(conta);
     }
-
-    public DataModel getListaDeContasContabeis() {
-        return fListaDeContasContabeis;
-    }
-
-    public void setListaDeContasContabeis(DataModel listaDeContasContabeis) {
-        this.fListaDeContasContabeis = listaDeContasContabeis;
-    }
-
-    public void abre() {
-        RequestContext.getCurrentInstance().openDialog("contaContabil/selectContaContabil.xhtml");
+    
+    public void teste(){
+        String teste = "teste";
     }
 }
