@@ -33,8 +33,6 @@ public class ConverterBanco implements Converter {
             valores.add(Integer.valueOf(value));
 
             return banco.obter(atributos, valores);
-
-
         }
         return null;
     }

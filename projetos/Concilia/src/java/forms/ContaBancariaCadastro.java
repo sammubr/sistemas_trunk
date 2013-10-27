@@ -10,132 +10,108 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javax.annotation.PostConstruct;
-import javax.faces.model.CollectionDataModel;
-import javax.faces.model.DataModel;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import util.JsfUtil;
 
 @Named("contaBancariaCadastro")
-@ViewScoped
+@SessionScoped
 public class ContaBancariaCadastro implements Serializable {
 
-    private ContaBancaria fContaBancaria;
-    private DataModel fListaDeContasBancarias;
-    private boolean fGridVisivel;
-    private boolean fItemVisivel;
+// ------------------------------------------------------------------ ATRIBUTOS
+    private ContaBancaria item;
+    private List<ContaBancaria> lista;
+    private List<ContaBancaria> itensSelecionados;
+    private List<Banco> listaDeBancos;
 
-    @PostConstruct
-    public void abreForm() {
-        geraListaDeContasBancarias();
-        mostraGrid();
+// ---------------------------------------------------------------- CONSTRUCTOR    
+    public ContaBancariaCadastro() {
+        geraLista();
     }
 
-    /**
-     * @return the contaBancaria
-     */
-    public ContaBancaria getContaBancaria() {
-        return fContaBancaria;
-    }
-
-    /**
-     * @param contaBancaria the contaBancaria to set
-     */
-    public void setContaBancaria(ContaBancaria contaBancaria) {
-        this.fContaBancaria = contaBancaria;
-    }
-
-    /**
-     * @return the listaDeContasBancarias
-     */
-    public DataModel getListaDeContasBancarias() {
-        return fListaDeContasBancarias;
-    }
-
-    /**
-     * @param listaDeContasBancarias the listaDeContasBancarias to set
-     */
-    public void setListaDeContasBancarias(DataModel listaContas) {
-        this.fListaDeContasBancarias = listaContas;
-    }
-
-    /**
-     * @return the gridVisivel
-     */
-    public boolean isGridVisivel() {
-        return fGridVisivel;
-    }
-
-    /**
-     * @param gridVisivel the gridVisivel to set
-     */
-    public void setGridVisivel(boolean gridVisivel) {
-        this.fGridVisivel = gridVisivel;
-    }
-
-    /**
-     * @return the itemVisivel
-     */
-    public boolean isItemVisivel() {
-        return fItemVisivel;
-    }
-
-    /**
-     * @param itemVisivel the itemVisivel to set
-     */
-    public void setItemVisivel(boolean itemVisivel) {
-        this.fItemVisivel = itemVisivel;
-    }
-
-    private void geraListaDeContasBancarias() {
+    private void geraLista() {
         List<String> ordem = new ArrayList<>();
         ordem.add("descricao");
-        ContaBancaria contaBancaria = new ContaBancaria();
-        this.fListaDeContasBancarias = new CollectionDataModel(contaBancaria.obter(null, null, ordem));
+        ContaBancaria consulta = new ContaBancaria();
+        lista = (List) consulta.obter(null, null, ordem);
     }
 
-    public List getListaDeBancos() {
+// --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
+    public ContaBancaria getItem() {
+        return item;
+    }
+
+    public void setItem(ContaBancaria item) {
+        this.item = item;
+    }
+
+    public List<ContaBancaria> getLista() {
+        return lista;
+    }
+
+    public void setLista(List<ContaBancaria> lista) {
+        this.lista = lista;
+    }
+
+    public List<ContaBancaria> getItensSelecionados() {
+        return itensSelecionados;
+    }
+
+    public void setItensSelecionados(List<ContaBancaria> itensSelecionados) {
+        this.itensSelecionados = itensSelecionados;
+    }
+
+    public List<Banco> getListaDeBancos() {
+
         List<String> ordem = new ArrayList<>();
         ordem.add("descricao");
-        Banco banco = new Banco();
-        return (List) banco.obter(null, null, ordem);
+        Banco consulta = new Banco();
+        listaDeBancos = (List) consulta.obter(null, null, ordem);
+
+        return listaDeBancos;
     }
 
-    public void mostraGrid() {
-        setGridVisivel(true);
-        setItemVisivel(false);
+    public void setListaDeBancos(List<Banco> listaDeBancos) {
+        this.listaDeBancos = listaDeBancos;
     }
 
-    public void mostraItem() {
-        setGridVisivel(false);
-        setItemVisivel(true);
-
+// ----------------------------------------------------- MÉTODOS PARA PERSISTIR
+    public String criaNovo() {
+        setItem(new ContaBancaria());
+        return "cadastroItem.xhtml";
     }
 
-    public void criaNovo() {
-        fContaBancaria = new ContaBancaria();
-        mostraItem();
+    public String persiste() {
+        getItem().persiste();
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
+        geraLista();
+        return "cadastroList.xhtml";
     }
 
-    public void edita() {
-        setContaBancaria((ContaBancaria) getListaDeContasBancarias().getRowData());
-        mostraItem();
-    }
-
-    public void persiste() {
-        fContaBancaria.persiste();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"),"");
-        geraListaDeContasBancarias();
-        mostraGrid();
-
+    public String edita(ContaBancaria item) {
+        setItem(item);
+        return "cadastroItem.xhtml";
     }
 
     public void exclui() {
-        fContaBancaria = (ContaBancaria) getListaDeContasBancarias().getRowData();
-        fContaBancaria.exclui();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"),"");
-        geraListaDeContasBancarias();
-
+        switch (itensSelecionados.size()) {
+            case 0:
+                JsfUtil.addErrorMessage("Não há registros para excluir!", "");
+                break;
+            case 1:
+                for (ContaBancaria itemSelecionado : itensSelecionados) {
+                    itemSelecionado.exclui();
+                }
+                geraLista();
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
+                break;
+            default:
+                for (ContaBancaria itemSelecionado : itensSelecionados) {
+                    itemSelecionado.exclui();
+                }
+                geraLista();
+                JsfUtil.addSuccessMessage("Registros excluídos com sucesso!", "");
+                break;
+        }
     }
 }
