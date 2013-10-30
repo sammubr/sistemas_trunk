@@ -17,8 +17,9 @@
 
                 <ui:decorate template="../../resources/templates/item.xhtml">
 
-                    <ui:define name="item_toolbar">
-                        <p:commandLink title="#{bundle.SaveLink}"  styleClass="btn btn-primary navbar-btn" actionListener="#{usuarioCadastro.persiste}" value="Salvar"/>
+                    <ui:define name="item_toolbar">                        
+                        <p:commandLink title="#{bundle.CancelLink}" styleClass="btn btn-default" actionListener="#{usuarioCadastro.cancela}" value="#{bundle.CancelLink}" immediate="true"/>
+                        <p:commandLink title="#{bundle.SaveLink}" styleClass="btn btn-primary" actionListener="#{usuarioCadastro.persiste}" value="#{bundle.SaveLink}"/>
                     </ui:define>
 
                     <ui:define name="item_conteudo">

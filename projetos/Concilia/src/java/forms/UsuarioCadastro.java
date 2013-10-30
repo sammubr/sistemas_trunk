@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
@@ -77,7 +76,11 @@ public class UsuarioCadastro implements Serializable {
 
     public void persiste() {
         getItem().persiste();
-        RequestContext.getCurrentInstance().closeDialog(this);
+        RequestContext.getCurrentInstance().closeDialog(getItem());
+    }
+
+    public void cancela() {
+        RequestContext.getCurrentInstance().closeDialog(null);
     }
 
     public void exclui() {
@@ -103,10 +106,14 @@ public class UsuarioCadastro implements Serializable {
     }
 
     public void aoSalvar(SelectEvent event) {
-        geraLista();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
+        Usuario usuario = (Usuario) event.getObject();
+        if (usuario != null) {
+            geraLista();
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
+        }
     }
 
+// ------------------------------------------------------------------- DIVERSOS
     private void abreCadastro() {
         Map<String, Object> options = new HashMap<String, Object>();
         options.put("modal", true);
