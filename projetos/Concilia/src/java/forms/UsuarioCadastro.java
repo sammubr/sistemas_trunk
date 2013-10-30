@@ -7,14 +7,19 @@ package forms;
 import controls.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 import util.JsfUtil;
 
 @Named("usuarioCadastro")
-@SessionScoped
+@RequestScoped
 public class UsuarioCadastro implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
@@ -60,21 +65,19 @@ public class UsuarioCadastro implements Serializable {
     }
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
-    public String criaNovo() {
+    public void criaNovo() {
         setItem(new Usuario());
-        return "cadastroItem.xhtml";
+        abreCadastro();
     }
 
-    public String persiste() {
-        getItem().persiste();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
-        geraLista();
-        return "cadastroList.xhtml";
+    public void persiste() {
+        //getItem().persiste();
+        RequestContext.getCurrentInstance().closeDialog(this);
     }
 
-    public String edita(Usuario item) {
+    public void edita(Usuario item) {
         setItem(item);
-        return "cadastroItem.xhtml";
+        abreCadastro();
     }
 
     public void exclui() {
@@ -97,5 +100,20 @@ public class UsuarioCadastro implements Serializable {
                 JsfUtil.addSuccessMessage("Registros excluídos com sucesso!", "");
                 break;
         }
+    }
+
+    public void aoSalvar(SelectEvent event) {
+        //     Usuario usuario = (Usuario) event.getObject();  
+        geraLista();
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
+    }
+
+    private void abreCadastro() {
+
+        Map<String, Object> options = new HashMap<String, Object>();
+        options.put("modal", true);
+        options.put("resizable", false);
+
+        RequestContext.getCurrentInstance().openDialog("item.xhtml", options, null);
     }
 }

@@ -5,20 +5,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta name="description" content=""/>
-        <meta name="author" content=""/>
 
-        <title>Sistema de conciliação bancária</title>
+    <ui:composition template="../resources/templates/layoutPadrao.xhtml">
 
-        <link href="/Concilia/resources/bootstrap-3.0.0/dist/css/bootstrap.css" rel="stylesheet"/>
-        <link href="/Concilia/resources/css/sticky-footer-navbar.css" rel="stylesheet"/>
-    </h:head>
+        <ui:define name="titulo">
+            Sistema de conciliação bancária
+        </ui:define>
 
-    <h:body>
-        <f:view encoding="ISO-8859-1">
+        <ui:define name="conteudo">
 
             <!-- Wrap all page content here -->
             <div id="wrap">
@@ -41,19 +35,11 @@
                                         Cadastros <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="/Concilia/pages/usuario/cadastroList.xhtml">Usuários</a></li>
+                                        <li><a href="/Concilia/pages/usuario/list.xhtml">Usuários</a></li>
                                         <li><a href="/Concilia/pages/banco/cadastroList.xhtml">Bancos</a></li>
                                         <li><a href="/Concilia/pages/contaContabil/cadastroList.xhtml">Contas contábeis</a></li>
                                         <li><a href="/Concilia/pages/contaBancaria/cadastroList.xhtml">Contas bancárias</a></li>
                                         <li><a href="/Concilia/pages/relacionamento/cadastroList.xhtml">Relacionamentos</a></li>
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
                                     </ul>
                                 </li>
 
@@ -102,9 +88,11 @@
 
                 <!-- Begin page content -->
 
-                    <p:growl id="messages" showDetail="true" /> 
+                <div class="container">
 
                     <ui:insert name="index_conteudo"></ui:insert>
+
+                </div>
 
             </div>
 
@@ -114,45 +102,8 @@
                 </div>
             </div>
 
-            <style type="text/css">
-                .ui-growl {
-                    position:absolute;
-                    top: 8%;
-                    z-index:9999;
-                }
-            </style>
-            <script src="/Concilia/resources/bootstrap-3.0.0/assets/js/jquery.js"></script>
-            <script src="/Concilia/resources/bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
+        </ui:define>
 
-        </f:view>
-    </h:body>
-    <script>
+    </ui:composition>
 
-        PrimeFaces.locales['pt'] = {
-            closeText: 'Fechar',
-            prevText: 'Anterior',
-            nextText: 'Próximo',
-            currentText: 'Começo',
-            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
-            weekHeader: 'Semana',
-            firstDay: 0,
-            isRTL: false,
-            showMonthAfterYear: false,
-            yearSuffix: '',
-            timeOnlyTitle: 'Só Horas',
-            timeText: 'Tempo',
-            hourText: 'Hora',
-            minuteText: 'Minuto',
-            secondText: 'Segundo',
-            ampm: false,
-            month: 'Mês',
-            week: 'Semana',
-            day: 'Dia',
-            allDayText: 'Todo o Dia'
-        };
-    </script>
 </html>

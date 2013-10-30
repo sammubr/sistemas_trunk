@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <ui:insert name="list_titulo"></ui:insert>
+            </h3>                                                                    
+        </div>
+
+        <div class="panel-body">
+
+            <nav class="navbar navbar-default" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-left">  
+                        <div class="btn-group ">
+                            <ui:insert name="list_toolbar"></ui:insert> 
+                        </div>
+                    </ul>
+
+                    <ul class="navbar-form navbar-default" role="search">  
+                        <div class="input-group col-lg-5">
+                            <div class="input-group">
+                                <ui:insert name="list_pesquisa"></ui:insert>
+                            </div>
+                        </div>
+                    </ul>
+
+                </div><!-- /.navbar-collapse -->
+            </nav>                            
+
+            <div class="table-responsive">
+                <ui:insert name="list_conteudo"></ui:insert>                         
+            </div>
+
+        </div>
+    </div>
+
+</html>
