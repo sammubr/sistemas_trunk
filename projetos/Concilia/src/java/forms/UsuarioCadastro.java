@@ -19,7 +19,7 @@ import org.primefaces.event.SelectEvent;
 import util.JsfUtil;
 
 @Named("usuarioCadastro")
-@RequestScoped
+@SessionScoped
 public class UsuarioCadastro implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
@@ -70,14 +70,14 @@ public class UsuarioCadastro implements Serializable {
         abreCadastro();
     }
 
-    public void persiste() {
-        //getItem().persiste();
-        RequestContext.getCurrentInstance().closeDialog(this);
-    }
-
     public void edita(Usuario item) {
         setItem(item);
         abreCadastro();
+    }
+
+    public void persiste() {
+        getItem().persiste();
+        RequestContext.getCurrentInstance().closeDialog(this);
     }
 
     public void exclui() {
@@ -103,17 +103,14 @@ public class UsuarioCadastro implements Serializable {
     }
 
     public void aoSalvar(SelectEvent event) {
-        //     Usuario usuario = (Usuario) event.getObject();  
         geraLista();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
     }
 
     private void abreCadastro() {
-
         Map<String, Object> options = new HashMap<String, Object>();
         options.put("modal", true);
         options.put("resizable", false);
-
         RequestContext.getCurrentInstance().openDialog("item.xhtml", options, null);
     }
 }

@@ -18,28 +18,28 @@
                 <ui:decorate template="../../resources/templates/item.xhtml">
 
                     <ui:define name="item_toolbar">
-                        <p:commandLink title="#{bundle.SaveLink}"  styleClass="btn btn-primary navbar-btn" actionListener="#{usuarioItem.persiste}" value="Salvar"/>
+                        <p:commandLink title="#{bundle.SaveLink}"  styleClass="btn btn-primary navbar-btn" actionListener="#{usuarioCadastro.persiste}" value="Salvar"/>
                     </ui:define>
 
                     <ui:define name="item_conteudo">
                         <div class="form-group">
                             <label for="nome">#{bundle.CreateUsuarioLabel_nome}</label>
-                            <p:inputText id="nome" styleClass="form-control" value="#{usuarioItem.item.nome}" title="#{bundle.CreateUsuarioTitle_nome}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nome}"/>
+                            <p:inputText id="nome" styleClass="form-control" value="#{usuarioCadastro.item.nome}" title="#{bundle.CreateUsuarioTitle_nome}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nome}"/>
                         </div>
 
                         <div class="form-group">
                             <label for="login">#{bundle.CreateUsuarioLabel_login}</label>
-                            <p:inputText id="login" styleClass="form-control" value="#{usuarioItem.item.login}" title="#{bundle.CreateUsuarioTitle_login}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_login}"/>
+                            <p:inputText id="login" styleClass="form-control" value="#{usuarioCadastro.item.login}" title="#{bundle.CreateUsuarioTitle_login}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_login}"/>
                         </div>
 
                         <div class="form-group">
                             <label for="senha">#{bundle.CreateUsuarioLabel_senha}</label>
-                            <p:inputText type="password" id="senha" styleClass="form-control" value="#{usuarioItem.item.senha}" title="#{bundle.CreateUsuarioTitle_senha}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_senha}"/>
+                            <p:inputText type="password" id="senha" styleClass="form-control" value="#{usuarioCadastro.item.senha}" title="#{bundle.CreateUsuarioTitle_senha}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_senha}"/>
                         </div>
 
                         <div class="form-group">
                             <label for="nivel">#{bundle.CreateUsuarioLabel_nivel}</label>                            
-                            <p:inputText id="nivel" styleClass="form-control" value="#{usuarioItem.item.nivel}" title="#{bundle.CreateUsuarioTitle_nivel}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nivel}"/>
+                            <p:inputText id="nivel" styleClass="form-control" value="#{usuarioCadastro.item.nivel}" title="#{bundle.CreateUsuarioTitle_nivel}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nivel}"/>
                         </div>
                     </ui:define>            
 

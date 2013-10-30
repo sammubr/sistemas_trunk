@@ -23,7 +23,6 @@
                     <ui:define name="list_toolbar">
 
                         <p:commandLink value="Inserir" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" actionListener="#{usuarioCadastro.criaNovo}">
-                            <f:setPropertyActionListener  target="#{usuarioItem.item}" value="#{usuarioCadastro.item}"/>
                             <p:ajax event="dialogReturn" listener="#{usuarioCadastro.aoSalvar}" update="list_table :messages"/>                                        
                         </p:commandLink>
                         <p:commandLink value="Excluir" title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" actionListener="#{usuarioCadastro.exclui}" update="list_table :messages"/>
@@ -59,7 +58,6 @@
 
                             <p:column style="width:5%">  
                                 <p:commandLink title="Editar" actionListener="#{usuarioCadastro.edita(item)}" styleClass="btn btn-toolbar btn-xs" >
-                                    <f:setPropertyActionListener  target="#{usuarioItem.item}" value="#{usuarioCadastro.item}"/>
                                     <p:ajax event="dialogReturn" listener="#{usuarioCadastro.aoSalvar}" update="list_table :messages"/>                                        
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </p:commandLink>  
