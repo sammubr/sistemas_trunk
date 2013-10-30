@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../index.xhtml">
+
+        <ui:define name="index_conteudo">
+
+            <h:form id="formList">
+
+                <ui:decorate template="../../resources/templates/list.xhtml">
+
+                    <ui:define name="list_titulo">
+                        #{bundle.FormCadastroContaContabil}    
+
+                    </ui:define>  
+
+                    <ui:define name="list_toolbar">
+
+                        <p:commandLink value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" actionListener="#{contaContabilCadastro.criaNovo}">
+                            <p:ajax event="dialogReturn" listener="#{contaContabilCadastro.aoSalvar}" update="list_table :messages"/>                                        
+                        </p:commandLink>
+                        <p:commandLink value="#{bundle.DestroyLink}" title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" actionListener="#{contaContabilCadastro.exclui}" update="list_table :messages"/>
+
+                    </ui:define>
+
+                    <ui:define name="list_conteudo">
+
+                        <p:dataTable id="list_table" var="item" value="#{contaContabilCadastro.lista}" tableStyleClass="table table-bordered table-hover"
+                                     rowKey="#{item.idcontaContabil}" emptyMessage="Nenhum registro encontrado." widgetVar="list_table"
+                                     selection="#{contaContabilCadastro.itensSelecionados}" selectionMode="multiple"
+                                     scrollable="true" scrollHeight="500">           
+
+                            <p:column sortBy="descricao" headerText="#{bundle.ListContaContabilTitle_descricao}" filterBy="descricao" filterMatchMode="contains">  
+                                <h:outputText value="#{item.descricao}" />  
+                            </p:column>  
+
+                            <p:column style="width:5%">  
+                                <p:commandLink title="#{bundle.EditLink}" actionListener="#{contaContabilCadastro.edita(item)}" styleClass="btn btn-toolbar btn-xs" >
+                                    <p:ajax event="dialogReturn" listener="#{contaContabilCadastro.aoSalvar}" update="list_table :messages"/>                                        
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </p:commandLink>  
+                            </p:column>  
+
+                        </p:dataTable>
+
+                    </ui:define>  
+
+                </ui:decorate>
+
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('formList:list_table:globalFilter').focus();
+        };
+    </script>
+
+</html>

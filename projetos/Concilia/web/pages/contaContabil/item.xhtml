@@ -6,30 +6,32 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="../../resources/templates/cadastro.xhtml">        
+    <ui:composition template="../../resources/templates/layoutPadrao.xhtml">
 
-        <ui:define name="cadastro_titulo">
-            #{bundle.FormCadastroContaContabil}            
+        <ui:define name="titulo">
+            #{bundle.FormCadastroContaContabil}    
         </ui:define>
 
-        <ui:define name="cadastro_conteudo">
+        <ui:define name="conteudo">        
 
-            <h:form id="form" >
+            <h:form id="formCadastro">
 
-                <ui:decorate template="../../resources/templates/cadastroConteudo.xhtml">
+                <ui:decorate template="../../resources/templates/item.xhtml">
 
-                    <ui:define name="cadastro_toolbar">
-                        <h:commandButton title="#{bundle.SaveLink}" class="btn btn-primary navbar-btn" action="#{contaContabilCadastro.persiste}" value="Salvar"/>
-                        <h:commandButton title="#{bundle.VoltarLink}" class="btn btn-primary navbar-btn" action="cadastroList.xhtml" immediate="true" value="Voltar" />
+                    <ui:define name="item_toolbar"> 
+
+                        <p:commandLink title="#{bundle.CancelLink}" styleClass="btn btn-default" actionListener="#{contaContabilCadastro.cancela}" value="#{bundle.CancelLink}" immediate="true"/>
+                        <p:commandLink title="#{bundle.SaveLink}" styleClass="btn btn-primary" actionListener="#{contaContabilCadastro.persiste}" value="#{bundle.SaveLink}"/>
+
                     </ui:define>        
 
-                    <ui:define name="cadastro_conteudo">                          
+                    <ui:define name="item_conteudo">                          
 
                         <div class="form-group">
                             <label for="descricao">#{bundle.CreateContaContabilLabel_descricao}</label>
                             <p:inputText id="descricao" styleClass="form-control" value="#{contaContabilCadastro.item.descricao}" title="#{bundle.CreateContaContabilTitle_descricao}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_descricao}"/>
                         </div>
-          
+
                         <div class="form-group">
                             <label for="saldoInicial">#{bundle.CreateContaContabilLabel_saldoInicial}</label>                            
                             <p:inputText id="saldoInicial" styleClass="form-control" value="#{contaContabilCadastro.item.saldoInicial}" title="#{bundle.CreateContaContabilTitle_saldoInicial}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_saldoInicial}">
@@ -70,17 +72,20 @@
 
                     </ui:define>        
 
-                </ui:decorate> 
+                </ui:decorate>
+
             </h:form>
-        </ui:define>  
+
+        </ui:define>
 
     </ui:composition>
+
     <script type="text/javascript">
         window.onload = function() {
-            document.getElementById('form:descricao').focus();
+            document.getElementById('formCadastro:descricao').focus();
         };
     </script>
-</html>
 
+</html>
 
 
