@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../../resources/templates/layoutPadrao.xhtml">
+
+        <ui:define name="titulo">
+            #{bundle.FormCadastroBancos}  
+        </ui:define>
+
+        <ui:define name="conteudo">        
+
+            <h:form id="formCadastro">
+
+                <ui:decorate template="../../resources/templates/item.xhtml">
+
+                    <ui:define name="item_toolbar">  
+
+                        <p:commandLink title="#{bundle.CancelLink}" styleClass="btn btn-default" actionListener="#{bancoCadastro.cancela}" value="#{bundle.CancelLink}" immediate="true"/>
+                        <p:commandLink title="#{bundle.SaveLink}" styleClass="btn btn-primary" actionListener="#{bancoCadastro.persiste}" value="#{bundle.SaveLink}"/>
+                    </ui:define>        
+
+                    <ui:define name="item_conteudo">                          
+
+                        <div class="form-group">
+                            <label for="descricao">#{bundle.CreateBancoLabel_descricao}</label>
+                            <p:inputText id="descricao" styleClass="form-control" value="#{bancoCadastro.item.descricao}" title="#{bundle.CreateBancoTitle_descricao}" required="true" requiredMessage="#{bundle.CreateBancoRequiredMessage_descricao}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="codigo">#{bundle.CreateBancoLabel_codigo}</label>
+                            <p:inputText id="codigo" styleClass="form-control" value="#{bancoCadastro.item.codigo}" title="#{bundle.CreateBancoTitle_codigo}" required="true" requiredMessage="#{bundle.CreateBancoRequiredMessage_codigo}"/>
+                        </div>
+
+                    </ui:define>            
+
+                </ui:decorate>
+
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('formCadastro:descricao').focus();
+        };
+    </script>
+
+</html>

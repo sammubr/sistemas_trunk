@@ -15,25 +15,25 @@
                 <ui:decorate template="../../resources/templates/list.xhtml">
 
                     <ui:define name="list_titulo">
-
-                        #{bundle.FormCadastroUsuarios}    
-
+                        #{bundle.FormCadastroBancos}    
                     </ui:define>  
 
                     <ui:define name="list_toolbar">
 
-                        <p:commandLink value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" actionListener="#{usuarioCadastro.criaNovo}">
+
+
+                        <p:commandLink value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" actionListener="#{bancoCadastro.criaNovo}">
                             <p:ajax event="dialogReturn" listener="#{usuarioCadastro.aoSalvar}" update="list_table :messages"/>                                        
                         </p:commandLink>
-                        <p:commandLink value="#{bundle.DestroyLink}" title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" actionListener="#{usuarioCadastro.exclui}" update="list_table :messages"/>
+                        <p:commandLink value="#{bundle.DestroyLink}" title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" actionListener="#{bancoCadastro.exclui}" update="list_table :messages"/>
 
-                    </ui:define>
+                    </ui:define> 
 
                     <ui:define name="list_conteudo">
 
-                        <p:dataTable id="list_table" var="item" value="#{usuarioCadastro.lista}" tableStyleClass="table table-bordered table-hover"
-                                     rowKey="#{item.idusuario}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="list_table"
-                                     selection="#{usuarioCadastro.itensSelecionados}" selectionMode="multiple"
+                        <p:dataTable id="list_table" var="item" value="#{bancoCadastro.lista}" tableStyleClass="table table-bordered table-hover"
+                                     rowKey="#{item.idbanco}" emptyMessage="Nenhum registro encontrado." widgetVar="list_table"
+                                     selection="#{bancoCadastro.itensSelecionados}" selectionMode="multiple"
                                      scrollable="true" scrollHeight="500">         
 
                             <f:facet name="header" >  
@@ -43,24 +43,21 @@
                                 </p:outputPanel>  
                             </f:facet>
 
-                            <p:column sortBy="nome" headerText="#{bundle.ListUsuarioTitle_nome}" filterBy="nome" filterMatchMode="contains">  
-                                <h:outputText value="#{item.nome}" />  
+                            <p:column sortBy="descricao" headerText="#{bundle.ListBancoTitle_descricao}" filterBy="descricao" filterMatchMode="contains">  
+                                <h:outputText value="#{item.descricao}" />  
                             </p:column>  
 
-                            <p:column sortBy="login" headerText="#{bundle.ListUsuarioTitle_login}" filterBy="login" filterMatchMode="contains">  
-                                <h:outputText value="#{item.login}" />  
-                            </p:column>  
-
-                            <p:column sortBy="nivel" headerText="#{bundle.ListUsuarioTitle_nivel}" filterBy="nivel" filterMatchMode="contains">  
-                                <h:outputText value="#{item.nivel}" />  
-                            </p:column>  
+                            <p:column sortBy="codigo" headerText="#{bundle.ListBancoTitle_codigo}" filterBy="codigo" filterMatchMode="contains">  
+                                <h:outputText value="#{item.codigo}" />  
+                            </p:column> 
 
                             <p:column style="width:5%">  
-                                <p:commandLink title="#{bundle.EditLink}" actionListener="#{usuarioCadastro.edita(item)}" styleClass="btn btn-toolbar btn-xs" >
-                                    <p:ajax event="dialogReturn" listener="#{usuarioCadastro.aoSalvar}" update="list_table :messages"/>                                        
+                                <p:commandLink title="#{bundle.EditLink}" actionListener="#{bancoCadastro.edita(item)}" styleClass="btn btn-toolbar btn-xs" >
+                                    <p:ajax event="dialogReturn" listener="#{bancoCadastro.aoSalvar}" update="list_table :messages"/>                                        
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </p:commandLink>  
                             </p:column>  
+
 
                         </p:dataTable>
 

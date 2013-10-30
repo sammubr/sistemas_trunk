@@ -106,8 +106,8 @@ public class UsuarioCadastro implements Serializable {
     }
 
     public void aoSalvar(SelectEvent event) {
-        Usuario usuario = (Usuario) event.getObject();
-        if (usuario != null) {
+        Usuario novoItem = (Usuario) event.getObject();
+        if (novoItem != null) {
             geraLista();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
         }
