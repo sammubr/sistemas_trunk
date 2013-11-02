@@ -5,56 +5,54 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="../../resources/templates/layoutPadrao.xhtml">
+    <h:form id="formItem">
 
-        <ui:define name="titulo">
-            #{bundle.FormCadastroUsuarios}
-        </ui:define>
+        <ui:decorate template="../../resources/templates/item.xhtml">
 
-        <ui:define name="conteudo">        
+            <ui:define name="item_toolbar">
 
-            <h:form id="formCadastro">
+                <p:commandLink title="#{bundle.CancelLink}" value="#{bundle.CancelLink}" styleClass="btn btn-default" 
+                               actionListener="#{usuarioCadastro.cancela}" immediate="true"/>
+                <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary" 
+                               actionListener="#{usuarioCadastro.persiste}" update=":formList:list_table"/>
 
-                <ui:decorate template="../../resources/templates/item.xhtml">
+            </ui:define>
 
-                    <ui:define name="item_toolbar">                        
-                        <p:commandLink title="#{bundle.CancelLink}" styleClass="btn btn-default" actionListener="#{usuarioCadastro.cancela}" value="#{bundle.CancelLink}" immediate="true"/>
-                        <p:commandLink title="#{bundle.SaveLink}" styleClass="btn btn-primary" actionListener="#{usuarioCadastro.persiste}" value="#{bundle.SaveLink}"/>
-                    </ui:define>
+            <ui:define name="item_conteudo">
 
-                    <ui:define name="item_conteudo">
-                        <div class="form-group">
-                            <label for="nome">#{bundle.CreateUsuarioLabel_nome}</label>
-                            <p:inputText id="nome" styleClass="form-control" value="#{usuarioCadastro.item.nome}" title="#{bundle.CreateUsuarioTitle_nome}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nome}"/>
-                        </div>
+                <div class="form-group">
+                    <label for="nome">#{bundle.CreateUsuarioLabel_nome}</label>
+                    <p:inputText id="nome" styleClass="form-control" value="#{usuarioCadastro.item.nome}" title="#{bundle.CreateUsuarioTitle_nome}" 
+                                 required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nome}"/>
+                </div>
 
-                        <div class="form-group">
-                            <label for="login">#{bundle.CreateUsuarioLabel_login}</label>
-                            <p:inputText id="login" styleClass="form-control" value="#{usuarioCadastro.item.login}" title="#{bundle.CreateUsuarioTitle_login}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_login}"/>
-                        </div>
+                <div class="form-group">
+                    <label for="login">#{bundle.CreateUsuarioLabel_login}</label>
+                    <p:inputText id="login" styleClass="form-control" value="#{usuarioCadastro.item.login}" title="#{bundle.CreateUsuarioTitle_login}" 
+                                 required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_login}"/>
+                </div>
 
-                        <div class="form-group">
-                            <label for="senha">#{bundle.CreateUsuarioLabel_senha}</label>
-                            <p:inputText type="password" id="senha" styleClass="form-control" value="#{usuarioCadastro.item.senha}" title="#{bundle.CreateUsuarioTitle_senha}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_senha}"/>
-                        </div>
+                <div class="form-group">
+                    <label for="senha">#{bundle.CreateUsuarioLabel_senha}</label>
+                    <p:inputText type="password" id="senha" styleClass="form-control" value="#{usuarioCadastro.item.senha}" 
+                                 title="#{bundle.CreateUsuarioTitle_senha}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_senha}"/>
+                </div>
 
-                        <div class="form-group">
-                            <label for="nivel">#{bundle.CreateUsuarioLabel_nivel}</label>                            
-                            <p:inputText id="nivel" styleClass="form-control" value="#{usuarioCadastro.item.nivel}" title="#{bundle.CreateUsuarioTitle_nivel}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nivel}"/>
-                        </div>
-                    </ui:define>            
+                <div class="form-group">
+                    <label for="nivel">#{bundle.CreateUsuarioLabel_nivel}</label>                            
+                    <p:inputText id="nivel" styleClass="form-control" value="#{usuarioCadastro.item.nivel}" title="#{bundle.CreateUsuarioTitle_nivel}" 
+                                 required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nivel}"/>
+                </div>
 
-                </ui:decorate>
+            </ui:define>
 
-            </h:form>
+        </ui:decorate>
 
-        </ui:define>
-
-    </ui:composition>
+    </h:form>
 
     <script type="text/javascript">
         window.onload = function() {
-            document.getElementById('formCadastro:nome').focus();
+            document.getElementById('formItem:nome').focus();
         };
     </script>
 
