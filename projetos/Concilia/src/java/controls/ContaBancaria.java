@@ -69,6 +69,8 @@ public class ContaBancaria extends Persistencia implements Serializable {
     @Column(name = "descricao")
     private String descricao;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "saldo_inicial")
     private BigDecimal saldoInicial;
     @Size(max = 20)
@@ -105,9 +107,10 @@ public class ContaBancaria extends Persistencia implements Serializable {
         this.idcontaBancaria = idcontaBancaria;
     }
 
-    public ContaBancaria(Integer idcontaBancaria, String descricao) {
+    public ContaBancaria(Integer idcontaBancaria, String descricao, BigDecimal saldoInicial) {
         this.idcontaBancaria = idcontaBancaria;
         this.descricao = descricao;
+        this.saldoInicial = saldoInicial;
     }
 
     public Integer getAgencia() {
@@ -159,6 +162,9 @@ public class ContaBancaria extends Persistencia implements Serializable {
     }
 
     public BigDecimal getSaldoInicial() {
+        if (saldoInicial == null){
+            saldoInicial = new BigDecimal(0);
+        }
         return saldoInicial;
     }
 
