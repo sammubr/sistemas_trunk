@@ -6,86 +6,72 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="../../resources/templates/layoutPadrao.xhtml">
+    <h:form id="formItem">
 
-        <ui:define name="titulo">
-            #{bundle.FormCadastroContaContabil}    
-        </ui:define>
+        <ui:decorate template="../../resources/templates/item.xhtml">
 
-        <ui:define name="conteudo">        
+            <ui:define name="item_titulo">
 
-            <h:form id="formCadastro">
+                #{bundle.FormCadastroContaContabil}
 
-                <ui:decorate template="../../resources/templates/item.xhtml">
+            </ui:define>            
 
-                    <ui:define name="item_toolbar"> 
+            <ui:define name="item_toolbar">
 
-                        <p:commandLink title="#{bundle.CancelLink}" styleClass="btn btn-default" actionListener="#{contaContabilCadastro.cancela}" value="#{bundle.CancelLink}" immediate="true"/>
-                        <p:commandLink title="#{bundle.SaveLink}" styleClass="btn btn-primary" actionListener="#{contaContabilCadastro.persiste}" value="#{bundle.SaveLink}"/>
+                <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary" 
+                               actionListener="#{contaContabilCadastro.persiste}" update=":formList:list_table"/>
 
-                    </ui:define>        
+            </ui:define>
 
-                    <ui:define name="item_conteudo">                          
+            <ui:define name="item_conteudo">
 
-                        <div class="form-group">
-                            <label for="descricao">#{bundle.CreateContaContabilLabel_descricao}</label>
-                            <p:inputText id="descricao" styleClass="form-control" value="#{contaContabilCadastro.item.descricao}" title="#{bundle.CreateContaContabilTitle_descricao}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_descricao}"/>
-                        </div>
+                <div class="form-group">
+                    <label for="descricao">#{bundle.CreateContaContabilLabel_descricao}</label>
+                    <p:inputText id="descricao" styleClass="form-control" value="#{contaContabilCadastro.item.descricao}" title="#{bundle.CreateContaContabilTitle_descricao}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_descricao}"/>
+                </div>
 
-                        <div class="form-group">
-                            <label for="saldoInicial">#{bundle.CreateContaContabilLabel_saldoInicial}</label>                            
-                            <p:inputText id="saldoInicial" styleClass="form-control" value="#{contaContabilCadastro.item.saldoInicial}" title="#{bundle.CreateContaContabilTitle_saldoInicial}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_saldoInicial}">
-                                <f:convertNumber pattern="#0.00" />                              
-                                <p:ajax event="blur" update="saldoInicial"  />                  
-                            </p:inputText>
-                        </div>
+                <div class="form-group">
+                    <label for="saldoInicial">#{bundle.CreateContaContabilLabel_saldoInicial}</label>                            
+                    <p:inputText id="saldoInicial" styleClass="form-control" value="#{contaContabilCadastro.item.saldoInicial}" title="#{bundle.CreateContaContabilTitle_saldoInicial}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_saldoInicial}">
+                        <f:convertNumber pattern="#0.00"/>                              
+                        <p:ajax event="blur" update="saldoInicial"/>                  
+                    </p:inputText>
+                </div>
 
-                        <div class="form-group">
-                            <label for="tagValor">#{bundle.CreateContaContabilLabel_tagValor}</label>                            
-                            <p:inputText id="tagValor" styleClass="form-control" value="#{contaContabilCadastro.item.tagValor}" title="#{bundle.CreateContaContabilTitle_tagValor}"/>
-                        </div>
+                <div class="form-group">
+                    <label for="tagValor">#{bundle.CreateContaContabilLabel_tagValor}</label>                            
+                    <p:inputText id="tagValor" styleClass="form-control" value="#{contaContabilCadastro.item.tagValor}" title="#{bundle.CreateContaContabilTitle_tagValor}"/>
+                </div>
 
-                        <div class="form-group">
-                            <label for="tagData">#{bundle.CreateContaContabilLabel_tagData}</label>                            
-                            <p:inputText id="tagData" styleClass="form-control" value="#{contaContabilCadastro.item.tagData}" title="#{bundle.CreateContaContabilTitle_tagData}"/>
-                        </div>
+                <div class="form-group">
+                    <label for="tagData">#{bundle.CreateContaContabilLabel_tagData}</label>                            
+                    <p:inputText id="tagData" styleClass="form-control" value="#{contaContabilCadastro.item.tagData}" title="#{bundle.CreateContaContabilTitle_tagData}"/>
+                </div>
 
-                        <div class="form-group">
-                            <label for="tagNumDoc">#{bundle.CreateContaContabilLabel_tagNumDoc}</label>                            
-                            <p:inputText id="tagNumDoc" styleClass="form-control" value="#{contaContabilCadastro.item.tagNumDoc}" title="#{bundle.CreateContaContabilTitle_tagNumDoc}"/>
-                        </div>
+                <div class="form-group">
+                    <label for="tagNumDoc">#{bundle.CreateContaContabilLabel_tagNumDoc}</label>                            
+                    <p:inputText id="tagNumDoc" styleClass="form-control" value="#{contaContabilCadastro.item.tagNumDoc}" title="#{bundle.CreateContaContabilTitle_tagNumDoc}"/>
+                </div>
 
-                        <div class="form-group">
-                            <label for="tagHistorico">#{bundle.CreateContaContabilLabel_tagHistorico}</label>                            
-                            <p:inputText id="tagHistorico" styleClass="form-control" value="#{contaContabilCadastro.item.tagHistorico}" title="#{bundle.CreateContaContabilTitle_tagHistorico}"/>
-                        </div>
+                <div class="form-group">
+                    <label for="tagHistorico">#{bundle.CreateContaContabilLabel_tagHistorico}</label>                            
+                    <p:inputText id="tagHistorico" styleClass="form-control" value="#{contaContabilCadastro.item.tagHistorico}" title="#{bundle.CreateContaContabilTitle_tagHistorico}"/>
+                </div>
 
-                        <div class="form-group">
-                            <label for="tagInicioMovimento">#{bundle.CreateContaContabilLabel_tagInicioMovimento}</label>                            
-                            <p:inputText id="tagInicioMovimento" styleClass="form-control" value="#{contaContabilCadastro.item.tagInicioMovimento}" title="#{bundle.CreateContaContabilTitle_tagInicioMovimento}"/>
-                        </div>
+                <div class="form-group">
+                    <label for="tagInicioMovimento">#{bundle.CreateContaContabilLabel_tagInicioMovimento}</label>                            
+                    <p:inputText id="tagInicioMovimento" styleClass="form-control" value="#{contaContabilCadastro.item.tagInicioMovimento}" title="#{bundle.CreateContaContabilTitle_tagInicioMovimento}"/>
+                </div>
 
-                        <div class="form-group">
-                            <label for="tagFimMovimento">#{bundle.CreateContaContabilLabel_tagFimMovimento}</label>                            
-                            <p:inputText id="tagFimMovimento" styleClass="form-control" value="#{contaContabilCadastro.item.tagFimMovimento}" title="#{bundle.CreateContaContabilTitle_tagFimMovimento}"/>
-                        </div>
+                <div class="form-group">
+                    <label for="tagFimMovimento">#{bundle.CreateContaContabilLabel_tagFimMovimento}</label>                            
+                    <p:inputText id="tagFimMovimento" styleClass="form-control" value="#{contaContabilCadastro.item.tagFimMovimento}" title="#{bundle.CreateContaContabilTitle_tagFimMovimento}"/>
+                </div>
 
-                    </ui:define>        
+            </ui:define>
 
-                </ui:decorate>
+        </ui:decorate>
 
-            </h:form>
-
-        </ui:define>
-
-    </ui:composition>
-
-    <script type="text/javascript">
-        window.onload = function() {
-            document.getElementById('formCadastro:descricao').focus();
-        };
-    </script>
+    </h:form>
 
 </html>
-
-
