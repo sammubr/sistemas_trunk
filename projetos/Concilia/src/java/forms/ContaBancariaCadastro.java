@@ -10,12 +10,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 import util.JsfUtil;
 
 @Named("contaBancariaCadastro")
-@SessionScoped
+@ViewScoped
 public class ContaBancariaCadastro implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
@@ -76,27 +77,25 @@ public class ContaBancariaCadastro implements Serializable {
     }
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
-    public String criaNovo() {
-        setItem(new ContaBancaria());
-        return "cadastroItem.xhtml";
+    public void criaNovo() {
+        item = new ContaBancaria();
     }
 
-    public String persiste() {
+    public void edita(ContaBancaria itemSelecionado) {
+        item = itemSelecionado;
+    }
+
+    public void persiste() {
         getItem().persiste();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
         geraLista();
-        return "cadastroList.xhtml";
-    }
-
-    public String edita(ContaBancaria item) {
-        setItem(item);
-        return "cadastroItem.xhtml";
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
+        RequestContext.getCurrentInstance().execute("$('#myModal').modal('hide')");
     }
 
     public void exclui() {
         switch (itensSelecionados.size()) {
             case 0:
-                JsfUtil.addErrorMessage("Não há registros para excluir!", "");
+                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("EmptyRecordsToDelete"), "");
                 break;
             case 1:
                 for (ContaBancaria itemSelecionado : itensSelecionados) {
@@ -110,7 +109,7 @@ public class ContaBancariaCadastro implements Serializable {
                     itemSelecionado.exclui();
                 }
                 geraLista();
-                JsfUtil.addSuccessMessage("Registros excluídos com sucesso!", "");
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
                 break;
         }
     }
