@@ -5,50 +5,39 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="../../resources/templates/layoutPadrao.xhtml">
+    <h:form id="formItem">
 
-        <ui:define name="titulo">
-            #{bundle.FormCadastroBancos}  
-        </ui:define>
+        <ui:decorate template="../../resources/templates/item.xhtml">
 
-        <ui:define name="conteudo">        
+            <ui:define name="item_titulo">
 
-            <h:form id="formCadastro">
+                #{bundle.FormCadastroBancos}
 
-                <ui:decorate template="../../resources/templates/item.xhtml">
+            </ui:define>            
 
-                    <ui:define name="item_toolbar">  
+            <ui:define name="item_toolbar">
 
-                        <p:commandLink title="#{bundle.CancelLink}" styleClass="btn btn-default" actionListener="#{bancoCadastro.cancela}" value="#{bundle.CancelLink}" immediate="true"/>
-                        <p:commandLink title="#{bundle.SaveLink}" styleClass="btn btn-primary" actionListener="#{bancoCadastro.persiste}" value="#{bundle.SaveLink}"/>
-                    </ui:define>        
+                <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary" 
+                               actionListener="#{bancoCadastro.persiste}" update=":formList:list_table"/>
 
-                    <ui:define name="item_conteudo">                          
+            </ui:define>
 
-                        <div class="form-group">
-                            <label for="descricao">#{bundle.CreateBancoLabel_descricao}</label>
-                            <p:inputText id="descricao" styleClass="form-control" value="#{bancoCadastro.item.descricao}" title="#{bundle.CreateBancoTitle_descricao}" required="true" requiredMessage="#{bundle.CreateBancoRequiredMessage_descricao}"/>
-                        </div>
+            <ui:define name="item_conteudo">
 
-                        <div class="form-group">
-                            <label for="codigo">#{bundle.CreateBancoLabel_codigo}</label>
-                            <p:inputText id="codigo" styleClass="form-control" value="#{bancoCadastro.item.codigo}" title="#{bundle.CreateBancoTitle_codigo}" required="true" requiredMessage="#{bundle.CreateBancoRequiredMessage_codigo}"/>
-                        </div>
+                <div class="form-group">
+                    <label for="descricao">#{bundle.CreateBancoLabel_descricao}</label>
+                    <p:inputText id="descricao" styleClass="form-control" value="#{bancoCadastro.item.descricao}" title="#{bundle.CreateBancoTitle_descricao}" required="true" requiredMessage="#{bundle.CreateBancoRequiredMessage_descricao}"/>
+                </div>
 
-                    </ui:define>            
+                <div class="form-group">
+                    <label for="codigo">#{bundle.CreateBancoLabel_codigo}</label>
+                    <p:inputText id="codigo" styleClass="form-control" value="#{bancoCadastro.item.codigo}" title="#{bundle.CreateBancoTitle_codigo}" required="true" requiredMessage="#{bundle.CreateBancoRequiredMessage_codigo}"/>
+                </div>
 
-                </ui:decorate>
+            </ui:define>
 
-            </h:form>
+        </ui:decorate>
 
-        </ui:define>
-
-    </ui:composition>
-
-    <script type="text/javascript">
-        window.onload = function() {
-            document.getElementById('formCadastro:descricao').focus();
-        };
-    </script>
+    </h:form>
 
 </html>

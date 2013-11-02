@@ -65,8 +65,8 @@ public class UsuarioCadastro implements Serializable {
         item = new Usuario();
     }
 
-    public void edita(Usuario usuario) {
-        item = usuario;
+    public void edita(Usuario itemSelecionado) {
+        item = itemSelecionado;
     }
 
     public void persiste() {
