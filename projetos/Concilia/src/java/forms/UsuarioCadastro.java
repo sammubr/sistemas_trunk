@@ -73,7 +73,7 @@ public class UsuarioCadastro implements Serializable {
         getItem().persiste();
         geraLista();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
-        RequestContext.getCurrentInstance().execute("dialogItem.hide()");
+        RequestContext.getCurrentInstance().execute("$('#myModal').modal('hide')");
     }
 
     public void exclui() {
@@ -99,6 +99,6 @@ public class UsuarioCadastro implements Serializable {
     }
 
     public void cancela() {
-        RequestContext.getCurrentInstance().execute("dialogItem.hide()");
+        RequestContext.getCurrentInstance().execute("$('#myModal').modal('hide')");
     }
 }

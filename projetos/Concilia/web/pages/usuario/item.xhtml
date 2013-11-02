@@ -9,6 +9,12 @@
 
         <ui:decorate template="../../resources/templates/item.xhtml">
 
+            <ui:define name="item_titulo">
+
+                #{bundle.FormCadastroUsuarios}
+
+            </ui:define>            
+
             <ui:define name="item_toolbar">
 
                 <p:commandLink title="#{bundle.CancelLink}" value="#{bundle.CancelLink}" styleClass="btn btn-default" 
@@ -49,11 +55,5 @@
         </ui:decorate>
 
     </h:form>
-
-    <script type="text/javascript">
-        window.onload = function() {
-            document.getElementById('formItem:nome').focus();
-        };
-    </script>
 
 </html>

@@ -23,7 +23,7 @@
                     <ui:define name="list_toolbar">
 
                         <p:commandLink value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" 
-                                       actionListener="#{usuarioCadastro.criaNovo}" oncomplete="dialogItem.show()" update=":item" resetValues="true"/>
+                                       actionListener="#{usuarioCadastro.criaNovo}" oncomplete="$('#myModal').modal('show')" update=":formItem" resetValues="true" />
                         <p:commandLink value="#{bundle.DestroyLink}" title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" 
                                        actionListener="#{usuarioCadastro.exclui}" update="list_table :messages"/>
 
@@ -57,8 +57,8 @@
 
                             <p:column style="width: 40px; text-align: center">  
 
-                                <p:commandLink title="#{bundle.EditLink}" update=":item" actionListener="#{usuarioCadastro.edita(item)}" 
-                                               oncomplete="dialogItem.show()" immediate="true" resetValues="true">
+                                <p:commandLink title="#{bundle.EditLink}" update=":formItem" actionListener="#{usuarioCadastro.edita(item)}" 
+                                               oncomplete="$('#myModal').modal('show')" immediate="true" resetValues="true">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </p:commandLink>   
 
@@ -72,11 +72,15 @@
 
             </h:form>
 
-            <p:dialog id="item" header="#{bundle.FormCadastroUsuarios}" widgetVar="dialogItem" modal="true" closeOnEscape="true" resizable="false">
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div id="item" class="modal-dialog">
+                    <div class="modal-content">
 
-                <ui:include src="item.xhtml"/>
+                        <ui:include src="item.xhtml"/>
 
-            </p:dialog>
+                    </div>
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
 
         </ui:define>
 
@@ -86,6 +90,9 @@
                                         window.onload = function() {
                                             document.getElementById('formList:list_table:globalFilter').focus();
                                         };
+                                        $('#myModal').on('shown.bs.modal', function() {
+                                            $('input:text:visible:first', this).focus();
+                                        });
     </script>
 
 </html>
