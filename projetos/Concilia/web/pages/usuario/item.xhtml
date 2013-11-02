@@ -17,8 +17,6 @@
 
             <ui:define name="item_toolbar">
 
-                <p:commandLink title="#{bundle.CancelLink}" value="#{bundle.CancelLink}" styleClass="btn btn-default" 
-                               actionListener="#{usuarioCadastro.cancela}" immediate="true"/>
                 <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary" 
                                actionListener="#{usuarioCadastro.persiste}" update=":formList:list_table"/>
 

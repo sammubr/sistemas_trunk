@@ -97,8 +97,4 @@ public class UsuarioCadastro implements Serializable {
                 break;
         }
     }
-
-    public void cancela() {
-        RequestContext.getCurrentInstance().execute("$('#myModal').modal('hide')");
-    }
 }
