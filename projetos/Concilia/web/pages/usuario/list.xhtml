@@ -22,24 +22,24 @@
 
                     <ui:define name="list_toolbar">
 
-                        <p:commandLink value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" actionListener="#{usuarioCadastro.criaNovo}">
-                            <p:ajax event="dialogReturn" listener="#{usuarioCadastro.aoSalvar}" update="list_table :messages"/>                                        
-                        </p:commandLink>
-                        <p:commandLink value="#{bundle.DestroyLink}" title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" actionListener="#{usuarioCadastro.exclui}" update="list_table :messages"/>
+                        <p:commandLink value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" 
+                                       actionListener="#{usuarioCadastro.criaNovo}" oncomplete="dialogItem.show()" update=":item" resetValues="true"/>
+                        <p:commandLink value="#{bundle.DestroyLink}" title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" 
+                                       actionListener="#{usuarioCadastro.exclui}" update="list_table :messages"/>
 
                     </ui:define>
 
                     <ui:define name="list_conteudo">
 
                         <p:dataTable id="list_table" var="item" value="#{usuarioCadastro.lista}" tableStyleClass="table table-bordered table-hover"
-                                     rowKey="#{item.idusuario}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="list_table"
+                                     rowKey="#{item.idusuario}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="list_widgetVar"
                                      selection="#{usuarioCadastro.itensSelecionados}" selectionMode="multiple"
                                      scrollable="true" scrollHeight="500">         
 
                             <f:facet name="header" >  
                                 <p:outputPanel>  
                                     <h:outputText value="#{bundle.FilterTable} " />  
-                                    <p:inputText id="globalFilter" onkeyup="list_table.filter();" style="width:20%" />  
+                                    <p:inputText id="globalFilter" onkeyup="list_widgetVar.filter();" style="width:20%" />  
                                 </p:outputPanel>  
                             </f:facet>
 
@@ -55,11 +55,13 @@
                                 <h:outputText value="#{item.nivel}" />  
                             </p:column>  
 
-                            <p:column style="width:5%">  
-                                <p:commandLink title="#{bundle.EditLink}" actionListener="#{usuarioCadastro.edita(item)}" styleClass="btn btn-toolbar btn-xs" >
-                                    <p:ajax event="dialogReturn" listener="#{usuarioCadastro.aoSalvar}" update="list_table :messages"/>                                        
+                            <p:column style="width: 40px; text-align: center">  
+
+                                <p:commandLink title="Alterar" update=":item" actionListener="#{usuarioCadastro.edita(item)}" 
+                                               oncomplete="dialogItem.show()" immediate="true" resetValues="true">
                                     <span class="glyphicon glyphicon-pencil"></span>
-                                </p:commandLink>  
+                                </p:commandLink>   
+
                             </p:column>  
 
                         </p:dataTable>
@@ -69,6 +71,55 @@
                 </ui:decorate>
 
             </h:form>
+
+            <p:dialog id="item" header="#{bundle.FormCadastroUsuarios} " widgetVar="dialogItem" modal="true">
+
+                <h:form id="formItem">
+
+                    <ui:decorate template="../../resources/templates/item.xhtml">
+
+                        <ui:define name="item_toolbar">
+
+                            <p:commandLink title="#{bundle.CancelLink}" value="#{bundle.CancelLink}" styleClass="btn btn-default" 
+                                           actionListener="#{usuarioCadastro.cancela}" immediate="true"/>
+                            <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary" 
+                                           actionListener="#{usuarioCadastro.persiste}" update=":formList:list_table"/>
+
+                        </ui:define>
+
+                        <ui:define name="item_conteudo">
+
+                            <div class="form-group">
+                                <label for="nome">#{bundle.CreateUsuarioLabel_nome}</label>
+                                <p:inputText id="nome" styleClass="form-control" value="#{usuarioCadastro.item.nome}" title="#{bundle.CreateUsuarioTitle_nome}" 
+                                             required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nome}"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="login">#{bundle.CreateUsuarioLabel_login}</label>
+                                <p:inputText id="login" styleClass="form-control" value="#{usuarioCadastro.item.login}" title="#{bundle.CreateUsuarioTitle_login}" 
+                                             required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_login}"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="senha">#{bundle.CreateUsuarioLabel_senha}</label>
+                                <p:inputText type="password" id="senha" styleClass="form-control" value="#{usuarioCadastro.item.senha}" 
+                                             title="#{bundle.CreateUsuarioTitle_senha}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_senha}"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nivel">#{bundle.CreateUsuarioLabel_nivel}</label>                            
+                                <p:inputText id="nivel" styleClass="form-control" value="#{usuarioCadastro.item.nivel}" title="#{bundle.CreateUsuarioTitle_nivel}" 
+                                             required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nivel}"/>
+                            </div>
+
+                        </ui:define>
+
+                    </ui:decorate>
+
+                </h:form>
+
+            </p:dialog>
 
         </ui:define>
 

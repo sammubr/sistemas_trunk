@@ -7,18 +7,15 @@ package forms;
 import controls.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
 import util.JsfUtil;
 
 @Named("usuarioCadastro")
-@SessionScoped
+@ViewScoped
 public class UsuarioCadastro implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
@@ -65,28 +62,24 @@ public class UsuarioCadastro implements Serializable {
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public void criaNovo() {
-        setItem(new Usuario());
-        abreCadastro();
+        item = new Usuario();
     }
 
-    public void edita(Usuario item) {
-        setItem(item);
-        abreCadastro();
+    public void edita(Usuario usuario) {
+        item = usuario;
     }
 
     public void persiste() {
         getItem().persiste();
-        RequestContext.getCurrentInstance().closeDialog(getItem());
-    }
-
-    public void cancela() {
-        RequestContext.getCurrentInstance().closeDialog(null);
+        geraLista();
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
+        RequestContext.getCurrentInstance().execute("dialogItem.hide()");
     }
 
     public void exclui() {
         switch (itensSelecionados.size()) {
             case 0:
-                JsfUtil.addErrorMessage("Não há registros para excluir!", "");
+                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("EmptyRecordsToDelete"), "");
                 break;
             case 1:
                 for (Usuario itemSelecionado : itensSelecionados) {
@@ -100,24 +93,12 @@ public class UsuarioCadastro implements Serializable {
                     itemSelecionado.exclui();
                 }
                 geraLista();
-                JsfUtil.addSuccessMessage("Registros excluídos com sucesso!", "");
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
                 break;
         }
     }
 
-    public void aoSalvar(SelectEvent event) {
-        Usuario novoItem = (Usuario) event.getObject();
-        if (novoItem != null) {
-            geraLista();
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
-        }
-    }
-
-// ------------------------------------------------------------------- DIVERSOS
-    private void abreCadastro() {
-        Map<String, Object> options = new HashMap<String, Object>();
-        options.put("modal", true);
-        options.put("resizable", false);
-        RequestContext.getCurrentInstance().openDialog("item.xhtml", options, null);
+    public void cancela() {
+        RequestContext.getCurrentInstance().execute("dialogItem.hide()");
     }
 }
