@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <div class="btn-group ">
+
+        <p:commandLink title="#{bundle.AddLink}" styleClass="btn btn-primary navbar-btn" 
+                       actionListener="#{relacionamentoCadastro.geraListaDeContasBancarias}" oncomplete="$('#modalContasBancarias').modal('show')" 
+                       resetValues="true" update="tableSelecionaContasBancarias" partialSubmit="true" process="@this tableSelecionaContasBancarias">
+            <span class="glyphicon glyphicon-plus"></span>
+        </p:commandLink>
+
+        <p:commandLink title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" 
+                       actionListener="#{relacionamentoCadastro.removeContasBancariasDoRelacionamentoSelecionadas}" update="tableContasBancarias" 
+                       process="@this tableContasBancarias">
+            <span class="glyphicon glyphicon-minus"></span>
+        </p:commandLink>
+
+    </div>
+
+    <p:dataTable id="tableContasBancarias" var="contaBancaria" value="#{relacionamentoCadastro.listaDeContasBancariasDoRelacionamento}" 
+                 tableStyleClass="table table-bordered table-hover" rowKey="#{contaBancaria.idcontaBancaria}" emptyMessage="#{bundle.RecordsEmpty}"
+                 selection="#{relacionamentoCadastro.listaDeContasBancariasDoRelacionamentoSelecionadas}" selectionMode="multiple">         
+
+        <p:column sortBy="descricao" headerText="#{bundle.ListContaContabilTitle_descricao}" filterBy="descricao" filterMatchMode="contains">  
+            <h:outputText value="#{contaBancaria.descricao}" />  
+        </p:column>   
+
+    </p:dataTable>                                     
+
+    <div class="modal fade" id="modalContasBancarias" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+        <ui:decorate template="../../resources/templates/dialogo.xhtml">
+
+            <ui:define name="dialogo_titulo">
+
+                #{bundle.ContaBancariaListTitle}
+
+            </ui:define>            
+
+            <ui:define name="dialogo_toolbar">
+
+                <p:commandLink actionListener="#{relacionamentoCadastro.addContaBancaria}" styleClass="btn btn-primary" update="tableContasBancarias" 
+                               partialSubmit="true" process="@this tableSelecionaContasBancarias">
+                    #{bundle.AddLink}
+                </p:commandLink>                
+
+            </ui:define>
+
+            <ui:define name="dialogo_conteudo">        
+
+                <p:dataTable id="tableSelecionaContasBancarias" var="item" value="#{relacionamentoCadastro.listaDeContasBancarias}" 
+                             tableStyleClass="table table-bordered table-hover" rowKey="#{item.idcontaBancaria}" emptyMessage="#{bundle.RecordsEmpty}"
+                             selection="#{relacionamentoCadastro.listaDeContasBancariasSelecionadas}" selectionMode="multiple">        
+
+                    <p:column sortBy="descricao" headerText="#{bundle.ListRelacionamentoTitle_descricao}" filterBy="descricao" filterMatchMode="contains">  
+                        <h:outputText value="#{item.descricao}"/>  
+                    </p:column>  
+
+                </p:dataTable>     
+
+            </ui:define>
+
+        </ui:decorate>
+
+    </div>
+
+</html>

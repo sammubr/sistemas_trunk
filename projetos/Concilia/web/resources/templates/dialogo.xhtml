@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <div id="item" class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <ui:insert name="dialogo_titulo"></ui:insert>
+                </h4>
+            </div>
+
+            <div class="modal-body">
+                <ui:insert name="dialogo_conteudo"></ui:insert>
+            </div>
+
+            <div class="modal-footer">
+                <div class="btn-group ">
+                    <ui:insert name="dialogo_toolbar"></ui:insert>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">#{bundle.CancelLink}</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</html>

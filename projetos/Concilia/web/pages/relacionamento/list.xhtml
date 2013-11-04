@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../index.xhtml">
+
+        <ui:define name="index_conteudo">
+
+            <h:form id="formList" >
+
+                <ui:decorate template="../../resources/templates/list.xhtml">
+
+                    <ui:define name="list_titulo">
+
+                        #{bundle.FormCadastroRelacionamentos}
+
+                    </ui:define>  
+
+                    <ui:define name="list_toolbar">
+
+                        <p:commandLink value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" 
+                                       action="#{relacionamentoCadastro.criaNovo}" rendered="#{relacionamentoCadastro.gridVisivel}" update=":formList"/>
+
+                        <p:commandLink value="#{bundle.DestroyLink}" title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" 
+                                       actionListener="#{relacionamentoCadastro.exclui}" rendered="#{relacionamentoCadastro.gridVisivel}" update=":formList"/>
+
+                        <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary navbar-btn"
+                                       actionListener="#{relacionamentoCadastro.persiste}" rendered="#{!relacionamentoCadastro.gridVisivel}" update=":formList"/>
+
+                        <p:commandLink title="#{bundle.CancelLink}" value="#{bundle.CancelLink}" styleClass="btn btn-default navbar-btn"
+                                       actionListener="#{relacionamentoCadastro.cancela}" immediate="true" rendered="#{!relacionamentoCadastro.gridVisivel}" update=":formList"/>           
+
+                    </ui:define>
+
+                    <ui:define name="list_conteudo">
+
+                        <p:outputPanel rendered="#{relacionamentoCadastro.gridVisivel}">
+
+                            <p:dataTable id="tableRelacionamentos" var="item" value="#{relacionamentoCadastro.listaDeRelacionamentos}" tableStyleClass="table table-bordered table-hover"
+                                         rowKey="#{item.id}" emptyMessage="#{bundle.RecordsEmpty}"
+                                         selection="#{relacionamentoCadastro.relacionamentosSelecionados}" selectionMode="multiple"
+                                         scrollable="true" scrollHeight="500">         
+
+                                <p:column sortBy="descricao" headerText="#{bundle.ListRelacionamentoTitle_descricao}" filterBy="descricao" filterMatchMode="contains">  
+                                    <h:outputText value="#{item.descricao}" />  
+                                </p:column>  
+
+                                <p:column style="width: 40px; text-align: center">  
+
+                                    <p:commandLink title="#{bundle.EditLink}" actionListener="#{relacionamentoCadastro.edita(item)}" update=":formList" immediate="true">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </p:commandLink>   
+
+                                </p:column>  
+
+                            </p:dataTable>
+
+                        </p:outputPanel>
+
+                    </ui:define>                      
+
+                    <ui:define name="list_item">
+
+                        <p:outputPanel rendered="#{!relacionamentoCadastro.gridVisivel}">                        
+
+                            <div class="form-group">
+                                <label for="descricao">#{bundle.CreateRelacionamentoLabel_descricao}</label>
+                                <p:inputText id="descricao" styleClass="form-control" value="#{relacionamentoCadastro.relacionamento.descricao}" 
+                                             title="#{bundle.CreateRelacionamentoTitle_descricao}" required="true" 
+                                             requiredMessage="#{bundle.CreateRelacionamentoRequiredMessage_descricao}">
+                                    <p:focus/>
+                                </p:inputText>
+                            </div>
+
+                            <ul class="nav nav-tabs" id="tabContas" >
+                                <li><a href="#contasContabeis" data-toggle="tab">Contas contábeis</a></li>
+                                <li><a href="#contasBancarias" data-toggle="tab">Contas bancárias</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+
+                                <div class="tab-pane" id="contasContabeis">
+                                    <ui:include src="tabContaContabil.xhtml"/>
+                                </div>
+
+                                <div class="tab-pane" id="contasBancarias">
+                                    <ui:include src="tabContaBancaria.xhtml"/>
+                                </div>                                    
+
+                            </div>            
+
+                        </p:outputPanel>
+
+                    </ui:define>
+
+                </ui:decorate>
+
+
+
+                <script type="text/javascript">
+                    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                        e.target; // activated tab
+                        e.relatedTarget; // previous tab
+                    });
+                    $('#tabContas a:first').tab('show'); // Select first tab
+                </script>
+
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
+    <style type="text/css">
+        .tab-content {
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+        }
+    </style>
+
+</html>

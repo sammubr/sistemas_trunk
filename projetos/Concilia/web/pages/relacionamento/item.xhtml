@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../index.xhtml">
+
+        <ui:define name="index_conteudo">
+
+            <h:form id="formItem">
+
+                <ui:decorate template="../../resources/templates/item.xhtml">
+
+                    <ui:define name="item_titulo">
+
+                        #{bundle.FormCadastroRelacionamentos}    
+
+                    </ui:define>  
+
+                    <ui:define name="item_toolbar">
+
+                        <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary navbar-btn"
+                                       actionListener="#{relacionamentoCadastro.persiste}"/>
+
+                    </ui:define>
+
+                    <ui:define name="item_conteudo">
+
+                        <div class="form-group">
+                            <label for="descricao">#{bundle.CreateRelacionamentoLabel_descricao}</label>
+                            <p:inputText id="descricao" styleClass="form-control" value="#{relacionamentoCadastro.item.descricao}" 
+                                         title="#{bundle.CreateRelacionamentoTitle_descricao}" required="true" 
+                                         requiredMessage="#{bundle.CreateRelacionamentoRequiredMessage_descricao}"/>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <ul class="nav nav-tabs" id="tabContas" >
+                            <li><a href="#contasContabeis" data-toggle="tab">Contas contábeis</a></li>
+                            <li><a href="#contasBancarias" data-toggle="tab">Contas bancárias</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+
+
+                            <div class="tab-pane" id="contasContabeis">
+
+                                <p:commandLink value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" oncomplete="$('#modalContaContabil').modal('show')" />
+
+                                <p:dataTable id="tableContasContabeis" var="item" value="#{relacionamentoCadastro.contasContabeisDoItem}" tableStyleClass="table table-bordered table-hover"
+                                             rowKey="#{item.idcontaContabil}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="list_widgetVar"
+                                             selection="#{relacionamentoCadastro.contasContabeisSelecionadas}" selectionMode="multiple">         
+
+                                    <p:column sortBy="descricao" headerText="#{bundle.ListContaContabilTitle_descricao}" filterBy="descricao" filterMatchMode="contains">  
+                                        <h:outputText value="#{item.descricao}" />  
+                                    </p:column>   
+
+                                </p:dataTable>    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+                            <div class="tab-pane" id="contasBancarias">
+
+                                <p:commandLink value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" oncomplete="$('#modalContaBancaria').modal('show')" />
+
+
+
+
+                            </div>
+                        </div>                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </ui:define>  
+
+                </ui:decorate>
+
+
+            </h:form>
+
+
+            <div class="modal fade" id="modalContasContabeis" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                contabeis
+
+            </div>            
+
+
+            <div class="modal fade" id="modalContasBancarias" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                bancarias
+
+            </div>            
+
+
+        </ui:define>
+
+    </ui:composition>
+
+    <script type="text/javascript">
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            e.target; // activated tab
+            e.relatedTarget; // previous tab
+        });
+        $('#tabContas a:first').tab('show'); // Select first tab
+    </script>
+
+</html>

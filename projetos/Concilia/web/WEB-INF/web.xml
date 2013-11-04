@@ -121,9 +121,20 @@
     </filter-mapping>
    
    
-                            
-                                 
-                                      
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/erro.xhtml</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.sql.SQLException</exception-type>
+        <location>/erro.xhtml</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.RuntimeException</exception-type>
+        <location>/erro.xhtml</location>
+    </error-page>                      
+                
+                                                  
                                            
                                                 
                                                      

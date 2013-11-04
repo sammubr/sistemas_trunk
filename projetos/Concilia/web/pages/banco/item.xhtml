@@ -7,22 +7,22 @@
 
     <h:form id="formItem">
 
-        <ui:decorate template="../../resources/templates/item.xhtml">
+        <ui:decorate template="../../resources/templates/dialogo.xhtml">
 
-            <ui:define name="item_titulo">
+            <ui:define name="dialogo_titulo">
 
                 #{bundle.FormCadastroBancos}
 
             </ui:define>            
 
-            <ui:define name="item_toolbar">
+            <ui:define name="dialogo_toolbar">
 
                 <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary" 
                                actionListener="#{bancoCadastro.persiste}" update=":formList:list_table"/>
 
             </ui:define>
 
-            <ui:define name="item_conteudo">
+            <ui:define name="dialogo_conteudo">
 
                 <div class="form-group">
                     <label for="descricao">#{bundle.CreateBancoLabel_descricao}</label>

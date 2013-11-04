@@ -3,27 +3,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <ui:insert name="item_titulo"></ui:insert>
+            </h3>                                                                    
+        </div>
 
-    <div id="item" class="modal-dialog">
-        <div class="modal-content">
+        <div class="panel-body">
 
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">
-                    <ui:insert name="item_titulo"></ui:insert>
-                </h4>
-            </div>
+            <nav class="navbar navbar-default" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-left">  
+                        <div class="btn-group ">
+                            <ui:insert name="item_toolbar"></ui:insert> 
+                        </div>
+                    </ul>
 
-            <div class="modal-body">
-                <ui:insert name="item_conteudo"></ui:insert>
-            </div>
+                </div><!-- /.navbar-collapse -->
+            </nav>                            
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">#{bundle.CancelLink}</button>
-                <ui:insert name="item_toolbar"></ui:insert>
-            </div>
+            <ui:insert name="item_conteudo"></ui:insert>   
 
         </div>
     </div>
+
+    <style type="text/css">
+        .tab-content {
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+        }
+    </style>   
 
 </html>
