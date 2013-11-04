@@ -21,7 +21,7 @@
 
     </div>
 
-    <p:dataTable id="tableContasContabeis" var="contaContabil" value="#{relacionamentoCadastro.listaDeContasContabeisDoRelacionamento}" 
+    <p:dataTable id="tableContasContabeis" var="contaContabil" value="#{relacionamentoCadastro.relacionamento.contaContabilCollection}" 
                  tableStyleClass="table table-bordered table-hover" rowKey="#{contaContabil.idcontaContabil}" emptyMessage="#{bundle.RecordsEmpty}"
                  selection="#{relacionamentoCadastro.listaDeContasContabeisDoRelacionamentoSelecionadas}" selectionMode="multiple">         
 

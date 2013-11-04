@@ -21,14 +21,12 @@ import util.JsfUtil;
 public class RelacionamentoCadastro implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
+    private boolean gridVisivel = true;
     private RelContabilidadeBanco relacionamento;
     private List<RelContabilidadeBanco> listaDeRelacionamentos;
     private List<RelContabilidadeBanco> relacionamentosSelecionados;
-    private List<ContaContabil> listaDeContasContabeisDoRelacionamento;
     private List<ContaContabil> listaDeContasContabeisDoRelacionamentoSelecionadas;
-    private List<ContaBancaria> listaDeContasBancariasDoRelacionamento;
     private List<ContaBancaria> listaDeContasBancariasDoRelacionamentoSelecionadas;
-    private boolean gridVisivel = true;
     private List<ContaContabil> listaDeContasContabeis;
     private List<ContaContabil> listaDeContasContabeisSelecionadas;
     private List<ContaBancaria> listaDeContasBancarias;
@@ -49,6 +47,14 @@ public class RelacionamentoCadastro implements Serializable {
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
+    public boolean isGridVisivel() {
+        return gridVisivel;
+    }
+
+    public void setGridVisivel(boolean gridVisivel) {
+        this.gridVisivel = gridVisivel;
+    }
+
     public RelContabilidadeBanco getRelacionamento() {
         return relacionamento;
     }
@@ -71,14 +77,6 @@ public class RelacionamentoCadastro implements Serializable {
 
     public void setRelacionamentosSelecionados(List<RelContabilidadeBanco> relacionamentosSelecionados) {
         this.relacionamentosSelecionados = relacionamentosSelecionados;
-    }
-
-    public boolean isGridVisivel() {
-        return gridVisivel;
-    }
-
-    public void setGridVisivel(boolean gridVisivel) {
-        this.gridVisivel = gridVisivel;
     }
 
     public List<ContaContabil> getListaDeContasContabeis() {
@@ -113,28 +111,12 @@ public class RelacionamentoCadastro implements Serializable {
         this.listaDeContasBancariasSelecionadas = listaDeContasBancariasSelecionadas;
     }
 
-    public List<ContaContabil> getListaDeContasContabeisDoRelacionamento() {
-        return listaDeContasContabeisDoRelacionamento;
-    }
-
-    public void setListaDeContasContabeisDoRelacionamento(List<ContaContabil> listaDeContasContabeisDoRelacionamento) {
-        this.listaDeContasContabeisDoRelacionamento = listaDeContasContabeisDoRelacionamento;
-    }
-
     public List<ContaContabil> getListaDeContasContabeisDoRelacionamentoSelecionadas() {
         return listaDeContasContabeisDoRelacionamentoSelecionadas;
     }
 
     public void setListaDeContasContabeisDoRelacionamentoSelecionadas(List<ContaContabil> listaDeContasContabeisDoRelacionamentoSelecionadas) {
         this.listaDeContasContabeisDoRelacionamentoSelecionadas = listaDeContasContabeisDoRelacionamentoSelecionadas;
-    }
-
-    public List<ContaBancaria> getListaDeContasBancariasDoRelacionamento() {
-        return listaDeContasBancariasDoRelacionamento;
-    }
-
-    public void setListaDeContasBancariasDoRelacionamento(List<ContaBancaria> listaDeContasBancariasDoRelacionamento) {
-        this.listaDeContasBancariasDoRelacionamento = listaDeContasBancariasDoRelacionamento;
     }
 
     public List<ContaBancaria> getListaDeContasBancariasDoRelacionamentoSelecionadas() {
@@ -163,20 +145,18 @@ public class RelacionamentoCadastro implements Serializable {
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public void criaNovo() {
-        relacionamento = new RelContabilidadeBanco();
-        listaDeContasContabeisDoRelacionamento = new ArrayList<>();
-        listaDeContasBancariasDoRelacionamento = new ArrayList<>();
-        contasContabeisExcluidasDoRelacionamento = new ArrayList<>();
-        contasBancariasExcluidasDoRelacionamento = new ArrayList<>();
+        setRelacionamento(new RelContabilidadeBanco());
+        getRelacionamento().setContaContabilCollection(new ArrayList<ContaContabil>());
+        getRelacionamento().setContaBancariaCollection(new ArrayList<ContaBancaria>());
+        setContasContabeisExcluidasDoRelacionamento(new ArrayList<ContaContabil>());
+        setContasBancariasExcluidasDoRelacionamento(new ArrayList<ContaBancaria>());
         setGridVisivel(false);
     }
 
     public void edita(RelContabilidadeBanco itemSelecionado) {
-        relacionamento = itemSelecionado;
-        listaDeContasContabeisDoRelacionamento = (List<ContaContabil>) itemSelecionado.getContaContabilCollection();
-        listaDeContasBancariasDoRelacionamento = (List<ContaBancaria>) itemSelecionado.getContaBancariaCollection();
-        contasContabeisExcluidasDoRelacionamento = new ArrayList<>();
-        contasBancariasExcluidasDoRelacionamento = new ArrayList<>();
+        setRelacionamento(itemSelecionado);
+        setContasContabeisExcluidasDoRelacionamento(new ArrayList<ContaContabil>());
+        setContasBancariasExcluidasDoRelacionamento(new ArrayList<ContaBancaria>());
         setGridVisivel(false);
     }
 
@@ -190,33 +170,32 @@ public class RelacionamentoCadastro implements Serializable {
 
     private void persisteListsRelacionados() {
 
-        for (ContaContabil contaContabil : listaDeContasContabeisDoRelacionamento) {
+        for (ContaContabil contaContabil : getRelacionamento().getContaContabilCollection()) {
             contaContabil.setRelContabilidadeBanco(getRelacionamento());
             contaContabil.persiste();
         }
 
-        for (ContaBancaria contaBancaria : listaDeContasBancariasDoRelacionamento) {
+        for (ContaBancaria contaBancaria : getRelacionamento().getContaBancariaCollection()) {
             contaBancaria.setRelContabilidadeBanco(getRelacionamento());
             contaBancaria.persiste();
         }
 
-        for (ContaContabil contaContabil : contasContabeisExcluidasDoRelacionamento) {
+        for (ContaContabil contaContabil : getContasContabeisExcluidasDoRelacionamento()) {
             contaContabil.setRelContabilidadeBanco(null);
             contaContabil.persiste();
         }
 
-        for (ContaBancaria contaBancaria : contasBancariasExcluidasDoRelacionamento) {
+        for (ContaBancaria contaBancaria : getContasBancariasExcluidasDoRelacionamento()) {
             contaBancaria.setRelContabilidadeBanco(null);
             contaBancaria.persiste();
         }
-
     }
 
     public void exclui() {
-        if (relacionamentosSelecionados.isEmpty()) {
+        if (getRelacionamentosSelecionados().isEmpty()) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("EmptyRecordsToDelete"), "");
         } else {
-            for (RelContabilidadeBanco itemSelecionado : relacionamentosSelecionados) {
+            for (RelContabilidadeBanco itemSelecionado : getRelacionamentosSelecionados()) {
 
                 for (ContaContabil itemSelecionado_contaContabil : itemSelecionado.getContaContabilCollection()) {
                     itemSelecionado_contaContabil.setRelContabilidadeBanco(null);
@@ -232,7 +211,7 @@ public class RelacionamentoCadastro implements Serializable {
                 geraListaDeRelacionamentos();
             }
 
-            if (relacionamentosSelecionados.size() == 1) {
+            if (getRelacionamentosSelecionados().size() == 1) {
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
 
             } else {
@@ -247,14 +226,14 @@ public class RelacionamentoCadastro implements Serializable {
     }
 
     public void addContaContabil() {
-        for (ContaContabil pItem : listaDeContasContabeisSelecionadas) {
+        for (ContaContabil pItem : getListaDeContasContabeisSelecionadas()) {
             if (pItem.getRelContabilidadeBanco() == null) {
-                if (listaDeContasContabeisDoRelacionamento.contains(pItem)) {
+                if (getRelacionamento().getContaContabilCollection().contains(pItem)) {
                     JsfUtil.addErrorMessage("Erro!", "A conta já está selecionada!");
                 } else {
-                    listaDeContasContabeisDoRelacionamento.add(pItem);
-                    if (contasContabeisExcluidasDoRelacionamento.contains(pItem)) {
-                        contasContabeisExcluidasDoRelacionamento.remove(pItem);
+                    getRelacionamento().getContaContabilCollection().add(pItem);
+                    if (getContasContabeisExcluidasDoRelacionamento().contains(pItem)) {
+                        getContasContabeisExcluidasDoRelacionamento().remove(pItem);
                     }
                     JsfUtil.addSuccessMessage("Conta selecionada!", "Descrição: " + pItem.getDescricao());
                     RequestContext.getCurrentInstance().execute("$('#modalContasContabeis').modal('hide')");
@@ -268,12 +247,12 @@ public class RelacionamentoCadastro implements Serializable {
     public void addContaBancaria() {
         for (ContaBancaria pItem : getListaDeContasBancariasSelecionadas()) {
             if (pItem.getRelContabilidadeBanco() == null) {
-                if (listaDeContasBancariasDoRelacionamento.contains(pItem)) {
+                if (getRelacionamento().getContaBancariaCollection().contains(pItem)) {
                     JsfUtil.addErrorMessage("Erro!", "A conta já está selecionada!");
                 } else {
-                    listaDeContasBancariasDoRelacionamento.add(pItem);
-                    if (contasBancariasExcluidasDoRelacionamento.contains(pItem)) {
-                        contasBancariasExcluidasDoRelacionamento.remove(pItem);
+                    getRelacionamento().getContaBancariaCollection().add(pItem);
+                    if (getContasBancariasExcluidasDoRelacionamento().contains(pItem)) {
+                        getContasBancariasExcluidasDoRelacionamento().remove(pItem);
                     }
                     JsfUtil.addSuccessMessage("Conta selecionada!", "Descrição: " + pItem.getDescricao());
                     RequestContext.getCurrentInstance().execute("$('#modalContasBancarias').modal('hide')");
@@ -285,20 +264,20 @@ public class RelacionamentoCadastro implements Serializable {
     }
 
     public void removeContasContabeisDoRelacionamentoSelecionadas() {
-        for (ContaContabil pItem : listaDeContasContabeisDoRelacionamentoSelecionadas) {
-            listaDeContasContabeisDoRelacionamento.remove(pItem);
-            if (!contasContabeisExcluidasDoRelacionamento.contains(pItem)) {
-                contasContabeisExcluidasDoRelacionamento.add(pItem);
+        for (ContaContabil pItem : getListaDeContasContabeisDoRelacionamentoSelecionadas()) {
+            getRelacionamento().getContaContabilCollection().remove(pItem);
+            if (!getContasContabeisExcluidasDoRelacionamento().contains(pItem)) {
+                getContasContabeisExcluidasDoRelacionamento().add(pItem);
             }
             JsfUtil.addSuccessMessage("Conta removida com sucesso!", "Descrição: " + pItem.getDescricao());
         }
     }
 
     public void removeContasBancariasDoRelacionamentoSelecionadas() {
-        for (ContaBancaria pItem : listaDeContasBancariasDoRelacionamentoSelecionadas) {
-            listaDeContasBancariasDoRelacionamento.remove(pItem);
-            if (!contasBancariasExcluidasDoRelacionamento.contains(pItem)) {
-                contasBancariasExcluidasDoRelacionamento.add(pItem);
+        for (ContaBancaria pItem : getListaDeContasBancariasDoRelacionamentoSelecionadas()) {
+            getRelacionamento().getContaBancariaCollection().remove(pItem);
+            if (!getContasBancariasExcluidasDoRelacionamento().contains(pItem)) {
+                getContasBancariasExcluidasDoRelacionamento().add(pItem);
             }
             JsfUtil.addSuccessMessage("Conta removida com sucesso!", "Descrição: " + pItem.getDescricao());
         }
@@ -308,7 +287,7 @@ public class RelacionamentoCadastro implements Serializable {
         List<String> ordem = new ArrayList<>();
         ordem.add("descricao");
         ContaContabil conta = new ContaContabil();
-        listaDeContasContabeis = (List) conta.obter(null, null, ordem);
+        setListaDeContasContabeis((List) conta.obter(null, null, ordem));
         setListaDeContasContabeisSelecionadas(null);
     }
 
@@ -316,7 +295,7 @@ public class RelacionamentoCadastro implements Serializable {
         List<String> ordem = new ArrayList<>();
         ordem.add("descricao");
         ContaBancaria conta = new ContaBancaria();
-        listaDeContasBancarias = (List) conta.obter(null, null, ordem);
+        setListaDeContasBancarias((List) conta.obter(null, null, ordem));
         setListaDeContasBancariasSelecionadas(null);
     }
 }
