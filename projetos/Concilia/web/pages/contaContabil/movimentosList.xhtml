@@ -81,25 +81,41 @@
                                         </p:outputPanel>  
                                     </f:facet>
 
-                                    <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" filterBy="dataMov" filterMatchMode="contains">  
-                                        <h:outputText value="#{item.dataMov}">                                                        
+                                    <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" filterBy="dataMov" filterMatchMode="contains" 
+                                              filterStyle="display:none" style="width: 100px">  
+                                        <h:outputText value="#{item.dataMov}">
                                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                                         </h:outputText>
                                     </p:column>                             
 
-                                    <p:column sortBy="valor" headerText="#{bundle.ListContaContabilMovimentoTitle_valor}" filterBy="valor" filterMatchMode="contains">  
-                                        <h:outputText value="#{item.valor}">                                
-                                            <f:convertNumber pattern="#0.00"/>
-                                        </h:outputText>
+                                    <p:column sortBy="idcontaContabilMovimento" headerText="#{bundle.ListContaContabilMovimentoTitle_id}" filterBy="idcontaContabilMovimento" 
+                                              filterMatchMode="contains" filterStyle="display:none" style="width: 100px">
+                                        <h:outputText value="#{item.idcontaContabilMovimento}" style="float:right"/>  
+                                    </p:column>                                     
+
+                                    <p:column sortBy="numdoc" headerText="#{bundle.ListContaContabilMovimentoTitle_numDoc}" filterBy="numdoc" filterMatchMode="contains" 
+                                              filterStyle="display:none" style="width: 100px">
+                                        <h:outputText value="#{item.numdoc}" style="float:right"/>  
                                     </p:column> 
 
-                                    <p:column sortBy="numdoc" headerText="#{bundle.ListContaContabilMovimentoTitle_numDoc}" filterBy="numdoc" filterMatchMode="contains">  
-                                        <h:outputText value="#{item.numdoc}"/>  
-                                    </p:column> 
-
-                                    <p:column sortBy="historico" headerText="#{bundle.ListContaContabilMovimentoTitle_Historico}" filterBy="historico" filterMatchMode="contains">  
+                                    <p:column sortBy="historico" headerText="#{bundle.ListContaContabilMovimentoTitle_Historico}" filterBy="historico" filterMatchMode="contains" 
+                                              filterStyle="display:none">  
                                         <h:outputText value="#{item.historico}"/>  
-                                    </p:column>                             
+                                    </p:column>     
+
+                                    <p:column sortBy="valor" headerText="#{bundle.ListContaContabilMovimentoTitle_valor}" filterBy="valor" filterMatchMode="contains" 
+                                              filterStyle="display:none" style="width: 150px">
+                                        <h:outputText value="#{item.valor}" style="float:right">                                
+                                            <f:convertNumber pattern="#,##0.00"/>
+                                        </h:outputText>
+                                    </p:column>                                     
+
+                                    <p:column sortBy="saldo" headerText="#{bundle.ListContaContabilMovimentoTitle_saldo}" filterBy="saldo" filterMatchMode="contains" 
+                                              filterStyle="display:none" style="width: 150px">
+                                        <h:outputText value="#{item.saldo}" style="float:right">                                
+                                            <f:convertNumber pattern="#,##0.00"/>
+                                        </h:outputText>
+                                    </p:column>
 
                                     <p:column style="width: 40px; text-align: center">  
 

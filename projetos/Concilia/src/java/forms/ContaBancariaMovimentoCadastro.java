@@ -1,8 +1,8 @@
 package forms;
 
-import controls.ContaContabil;
-import controls.ContaContabilMovimento;
-import diversos.ArquivoMovimentoContaContabil;
+import controls.ContaBancaria;
+import controls.ContaBancariaMovimento;
+import diversos.ArquivoMovimentoContaBancaria;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,69 +14,69 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import util.JsfUtil;
 
-@Named("contaContabilMovimentoCadastro")
+@Named("contaBancariaMovimentoCadastro")
 @ViewScoped
-public class ContaContabilMovimentoCadastro implements Serializable {
+public class ContaBancariaMovimentoCadastro implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
-    private ContaContabilMovimento item;
-    private List<ContaContabilMovimento> lista;
-    private List<ContaContabilMovimento> itensSelecionados;
-    private ContaContabil contaContabilSelecionada;
-    private List<ContaContabil> listaDeContasContabeis;
+    private ContaBancariaMovimento item;
+    private List<ContaBancariaMovimento> lista;
+    private List<ContaBancariaMovimento> itensSelecionados;
+    private ContaBancaria contaBancariaSelecionada;
+    private List<ContaBancaria> listaDeContasBancarias;
     private UploadedFile file;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
-    public ContaContabilMovimentoCadastro() {
-        geraListaDeContasContabeis();
+    public ContaBancariaMovimentoCadastro() {
+        geraListaDeContasBancarias();
     }
 
-    private void geraListaDeContasContabeis() {
+    private void geraListaDeContasBancarias() {
         List<String> ordem = new ArrayList<>();
         ordem.add("descricao");
-        ContaContabil contaContabil = new ContaContabil();
-        setListaDeContasContabeis((List<ContaContabil>) (List) contaContabil.obter(null, null, ordem));
+        ContaBancaria contaBancaria = new ContaBancaria();
+        setListaDeContasBancarias((List<ContaBancaria>) (List) contaBancaria.obter(null, null, ordem));
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
-    public ContaContabilMovimento getItem() {
+    public ContaBancariaMovimento getItem() {
         return item;
     }
 
-    public void setItem(ContaContabilMovimento item) {
+    public void setItem(ContaBancariaMovimento item) {
         this.item = item;
     }
 
-    public List<ContaContabilMovimento> getLista() {
+    public List<ContaBancariaMovimento> getLista() {
         return lista;
     }
 
-    public void setLista(List<ContaContabilMovimento> lista) {
+    public void setLista(List<ContaBancariaMovimento> lista) {
         this.lista = lista;
     }
 
-    public List<ContaContabilMovimento> getItensSelecionados() {
+    public List<ContaBancariaMovimento> getItensSelecionados() {
         return itensSelecionados;
     }
 
-    public void setItensSelecionados(List<ContaContabilMovimento> itensSelecionados) {
+    public void setItensSelecionados(List<ContaBancariaMovimento> itensSelecionados) {
         this.itensSelecionados = itensSelecionados;
     }
 
-    public ContaContabil getContaContabilSelecionada() {
-        return contaContabilSelecionada;
+    public ContaBancaria getContaBancariaSelecionada() {
+        return contaBancariaSelecionada;
     }
 
-    public void setContaContabilSelecionada(ContaContabil contaContabilSelecionada) {
-        this.contaContabilSelecionada = contaContabilSelecionada;
+    public void setContaBancariaSelecionada(ContaBancaria contaBancariaSelecionada) {
+        this.contaBancariaSelecionada = contaBancariaSelecionada;
     }
 
-    public List<ContaContabil> getListaDeContasContabeis() {
-        return listaDeContasContabeis;
+    public List<ContaBancaria> getListaDeContasBancarias() {
+        return listaDeContasBancarias;
     }
 
-    public void setListaDeContasContabeis(List<ContaContabil> listaDeContasContabeis) {
-        this.listaDeContasContabeis = listaDeContasContabeis;
+    public void setListaDeContasBancarias(List<ContaBancaria> listaDeContasBancarias) {
+        this.listaDeContasBancarias = listaDeContasBancarias;
     }
 
     public UploadedFile getFile() {
@@ -89,15 +89,15 @@ public class ContaContabilMovimentoCadastro implements Serializable {
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public void criaNovo() {
-        item = new ContaContabilMovimento();
+        item = new ContaBancariaMovimento();
     }
 
-    public void edita(ContaContabilMovimento itemSelecionado) {
+    public void edita(ContaBancariaMovimento itemSelecionado) {
         item = itemSelecionado;
     }
 
     public void persiste() {
-        getItem().setConta(contaContabilSelecionada);
+        getItem().setConta(contaBancariaSelecionada);
         getItem().persiste();
         geraListaDeMovimentos();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
@@ -110,14 +110,14 @@ public class ContaContabilMovimentoCadastro implements Serializable {
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("EmptyRecordsToDelete"), "");
                 break;
             case 1:
-                for (ContaContabilMovimento itemSelecionado : itensSelecionados) {
+                for (ContaBancariaMovimento itemSelecionado : itensSelecionados) {
                     itemSelecionado.exclui();
                 }
                 geraListaDeMovimentos();
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
                 break;
             default:
-                for (ContaContabilMovimento itemSelecionado : itensSelecionados) {
+                for (ContaBancariaMovimento itemSelecionado : itensSelecionados) {
                     itemSelecionado.exclui();
                 }
                 geraListaDeMovimentos();
@@ -132,22 +132,22 @@ public class ContaContabilMovimentoCadastro implements Serializable {
         atributos.add("conta");
 
         List<Object> valores = new ArrayList<>();
-        valores.add(contaContabilSelecionada);
+        valores.add(contaBancariaSelecionada);
 
         List<String> ordem = new ArrayList<>();
         ordem.add("dataMov");
-        ordem.add("idcontaContabilMovimento");
+        ordem.add("idcontaBancariaMovimento");
 
-        ContaContabilMovimento consulta = new ContaContabilMovimento();
+        ContaBancariaMovimento consulta = new ContaBancariaMovimento();
         lista = (List) consulta.obter(atributos, valores, ordem);
     }
 
     public void upload(FileUploadEvent event) {
 
         file = event.getFile();
-        ArquivoMovimentoContaContabil arquivo = new ArquivoMovimentoContaContabil();
+        ArquivoMovimentoContaBancaria arquivo = new ArquivoMovimentoContaBancaria();
         try {
-            arquivo.importaMovimentacao(contaContabilSelecionada, file);
+            arquivo.importaMovimentacao(contaBancariaSelecionada, file);
             geraListaDeMovimentos();
         } catch (Exception ex) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("LeituraArquivoErro"), ex);

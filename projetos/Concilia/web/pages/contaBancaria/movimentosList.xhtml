@@ -81,25 +81,41 @@
                                         </p:outputPanel>  
                                     </f:facet>
 
-                                    <p:column sortBy="dataMov" headerText="#{bundle.ListContaBancariaMovimentoTitle_data}" filterBy="dataMov" filterMatchMode="contains">  
+                                    <p:column sortBy="dataMov" headerText="#{bundle.ListContaBancariaMovimentoTitle_data}" filterBy="dataMov" filterMatchMode="contains"
+                                              filterStyle="display:none" style="width: 100px">  
                                         <h:outputText value="#{item.dataMov}">                                                        
                                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                                         </h:outputText>
                                     </p:column>                             
 
-                                    <p:column sortBy="valor" headerText="#{bundle.ListContaBancariaMovimentoTitle_valor}" filterBy="valor" filterMatchMode="contains">  
-                                        <h:outputText value="#{item.valor}">                                
-                                            <f:convertNumber pattern="#0.00"/>
-                                        </h:outputText>
+                                    <p:column sortBy="idcontaBancariaMovimento" headerText="#{bundle.ListContaBancariaMovimentoTitle_id}" filterBy="idcontaBancariaMovimento" 
+                                              filterMatchMode="contains" filterStyle="display:none" style="width: 100px">
+                                        <h:outputText value="#{item.idcontaBancariaMovimento}" style="float:right"/>  
+                                    </p:column>                                     
+
+                                    <p:column sortBy="numdoc" headerText="#{bundle.ListContaBancariaMovimentoTitle_numDoc}" filterBy="numdoc" filterMatchMode="contains"
+                                              filterStyle="display:none" style="width: 100px">
+                                        <h:outputText value="#{item.numdoc}" style="float:right"/>  
                                     </p:column> 
 
-                                    <p:column sortBy="numdoc" headerText="#{bundle.ListContaBancariaMovimentoTitle_numDoc}" filterBy="numdoc" filterMatchMode="contains">  
-                                        <h:outputText value="#{item.numdoc}"/>  
-                                    </p:column> 
-
-                                    <p:column sortBy="historico" headerText="#{bundle.ListContaBancariaMovimentoTitle_Historico}" filterBy="historico" filterMatchMode="contains">  
+                                    <p:column sortBy="historico" headerText="#{bundle.ListContaBancariaMovimentoTitle_Historico}" filterBy="historico" filterMatchMode="contains"
+                                              filterStyle="display:none">  
                                         <h:outputText value="#{item.historico}"/>  
-                                    </p:column>                             
+                                    </p:column>     
+
+                                    <p:column sortBy="valor" headerText="#{bundle.ListContaBancariaMovimentoTitle_valor}" filterBy="valor" filterMatchMode="contains"
+                                              filterStyle="display:none" style="width: 150px">
+                                        <h:outputText value="#{item.valor}" style="float:right">                                
+                                            <f:convertNumber pattern="#,##0.00"/>
+                                        </h:outputText>
+                                    </p:column>                                     
+
+                                    <p:column sortBy="saldo" headerText="#{bundle.ListContaBancariaMovimentoTitle_saldo}" filterBy="saldo" filterMatchMode="contains"
+                                              filterStyle="display:none" style="width: 150px">
+                                        <h:outputText value="#{item.saldo}" style="float:right">                                
+                                            <f:convertNumber pattern="#,##0.00"/>
+                                        </h:outputText>
+                                    </p:column>
 
                                     <p:column style="width: 40px; text-align: center">  
 
