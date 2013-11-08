@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.Scanner;
 import org.primefaces.model.UploadedFile;
 import util.JsfUtil;
@@ -87,21 +86,15 @@ public class ArquivoMovimentoContaContabil {
 
     }
 
-    private List<String> importaLinhas(UploadedFile file) {
+    private List<String> importaLinhas(UploadedFile file) throws IOException {
 
         List<String> lista = new ArrayList<>();
 
-        try {
             Scanner scanner = new Scanner(file.getInputstream());
             while (scanner.hasNext()) {
                 String linha = new String(scanner.nextLine().trim().getBytes("ISO-8859-1"));
-                //lista.add(scanner.nextLine().trim());
                 lista.add(linha);
             }
-
-        } catch (IOException e) {
-            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("LeituraArquivoErro"), e);
-        }
 
         return lista;
     }

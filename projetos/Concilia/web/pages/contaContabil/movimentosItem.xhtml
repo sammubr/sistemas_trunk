@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:form id="formItem">
+
+        <ui:decorate template="../../resources/templates/dialogo.xhtml">
+
+            <ui:define name="dialogo_titulo">
+
+                #{bundle.FormCadastroContaContabilMovimento}
+
+            </ui:define>            
+
+            <ui:define name="dialogo_toolbar">
+
+                <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary" 
+                               actionListener="#{contaContabilMovimentoCadastro.persiste}" update=":formList:list_table"/>
+
+            </ui:define>
+
+            <ui:define name="dialogo_conteudo">
+
+                <div class="form-group">
+                    <label for="dataMov">#{bundle.CreateContaContabilLabel_dataMov}</label>
+                    <p:inputText id="dataMov" type="date" styleClass="form-control" value="#{contaContabilMovimentoCadastro.item.dataMov}" title="#{bundle.CreateContaContabilMovimentoTitle_dataMov}"
+                                 required="true" requiredMessage="#{bundle.CreateContaContabilMovimentoRequiredMessage_dataMov}">                                              
+                        <f:convertDateTime pattern="yyyy-MM-dd" timeZone="GMT-3" locale="pt_BR"/> 
+                    </p:inputText>
+                </div>                
+
+                <div class="form-group">
+                    <label for="valor">#{bundle.CreateContaContabilLabel_valor}</label>
+                    <p:inputText id="valor" styleClass="form-control" value="#{contaContabilMovimentoCadastro.item.valor}" title="#{bundle.CreateContaContabilMovimentoTitle_valor}" 
+                                 required="true" requiredMessage="#{bundle.CreateContaContabilMovimentoRequiredMessage_valor}">
+                        <f:convertNumber pattern="#0.00"/>                              
+                        <p:ajax event="blur" update="valor" partialSubmit="true" process="@this"/>
+                    </p:inputText>
+                </div>                    
+
+                <div class="form-group">
+                    <label for="numdoc">#{bundle.CreateContaContabilLabel_numdoc}</label>
+                    <p:inputText id="numdoc" styleClass="form-control" value="#{contaContabilMovimentoCadastro.item.numdoc}" title="#{bundle.CreateContaContabilMovimentoTitle_numdoc}" 
+                                 required="false" requiredMessage="#{bundle.CreateContaContabilMovimentoRequiredMessage_numdoc}"/>
+                </div>                    
+
+                <div class="form-group">
+                    <label for="historico">#{bundle.CreateContaContabilLabel_historico}</label>
+                    <p:inputText id="historico" styleClass="form-control" value="#{contaContabilMovimentoCadastro.item.historico}" title="#{bundle.CreateContaContabilMovimentoTitle_historico}"/>
+                </div>    
+
+            </ui:define>
+
+        </ui:decorate>
+
+    </h:form>
+
+</html>
