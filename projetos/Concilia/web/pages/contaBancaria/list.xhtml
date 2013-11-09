@@ -43,28 +43,34 @@
                                 </p:outputPanel>  
                             </f:facet>
 
-                            <p:column sortBy="descricao" headerText="#{bundle.ListContaBancariaTitle_descricao}" filterBy="descricao" filterMatchMode="contains">  
-                                <h:outputText value="#{item.descricao}" />  
+                            <p:column sortBy="descricao" headerText="#{bundle.ListContaBancariaTitle_descricao}" filterBy="descricao" filterMatchMode="contains" 
+                                      filterStyle="display:none">  
+                                <h:outputText value="#{item.descricao}"/>  
                             </p:column>  
 
-                            <p:column sortBy="banco.descricao" headerText="#{bundle.ListContaBancariaTitle_banco}" filterBy="banco.descricao" filterMatchMode="contains">  
-                                <h:outputText value="#{item.banco.descricao}" />  
+                            <p:column sortBy="banco.descricao" headerText="#{bundle.ListContaBancariaTitle_banco}" filterBy="banco.descricao" filterMatchMode="contains" 
+                                      filterStyle="display:none" style="width: 300px">  
+                                <h:outputText value="#{item.banco.descricao}"/>  
                             </p:column>  
 
-                            <p:column sortBy="agencia" headerText="#{bundle.ListContaBancariaTitle_agencia}" filterBy="agencia" filterMatchMode="contains">  
-                                <h:outputText value="#{item.agencia}" />  
+                            <p:column sortBy="agencia" headerText="#{bundle.ListContaBancariaTitle_agencia}" filterBy="agencia" filterMatchMode="contains" 
+                                      filterStyle="display:none" style="width: 100px">  
+                                <h:outputText value="#{item.agencia}"/>  
                             </p:column>  
 
-                            <p:column sortBy="agenciaDigito" headerText="#{bundle.ListContaBancariaTitle_agenciaDigito}" filterBy="agenciaDigito" filterMatchMode="contains">  
-                                <h:outputText value="#{item.agenciaDigito}" />  
+                            <p:column sortBy="agenciaDigito" headerText="#{bundle.ListContaBancariaTitle_agenciaDigito}" filterBy="agenciaDigito" filterMatchMode="contains" 
+                                      filterStyle="display:none" style="width: 100px">  
+                                <h:outputText value="#{item.agenciaDigito}"/>  
                             </p:column>  
 
-                            <p:column sortBy="numero" headerText="#{bundle.ListContaBancariaTitle_numero}" filterBy="numero" filterMatchMode="contains">  
-                                <h:outputText value="#{item.numero}" />  
+                            <p:column sortBy="numero" headerText="#{bundle.ListContaBancariaTitle_numero}" filterBy="numero" filterMatchMode="contains" filterStyle="display:none"
+                                      style="width: 100px">  
+                                <h:outputText value="#{item.numero}" style="width: 150px"/>  
                             </p:column>  
 
-                            <p:column sortBy="numeroDigito" headerText="#{bundle.ListContaBancariaTitle_numeroDigito}" filterBy="numeroDigito" filterMatchMode="contains">  
-                                <h:outputText value="#{item.numeroDigito}" />  
+                            <p:column sortBy="numeroDigito" headerText="#{bundle.ListContaBancariaTitle_numeroDigito}" filterBy="numeroDigito" filterMatchMode="contains" 
+                                      filterStyle="display:none"  style="width: 80px">
+                                <h:outputText value="#{item.numeroDigito}"/>  
                             </p:column>  
 
                             <p:column style="width: 40px; text-align: center">  

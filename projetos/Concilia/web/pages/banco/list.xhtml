@@ -23,7 +23,7 @@
                     <ui:define name="list_toolbar">
 
                         <p:commandLink value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" 
-                                       actionListener="#{bancoCadastro.criaNovo}" oncomplete="$('#myModal').modal('show')" update=":formItem" resetValues="true" />
+                                       actionListener="#{bancoCadastro.criaNovo}" oncomplete="$('#myModal').modal('show')" update=":formItem" resetValues="true"/>
                         <p:commandLink value="#{bundle.DestroyLink}" title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" 
                                        actionListener="#{bancoCadastro.exclui}" update="list_table :messages"/>
 
@@ -43,12 +43,14 @@
                                 </p:outputPanel>  
                             </f:facet>
 
-                            <p:column sortBy="descricao" headerText="#{bundle.ListBancoTitle_descricao}" filterBy="descricao" filterMatchMode="contains">  
+                            <p:column sortBy="descricao" headerText="#{bundle.ListBancoTitle_descricao}" filterBy="descricao" filterMatchMode="contains" filterStyle="display:none">  
                                 <h:outputText value="#{item.descricao}" />  
                             </p:column>
 
-                            <p:column sortBy="codigo" headerText="#{bundle.ListBancoTitle_codigo}" filterBy="codigo" filterMatchMode="contains">  
-                                <h:outputText value="#{item.codigo}" />  
+                            <p:column sortBy="codigo" headerText="#{bundle.ListBancoTitle_codigo}" filterBy="codigo" filterMatchMode="contains" filterStyle="display:none" style="width: 100px">  
+                                <h:outputText value="#{item.codigo}" style="float:right">
+                                    <f:convertNumber pattern="000"/>
+                                </h:outputText>
                             </p:column>
 
                             <p:column style="width: 40px; text-align: center">  

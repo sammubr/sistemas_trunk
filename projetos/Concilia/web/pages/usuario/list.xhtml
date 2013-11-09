@@ -43,16 +43,16 @@
                                 </p:outputPanel>  
                             </f:facet>
 
-                            <p:column sortBy="nome" headerText="#{bundle.ListUsuarioTitle_nome}" filterBy="nome" filterMatchMode="contains">  
+                            <p:column sortBy="nome" headerText="#{bundle.ListUsuarioTitle_nome}" filterBy="nome" filterMatchMode="contains" filterStyle="display:none">  
                                 <h:outputText value="#{item.nome}" />  
                             </p:column>  
 
-                            <p:column sortBy="login" headerText="#{bundle.ListUsuarioTitle_login}" filterBy="login" filterMatchMode="contains">  
+                            <p:column sortBy="login" headerText="#{bundle.ListUsuarioTitle_login}" filterBy="login" filterMatchMode="contains" filterStyle="display:none">  
                                 <h:outputText value="#{item.login}" />  
                             </p:column>  
 
-                            <p:column sortBy="nivel" headerText="#{bundle.ListUsuarioTitle_nivel}" filterBy="nivel" filterMatchMode="contains">  
-                                <h:outputText value="#{item.nivel}" />  
+                            <p:column sortBy="nivel" headerText="#{bundle.ListUsuarioTitle_nivel}" filterBy="nivel" filterMatchMode="contains" filterStyle="display:none" style="width: 80px">
+                                <h:outputText value="#{item.nivel}" style="float:right"/>
                             </p:column>  
 
                             <p:column style="width: 40px; text-align: center">  
