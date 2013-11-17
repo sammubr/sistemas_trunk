@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <ui:composition template="../resources/templates/layoutPadrao.xhtml">
+
+
+        <ui:define name="titulo">
+            Meu Site
+        </ui:define>
+
+        <ui:define name="conteudo">
+
+            <!-- Wrap all page content here -->
+            <div id="wrap">
+
+                <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="/ContaContabil/pages/conteudo.xhtml">                         
+                                Home
+                            </a>
+                        </div>
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li><a href="/ContaContabil/pages/converterArquivo.xhtml">Converter arquivo</a></li>
+                                <li><a href="/ContaContabil/pages/contato.xhtml">Contato</a></li>
+                            </ul>
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuário <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/ContaContabil/pages/index.xhtml">Trocar usuário</a></li>
+                                        <li><a href="/ContaContabil/pages/index.xhtml">Sair</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div class="container">
+                    <ui:insert name="index_conteudo"/>
+                </div>
+
+            </div>
+
+            <div id="footer" >
+
+                    <a class="navbar-brand" href="https://www.faccat.br/portal/">                         
+                        <img src="/ContaContabil/imagens/faccat.jpg" style="height: 30px"/>
+                    </a>
+
+
+                <div class="container"  align="center">
+
+                    <p class="text-muted credit">
+                        Desenvolvido por Samuel Noswitz para a disciplina de 
+                        <a href="https://fit.faccat.br/~fpereira/wordpress/?page_id=67">Autoria e Design na Internet I</a> - 
+                        <a href="https://fit.faccat.br/~fpereira">Profa. Flávia Pereira de Carvalho</a>
+                    </p>
+
+                </div>
+                
+                
+            </div>
+
+        </ui:define>
+
+    </ui:composition>   
+</html>

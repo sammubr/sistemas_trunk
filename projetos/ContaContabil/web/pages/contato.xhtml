@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="conteudo.xhtml">
+
+        <ui:define name="index_conteudo">
+
+            <ui:decorate template="../resources/templates/conteudo.xhtml">
+
+                <ui:define name="conteudo_titulo">
+                    Envie sua mensagem!
+                </ui:define>  
+
+                <ui:define name="conteudo_conteudo">
+
+                    <form name="formContato"  onsubmit="return validaForm();" method="post">
+                        <div class="form-group">
+                            <label for="nome">Nome:</label>
+                            <input type="text" class="form-control" id="nome" placeholder="Digite seu nome"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail:</label>
+                            <input type="text" class="form-control" id="email" placeholder="Digite seu e-mail para retorno"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="texto">Mensagem:</label>
+                            <textarea class="form-control" id="texto" rows="10" placeholder="Digite sua opinião aqui"/>
+                        </div>
+                        <input type="submit" class="btn btn-default" value="Enviar"/>
+                    </form>
+
+                </ui:define>  
+
+            </ui:decorate>
+
+        </ui:define>
+
+    </ui:composition>
+
+    <script type="text/javascript">
+                        function validaForm() {
+
+                            var nome = document.formContato.nome.value;
+                            if (nome === '') {
+                                alert('O campo nome não pode ser vazio');
+                                return false;
+                            }
+
+                            var email = document.formContato.email.value;
+                            if (email.search("@") === -1) {
+                                alert('Email incorreto');
+                                return false;
+                            }
+
+                                alert('Mensagem enviada!');
+                        }
+    </script>       
+
+</html>
