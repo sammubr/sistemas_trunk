@@ -31,10 +31,10 @@
 
                     <ui:define name="list_conteudo">
 
-                        <p:dataTable id="list_table" var="item" value="#{bancoCadastro.lista}" tableStyleClass="table table-bordered table-hover"
+                        <p:dataTable id="list_table" var="item" value="#{bancoCadastro.lista}"
                                      rowKey="#{item.idbanco}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="list_widgetVar"
                                      selection="#{bancoCadastro.itensSelecionados}" selectionMode="multiple"
-                                     scrollable="true" scrollHeight="460">         
+                                     scrollable="true" scrollHeight="500">         
 
                             <f:facet name="header" >  
                                 <p:outputPanel>  

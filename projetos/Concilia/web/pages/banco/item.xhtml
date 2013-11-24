@@ -27,6 +27,7 @@
                 <div class="form-group">
                     <label for="descricao">#{bundle.CreateBancoLabel_descricao}</label>
                     <p:inputText id="descricao" styleClass="form-control" value="#{bancoCadastro.item.descricao}" title="#{bundle.CreateBancoTitle_descricao}" required="true" requiredMessage="#{bundle.CreateBancoRequiredMessage_descricao}"/>
+                    <p:watermark value="#{bundle.CreateBancoTitle_descricao}" for="descricao"/>
                 </div>
 
                 <div class="form-group">

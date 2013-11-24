@@ -99,6 +99,9 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
     }
 
     public BigDecimal getValor() {
+        if (valor == null){
+            valor = new BigDecimal(0);
+        }
         return valor;
     }
 

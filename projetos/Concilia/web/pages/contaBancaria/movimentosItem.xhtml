@@ -13,7 +13,7 @@
             <ui:define name="dialogo_titulo">
 
                 #{bundle.FormCadastroContaBancariaMovimento}
-
+                
             </ui:define>            
 
             <ui:define name="dialogo_toolbar">
@@ -27,9 +27,9 @@
 
                 <div class="form-group">
                     <label for="dataMov">#{bundle.CreateContaBancariaLabel_dataMov}</label>
-                    <p:inputText id="dataMov" type="date" styleClass="form-control" value="#{contaBancariaMovimentoCadastro.item.dataMov}" title="#{bundle.CreateContaBancariaMovimentoTitle_dataMov}"
+                    <p:inputText id="dataMov" styleClass="form-control" value="#{contaBancariaMovimentoCadastro.item.dataMov}" title="#{bundle.CreateContaBancariaMovimentoTitle_dataMov}"
                                  required="true" requiredMessage="#{bundle.CreateContaBancariaMovimentoRequiredMessage_dataMov}">                                              
-                        <f:convertDateTime pattern="yyyy-MM-dd" timeZone="GMT-3" locale="pt_BR"/> 
+                        <f:convertDateTime type="date" dateStyle="short"/>
                     </p:inputText>
                 </div>                
 
@@ -46,11 +46,13 @@
                     <label for="numdoc">#{bundle.CreateContaBancariaLabel_numdoc}</label>
                     <p:inputText id="numdoc" styleClass="form-control" value="#{contaBancariaMovimentoCadastro.item.numdoc}" title="#{bundle.CreateContaBancariaMovimentoTitle_numdoc}" 
                                  required="false" requiredMessage="#{bundle.CreateContaBancariaMovimentoRequiredMessage_numdoc}"/>
+                    <p:watermark value="#{bundle.CreateContaBancariaMovimentoTitle_numdoc}" for="numdoc"/>
                 </div>                    
 
                 <div class="form-group">
                     <label for="historico">#{bundle.CreateContaBancariaLabel_historico}</label>
                     <p:inputText id="historico" styleClass="form-control" value="#{contaBancariaMovimentoCadastro.item.historico}" title="#{bundle.CreateContaBancariaMovimentoTitle_historico}"/>
+                    <p:watermark value="#{bundle.CreateContaBancariaMovimentoTitle_historico}" for="historico"/>
                 </div>    
 
             </ui:define>

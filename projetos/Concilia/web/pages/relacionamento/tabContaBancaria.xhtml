@@ -22,7 +22,7 @@
     </div>
 
     <p:dataTable id="tableContasBancarias" var="contaBancaria" value="#{relacionamentoCadastro.relacionamento.contaBancariaCollection}" 
-                 tableStyleClass="table table-bordered table-hover" rowKey="#{contaBancaria.idcontaBancaria}" emptyMessage="#{bundle.RecordsEmpty}"
+                 rowKey="#{contaBancaria.idcontaBancaria}" emptyMessage="#{bundle.RecordsEmpty}"
                  selection="#{relacionamentoCadastro.listaDeContasBancariasDoRelacionamentoSelecionadas}" selectionMode="multiple">         
 
         <p:column sortBy="descricao" headerText="#{bundle.ListContaContabilTitle_descricao}" filterBy="descricao" filterMatchMode="contains">  
@@ -53,7 +53,7 @@
             <ui:define name="dialogo_conteudo">        
 
                 <p:dataTable id="tableSelecionaContasBancarias" var="item" value="#{relacionamentoCadastro.listaDeContasBancarias}" 
-                             tableStyleClass="table table-bordered table-hover" rowKey="#{item.idcontaBancaria}" emptyMessage="#{bundle.RecordsEmpty}"
+                             rowKey="#{item.idcontaBancaria}" emptyMessage="#{bundle.RecordsEmpty}"
                              selection="#{relacionamentoCadastro.listaDeContasBancariasSelecionadas}" selectionMode="multiple">        
 
                     <p:column sortBy="descricao" headerText="#{bundle.ListRelacionamentoTitle_descricao}" filterBy="descricao" filterMatchMode="contains">  

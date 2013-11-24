@@ -14,7 +14,7 @@
 
                 <ui:define name="list_titulo">
 
-                    #{bundle.FormCadastroContaContabilMovimento}    
+                    #{bundle.FormCadastroContaContabilMovimento} 
 
                 </ui:define>  
 
@@ -69,10 +69,10 @@
 
                             <div class="table-responsive">
 
-                                <p:dataTable id="list_table" var="item" value="#{contaContabilMovimentoCadastro.lista}" tableStyleClass="table table-bordered table-hover"
+                                <p:dataTable id="list_table" var="item" value="#{contaContabilMovimentoCadastro.lista}"
                                              rowKey="#{item.idcontaContabilMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="list_widgetVar"
                                              selection="#{contaContabilMovimentoCadastro.itensSelecionados}" selectionMode="multiple"
-                                             scrollable="true" scrollHeight="348">         
+                                             scrollable="true" scrollHeight="460">         
 
                                     <f:facet name="header" >  
                                         <p:outputPanel>  
@@ -83,8 +83,8 @@
 
                                     <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" filterBy="dataMov" filterMatchMode="contains" 
                                               filterStyle="display:none" style="width: 100px">  
-                                        <h:outputText value="#{item.dataMov}">
-                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        <h:outputText value="#{item.dataMov}">                                                                                            
+                                            <f:convertDateTime type="date" dateStyle="short"/>
                                         </h:outputText>
                                     </p:column>                             
 
@@ -109,13 +109,6 @@
                                             <f:convertNumber pattern="#,##0.00"/>
                                         </h:outputText>
                                     </p:column>                                     
-
-                                    <p:column sortBy="saldo" headerText="#{bundle.ListContaContabilMovimentoTitle_saldo}" filterBy="saldo" filterMatchMode="contains" 
-                                              filterStyle="display:none" style="width: 150px">
-                                        <h:outputText value="#{item.saldo}" style="float:right">                                
-                                            <f:convertNumber pattern="#,##0.00"/>
-                                        </h:outputText>
-                                    </p:column>
 
                                     <p:column style="width: 40px; text-align: center">  
 

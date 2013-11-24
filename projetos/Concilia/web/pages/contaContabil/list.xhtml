@@ -16,7 +16,7 @@
 
                     <ui:define name="list_titulo">
 
-                        #{bundle.FormCadastroContaContabil}    
+                        #{bundle.FormCadastroContaContabil}   
 
                     </ui:define>  
 
@@ -31,7 +31,7 @@
 
                     <ui:define name="list_conteudo">
 
-                        <p:dataTable id="list_table" var="item" value="#{contaContabilCadastro.lista}" tableStyleClass="table table-bordered table-hover"
+                        <p:dataTable id="list_table" var="item" value="#{contaContabilCadastro.lista}"
                                      rowKey="#{item.idcontaContabil}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="list_widgetVar"
                                      selection="#{contaContabilCadastro.itensSelecionados}" selectionMode="multiple"
                                      scrollable="true" scrollHeight="460">         

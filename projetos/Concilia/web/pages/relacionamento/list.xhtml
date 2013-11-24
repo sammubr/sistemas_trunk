@@ -40,10 +40,10 @@
 
                         <p:outputPanel rendered="#{relacionamentoCadastro.gridVisivel}">
 
-                            <p:dataTable id="tableRelacionamentos" var="item" value="#{relacionamentoCadastro.listaDeRelacionamentos}" tableStyleClass="table table-bordered table-hover"
+                            <p:dataTable id="tableRelacionamentos" var="item" value="#{relacionamentoCadastro.listaDeRelacionamentos}"
                                          rowKey="#{item.id}" emptyMessage="#{bundle.RecordsEmpty}"
                                          selection="#{relacionamentoCadastro.relacionamentosSelecionados}" selectionMode="multiple"
-                                         scrollable="true" scrollHeight="460">         
+                                         scrollable="true" scrollHeight="500">         
 
                             <f:facet name="header" >  
                                 <p:outputPanel>  
@@ -81,6 +81,7 @@
                                              requiredMessage="#{bundle.CreateRelacionamentoRequiredMessage_descricao}">
                                     <p:focus/>
                                 </p:inputText>
+                                <p:watermark value="#{bundle.CreateRelacionamentoTitle_descricao}" for="descricao"/>
                             </div>
 
                             <ul class="nav nav-tabs" id="tabContas" >
