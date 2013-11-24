@@ -1,7 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package controls;
 
 import java.io.Serializable;
@@ -41,7 +43,6 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaBancariaMovimento.findByIdcontaBancariaMovimento", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.idcontaBancariaMovimento = :idcontaBancariaMovimento"),
     @NamedQuery(name = "ContaBancariaMovimento.findBySaldo", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.saldo = :saldo")})
 public class ContaBancariaMovimento extends Persistencia implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -92,9 +93,6 @@ public class ContaBancariaMovimento extends Persistencia implements Serializable
     }
 
     public BigDecimal getValor() {
-        if (valor == null) {
-            valor = new BigDecimal(0);
-        }
         return valor;
     }
 
@@ -166,4 +164,5 @@ public class ContaBancariaMovimento extends Persistencia implements Serializable
     public String toString() {
         return "controls.ContaBancariaMovimento[ idcontaBancariaMovimento=" + idcontaBancariaMovimento + " ]";
     }
+    
 }

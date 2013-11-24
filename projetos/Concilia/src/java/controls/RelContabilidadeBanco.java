@@ -1,7 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package controls;
 
 import java.io.Serializable;
@@ -37,7 +39,6 @@ import persistencia.Persistencia;
     @NamedQuery(name = "RelContabilidadeBanco.findById", query = "SELECT r FROM RelContabilidadeBanco r WHERE r.id = :id"),
     @NamedQuery(name = "RelContabilidadeBanco.findByDescricao", query = "SELECT r FROM RelContabilidadeBanco r WHERE r.descricao = :descricao")})
 public class RelContabilidadeBanco extends Persistencia implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -119,4 +120,5 @@ public class RelContabilidadeBanco extends Persistencia implements Serializable 
     public String toString() {
         return "controls.RelContabilidadeBanco[ id=" + id + " ]";
     }
+    
 }

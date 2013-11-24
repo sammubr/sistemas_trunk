@@ -1,7 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package controls;
 
 import java.io.Serializable;
@@ -33,24 +35,18 @@ import persistencia.Persistencia;
     @NamedQuery(name = "Usuario.findByLogin", query = "SELECT u FROM Usuario u WHERE u.login = :login"),
     @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha"),
     @NamedQuery(name = "Usuario.findByNivel", query = "SELECT u FROM Usuario u WHERE u.nivel = :nivel")})
-public class Usuario extends Persistencia implements Serializable {    
+public class Usuario extends Persistencia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idusuario")
     private Integer idusuario;
-    
-    
-    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "nome")
     private String nome;
-    
-    
-    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -58,7 +54,7 @@ public class Usuario extends Persistencia implements Serializable {
     private String login;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 1, max = 50)
     @Column(name = "senha")
     private String senha;
     @Basic(optional = false)
@@ -67,6 +63,10 @@ public class Usuario extends Persistencia implements Serializable {
     private int nivel;
 
     public Usuario() {
+    }
+
+    public Usuario(Integer idusuario) {
+        this.idusuario = idusuario;
     }
 
     public Usuario(Integer idusuario, String nome, String login, String senha, int nivel) {
