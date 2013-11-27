@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.hibernate.criterion.Order;
 import org.primefaces.context.RequestContext;
 import util.JsfUtil;
 
@@ -29,10 +30,13 @@ public class ContaContabilCadastro implements Serializable {
     }
 
     private void geraLista() {
-        List<String> ordem = new ArrayList<>();
-        ordem.add("descricao");
+        
         ContaContabil consulta = new ContaContabil();
-        lista = (List) consulta.obter(null, null, ordem);
+        
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("descricao"));       
+                
+        lista = consulta.obterLista(null, ordem);
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE

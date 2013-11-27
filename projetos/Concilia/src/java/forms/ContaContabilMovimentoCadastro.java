@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -32,10 +35,12 @@ public class ContaContabilMovimentoCadastro implements Serializable {
     }
 
     private void geraListaDeContasContabeis() {
-        List<String> ordem = new ArrayList<>();
-        ordem.add("descricao");
         ContaContabil contaContabil = new ContaContabil();
-        setListaDeContasContabeis((List<ContaContabil>) (List) contaContabil.obter(null, null, ordem));
+           
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("descricao"));       
+                
+        setListaDeContasContabeis(contaContabil.obterLista( null, ordem));
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
@@ -128,18 +133,15 @@ public class ContaContabilMovimentoCadastro implements Serializable {
 
     public void geraListaDeMovimentos() {
 
-        List<String> atributos = new ArrayList<>();
-        atributos.add("conta");
-
-        List<Object> valores = new ArrayList<>();
-        valores.add(contaContabilSelecionada);
-
-        List<String> ordem = new ArrayList<>();
-        ordem.add("dataMov");
-        ordem.add("idcontaContabilMovimento");
-
         ContaContabilMovimento consulta = new ContaContabilMovimento();
-        lista = (List) consulta.obter(atributos, valores, ordem);
+         
+        List<Criterion> filtro = new ArrayList<>();
+        filtro.add(Restrictions.eq("conta", contaContabilSelecionada));
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("dataMov"));
+        ordem.add(Order.asc("idcontaContabilMovimento"));               
+                
+        lista = consulta.obterLista(filtro, ordem);
     }
 
     public void upload(FileUploadEvent event) {

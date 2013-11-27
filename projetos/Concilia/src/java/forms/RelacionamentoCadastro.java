@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.primefaces.context.RequestContext;
 import util.JsfUtil;
 
@@ -40,10 +43,12 @@ public class RelacionamentoCadastro implements Serializable {
     }
 
     private void geraListaDeRelacionamentos() {
-        List<String> ordem = new ArrayList<>();
-        ordem.add("descricao");
-        RelContabilidadeBanco consulta = new RelContabilidadeBanco();
-        setListaDeRelacionamentos((List<RelContabilidadeBanco>) (List) consulta.obter(null, null, ordem));
+        
+        RelContabilidadeBanco consulta = new RelContabilidadeBanco();        
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("descricao"));       
+        
+        setListaDeRelacionamentos(consulta.obterLista(null, ordem));
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
@@ -284,18 +289,22 @@ public class RelacionamentoCadastro implements Serializable {
     }
 
     public void geraListaDeContasContabeis() {
-        List<String> ordem = new ArrayList<>();
-        ordem.add("descricao");
-        ContaContabil conta = new ContaContabil();
-        setListaDeContasContabeis((List) conta.obter(null, null, ordem));
+        
+        ContaContabil conta = new ContaContabil();       
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("descricao"));      
+        setListaDeContasContabeis(conta.obterLista(null, ordem));
         setListaDeContasContabeisSelecionadas(null);
     }
 
     public void geraListaDeContasBancarias() {
-        List<String> ordem = new ArrayList<>();
-        ordem.add("descricao");
+        
         ContaBancaria conta = new ContaBancaria();
-        setListaDeContasBancarias((List) conta.obter(null, null, ordem));
+  
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("descricao"));                
+               
+        setListaDeContasBancarias(conta.obterLista(null, ordem));
         setListaDeContasBancariasSelecionadas(null);
     }
 }

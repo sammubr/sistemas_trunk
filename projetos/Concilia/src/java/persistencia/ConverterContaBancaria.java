@@ -11,6 +11,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -24,16 +26,11 @@ public class ConverterContaBancaria implements Converter {
         if (value != null && !value.equals("")) {
 
             ContaBancaria contaBancaria = new ContaBancaria();
-
-            List<String> atributos = new ArrayList<>();
-            atributos.add("idcontaBancaria");
-
-            List<Object> valores = new ArrayList<>();
-            valores.add(Integer.valueOf(value));
-
-            return contaBancaria.obter(atributos, valores);            
             
-            
+            List<Criterion> filtro = new ArrayList<>();
+            filtro.add(Restrictions.eq("idcontaBancaria", Integer.valueOf(value)));            
+
+            return contaBancaria.obterObjeto(filtro, null);                                    
             
         }
         return null;

@@ -11,6 +11,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -25,13 +27,10 @@ public class ConverterRelacionamento implements Converter {
 
             RelContabilidadeBanco relacionamento = new RelContabilidadeBanco();
 
-            List<String> atributos = new ArrayList<>();
-            atributos.add("id");
+            List<Criterion> filtro = new ArrayList<>();
+            filtro.add(Restrictions.eq("id", Integer.valueOf(value)));
 
-            List<Object> valores = new ArrayList<>();
-            valores.add(Integer.valueOf(value));
-
-            return relacionamento.obter(atributos, valores);
+            return relacionamento.obterObjeto(filtro, null);
 
         }
         return null;

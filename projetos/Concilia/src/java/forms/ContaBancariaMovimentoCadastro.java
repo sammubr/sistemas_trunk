@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -32,10 +35,10 @@ public class ContaBancariaMovimentoCadastro implements Serializable {
     }
 
     private void geraListaDeContasBancarias() {
-        List<String> ordem = new ArrayList<>();
-        ordem.add("descricao");
         ContaBancaria contaBancaria = new ContaBancaria();
-        setListaDeContasBancarias((List<ContaBancaria>) (List) contaBancaria.obter(null, null, ordem));
+        List<Order> ordem = new ArrayList<>();        
+        ordem.add(Order.asc("descricao"));
+        setListaDeContasBancarias(contaBancaria.obterLista(null, ordem));
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
@@ -128,18 +131,15 @@ public class ContaBancariaMovimentoCadastro implements Serializable {
 
     public void geraListaDeMovimentos() {
 
-        List<String> atributos = new ArrayList<>();
-        atributos.add("conta");
-
-        List<Object> valores = new ArrayList<>();
-        valores.add(contaBancariaSelecionada);
-
-        List<String> ordem = new ArrayList<>();
-        ordem.add("dataMov");
-        ordem.add("idcontaBancariaMovimento");
-
         ContaBancariaMovimento consulta = new ContaBancariaMovimento();
-        lista = (List) consulta.obter(atributos, valores, ordem);
+                
+        List<Criterion> filtro = new ArrayList<>();
+        filtro.add(Restrictions.eq("conta", contaBancariaSelecionada));
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("dataMov"));
+        ordem.add(Order.asc("idcontaBancariaMovimento"));        
+        
+        lista = consulta.obterLista(filtro, ordem);
     }
 
     public void upload(FileUploadEvent event) {

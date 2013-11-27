@@ -11,6 +11,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -18,7 +20,6 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(value = "converterBanco")
 public class ConverterBanco implements Converter {
-    
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -26,13 +27,11 @@ public class ConverterBanco implements Converter {
 
             Banco banco = new Banco();
 
-            List<String> atributos = new ArrayList<>();
-            atributos.add("idbanco");
+            List<Criterion> filtro = new ArrayList<>();
+            filtro.add(Restrictions.eq("idbanco", Integer.valueOf(value)));
 
-            List<Object> valores = new ArrayList<>();
-            valores.add(Integer.valueOf(value));
-
-            return banco.obter(atributos, valores);
+            return banco.obterObjeto(filtro, null);
+            
         }
         return null;
     }

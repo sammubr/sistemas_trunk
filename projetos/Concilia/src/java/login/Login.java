@@ -11,6 +11,8 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -20,19 +22,13 @@ public class Login extends javax.servlet.http.HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<String> atributos = new ArrayList<>();
-        atributos.add("login");
-        atributos.add("senha");
-        List<Object> valores = new ArrayList<>();
-        valores.add(request.getParameter("login"));
-        valores.add(request.getParameter("senha"));
-        
         Usuario usuario = new Usuario();
-        
-        usuario = (Usuario) usuario.obter(atributos, valores);
-        
 
-        //Usuario usuario = (Usuario) ConsultaGeral.consulta(Usuario.class, atributos, valores);
+        List<Criterion> filtro = new ArrayList<>();
+        filtro.add(Restrictions.eq("login", request.getParameter("login")));
+        filtro.add(Restrictions.eq("senha", request.getParameter("senha")));
+
+        usuario = (Usuario) usuario.obterObjeto(filtro, null);
 
         if (usuario == null) {
             request.getSession().setAttribute("msg", "Login ou senha incorretos!");

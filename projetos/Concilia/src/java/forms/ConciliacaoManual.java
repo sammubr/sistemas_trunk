@@ -7,11 +7,13 @@ import controls.ContaContabilMovimento;
 import controls.RelContabilidadeBanco;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 @Named("conciliacaoManual")
 @ViewScoped
@@ -32,32 +34,13 @@ public class ConciliacaoManual implements Serializable {
 // ---------------------------------------------------------------- CONSTRUCTOR    
     public ConciliacaoManual() {
         geraListaDeRelacionamentos();
-        //geraListaDeMovimentoContaContabil();
-        geraListaDeMovimentoContaBancaria();
     }
 
     private void geraListaDeRelacionamentos() {
-        List<String> ordem = new ArrayList<>();
-        ordem.add("descricao");
         RelContabilidadeBanco consulta = new RelContabilidadeBanco();
-        setListaDeRelacionamentos((List) consulta.obter(null, null, ordem));
-
-    }
-//
-//    private void geraListaDeMovimentoContaContabil() {
-//        List<String> ordem = new ArrayList<>();
-//        ordem.add("dataMov");
-//        ordem.add("idcontaContabilMovimento");
-//        ContaContabilMovimento consulta = new ContaContabilMovimento();
-//        listaDeMovimentoContaContabil = (List) consulta.obter(null, null, ordem);
-//    }
-
-    private void geraListaDeMovimentoContaBancaria() {
-        List<String> ordem = new ArrayList<>();
-        ordem.add("dataMov");
-        ordem.add("idcontaBancariaMovimento");
-        ContaBancariaMovimento consulta = new ContaBancariaMovimento();
-        listaDeMovimentoContaBancaria = (List) consulta.obter(null, null, ordem);
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("descricao"));
+        setListaDeRelacionamentos(consulta.obterLista(null, ordem));
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
@@ -127,72 +110,50 @@ public class ConciliacaoManual implements Serializable {
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public void filtraMovimentos() {
-
         filtraMovimentosContasContabeis();
         filtraMovimentosContasBancarias();
-
         setGridVisivel(false);
-
     }
 
     private List<ContaBancaria> getContasBancarias() {
-
         ContaBancaria consulta = new ContaBancaria();
-
-        List<String> atributo = new ArrayList<>();
-        atributo.add("relContabilidadeBanco");
-
-        List<Object> valor = new ArrayList<>();
-        valor.add(relacionamento);
-
-        List<String> ordem = new ArrayList<>();
-        ordem.add("idcontaBancaria");
-
-        return (List) consulta.obter(atributo, valor, ordem);
-
+        List<Criterion> filtro = new ArrayList<>();
+        filtro.add(Restrictions.eq("relContabilidadeBanco", relacionamento));
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("idcontaBancaria"));
+        return consulta.obterLista(filtro, ordem);
     }
 
     private List<ContaContabil> getContasContabeis() {
-
         ContaContabil consulta = new ContaContabil();
-
-        List<String> atributo = new ArrayList<>();
-        atributo.add("relContabilidadeBanco");
-
-        List<Object> valor = new ArrayList<>();
-        valor.add(relacionamento);
-
-        List<String> ordem = new ArrayList<>();
-        ordem.add("idcontaContabil");
-
-        return (List) consulta.obter(atributo, valor, ordem);
-
+        List<Criterion> filtro = new ArrayList<>();
+        filtro.add(Restrictions.eq("relContabilidadeBanco", relacionamento));
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("idcontaContabil"));
+        return consulta.obterLista(filtro, ordem);
     }
 
     private void filtraMovimentosContasContabeis() {
-
         List<ContaContabil> contasContabeis = getContasContabeis();
-
         ContaContabilMovimento consulta = new ContaContabilMovimento();
-
-        List<String> atributo = new ArrayList<>();
-        atributo.add("conta");
-
-        List<Object> valor = new ArrayList<>();
-        valor.add(contasContabeis);
-        
-        List<String> ordem = new ArrayList<>();
-        ordem.add("dataMov");
-        ordem.add("idcontaContabilMovimento");
-
-        listaDeMovimentoContaContabil = (List) consulta.obter(atributo, valor, ordem);
+        List<Criterion> filtro = new ArrayList<>();
+        filtro.add(Restrictions.in("conta", contasContabeis));
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("dataMov"));
+        ordem.add(Order.asc("idcontaContabilMovimento"));
+        listaDeMovimentoContaContabil = consulta.obterLista(filtro, ordem);
 
     }
 
     private void filtraMovimentosContasBancarias() {
-
         List<ContaBancaria> contasBancarias = getContasBancarias();
+        ContaBancariaMovimento consulta = new ContaBancariaMovimento();
+        List<Criterion> filtro = new ArrayList<>();
+        filtro.add(Restrictions.in("conta", contasBancarias));
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("dataMov"));
+        ordem.add(Order.asc("idcontaBancariaMovimento"));
+        listaDeMovimentoContaBancaria = consulta.obterLista(filtro, ordem);
 
     }
-
 }

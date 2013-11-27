@@ -4,14 +4,13 @@
  */
 package persistencia;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import util.JsfUtil;
 import util.NewHibernateUtil;
 
@@ -61,41 +60,29 @@ public class Persistencia {
         }
     }
 
-    public Collection<Persistencia> obter(List<String> atributos, List<Object> valores, List<String> ordem) {
+    public List obterLista(List<Criterion> criterios, List<Order> ordenamento) {
 
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
-        Collection<Persistencia> lista = null;
+        List<Persistencia> lista = null;
         try {
             tx = session.beginTransaction();
             Criteria crit = session.createCriteria(this.getClass());
-            if (atributos != null) {
-                for (int i = 0; i < atributos.size(); i++) {
 
-                    if (valores.get(i) == null) {
-                        crit.add(Restrictions.isNull(atributos.get(i)));
-                    } else {
-
-                        if (valores.get(i) instanceof List) {
-                            crit.add(Restrictions.in(atributos.get(i), (List) valores.get(i)));
-
-                        } else {
-
-                            crit.add(Restrictions.eq(atributos.get(i), valores.get(i)));
-                        }
-
-                    }
-
+            if (criterios != null) {
+                for (Criterion criterio : criterios) {
+                    crit.add(criterio);
                 }
             }
-            if (ordem != null) {
-                for (int i = 0; i < ordem.size(); i++) {
-                    if (!ordem.get(i).equals("")) {
-                        crit.addOrder(Order.asc(ordem.get(i)));
-                    }
+
+            if (ordenamento != null) {
+                for (Order ordem : ordenamento) {
+                    crit.addOrder(ordem);
                 }
             }
+
             lista = crit.list();
+
             tx.commit();
         } catch (Exception e) {
             if (tx != null) {
@@ -108,10 +95,9 @@ public class Persistencia {
             session.close();
         }
         return lista;
-
     }
 
-    public Object obter(List<String> atributos, List<Object> valores) {
+    public Object obterObjeto(List<Criterion> criterios, List<Order> ordenamento) {
 
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
@@ -119,12 +105,23 @@ public class Persistencia {
         try {
             tx = session.beginTransaction();
             Criteria crit = session.createCriteria(this.getClass());
-            for (int i = 0; i < atributos.size(); i++) {
-                crit.add(Restrictions.eq(atributos.get(i), valores.get(i)));
+
+            if (criterios != null) {
+                for (Criterion criterio : criterios) {
+                    crit.add(criterio);
+                }
             }
+
+            if (ordenamento != null) {
+                for (Order ordem : ordenamento) {
+                    crit.addOrder(ordem);
+                }
+            }
+
             if (crit.list().size() > 0) {
                 objeto = crit.list().get(0);
             }
+
             tx.commit();
         } catch (Exception e) {
             if (tx != null) {
@@ -136,6 +133,6 @@ public class Persistencia {
         } finally {
             session.close();
         }
-        return (Persistencia) objeto;
+        return objeto;
     }
 }

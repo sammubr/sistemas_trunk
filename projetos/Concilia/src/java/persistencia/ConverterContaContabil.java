@@ -11,6 +11,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -21,20 +23,15 @@ public class ConverterContaContabil implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if (value != null && !value.equals("")) {            
-            
+        if (value != null && !value.equals("")) {
+
             ContaContabil contaContabil = new ContaContabil();
 
-            List<String> atributos = new ArrayList<>();
-            atributos.add("idcontaContabil");
+            List<Criterion> filtro = new ArrayList<>();
+            filtro.add(Restrictions.eq("idcontaContabil", Integer.valueOf(value)));
 
-            List<Object> valores = new ArrayList<>();
-            valores.add(Integer.valueOf(value));
+            return contaContabil.obterObjeto(filtro, null);
 
-            return contaContabil.obter(atributos, valores);            
-            
-            
-            
         }
         return null;
     }
