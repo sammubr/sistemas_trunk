@@ -18,87 +18,126 @@
 
                 <ui:define name="conciliacao_conteudo">
 
-                    <h:form id="form">
+                    <p:outputPanel id="panelConciliacao">
 
-                        <div class="row">
+                        <p:outputPanel rendered="#{conciliacaoManual.gridVisivel}">                                      
 
-                            <div class="col-md-6">
+                            <h:form id="formSelecionaRelacionamento">
 
-                                <p:dataTable id="list_table" var="item" value="#{conciliacaoManual.lista}"
-                                             rowKey="#{item.idcontaContabilMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="list_widgetVar"
-                                             selection="#{conciliacaoManual.itensSelecionados}" selectionMode="multiple"
-                                             scrollable="true" scrollHeight="500">         
+                                <div class="form-group">
+                                    <label for="relacionamento">#{bundle.ConciliacaoManualLabel_selectRelacionamento}</label>
 
-                                    <f:facet name="header" >  
-                                        <p:outputPanel>  
-                                            <h:outputText value="#{bundle.FilterTable} "/>  
-                                            <p:inputText id="globalFilter" onkeyup="list_widgetVar.filter();" style="width:20%" />  
-                                        </p:outputPanel>  
-                                    </f:facet>
+                                    <h:selectOneMenu id="relacionamento" value="#{conciliacaoManual.relacionamento}" converter="converterRelacionamento" class="form-control" 
+                                                     required="true" requiredMessage="#{bundle.ConciliacaoManualRelacionamentoRequiredMessage}">
+                                        <f:selectItem itemLabel="#{bundle.SelecionarRelacionamento}" itemValue="" />
+                                        <f:selectItems value="#{conciliacaoManual.listaDeRelacionamentos}" var="item" itemValue="#{item}" itemLabel="#{item.descricao}" />
+                                    </h:selectOneMenu>                          
+                                </div>                       
 
-                                    <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" filterBy="dataMov" filterMatchMode="contains" 
-                                              filterStyle="display:none" style="width: 100px">  
-                                        <h:outputText value="#{item.dataMov}">
-                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                        </h:outputText>
-                                    </p:column>                             
+                                <div class="form-group">
+                                    <label for="dataConciliacao">Data da conciliação:</label>
+                                    <p:inputText id="dataConciliacao" styleClass="form-control" value="#{conciliacaoManual.dataConciliacao}" 
+                                                 title="Data da conciliação" required="true" 
+                                                 requiredMessage="#{bundle.ConciliacaoManualDataRelacionamentoRequiredMessage}">
+                                        <f:convertDateTime type="date" dateStyle="short"/>                                    
+                                    </p:inputText>
+                                </div>                            
 
-                                    <p:column sortBy="historico" headerText="#{bundle.ListContaContabilMovimentoTitle_Historico}" filterBy="historico" filterMatchMode="contains" 
-                                              filterStyle="display:none">  
-                                        <h:outputText value="#{item.historico}"/>  
-                                    </p:column>     
+                                <div class="btn-group ">
+                                    <p:commandLink title="OK" value="OK" styleClass="btn btn-primary" actionListener="#{conciliacaoManual.filtraMovimentos}" update=":panelConciliacao"/>
+                                    <p:commandLink title="Cancelar" value="Cancelar" styleClass="btn btn-default" action="index.xhtml" />
+                                </div>
+                            </h:form>
 
-                                    <p:column sortBy="valor" headerText="#{bundle.ListContaContabilMovimentoTitle_valor}" filterBy="valor" filterMatchMode="contains" 
-                                              filterStyle="display:none" style="width: 150px">
-                                        <h:outputText value="#{item.valor}" style="float:right">                                
-                                            <f:convertNumber pattern="#,##0.00"/>
-                                        </h:outputText>
-                                    </p:column>                                                                   
+                        </p:outputPanel>                    
 
-                                </p:dataTable>
+                        <p:outputPanel rendered="#{!conciliacaoManual.gridVisivel}">
 
-                            </div>
+                            <h:form id="form">
 
-                            <div class="col-md-6">
+                                <div class="row">
 
-                                <p:dataTable id="list_table2" var="item" value="#{conciliacaoManual.lista}"
-                                             rowKey="#{item.idcontaContabilMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="list_widgetVar"
-                                             selection="#{conciliacaoManual.itensSelecionados}" selectionMode="multiple"
-                                             scrollable="true" scrollHeight="500">         
+                                    <div class="col-md-6">
 
-                                    <f:facet name="header" >  
-                                        <p:outputPanel>  
-                                            <h:outputText value="#{bundle.FilterTable} "/>  
-                                            <p:inputText id="globalFilter" onkeyup="list_widgetVar.filter();" style="width:20%" />  
-                                        </p:outputPanel>  
-                                    </f:facet>
+                                        <p:dataTable id="tableContasContabeis" var="item" value="#{conciliacaoManual.listaDeMovimentoContaContabil}"
+                                                     rowKey="#{item.idcontaContabilMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasContabeis"
+                                                     selection="#{conciliacaoManual.listaDeMovimentoContaContabilSelecionados}" selectionMode="multiple"
+                                                     scrollable="true" scrollHeight="500">         
 
-                                    <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" filterBy="dataMov" filterMatchMode="contains" 
-                                              filterStyle="display:none" style="width: 100px">  
-                                        <h:outputText value="#{item.dataMov}">
-                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                        </h:outputText>
-                                    </p:column>                             
+                                            <f:facet name="header" >  
+                                                <p:outputPanel>   
+                                                    <p:inputText id="globalFilter" onkeyup="widgetVarContasContabeis.filter();" style="width:40%"/>  
+                                                    <p:watermark value="#{bundle.FilterTableWatermark}" for="globalFilter"/>
+                                                </p:outputPanel>  
+                                            </f:facet>
 
-                                    <p:column sortBy="historico" headerText="#{bundle.ListContaContabilMovimentoTitle_Historico}" filterBy="historico" filterMatchMode="contains" 
-                                              filterStyle="display:none">  
-                                        <h:outputText value="#{item.historico}"/>  
-                                    </p:column>     
+                                            <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" filterBy="dataMov" filterMatchMode="contains" 
+                                                      filterStyle="display:none" style="width: 100px">  
+                                                <h:outputText value="#{item.dataMov}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>                             
 
-                                    <p:column sortBy="valor" headerText="#{bundle.ListContaContabilMovimentoTitle_valor}" filterBy="valor" filterMatchMode="contains" 
-                                              filterStyle="display:none" style="width: 150px">
-                                        <h:outputText value="#{item.valor}" style="float:right">                                
-                                            <f:convertNumber pattern="#,##0.00"/>
-                                        </h:outputText>
-                                    </p:column>                                                                   
+                                            <p:column sortBy="historico" headerText="#{bundle.ListContaContabilMovimentoTitle_Historico}" filterBy="historico" filterMatchMode="contains" 
+                                                      filterStyle="display:none">  
+                                                <h:outputText value="#{item.historico}"/>  
+                                            </p:column>     
 
-                                </p:dataTable>
+                                            <p:column sortBy="valor" headerText="#{bundle.ListContaContabilMovimentoTitle_valor}" filterBy="valor" filterMatchMode="contains" 
+                                                      filterStyle="display:none" style="width: 150px">
+                                                <h:outputText value="#{item.valor}" style="float:right">                                
+                                                    <f:convertNumber pattern="#,##0.00"/>
+                                                </h:outputText>
+                                            </p:column>                                                                   
 
-                            </div>
+                                        </p:dataTable>
 
-                        </div>
+                                    </div>
 
-                    </h:form>
+                                    <div class="col-md-6">
+
+                                        <p:dataTable id="tableContasBancarias" var="item" value="#{conciliacaoManual.listaDeMovimentoContaBancaria}"
+                                                     rowKey="#{item.idcontaBancariaMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasBancarias"
+                                                     selection="#{conciliacaoManual.listaDeMovimentoContaBancariaSelecionados}" selectionMode="multiple"
+                                                     scrollable="true" scrollHeight="500">         
+
+                                            <f:facet name="header" >  
+                                                <p:outputPanel>   
+                                                    <p:inputText id="globalFilter" onkeyup="widgetVarContasBancarias.filter();" style="width:40%" />  
+                                                    <p:watermark value="#{bundle.FilterTableWatermark}" for="globalFilter"/>
+                                                </p:outputPanel>  
+                                            </f:facet>
+
+                                            <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" filterBy="dataMov" filterMatchMode="contains" 
+                                                      filterStyle="display:none" style="width: 100px">  
+                                                <h:outputText value="#{item.dataMov}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                </h:outputText>
+                                            </p:column>                             
+
+                                            <p:column sortBy="historico" headerText="#{bundle.ListContaContabilMovimentoTitle_Historico}" filterBy="historico" filterMatchMode="contains" 
+                                                      filterStyle="display:none">  
+                                                <h:outputText value="#{item.historico}"/>  
+                                            </p:column>     
+
+                                            <p:column sortBy="valor" headerText="#{bundle.ListContaContabilMovimentoTitle_valor}" filterBy="valor" filterMatchMode="contains" 
+                                                      filterStyle="display:none" style="width: 150px">
+                                                <h:outputText value="#{item.valor}" style="float:right">                                
+                                                    <f:convertNumber pattern="#,##0.00"/>
+                                                </h:outputText>
+                                            </p:column>                                                                   
+
+                                        </p:dataTable>
+
+                                    </div>
+
+                                </div>
+
+                            </h:form>                        
+
+                        </p:outputPanel>
+
+                    </p:outputPanel>
 
                 </ui:define>  
 

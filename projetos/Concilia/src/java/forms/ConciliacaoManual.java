@@ -1,127 +1,198 @@
 package forms;
 
+import controls.ContaBancaria;
+import controls.ContaBancariaMovimento;
 import controls.ContaContabil;
 import controls.ContaContabilMovimento;
+import controls.RelContabilidadeBanco;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import org.primefaces.context.RequestContext;
-import util.JsfUtil;
 
 @Named("conciliacaoManual")
 @ViewScoped
 public class ConciliacaoManual implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
-    private ContaContabilMovimento item;
-    private List<ContaContabilMovimento> lista;
-    private List<ContaContabilMovimento> itensSelecionados;
-    private ContaContabil contaContabilSelecionada;
-    private List<ContaContabil> listaDeContasContabeis;
+    private boolean gridVisivel = true;
+    private RelContabilidadeBanco relacionamento;
+    private List<RelContabilidadeBanco> listaDeRelacionamentos;
+    private Date dataConciliacao;
+
+    private List<ContaContabilMovimento> listaDeMovimentoContaContabil;
+    private List<ContaContabilMovimento> listaDeMovimentoContaContabilSelecionados;
+
+    private List<ContaBancariaMovimento> listaDeMovimentoContaBancaria;
+    private List<ContaBancariaMovimento> listaDeMovimentoContaBancariaSelecionados;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
     public ConciliacaoManual() {
-        geraListaDeContasContabeis();
-        geraListaDeMovimentos();
+        geraListaDeRelacionamentos();
+        //geraListaDeMovimentoContaContabil();
+        geraListaDeMovimentoContaBancaria();
     }
 
-    private void geraListaDeContasContabeis() {
+    private void geraListaDeRelacionamentos() {
         List<String> ordem = new ArrayList<>();
         ordem.add("descricao");
-        ContaContabil contaContabil = new ContaContabil();
-        setListaDeContasContabeis((List<ContaContabil>) (List) contaContabil.obter(null, null, ordem));
+        RelContabilidadeBanco consulta = new RelContabilidadeBanco();
+        setListaDeRelacionamentos((List) consulta.obter(null, null, ordem));
+
+    }
+//
+//    private void geraListaDeMovimentoContaContabil() {
+//        List<String> ordem = new ArrayList<>();
+//        ordem.add("dataMov");
+//        ordem.add("idcontaContabilMovimento");
+//        ContaContabilMovimento consulta = new ContaContabilMovimento();
+//        listaDeMovimentoContaContabil = (List) consulta.obter(null, null, ordem);
+//    }
+
+    private void geraListaDeMovimentoContaBancaria() {
+        List<String> ordem = new ArrayList<>();
+        ordem.add("dataMov");
+        ordem.add("idcontaBancariaMovimento");
+        ContaBancariaMovimento consulta = new ContaBancariaMovimento();
+        listaDeMovimentoContaBancaria = (List) consulta.obter(null, null, ordem);
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
-    public ContaContabilMovimento getItem() {
-        return item;
+    public boolean isGridVisivel() {
+        return gridVisivel;
     }
 
-    public void setItem(ContaContabilMovimento item) {
-        this.item = item;
+    public void setGridVisivel(boolean gridVisivel) {
+        this.gridVisivel = gridVisivel;
     }
 
-    public List<ContaContabilMovimento> getLista() {
-        return lista;
+    public RelContabilidadeBanco getRelacionamento() {
+        return relacionamento;
     }
 
-    public void setLista(List<ContaContabilMovimento> lista) {
-        this.lista = lista;
+    public void setRelacionamento(RelContabilidadeBanco relacionamento) {
+        this.relacionamento = relacionamento;
     }
 
-    public List<ContaContabilMovimento> getItensSelecionados() {
-        return itensSelecionados;
+    public List<RelContabilidadeBanco> getListaDeRelacionamentos() {
+        return listaDeRelacionamentos;
     }
 
-    public void setItensSelecionados(List<ContaContabilMovimento> itensSelecionados) {
-        this.itensSelecionados = itensSelecionados;
+    public void setListaDeRelacionamentos(List<RelContabilidadeBanco> listaDeRelacionamentos) {
+        this.listaDeRelacionamentos = listaDeRelacionamentos;
     }
 
-    public ContaContabil getContaContabilSelecionada() {
-        return contaContabilSelecionada;
+    public Date getDataConciliacao() {
+        return dataConciliacao;
     }
 
-    public void setContaContabilSelecionada(ContaContabil contaContabilSelecionada) {
-        this.contaContabilSelecionada = contaContabilSelecionada;
+    public void setDataConciliacao(Date dataConciliacao) {
+        this.dataConciliacao = dataConciliacao;
     }
 
-    public List<ContaContabil> getListaDeContasContabeis() {
-        return listaDeContasContabeis;
+    public List<ContaContabilMovimento> getListaDeMovimentoContaContabil() {
+        return listaDeMovimentoContaContabil;
     }
 
-    public void setListaDeContasContabeis(List<ContaContabil> listaDeContasContabeis) {
-        this.listaDeContasContabeis = listaDeContasContabeis;
+    public void setListaDeMovimentoContaContabil(List<ContaContabilMovimento> listaDeMovimentoContaContabil) {
+        this.listaDeMovimentoContaContabil = listaDeMovimentoContaContabil;
+    }
+
+    public List<ContaContabilMovimento> getListaDeMovimentoContaContabilSelecionados() {
+        return listaDeMovimentoContaContabilSelecionados;
+    }
+
+    public void setListaDeMovimentoContaContabilSelecionados(List<ContaContabilMovimento> listaDeMovimentoContaContabilSelecionados) {
+        this.listaDeMovimentoContaContabilSelecionados = listaDeMovimentoContaContabilSelecionados;
+    }
+
+    public List<ContaBancariaMovimento> getListaDeMovimentoContaBancaria() {
+        return listaDeMovimentoContaBancaria;
+    }
+
+    public void setListaDeMovimentoContaBancaria(List<ContaBancariaMovimento> listaDeMovimentoContaBancaria) {
+        this.listaDeMovimentoContaBancaria = listaDeMovimentoContaBancaria;
+    }
+
+    public List<ContaBancariaMovimento> getListaDeMovimentoContaBancariaSelecionados() {
+        return listaDeMovimentoContaBancariaSelecionados;
+    }
+
+    public void setListaDeMovimentoContaBancariaSelecionados(List<ContaBancariaMovimento> listaDeMovimentoContaBancariaSelecionados) {
+        this.listaDeMovimentoContaBancariaSelecionados = listaDeMovimentoContaBancariaSelecionados;
     }
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
-    public void criaNovo() {
-        item = new ContaContabilMovimento();
+    public void filtraMovimentos() {
+
+        filtraMovimentosContasContabeis();
+        filtraMovimentosContasBancarias();
+
+        setGridVisivel(false);
+
     }
 
-    public void edita(ContaContabilMovimento itemSelecionado) {
-        item = itemSelecionado;
+    private List<ContaBancaria> getContasBancarias() {
+
+        ContaBancaria consulta = new ContaBancaria();
+
+        List<String> atributo = new ArrayList<>();
+        atributo.add("relContabilidadeBanco");
+
+        List<Object> valor = new ArrayList<>();
+        valor.add(relacionamento);
+
+        List<String> ordem = new ArrayList<>();
+        ordem.add("idcontaBancaria");
+
+        return (List) consulta.obter(atributo, valor, ordem);
+
     }
 
-    public void persiste() {
-        getItem().setConta(contaContabilSelecionada);
-        getItem().persiste();
-        geraListaDeMovimentos();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
-        RequestContext.getCurrentInstance().execute("$('#myModal').modal('hide')");
+    private List<ContaContabil> getContasContabeis() {
+
+        ContaContabil consulta = new ContaContabil();
+
+        List<String> atributo = new ArrayList<>();
+        atributo.add("relContabilidadeBanco");
+
+        List<Object> valor = new ArrayList<>();
+        valor.add(relacionamento);
+
+        List<String> ordem = new ArrayList<>();
+        ordem.add("idcontaContabil");
+
+        return (List) consulta.obter(atributo, valor, ordem);
+
     }
 
-    public void exclui() {
-        switch (itensSelecionados.size()) {
-            case 0:
-                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("EmptyRecordsToDelete"), "");
-                break;
-            case 1:
-                for (ContaContabilMovimento itemSelecionado : itensSelecionados) {
-                    itemSelecionado.exclui();
-                }
-                geraListaDeMovimentos();
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
-                break;
-            default:
-                for (ContaContabilMovimento itemSelecionado : itensSelecionados) {
-                    itemSelecionado.exclui();
-                }
-                geraListaDeMovimentos();
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
-                break;
-        }
-    }
+    private void filtraMovimentosContasContabeis() {
 
-    private void geraListaDeMovimentos() {
+        List<ContaContabil> contasContabeis = getContasContabeis();
 
+        ContaContabilMovimento consulta = new ContaContabilMovimento();
+
+        List<String> atributo = new ArrayList<>();
+        atributo.add("conta");
+
+        List<Object> valor = new ArrayList<>();
+        valor.add(contasContabeis);
+        
         List<String> ordem = new ArrayList<>();
         ordem.add("dataMov");
         ordem.add("idcontaContabilMovimento");
 
-        ContaContabilMovimento consulta = new ContaContabilMovimento();
-        lista = (List) consulta.obter(null, null, ordem);
+        listaDeMovimentoContaContabil = (List) consulta.obter(atributo, valor, ordem);
+
     }
+
+    private void filtraMovimentosContasBancarias() {
+
+        List<ContaBancaria> contasBancarias = getContasBancarias();
+
+    }
+
 }
