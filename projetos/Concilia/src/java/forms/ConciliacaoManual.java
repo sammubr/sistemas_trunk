@@ -34,9 +34,8 @@ public class ConciliacaoManual implements Serializable {
     private BigDecimal saldoContaContabil;
     private BigDecimal saldoContaBancaria;
     
-    private Date dataInicialConciliacao;
-    private Date dataFinalConciliacao;
-
+    private Date dataConciliacao;
+    
 // ---------------------------------------------------------------- CONSTRUCTOR    
     public ConciliacaoManual() {
         geraListaDeRelacionamentos();
@@ -122,20 +121,12 @@ public class ConciliacaoManual implements Serializable {
         this.saldoContaBancaria = saldoContaBancaria;
     }
 
-    public Date getDataInicialConciliacao() {
-        return dataInicialConciliacao;
+    public Date getDataConciliacao() {
+        return dataConciliacao;
     }
 
-    public void setDataInicialConciliacao(Date dataInicialConciliacao) {
-        this.dataInicialConciliacao = dataInicialConciliacao;
-    }
-
-    public Date getDataFinalConciliacao() {
-        return dataFinalConciliacao;
-    }
-
-    public void setDataFinalConciliacao(Date dataFinalConciliacao) {
-        this.dataFinalConciliacao = dataFinalConciliacao;
+    public void setDataConciliacao(Date dataConciliacao) {
+        this.dataConciliacao = dataConciliacao;
     }
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR

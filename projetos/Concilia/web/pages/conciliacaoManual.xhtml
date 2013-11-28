@@ -35,22 +35,13 @@
                                 </div>                       
 
                                 <div class="form-group">
-                                    <label for="dataInicial">Data inicial:</label>
-                                    <p:inputText id="dataInicial" styleClass="form-control" value="#{conciliacaoManual.dataInicialConciliacao}" 
-                                                 title="Data inicial da conciliação" required="true"                                                  
-                                                 requiredMessage="#{bundle.ConciliacaoManualDataInicialRequiredMessage}">
+                                    <label for="dataConciliacao">Data da conciliação:</label>
+                                    <p:inputText id="dataConciliacao" styleClass="form-control" value="#{conciliacaoManual.dataConciliacao}" 
+                                                 title="Data conciliação" required="true"                                                  
+                                                 requiredMessage="#{bundle.ConciliacaoManualDataConciliacaoRequiredMessage}">
                                         <f:convertDateTime type="date" dateStyle="short"/>                                    
                                     </p:inputText>
                                 </div>                            
-
-                                <div class="form-group">
-                                    <label for="dataFinal">Data final:</label>
-                                    <p:inputText id="dataFinal" styleClass="form-control" value="#{conciliacaoManual.dataFinalConciliacao}" 
-                                                 title="Data final da conciliação" required="true" 
-                                                 requiredMessage="#{bundle.ConciliacaoManualDataFinalRequiredMessage}">
-                                        <f:convertDateTime type="date" dateStyle="short"/>                                    
-                                    </p:inputText>
-                                </div>      
 
                                 <div class="btn-group ">
                                     <p:commandLink title="OK" value="OK" styleClass="btn btn-primary" actionListener="#{conciliacaoManual.filtraMovimentos}" update=":panelConciliacao"/>
