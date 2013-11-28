@@ -6,6 +6,7 @@ import controls.ContaContabil;
 import controls.ContaContabilMovimento;
 import controls.RelContabilidadeBanco;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,13 +24,18 @@ public class ConciliacaoManual implements Serializable {
     private boolean gridVisivel = true;
     private RelContabilidadeBanco relacionamento;
     private List<RelContabilidadeBanco> listaDeRelacionamentos;
-    private Date dataConciliacao;
 
     private List<ContaContabilMovimento> listaDeMovimentoContaContabil;
     private List<ContaContabilMovimento> listaDeMovimentoContaContabilSelecionados;
 
     private List<ContaBancariaMovimento> listaDeMovimentoContaBancaria;
     private List<ContaBancariaMovimento> listaDeMovimentoContaBancariaSelecionados;
+
+    private BigDecimal saldoContaContabil;
+    private BigDecimal saldoContaBancaria;
+    
+    private Date dataInicialConciliacao;
+    private Date dataFinalConciliacao;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
     public ConciliacaoManual() {
@@ -68,14 +74,6 @@ public class ConciliacaoManual implements Serializable {
         this.listaDeRelacionamentos = listaDeRelacionamentos;
     }
 
-    public Date getDataConciliacao() {
-        return dataConciliacao;
-    }
-
-    public void setDataConciliacao(Date dataConciliacao) {
-        this.dataConciliacao = dataConciliacao;
-    }
-
     public List<ContaContabilMovimento> getListaDeMovimentoContaContabil() {
         return listaDeMovimentoContaContabil;
     }
@@ -106,6 +104,38 @@ public class ConciliacaoManual implements Serializable {
 
     public void setListaDeMovimentoContaBancariaSelecionados(List<ContaBancariaMovimento> listaDeMovimentoContaBancariaSelecionados) {
         this.listaDeMovimentoContaBancariaSelecionados = listaDeMovimentoContaBancariaSelecionados;
+    }
+
+    public BigDecimal getSaldoContaContabil() {
+        return saldoContaContabil;
+    }
+
+    public void setSaldoContaContabil(BigDecimal saldoContaContabil) {
+        this.saldoContaContabil = saldoContaContabil;
+    }
+
+    public BigDecimal getSaldoContaBancaria() {
+        return saldoContaBancaria;
+    }
+
+    public void setSaldoContaBancaria(BigDecimal saldoContaBancaria) {
+        this.saldoContaBancaria = saldoContaBancaria;
+    }
+
+    public Date getDataInicialConciliacao() {
+        return dataInicialConciliacao;
+    }
+
+    public void setDataInicialConciliacao(Date dataInicialConciliacao) {
+        this.dataInicialConciliacao = dataInicialConciliacao;
+    }
+
+    public Date getDataFinalConciliacao() {
+        return dataFinalConciliacao;
+    }
+
+    public void setDataFinalConciliacao(Date dataFinalConciliacao) {
+        this.dataFinalConciliacao = dataFinalConciliacao;
     }
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
@@ -142,7 +172,7 @@ public class ConciliacaoManual implements Serializable {
         ordem.add(Order.asc("dataMov"));
         ordem.add(Order.asc("idcontaContabilMovimento"));
         listaDeMovimentoContaContabil = consulta.obterLista(filtro, ordem);
-
+        saldoContaContabil = apuraSaldoContaContabil();
     }
 
     private void filtraMovimentosContasBancarias() {
@@ -154,6 +184,53 @@ public class ConciliacaoManual implements Serializable {
         ordem.add(Order.asc("dataMov"));
         ordem.add(Order.asc("idcontaBancariaMovimento"));
         listaDeMovimentoContaBancaria = consulta.obterLista(filtro, ordem);
-
+        saldoContaBancaria = apuraSaldoContaBancaria();
     }
+
+    private BigDecimal apuraSaldoContaContabil() {
+
+        BigDecimal saldo = new BigDecimal(0);
+
+        for (ContaContabil conta : relacionamento.getContaContabilCollection()) {
+            saldo = saldo.add(getSaldoContaContabil(listaDeMovimentoContaContabil, conta));
+        }
+
+        return saldo;
+    }
+
+    public BigDecimal getSaldoContaContabil(List<ContaContabilMovimento> lista, ContaContabil filtro) {
+
+        BigDecimal saldo = new BigDecimal(0);
+
+        for (ContaContabilMovimento item : lista) {
+            if (item.getConta().equals(filtro)) {
+                saldo = (item.getSaldo());
+            }
+        }
+        return saldo;
+    }
+
+    private BigDecimal apuraSaldoContaBancaria() {
+
+        BigDecimal saldo = new BigDecimal(0);
+
+        for (ContaBancaria conta : relacionamento.getContaBancariaCollection()) {
+            saldo = saldo.add(getSaldoContaBancaria(listaDeMovimentoContaBancaria, conta));
+        }
+
+        return saldo;
+    }
+
+    public BigDecimal getSaldoContaBancaria(List<ContaBancariaMovimento> lista, ContaBancaria filtro) {
+
+        BigDecimal saldo = new BigDecimal(0);
+
+        for (ContaBancariaMovimento item : lista) {
+            if (item.getConta().equals(filtro)) {
+                saldo = (item.getSaldo());
+            }
+        }
+        return saldo;
+    }
+
 }
