@@ -70,6 +70,9 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
     @JoinColumn(name = "conta", referencedColumnName = "idconta_contabil")
     @ManyToOne(optional = false)
     private ContaContabil conta;
+    @JoinColumn(name = "combinacao", referencedColumnName = "id_combinacao")
+    @ManyToOne
+    private Combinacao combinacao;
 
     public ContaContabilMovimento() {
     }
@@ -138,6 +141,14 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
 
     public void setConta(ContaContabil conta) {
         this.conta = conta;
+    }
+
+    public Combinacao getCombinacao() {
+        return combinacao;
+    }
+
+    public void setCombinacao(Combinacao combinacao) {
+        this.combinacao = combinacao;
     }
 
     @Override
