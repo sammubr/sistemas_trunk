@@ -42,6 +42,10 @@ import persistencia.Persistencia;
     @NamedQuery(name = "Conciliacao.findByIdConciliacao", query = "SELECT c FROM Conciliacao c WHERE c.idConciliacao = :idConciliacao"),
     @NamedQuery(name = "Conciliacao.findByDataConciliacao", query = "SELECT c FROM Conciliacao c WHERE c.dataConciliacao = :dataConciliacao")})
 public class Conciliacao extends Persistencia implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "numero_combinacoes")
+    private int numeroCombinacoes;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,9 +57,6 @@ public class Conciliacao extends Persistencia implements Serializable {
     @Column(name = "data_conciliacao")
     @Temporal(TemporalType.DATE)
     private Date dataConciliacao;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "conciliacao")
-    @Fetch(FetchMode.SUBSELECT)
-    private Collection<Combinacao> combinacaoCollection;
 
     public Conciliacao() {
     }
@@ -85,15 +86,6 @@ public class Conciliacao extends Persistencia implements Serializable {
         this.dataConciliacao = dataConciliacao;
     }
 
-    @XmlTransient
-    public Collection<Combinacao> getCombinacaoCollection() {
-        return combinacaoCollection;
-    }
-
-    public void setCombinacaoCollection(Collection<Combinacao> combinacaoCollection) {
-        this.combinacaoCollection = combinacaoCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -117,6 +109,14 @@ public class Conciliacao extends Persistencia implements Serializable {
     @Override
     public String toString() {
         return "controls.Conciliacao[ idConciliacao=" + idConciliacao + " ]";
+    }
+
+    public int getNumeroCombinacoes() {
+        return numeroCombinacoes;
+    }
+
+    public void setNumeroCombinacoes(int numeroCombinacoes) {
+        this.numeroCombinacoes = numeroCombinacoes;
     }
     
 }

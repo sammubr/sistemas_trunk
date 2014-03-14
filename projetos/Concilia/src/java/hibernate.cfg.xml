@@ -23,7 +23,6 @@
     <mapping class="controls.ContaContabilMovimento"/>
     <mapping class="controls.RelContabilidadeBanco"/>
     <mapping class="controls.RelContabilidadeBanco"/>
-    <mapping class="controls.Combinacao"/>
     <mapping class="controls.Conciliacao"/>
   </session-factory>
 </hibernate-configuration>

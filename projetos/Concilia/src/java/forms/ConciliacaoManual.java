@@ -1,6 +1,5 @@
 package forms;
 
-import controls.Combinacao;
 import controls.ContaBancaria;
 import controls.ContaBancariaMovimento;
 import controls.ContaContabil;
@@ -228,7 +227,7 @@ public class ConciliacaoManual implements Serializable {
 
         for (ContaContabilMovimento movimento : listaDeMovimentoContaContabil) {
 
-            if (movimento.getCombinacao() == null) {
+            if (movimento.getDataConciliacao() == null) {
                 listaDeMovimentoContaContabilNaoConciliados.add(movimento);
             } else {
                 listaDeMovimentoContaContabilConciliados.add(movimento);
@@ -253,7 +252,7 @@ public class ConciliacaoManual implements Serializable {
 
         for (ContaBancariaMovimento movimento : listaDeMovimentoContaBancaria) {
 
-            if (movimento.getCombinacao() == null) {
+            if (movimento.getDataConciliacao()== null) {
                 listaDeMovimentoContaBancariaNaoConciliados.add(movimento);
             } else {
                 listaDeMovimentoContaBancariaConciliados.add(movimento);
@@ -393,16 +392,14 @@ public class ConciliacaoManual implements Serializable {
 
         if (listaDeMovimentoContaContabilNaoConciliadosSelecionados.size() > 0 && listaDeMovimentoContaBancariaNaoConciliadosSelecionados.size() > 0) {
 
-            Combinacao combinacao = new Combinacao();
-
             for (ContaContabilMovimento movimento : listaDeMovimentoContaContabilNaoConciliadosSelecionados) {
-                movimento.setCombinacao(combinacao);
+                movimento.setDataConciliacao(dataConciliacao);
                 listaDeMovimentoContaContabilNaoConciliados.remove(movimento);
                 listaDeMovimentoContaContabilConciliados.add(movimento);
             }
 
             for (ContaBancariaMovimento movimento : listaDeMovimentoContaBancariaNaoConciliadosSelecionados) {
-                movimento.setCombinacao(combinacao);
+                movimento.setDataConciliacao(dataConciliacao);
                 listaDeMovimentoContaBancariaNaoConciliados.remove(movimento);
                 listaDeMovimentoContaBancariaConciliados.add(movimento);
             }

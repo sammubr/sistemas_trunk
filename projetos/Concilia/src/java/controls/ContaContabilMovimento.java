@@ -43,6 +43,11 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaContabilMovimento.findByHistorico", query = "SELECT c FROM ContaContabilMovimento c WHERE c.historico = :historico"),
     @NamedQuery(name = "ContaContabilMovimento.findBySaldo", query = "SELECT c FROM ContaContabilMovimento c WHERE c.saldo = :saldo")})
 public class ContaContabilMovimento extends Persistencia implements Serializable {
+    @Column(name = "combinacao")
+    private Integer combinacao;
+    @Column(name = "data_conciliacao")
+    @Temporal(TemporalType.DATE)
+    private Date dataConciliacao;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,10 +75,7 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
     @JoinColumn(name = "conta", referencedColumnName = "idconta_contabil")
     @ManyToOne(optional = false)
     private ContaContabil conta;
-    @JoinColumn(name = "combinacao", referencedColumnName = "id_combinacao")
-    @ManyToOne
-    private Combinacao combinacao;
-
+    
     public ContaContabilMovimento() {
     }
 
@@ -143,14 +145,6 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
         this.conta = conta;
     }
 
-    public Combinacao getCombinacao() {
-        return combinacao;
-    }
-
-    public void setCombinacao(Combinacao combinacao) {
-        this.combinacao = combinacao;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -174,6 +168,22 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
     @Override
     public String toString() {
         return "controls.ContaContabilMovimento[ idcontaContabilMovimento=" + idcontaContabilMovimento + " ]";
+    }
+
+    public Integer getCombinacao() {
+        return combinacao;
+    }
+
+    public void setCombinacao(Integer combinacao) {
+        this.combinacao = combinacao;
+    }
+
+    public Date getDataConciliacao() {
+        return dataConciliacao;
+    }
+
+    public void setDataConciliacao(Date dataConciliacao) {
+        this.dataConciliacao = dataConciliacao;
     }
     
 }
