@@ -51,48 +51,125 @@
 
                         </p:outputPanel>                    
 
-                        <p:outputPanel rendered="#{!conciliacaoManual.gridVisivel}">                      
+                        <p:outputPanel rendered="#{!conciliacaoManual.gridVisivel}">    
 
-                            <ul class="nav nav-tabs" id="myTab">
-                                <li><a href="#movimentosNaoConciliados" data-toggle="tab">Movimentos não conciliados</a></li>
-                                <li><a href="#movimentosConciliados" data-toggle="tab">Movimentos conciliados</a></li>
-                            </ul>
+                            <h:form id="formConciliacao">
 
-                            <div class="tab-content">
+                                <p:commandLink id="botaoSalvar"  value="#{bundle.SaveLink}" title="#{bundle.SaveLink}" styleClass="btn btn-primary navbar-btn" />
 
-                                <div class="tab-pane" id="movimentosNaoConciliados">
+                                <ul class="nav nav-tabs" id="myTab">
+                                    <li><a href="#movimentosNaoConciliados" data-toggle="tab">Movimentos não conciliados</a></li>
+                                    <li><a href="#movimentosConciliados" data-toggle="tab">Movimentos conciliados</a></li>
+                                </ul>
 
-                                    <h:form id="formNaoConciliados">
+                                <div class="tab-content">
 
-                                        <p:commandLink title="#{bundle.SaveLink}" value="Conciliar movimentos selecionados" styleClass="btn btn-large btn-primary" 
-                                                       actionListener="#{conciliacaoManual.concilia}" update=":formNaoConciliados :formConciliados"
-                                                       style="width:25%; display:block; margin: 0 auto; margin-bottom: 10px"/>
+                                    <div class="tab-pane" id="movimentosNaoConciliados">
 
-                                        <div class="row">
+                                        <h:panelGroup id="naoConciliados">
 
-                                            <div class="col-md-6">
+                                            <p:commandLink title="#{bundle.SaveLink}" value="Conciliar movimentos selecionados" styleClass="btn btn-large btn-primary" 
+                                                           actionListener="#{conciliacaoManual.concilia}" update="naoConciliados conciliados"
+                                                           style="width:25%; display:block; margin: 0 auto; margin-bottom: 10px" partialSubmit="true" process="naoConciliados" />
 
-                                                <div class="table-responsive">
+                                            <div class="row">
 
-                                                    <p:dataTable id="tableContasContabeisNaoConciliados" var="item" value="#{conciliacaoManual.listaDeMovimentoContaContabilNaoConciliados}"
-                                                                 rowKey="#{item.idcontaContabilMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasContabeis"
-                                                                 selection="#{conciliacaoManual.listaDeMovimentoContaContabilNaoConciliadosSelecionados}" resizableColumns="true"
-                                                                 scrollable="true" scrollHeight="500">    
+                                                <div class="col-md-6">
 
-                                                        <p:ajax event="rowSelectCheckbox" update=":formNaoConciliados:statusMovimentoContaContabilNaoConciliados"/>  
-                                                        <p:ajax event="rowUnselectCheckbox" update=":formNaoConciliados:statusMovimentoContaContabilNaoConciliados"/>  
-                                                        <p:ajax event="rowSelect" update=":formNaoConciliados:statusMovimentoContaContabilNaoConciliados"/>    
-                                                        <p:ajax event="rowUnselect" update=":formNaoConciliados:statusMovimentoContaContabilNaoConciliados"/>                                                         
-                                                        <p:ajax event="toggleSelect" update=":formNaoConciliados:statusMovimentoContaContabilNaoConciliados"/> 
-                                                        
+                                                    <div class="table-responsive">
+
+                                                        <p:dataTable id="tableContasContabeisNaoConciliados" var="item" value="#{conciliacaoManual.listaDeMovimentoContaContabilNaoConciliados}"
+                                                                     rowKey="#{item.idcontaContabilMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasContabeis"
+                                                                     selection="#{conciliacaoManual.listaDeMovimentoContaContabilNaoConciliadosSelecionados}" resizableColumns="true"
+                                                                     scrollable="true" scrollHeight="500">    
+
+                                                            <p:ajax event="rowSelectCheckbox" update=":formConciliacao:statusMovimentoContaContabilNaoConciliados"/>  
+                                                            <p:ajax event="rowUnselectCheckbox" update=":formConciliacao:statusMovimentoContaContabilNaoConciliados"/>  
+                                                            <p:ajax event="rowSelect" update=":formConciliacao:statusMovimentoContaContabilNaoConciliados"/>    
+                                                            <p:ajax event="rowUnselect" update=":formConciliacao:statusMovimentoContaContabilNaoConciliados"/>                                                         
+                                                            <p:ajax event="toggleSelect" update=":formConciliacao:statusMovimentoContaContabilNaoConciliados"/> 
+
+                                                            <f:facet name="header">  
+                                                                Movimentos contábeis não conciliados
+                                                            </f:facet>  
+
+
+                                                            <p:column selectionMode="multiple" style="width:7%" />  
+
+                                                            <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" style="width: 100px">  
+                                                                <h:outputText value="#{item.dataMov}">
+                                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                                </h:outputText>
+                                                            </p:column>                             
+
+                                                            <p:column sortBy="historico" headerText="#{bundle.ListContaContabilMovimentoTitle_Historico}">  
+                                                                <h:outputText value="#{item.historico}"/>  
+                                                            </p:column>     
+
+                                                            <p:column sortBy="valor" headerText="#{bundle.ListContaContabilMovimentoTitle_valor}" style="width: 120px">
+                                                                <h:outputText value="#{item.valor}" style="float:right">
+                                                                    <f:convertNumber pattern="#,##0.00"/>
+                                                                </h:outputText>
+                                                            </p:column>  
+
+
+                                                            <f:facet name="footer">                                                              
+                                                                Saldo contábil: 
+                                                                <h:outputText value="#{conciliacaoManual.saldoContaContabil}">                             
+                                                                    <f:convertNumber pattern="#,##0.00"/>
+                                                                </h:outputText>
+                                                            </f:facet>  
+
+                                                        </p:dataTable>
+
+                                                    </div>
+
+                                                    <br></br>
+
+                                                    <p:outputPanel id="statusMovimentoContaContabilNaoConciliados"  styleClass="alert alert-info">
+
+                                                        <h:outputText value="Movimentos não conciliados: (#{conciliacaoManual.listaDeMovimentoContaContabilNaoConciliados.size()}) ">                             
+                                                            <f:convertNumber pattern="#,##0.00"/>
+                                                        </h:outputText>
+
+                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaContabilNaoConciliados()}">                             
+                                                            <f:convertNumber pattern="#,##0.00"/>
+                                                        </h:outputText>
+
+                                                        <br></br>
+
+                                                        <h:outputText value="Movimentos não conciliados selecionados: (#{conciliacaoManual.listaDeMovimentoContaContabilNaoConciliadosSelecionados.size()}) ">                             
+                                                            <f:convertNumber pattern="#,##0.00"/>
+                                                        </h:outputText>
+
+                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaContabilNaoConciliadosSelecionados()}">                             
+                                                            <f:convertNumber pattern="#,##0.00"/>
+                                                        </h:outputText>
+
+                                                    </p:outputPanel>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <p:dataTable id="tableContasBancariasNaoConciliados" var="item" value="#{conciliacaoManual.listaDeMovimentoContaBancariaNaoConciliados}"
+                                                                 rowKey="#{item.idcontaBancariaMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasBancarias"
+                                                                 selection="#{conciliacaoManual.listaDeMovimentoContaBancariaNaoConciliadosSelecionados}" resizableColumns="true"
+                                                                 scrollable="true" scrollHeight="500">
+
+                                                        <p:ajax event="rowSelectCheckbox" update=":formConciliacao:statusMovimentoContaBancariaNaoConciliados"/>  
+                                                        <p:ajax event="rowUnselectCheckbox" update=":formConciliacao:statusMovimentoContaBancariaNaoConciliados"/>  
+                                                        <p:ajax event="rowSelect" update=":formConciliacao:statusMovimentoContaBancariaNaoConciliados"/>  
+                                                        <p:ajax event="toggleSelect" update=":formConciliacao:statusMovimentoContaBancariaNaoConciliados"/>  
+
                                                         <f:facet name="header">  
-                                                            Movimentos contábeis não conciliados
+                                                            Movimentos bancários não conciliados
                                                         </f:facet>  
 
 
-                                                        <p:column selectionMode="multiple" style="width:7%" />  
+                                                        <p:column selectionMode="multiple" style="width:7%" />
 
-                                                        <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" style="width: 100px">  
+                                                        <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" style="width: 100px">
                                                             <h:outputText value="#{item.dataMov}">
                                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                                             </h:outputText>
@@ -103,183 +180,182 @@
                                                         </p:column>     
 
                                                         <p:column sortBy="valor" headerText="#{bundle.ListContaContabilMovimentoTitle_valor}" style="width: 120px">
-                                                            <h:outputText value="#{item.valor}" style="float:right">
+                                                            <h:outputText value="#{item.valor}" style="float:right">                                
                                                                 <f:convertNumber pattern="#,##0.00"/>
                                                             </h:outputText>
-                                                        </p:column>  
-
+                                                        </p:column>                                                                   
 
                                                         <f:facet name="footer">                                                              
-                                                            Saldo contábil: 
-                                                            <h:outputText value="#{conciliacaoManual.saldoContaContabil}">                             
+                                                            Saldo bancário: 
+                                                            <h:outputText value="#{conciliacaoManual.saldoContaBancaria}">                             
                                                                 <f:convertNumber pattern="#,##0.00"/>
                                                             </h:outputText>
-                                                        </f:facet>  
+                                                        </f:facet>                                                      
 
                                                     </p:dataTable>
 
+                                                    <br></br>
+
+                                                    <p:outputPanel id="statusMovimentoContaBancariaNaoConciliados"  styleClass="alert alert-info">
+
+                                                        <h:outputText value="Movimentos não conciliados: (#{conciliacaoManual.listaDeMovimentoContaBancariaNaoConciliados.size()}) ">                             
+                                                            <f:convertNumber pattern="#,##0.00"/>
+                                                        </h:outputText>
+
+                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaBancariaNaoConciliados()}">                             
+                                                            <f:convertNumber pattern="#,##0.00"/>
+                                                        </h:outputText>
+
+                                                        <br></br>
+
+                                                        <h:outputText value="Movimentos não conciliados selecionados: (#{conciliacaoManual.listaDeMovimentoContaBancariaNaoConciliadosSelecionados.size()}) ">                             
+                                                            <f:convertNumber pattern="#,##0.00"/>
+                                                        </h:outputText>
+
+                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaBancariaNaoConciliadosSelecionados()}">                             
+                                                            <f:convertNumber pattern="#,##0.00"/>
+                                                        </h:outputText>
+
+                                                    </p:outputPanel>
+
                                                 </div>
 
-                                                <br></br>
+                                            </div>
 
-                                                <p:outputPanel id="statusMovimentoContaContabilNaoConciliados"  styleClass="alert alert-info">
+                                        </h:panelGroup>   
 
-                                                    <h:outputText value="Movimentos não conciliados: (#{conciliacaoManual.listaDeMovimentoContaContabilNaoConciliados.size()}) ">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
+                                    </div>
 
-                                                    <h:outputText value="#{conciliacaoManual.totalMovimentosContaContabilNaoConciliados()}">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    <div class="tab-pane" id="movimentosConciliados">
+
+
+
+                                        <h:panelGroup id="conciliados">
+
+                                            <p:commandLink title="#{bundle.SaveLink}" value="Desconciliar mov. selecionados" styleClass="btn btn-large btn-primary" 
+                                                           actionListener="#{conciliacaoManual.desconcilia}" update="naoConciliados conciliados"
+                                                           style="width:25%; display:block; margin: 0 auto; margin-bottom: 10px" partialSubmit="true" process="conciliados" />                                          
+
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+
+                                                    <div class="table-responsive">
+
+                                                        <p:dataTable id="tableContasContabeisConciliados" var="item2" value="#{conciliacaoManual.listaDeMovimentoContaContabilConciliados}"
+                                                                     rowKey="#{item2.idcontaContabilMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasContabeis2"
+                                                                     selection="#{conciliacaoManual.listaDeMovimentoContaContabilConciliadosSelecionados}" resizableColumns="true"
+                                                                     scrollable="true" scrollHeight="500">    
+
+                                                            <p:ajax event="rowSelectCheckbox" update=":formConciliacao:statusMovimentoContaContabilConciliados"/>  
+                                                            <p:ajax event="rowUnselectCheckbox" update=":formConciliacao:statusMovimentoContaContabilConciliados"/>  
+                                                            <p:ajax event="rowSelect" update=":formConciliacao:statusMovimentoContaContabilConciliados"/>                                                
+                                                            <p:ajax event="toggleSelect" update=":formConciliacao:statusMovimentoContaContabilConciliados"/>      
+
+                                                            <f:facet name="header">  
+                                                                Movimentos contábeis conciliados
+                                                            </f:facet>                                                         
+
+                                                            <p:column selectionMode="multiple" style="width:7%" />  
+
+                                                            <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" style="width: 100px">  
+                                                                <h:outputText value="#{item2.dataMov}">
+                                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                                </h:outputText>
+                                                            </p:column>                             
+
+                                                            <p:column sortBy="historico" headerText="#{bundle.ListContaContabilMovimentoTitle_Historico}">  
+                                                                <h:outputText value="#{item2.historico}"/>  
+                                                            </p:column>     
+
+                                                            <p:column sortBy="valor" headerText="#{bundle.ListContaContabilMovimentoTitle_valor}" style="width: 120px">
+                                                                <h:outputText value="#{item2.valor}" style="float:right">
+                                                                    <f:convertNumber pattern="#,##0.00"/>
+                                                                </h:outputText>
+                                                            </p:column>  
+
+                                                            <f:facet name="footer">                                                              
+                                                                Saldo contábil: 
+                                                                <h:outputText value="#{conciliacaoManual.saldoContaContabil}">                             
+                                                                    <f:convertNumber pattern="#,##0.00"/>
+                                                                </h:outputText>
+                                                            </f:facet>              
+
+                                                        </p:dataTable>
+
+                                                    </div>
 
                                                     <br></br>
 
-                                                    <h:outputText value="Movimentos não conciliados selecionados: (#{conciliacaoManual.listaDeMovimentoContaContabilNaoConciliadosSelecionados.size()}) ">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
+                                                    <p:outputPanel id="statusMovimentoContaContabilConciliados"  styleClass="alert alert-info">
 
-                                                    <h:outputText value="#{conciliacaoManual.totalMovimentosContaContabilNaoConciliadosSelecionados()}">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
-
-                                                </p:outputPanel>
-
-                                            </div>
-
-                                            <div class="col-md-6">
-
-                                                <p:dataTable id="tableContasBancariasNaoConciliados" var="item" value="#{conciliacaoManual.listaDeMovimentoContaBancariaNaoConciliados}"
-                                                             rowKey="#{item.idcontaBancariaMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasBancarias"
-                                                             selection="#{conciliacaoManual.listaDeMovimentoContaBancariaNaoConciliadosSelecionados}" resizableColumns="true"
-                                                             scrollable="true" scrollHeight="500">
-
-                                                    <p:ajax event="rowSelectCheckbox" update=":formNaoConciliados:statusMovimentoContaBancariaNaoConciliados"/>  
-                                                    <p:ajax event="rowUnselectCheckbox" update=":formNaoConciliados:statusMovimentoContaBancariaNaoConciliados"/>  
-                                                    <p:ajax event="rowSelect" update=":formNaoConciliados:statusMovimentoContaBancariaNaoConciliados"/>  
-                                                    <p:ajax event="toggleSelect" update=":formNaoConciliados:statusMovimentoContaBancariaNaoConciliados"/>  
-                                                    
-                                                    <f:facet name="header">  
-                                                        Movimentos bancários não conciliados
-                                                    </f:facet>  
-
-
-                                                    <p:column selectionMode="multiple" style="width:7%" />
-
-                                                    <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" style="width: 100px">
-                                                        <h:outputText value="#{item.dataMov}">
-                                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                                        </h:outputText>
-                                                    </p:column>                             
-
-                                                    <p:column sortBy="historico" headerText="#{bundle.ListContaContabilMovimentoTitle_Historico}">  
-                                                        <h:outputText value="#{item.historico}"/>  
-                                                    </p:column>     
-
-                                                    <p:column sortBy="valor" headerText="#{bundle.ListContaContabilMovimentoTitle_valor}" style="width: 120px">
-                                                        <h:outputText value="#{item.valor}" style="float:right">                                
+                                                        <h:outputText value="Movimentos conciliados: (#{conciliacaoManual.listaDeMovimentoContaContabilConciliados.size()}) ">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
-                                                    </p:column>                                                                   
 
-                                                    <f:facet name="footer">                                                              
-                                                        Saldo bancário: 
-                                                        <h:outputText value="#{conciliacaoManual.saldoContaBancaria}">                             
+                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaContabilConciliados()}">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
-                                                    </f:facet>                                                      
 
-                                                </p:dataTable>
+                                                        <br></br>
 
-                                                <br></br>
+                                                        <h:outputText value="Movimentos conciliados selecionados: (#{conciliacaoManual.listaDeMovimentoContaContabilConciliadosSelecionados.size()}) ">                             
+                                                            <f:convertNumber pattern="#,##0.00"/>
+                                                        </h:outputText>
 
-                                                <p:outputPanel id="statusMovimentoContaBancariaNaoConciliados"  styleClass="alert alert-info">
+                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaContabilConciliadosSelecionados()}">                             
+                                                            <f:convertNumber pattern="#,##0.00"/>
+                                                        </h:outputText>
 
-                                                    <h:outputText value="Movimentos não conciliados: (#{conciliacaoManual.listaDeMovimentoContaBancariaNaoConciliados.size()}) ">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
+                                                    </p:outputPanel>
 
-                                                    <h:outputText value="#{conciliacaoManual.totalMovimentosContaBancariaNaoConciliados()}">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
+                                                </div>
 
-                                                    <br></br>
+                                                <div class="col-md-6">
 
-                                                    <h:outputText value="Movimentos não conciliados selecionados: (#{conciliacaoManual.listaDeMovimentoContaBancariaNaoConciliadosSelecionados.size()}) ">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
+                                                    <p:dataTable id="tableContasBancariasConciliados" var="item2" value="#{conciliacaoManual.listaDeMovimentoContaBancariaConciliados}"
+                                                                 rowKey="#{item2.idcontaBancariaMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasBancarias2"
+                                                                 selection="#{conciliacaoManual.listaDeMovimentoContaBancariaConciliadosSelecionados}" resizableColumns="true"
+                                                                 scrollable="true" scrollHeight="500">
 
-                                                    <h:outputText value="#{conciliacaoManual.totalMovimentosContaBancariaNaoConciliadosSelecionados()}">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
+                                                        <p:ajax event="rowSelectCheckbox" update=":formConciliacao:statusMovimentoContaBancariaConciliados"/>  
+                                                        <p:ajax event="rowUnselectCheckbox" update=":formConciliacao:statusMovimentoContaBancariaConciliados"/>  
+                                                        <p:ajax event="rowSelect" update=":formConciliacao:statusMovimentoContaBancariaConciliados"/>  
+                                                        <p:ajax event="toggleSelect" update=":formConciliacao:statusMovimentoContaBancariaConciliados"/>  
 
-                                                </p:outputPanel>
-
-                                            </div>
-
-                                        </div>
-
-                                    </h:form>   
-
-                                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                <div class="tab-pane" id="movimentosConciliados">
-
-
-
-                                    <h:form id="formConciliados">
-
-                                        <p:commandLink title="#{bundle.SaveLink}" value="Desconciliar mov. selecionados" styleClass="btn btn-large btn-primary" 
-                                                       style="width:25%; display:block; margin: 0 auto; margin-bottom: 10px"/>
-
-                                        <div class="row">
-
-                                            <div class="col-md-6">
-
-                                                <div class="table-responsive">
-
-                                                    <p:dataTable id="tableContasContabeisConciliados" var="item2" value="#{conciliacaoManual.listaDeMovimentoContaContabilConciliados}"
-                                                                 rowKey="#{item2.idcontaContabilMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasContabeis2"
-                                                                 selection="#{conciliacaoManual.listaDeMovimentoContaContabilConciliadosSelecionados}" resizableColumns="true"
-                                                                 scrollable="true" scrollHeight="500">    
-
-                                                        <p:ajax event="rowSelectCheckbox" update=":formConciliados:statusMovimentoContaContabilConciliados"/>  
-                                                        <p:ajax event="rowUnselectCheckbox" update=":formConciliados:statusMovimentoContaContabilConciliados"/>  
-                                                        <p:ajax event="rowSelect" update=":formConciliados:statusMovimentoContaContabilConciliados"/>                                                
-                                                        <p:ajax event="toggleSelect" update=":formConciliados:statusMovimentoContaContabilConciliados"/>      
-                                                        
                                                         <f:facet name="header">  
-                                                            Movimentos contábeis conciliados
-                                                        </f:facet>                                                         
+                                                            Movimentos bancários conciliados
+                                                        </f:facet>  
 
-                                                        <p:column selectionMode="multiple" style="width:7%" />  
+                                                        <p:column selectionMode="multiple" style="width:7%" />
 
-                                                        <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" style="width: 100px">  
+                                                        <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" style="width: 100px">
                                                             <h:outputText value="#{item2.dataMov}">
                                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                                             </h:outputText>
@@ -290,142 +366,73 @@
                                                         </p:column>     
 
                                                         <p:column sortBy="valor" headerText="#{bundle.ListContaContabilMovimentoTitle_valor}" style="width: 120px">
-                                                            <h:outputText value="#{item2.valor}" style="float:right">
+                                                            <h:outputText value="#{item2.valor}" style="float:right">                                
                                                                 <f:convertNumber pattern="#,##0.00"/>
                                                             </h:outputText>
-                                                        </p:column>  
+                                                        </p:column>   
 
                                                         <f:facet name="footer">                                                              
-                                                            Saldo contábil: 
-                                                            <h:outputText value="#{conciliacaoManual.saldoContaContabil}">                             
+                                                            Saldo bancário: 
+                                                            <h:outputText value="#{conciliacaoManual.saldoContaBancaria}">                             
                                                                 <f:convertNumber pattern="#,##0.00"/>
                                                             </h:outputText>
                                                         </f:facet>              
 
                                                     </p:dataTable>
 
-                                                </div>
-
-                                                <br></br>
-
-                                                <p:outputPanel id="statusMovimentoContaContabilConciliados"  styleClass="alert alert-info">
-
-                                                    <h:outputText value="Movimentos conciliados: (#{conciliacaoManual.listaDeMovimentoContaContabilConciliados.size()}) ">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
-
-                                                    <h:outputText value="#{conciliacaoManual.totalMovimentosContaContabilConciliados()}">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
-
                                                     <br></br>
 
-                                                    <h:outputText value="Movimentos conciliados selecionados: (#{conciliacaoManual.listaDeMovimentoContaContabilConciliadosSelecionados.size()}) ">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
+                                                    <p:outputPanel id="statusMovimentoContaBancariaConciliados"  styleClass="alert alert-info">
 
-                                                    <h:outputText value="#{conciliacaoManual.totalMovimentosContaContabilConciliadosSelecionados()}">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
+                                                        <h:outputText value="Movimentos conciliados: (#{conciliacaoManual.listaDeMovimentoContaBancariaConciliados.size()}) ">                             
+                                                            <f:convertNumber pattern="#,##0.00"/>
+                                                        </h:outputText>
 
-                                                </p:outputPanel>
+                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaBancariaConciliados()}">                             
+                                                            <f:convertNumber pattern="#,##0.00"/>
+                                                        </h:outputText>
+
+                                                        <br></br>
+
+                                                        <h:outputText value="Movimentos conciliados selecionados: (#{conciliacaoManual.listaDeMovimentoContaBancariaConciliadosSelecionados.size()}) ">                             
+                                                            <f:convertNumber pattern="#,##0.00"/>
+                                                        </h:outputText>
+
+                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaBancariaConciliadosSelecionados()}">                             
+                                                            <f:convertNumber pattern="#,##0.00"/>
+                                                        </h:outputText>
+
+                                                    </p:outputPanel>
+
+                                                </div>                                            
+
+
 
                                             </div>
 
-                                            <div class="col-md-6">
-
-                                                <p:dataTable id="tableContasBancariasConciliados" var="item2" value="#{conciliacaoManual.listaDeMovimentoContaBancariaConciliados}"
-                                                             rowKey="#{item2.idcontaBancariaMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasBancarias2"
-                                                             selection="#{conciliacaoManual.listaDeMovimentoContaBancariaConciliadosSelecionados}" resizableColumns="true"
-                                                             scrollable="true" scrollHeight="500">
-
-                                                    <p:ajax event="rowSelectCheckbox" update=":formConciliados:statusMovimentoContaBancariaConciliados"/>  
-                                                    <p:ajax event="rowUnselectCheckbox" update=":formConciliados:statusMovimentoContaBancariaConciliados"/>  
-                                                    <p:ajax event="rowSelect" update=":formConciliados:statusMovimentoContaBancariaConciliados"/>  
-                                                    <p:ajax event="toggleSelect" update=":formConciliados:statusMovimentoContaBancariaConciliados"/>  
-                                                    
-                                                    <f:facet name="header">  
-                                                        Movimentos bancários conciliados
-                                                    </f:facet>  
-
-                                                    <p:column selectionMode="multiple" style="width:7%" />
-
-                                                    <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" style="width: 100px">
-                                                        <h:outputText value="#{item2.dataMov}">
-                                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                                        </h:outputText>
-                                                    </p:column>                             
-
-                                                    <p:column sortBy="historico" headerText="#{bundle.ListContaContabilMovimentoTitle_Historico}">  
-                                                        <h:outputText value="#{item2.historico}"/>  
-                                                    </p:column>     
-
-                                                    <p:column sortBy="valor" headerText="#{bundle.ListContaContabilMovimentoTitle_valor}" style="width: 120px">
-                                                        <h:outputText value="#{item2.valor}" style="float:right">                                
-                                                            <f:convertNumber pattern="#,##0.00"/>
-                                                        </h:outputText>
-                                                    </p:column>   
-
-                                                    <f:facet name="footer">                                                              
-                                                        Saldo bancário: 
-                                                        <h:outputText value="#{conciliacaoManual.saldoContaBancaria}">                             
-                                                            <f:convertNumber pattern="#,##0.00"/>
-                                                        </h:outputText>
-                                                    </f:facet>              
-
-                                                </p:dataTable>
-
-                                                <br></br>
-
-                                                <p:outputPanel id="statusMovimentoContaBancariaConciliados"  styleClass="alert alert-info">
-
-                                                    <h:outputText value="Movimentos conciliados: (#{conciliacaoManual.listaDeMovimentoContaBancariaConciliados.size()}) ">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
-
-                                                    <h:outputText value="#{conciliacaoManual.totalMovimentosContaBancariaConciliados()}">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
-
-                                                    <br></br>
-
-                                                    <h:outputText value="Movimentos conciliados selecionados: (#{conciliacaoManual.listaDeMovimentoContaBancariaConciliadosSelecionados.size()}) ">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
-
-                                                    <h:outputText value="#{conciliacaoManual.totalMovimentosContaBancariaConciliadosSelecionados()}">                             
-                                                        <f:convertNumber pattern="#,##0.00"/>
-                                                    </h:outputText>
-
-                                                </p:outputPanel>
-
-                                            </div>                                            
-
-
-
-                                        </div>
-
-                                    </h:form>   
+                                        </h:panelGroup> 
 
 
 
 
 
 
+
+                                    </div>
 
                                 </div>
 
-                            </div>
+                                <script>
+                                    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                                        e.target; // activated tab
+                                        e.relatedTarget; // previous tab
+                                    });
+                                    $(function() {
+                                        $('#myTab a:first').tab('show')
+                                    })
+                                </script>
 
-                            <script>
-                                $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-                                    e.target; // activated tab
-                                    e.relatedTarget; // previous tab
-                                });
-                                $(function() {
-                                    $('#myTab a:first').tab('show')
-                                })
-                            </script>
+                            </h:form>
 
                         </p:outputPanel>
 

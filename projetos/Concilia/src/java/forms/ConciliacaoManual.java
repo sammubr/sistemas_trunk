@@ -411,6 +411,32 @@ public class ConciliacaoManual implements Serializable {
             }
 
         }
+        
+        listaDeMovimentoContaContabilNaoConciliadosSelecionados.clear();
+        listaDeMovimentoContaBancariaNaoConciliadosSelecionados.clear();
+
+    }
+    
+        public void desconcilia() {
+
+        if (listaDeMovimentoContaContabilConciliadosSelecionados.size() > 0 && listaDeMovimentoContaBancariaConciliadosSelecionados.size() > 0) {
+
+            for (ContaContabilMovimento movimento : listaDeMovimentoContaContabilConciliadosSelecionados) {
+                movimento.setDataConciliacao(null);
+                listaDeMovimentoContaContabilConciliados.remove(movimento);
+                listaDeMovimentoContaContabilNaoConciliados.add(movimento);
+            }
+
+            for (ContaBancariaMovimento movimento : listaDeMovimentoContaBancariaConciliadosSelecionados) {
+                movimento.setDataConciliacao(null);
+                listaDeMovimentoContaBancariaConciliados.remove(movimento);
+                listaDeMovimentoContaBancariaNaoConciliados.add(movimento);
+            }
+
+        }
+        
+        listaDeMovimentoContaContabilConciliadosSelecionados.clear();
+        listaDeMovimentoContaBancariaConciliadosSelecionados.clear();
 
     }
 
