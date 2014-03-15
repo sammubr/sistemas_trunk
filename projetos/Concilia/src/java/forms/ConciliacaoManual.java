@@ -217,6 +217,9 @@ public class ConciliacaoManual implements Serializable {
         ContaContabilMovimento consulta = new ContaContabilMovimento();
         List<Criterion> filtro = new ArrayList<>();
         filtro.add(Restrictions.in("conta", contasContabeis));
+        filtro.add(Restrictions.and(Restrictions.le("dataMov", dataConciliacao),
+                Restrictions.or(Restrictions.eq("dataConciliacao", dataConciliacao),
+                        Restrictions.isNull("dataConciliacao"))));
         List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("dataMov"));
         ordem.add(Order.asc("idcontaContabilMovimento"));
@@ -242,6 +245,9 @@ public class ConciliacaoManual implements Serializable {
         ContaBancariaMovimento consulta = new ContaBancariaMovimento();
         List<Criterion> filtro = new ArrayList<>();
         filtro.add(Restrictions.in("conta", contasBancarias));
+        filtro.add(Restrictions.and(Restrictions.le("dataMov", dataConciliacao),
+                Restrictions.or(Restrictions.eq("dataConciliacao", dataConciliacao),
+                        Restrictions.isNull("dataConciliacao"))));
         List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("dataMov"));
         ordem.add(Order.asc("idcontaBancariaMovimento"));
@@ -252,7 +258,7 @@ public class ConciliacaoManual implements Serializable {
 
         for (ContaBancariaMovimento movimento : listaDeMovimentoContaBancaria) {
 
-            if (movimento.getDataConciliacao()== null) {
+            if (movimento.getDataConciliacao() == null) {
                 listaDeMovimentoContaBancariaNaoConciliados.add(movimento);
             } else {
                 listaDeMovimentoContaBancariaConciliados.add(movimento);
