@@ -55,7 +55,8 @@
 
                             <h:form id="formConciliacao">
 
-                                <p:commandLink id="botaoSalvar"  value="#{bundle.SaveLink}" title="#{bundle.SaveLink}" styleClass="btn btn-primary navbar-btn" />
+                                <p:commandLink id="botaoSalvar"  value="#{bundle.SaveLink}" title="#{bundle.SaveLink}" styleClass="btn btn-primary navbar-btn" 
+                                               actionListener="#{conciliacaoManual.salvaConciliacao}" update=":panelConciliacao"/>
 
                                 <ul class="nav nav-tabs" id="myTab">
                                     <li><a href="#movimentosNaoConciliados" data-toggle="tab">Movimentos não conciliados</a></li>

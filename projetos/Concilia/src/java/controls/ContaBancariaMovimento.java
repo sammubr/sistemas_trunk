@@ -41,13 +41,10 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaBancariaMovimento.findByNumdoc", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.numdoc = :numdoc"),
     @NamedQuery(name = "ContaBancariaMovimento.findByHistorico", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.historico = :historico"),
     @NamedQuery(name = "ContaBancariaMovimento.findByIdcontaBancariaMovimento", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.idcontaBancariaMovimento = :idcontaBancariaMovimento"),
-    @NamedQuery(name = "ContaBancariaMovimento.findBySaldo", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.saldo = :saldo")})
+    @NamedQuery(name = "ContaBancariaMovimento.findBySaldo", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.saldo = :saldo"),
+    @NamedQuery(name = "ContaBancariaMovimento.findByCombinacao", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.combinacao = :combinacao"),
+    @NamedQuery(name = "ContaBancariaMovimento.findByDataConciliacao", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.dataConciliacao = :dataConciliacao")})
 public class ContaBancariaMovimento extends Persistencia implements Serializable {
-    @Column(name = "combinacao")
-    private Integer combinacao;
-    @Column(name = "data_conciliacao")
-    @Temporal(TemporalType.DATE)
-    private Date dataConciliacao;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -72,6 +69,11 @@ public class ContaBancariaMovimento extends Persistencia implements Serializable
     private Integer idcontaBancariaMovimento;
     @Column(name = "saldo")
     private BigDecimal saldo;
+    @Column(name = "combinacao")
+    private Integer combinacao;
+    @Column(name = "data_conciliacao")
+    @Temporal(TemporalType.DATE)
+    private Date dataConciliacao;
     @JoinColumn(name = "conta", referencedColumnName = "idconta_bancaria")
     @ManyToOne(optional = false)
     private ContaBancaria conta;
@@ -137,6 +139,22 @@ public class ContaBancariaMovimento extends Persistencia implements Serializable
         this.saldo = saldo;
     }
 
+    public Integer getCombinacao() {
+        return combinacao;
+    }
+
+    public void setCombinacao(Integer combinacao) {
+        this.combinacao = combinacao;
+    }
+
+    public Date getDataConciliacao() {
+        return dataConciliacao;
+    }
+
+    public void setDataConciliacao(Date dataConciliacao) {
+        this.dataConciliacao = dataConciliacao;
+    }
+
     public ContaBancaria getConta() {
         return conta;
     }
@@ -168,22 +186,6 @@ public class ContaBancariaMovimento extends Persistencia implements Serializable
     @Override
     public String toString() {
         return "controls.ContaBancariaMovimento[ idcontaBancariaMovimento=" + idcontaBancariaMovimento + " ]";
-    }
-
-    public Integer getCombinacao() {
-        return combinacao;
-    }
-
-    public void setCombinacao(Integer combinacao) {
-        this.combinacao = combinacao;
-    }
-
-    public Date getDataConciliacao() {
-        return dataConciliacao;
-    }
-
-    public void setDataConciliacao(Date dataConciliacao) {
-        this.dataConciliacao = dataConciliacao;
     }
     
 }

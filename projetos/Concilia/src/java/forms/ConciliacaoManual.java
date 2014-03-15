@@ -1,5 +1,6 @@
 package forms;
 
+import controls.Conciliacao;
 import controls.ContaBancaria;
 import controls.ContaBancariaMovimento;
 import controls.ContaContabil;
@@ -45,6 +46,8 @@ public class ConciliacaoManual implements Serializable {
     private BigDecimal saldoContaBancaria;
 
     private Date dataConciliacao;
+
+    private Conciliacao conciliacao;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
     public ConciliacaoManual() {
@@ -187,8 +190,28 @@ public class ConciliacaoManual implements Serializable {
         this.listaDeMovimentoContaBancariaConciliadosSelecionados = listaDeMovimentoContaBancariaConciliadosSelecionados;
     }
 
+    public Conciliacao getConciliacao() {
+        return conciliacao;
+    }
+
+    public void setConciliacao(Conciliacao conciliacao) {
+        this.conciliacao = conciliacao;
+    }
+
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public void filtraMovimentos() {
+
+        Conciliacao consulta = new Conciliacao();
+        List<Criterion> filtro = new ArrayList<>();
+        filtro.add(Restrictions.eq("dataConciliacao", dataConciliacao));
+
+        conciliacao = (Conciliacao) consulta.obterObjeto(filtro, null);
+
+        if (conciliacao == null) {
+            conciliacao = new Conciliacao();
+            conciliacao.setDataConciliacao(dataConciliacao);
+        }
+
         filtraMovimentosContasContabeis();
         filtraMovimentosContasBancarias();
         setGridVisivel(false);
@@ -400,44 +423,75 @@ public class ConciliacaoManual implements Serializable {
 
             for (ContaContabilMovimento movimento : listaDeMovimentoContaContabilNaoConciliadosSelecionados) {
                 movimento.setDataConciliacao(dataConciliacao);
+                movimento.setCombinacao(conciliacao.getNumeroCombinacoes() + 1);
                 listaDeMovimentoContaContabilNaoConciliados.remove(movimento);
                 listaDeMovimentoContaContabilConciliados.add(movimento);
             }
 
             for (ContaBancariaMovimento movimento : listaDeMovimentoContaBancariaNaoConciliadosSelecionados) {
                 movimento.setDataConciliacao(dataConciliacao);
+                movimento.setCombinacao(conciliacao.getNumeroCombinacoes() + 1);
                 listaDeMovimentoContaBancariaNaoConciliados.remove(movimento);
                 listaDeMovimentoContaBancariaConciliados.add(movimento);
             }
 
+            conciliacao.setNumeroCombinacoes(conciliacao.getNumeroCombinacoes() + 1);
+            listaDeMovimentoContaContabilNaoConciliadosSelecionados.clear();
+            listaDeMovimentoContaBancariaNaoConciliadosSelecionados.clear();
+
         }
-        
-        listaDeMovimentoContaContabilNaoConciliadosSelecionados.clear();
-        listaDeMovimentoContaBancariaNaoConciliadosSelecionados.clear();
 
     }
-    
-        public void desconcilia() {
+
+    public void desconcilia() {
 
         if (listaDeMovimentoContaContabilConciliadosSelecionados.size() > 0 && listaDeMovimentoContaBancariaConciliadosSelecionados.size() > 0) {
 
             for (ContaContabilMovimento movimento : listaDeMovimentoContaContabilConciliadosSelecionados) {
                 movimento.setDataConciliacao(null);
+                movimento.setCombinacao(null);
                 listaDeMovimentoContaContabilConciliados.remove(movimento);
                 listaDeMovimentoContaContabilNaoConciliados.add(movimento);
             }
 
             for (ContaBancariaMovimento movimento : listaDeMovimentoContaBancariaConciliadosSelecionados) {
                 movimento.setDataConciliacao(null);
+                movimento.setCombinacao(null);
                 listaDeMovimentoContaBancariaConciliados.remove(movimento);
                 listaDeMovimentoContaBancariaNaoConciliados.add(movimento);
             }
 
         }
-        
+
         listaDeMovimentoContaContabilConciliadosSelecionados.clear();
         listaDeMovimentoContaBancariaConciliadosSelecionados.clear();
 
+    }
+
+    public void salvaConciliacao() {
+
+        for (ContaContabilMovimento movimento : listaDeMovimentoContaContabilNaoConciliados) {
+            movimento.persiste();
+        }
+
+        for (ContaContabilMovimento movimento : listaDeMovimentoContaContabilConciliados) {
+            movimento.persiste();
+        }
+
+        for (ContaBancariaMovimento movimento : listaDeMovimentoContaBancariaNaoConciliados) {
+            movimento.persiste();
+        }
+
+        for (ContaBancariaMovimento movimento : listaDeMovimentoContaBancariaConciliados) {
+            movimento.persiste();
+        }
+
+        conciliacao.persiste();
+
+        relacionamento = null;
+        dataConciliacao = null;
+        geraListaDeRelacionamentos();
+        setGridVisivel(true);
     }
 
 }

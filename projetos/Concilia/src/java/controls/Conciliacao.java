@@ -7,27 +7,20 @@
 package controls;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import persistencia.Persistencia;
 
 /**
@@ -40,12 +33,9 @@ import persistencia.Persistencia;
 @NamedQueries({
     @NamedQuery(name = "Conciliacao.findAll", query = "SELECT c FROM Conciliacao c"),
     @NamedQuery(name = "Conciliacao.findByIdConciliacao", query = "SELECT c FROM Conciliacao c WHERE c.idConciliacao = :idConciliacao"),
-    @NamedQuery(name = "Conciliacao.findByDataConciliacao", query = "SELECT c FROM Conciliacao c WHERE c.dataConciliacao = :dataConciliacao")})
+    @NamedQuery(name = "Conciliacao.findByDataConciliacao", query = "SELECT c FROM Conciliacao c WHERE c.dataConciliacao = :dataConciliacao"),
+    @NamedQuery(name = "Conciliacao.findByNumeroCombinacoes", query = "SELECT c FROM Conciliacao c WHERE c.numeroCombinacoes = :numeroCombinacoes")})
 public class Conciliacao extends Persistencia implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "numero_combinacoes")
-    private int numeroCombinacoes;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,6 +47,10 @@ public class Conciliacao extends Persistencia implements Serializable {
     @Column(name = "data_conciliacao")
     @Temporal(TemporalType.DATE)
     private Date dataConciliacao;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "numero_combinacoes")
+    private int numeroCombinacoes;
 
     public Conciliacao() {
     }
@@ -65,9 +59,10 @@ public class Conciliacao extends Persistencia implements Serializable {
         this.idConciliacao = idConciliacao;
     }
 
-    public Conciliacao(Integer idConciliacao, Date dataConciliacao) {
+    public Conciliacao(Integer idConciliacao, Date dataConciliacao, int numeroCombinacoes) {
         this.idConciliacao = idConciliacao;
         this.dataConciliacao = dataConciliacao;
+        this.numeroCombinacoes = numeroCombinacoes;
     }
 
     public Integer getIdConciliacao() {
@@ -84,6 +79,14 @@ public class Conciliacao extends Persistencia implements Serializable {
 
     public void setDataConciliacao(Date dataConciliacao) {
         this.dataConciliacao = dataConciliacao;
+    }
+
+    public int getNumeroCombinacoes() {
+        return numeroCombinacoes;
+    }
+
+    public void setNumeroCombinacoes(int numeroCombinacoes) {
+        this.numeroCombinacoes = numeroCombinacoes;
     }
 
     @Override
@@ -109,14 +112,6 @@ public class Conciliacao extends Persistencia implements Serializable {
     @Override
     public String toString() {
         return "controls.Conciliacao[ idConciliacao=" + idConciliacao + " ]";
-    }
-
-    public int getNumeroCombinacoes() {
-        return numeroCombinacoes;
-    }
-
-    public void setNumeroCombinacoes(int numeroCombinacoes) {
-        this.numeroCombinacoes = numeroCombinacoes;
     }
     
 }

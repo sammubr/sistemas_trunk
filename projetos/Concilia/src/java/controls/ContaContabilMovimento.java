@@ -41,13 +41,10 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaContabilMovimento.findByValor", query = "SELECT c FROM ContaContabilMovimento c WHERE c.valor = :valor"),
     @NamedQuery(name = "ContaContabilMovimento.findByNumdoc", query = "SELECT c FROM ContaContabilMovimento c WHERE c.numdoc = :numdoc"),
     @NamedQuery(name = "ContaContabilMovimento.findByHistorico", query = "SELECT c FROM ContaContabilMovimento c WHERE c.historico = :historico"),
-    @NamedQuery(name = "ContaContabilMovimento.findBySaldo", query = "SELECT c FROM ContaContabilMovimento c WHERE c.saldo = :saldo")})
+    @NamedQuery(name = "ContaContabilMovimento.findBySaldo", query = "SELECT c FROM ContaContabilMovimento c WHERE c.saldo = :saldo"),
+    @NamedQuery(name = "ContaContabilMovimento.findByCombinacao", query = "SELECT c FROM ContaContabilMovimento c WHERE c.combinacao = :combinacao"),
+    @NamedQuery(name = "ContaContabilMovimento.findByDataConciliacao", query = "SELECT c FROM ContaContabilMovimento c WHERE c.dataConciliacao = :dataConciliacao")})
 public class ContaContabilMovimento extends Persistencia implements Serializable {
-    @Column(name = "combinacao")
-    private Integer combinacao;
-    @Column(name = "data_conciliacao")
-    @Temporal(TemporalType.DATE)
-    private Date dataConciliacao;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,10 +69,15 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
     private String historico;
     @Column(name = "saldo")
     private BigDecimal saldo;
+    @Column(name = "combinacao")
+    private Integer combinacao;
+    @Column(name = "data_conciliacao")
+    @Temporal(TemporalType.DATE)
+    private Date dataConciliacao;
     @JoinColumn(name = "conta", referencedColumnName = "idconta_contabil")
     @ManyToOne(optional = false)
     private ContaContabil conta;
-    
+
     public ContaContabilMovimento() {
     }
 
@@ -137,6 +139,22 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
         this.saldo = saldo;
     }
 
+    public Integer getCombinacao() {
+        return combinacao;
+    }
+
+    public void setCombinacao(Integer combinacao) {
+        this.combinacao = combinacao;
+    }
+
+    public Date getDataConciliacao() {
+        return dataConciliacao;
+    }
+
+    public void setDataConciliacao(Date dataConciliacao) {
+        this.dataConciliacao = dataConciliacao;
+    }
+
     public ContaContabil getConta() {
         return conta;
     }
@@ -168,22 +186,6 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
     @Override
     public String toString() {
         return "controls.ContaContabilMovimento[ idcontaContabilMovimento=" + idcontaContabilMovimento + " ]";
-    }
-
-    public Integer getCombinacao() {
-        return combinacao;
-    }
-
-    public void setCombinacao(Integer combinacao) {
-        this.combinacao = combinacao;
-    }
-
-    public Date getDataConciliacao() {
-        return dataConciliacao;
-    }
-
-    public void setDataConciliacao(Date dataConciliacao) {
-        this.dataConciliacao = dataConciliacao;
     }
     
 }
