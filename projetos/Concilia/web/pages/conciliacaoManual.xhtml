@@ -82,7 +82,7 @@
                                                         <p:dataTable id="tableContasContabeisNaoConciliados" var="item" value="#{conciliacaoManual.listaDeMovimentoContaContabilNaoConciliados}"
                                                                      rowKey="#{item.idcontaContabilMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasContabeis"
                                                                      selection="#{conciliacaoManual.listaDeMovimentoContaContabilNaoConciliadosSelecionados}" resizableColumns="true"
-                                                                     scrollable="true" scrollHeight="500">    
+                                                                     scrollable="true" scrollHeight="400">    
 
                                                             <p:ajax event="rowSelectCheckbox" update=":formConciliacao:statusMovimentoContaContabilNaoConciliados"/>  
                                                             <p:ajax event="rowUnselectCheckbox" update=":formConciliacao:statusMovimentoContaContabilNaoConciliados"/>  
@@ -156,7 +156,7 @@
                                                     <p:dataTable id="tableContasBancariasNaoConciliados" var="item" value="#{conciliacaoManual.listaDeMovimentoContaBancariaNaoConciliados}"
                                                                  rowKey="#{item.idcontaBancariaMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasBancarias"
                                                                  selection="#{conciliacaoManual.listaDeMovimentoContaBancariaNaoConciliadosSelecionados}" resizableColumns="true"
-                                                                 scrollable="true" scrollHeight="500">
+                                                                 scrollable="true" scrollHeight="400">
 
                                                         <p:ajax event="rowSelectCheckbox" update=":formConciliacao:statusMovimentoContaBancariaNaoConciliados"/>  
                                                         <p:ajax event="rowUnselectCheckbox" update=":formConciliacao:statusMovimentoContaBancariaNaoConciliados"/>  
@@ -272,7 +272,7 @@
                                                         <p:dataTable id="tableContasContabeisConciliados" var="item2" value="#{conciliacaoManual.listaDeMovimentoContaContabilConciliados}"
                                                                      rowKey="#{item2.idcontaContabilMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasContabeis2"
                                                                      selection="#{conciliacaoManual.listaDeMovimentoContaContabilConciliadosSelecionados}" resizableColumns="true"
-                                                                     scrollable="true" scrollHeight="500">    
+                                                                     scrollable="true" scrollHeight="400">    
 
                                                             <p:ajax event="rowSelectCheckbox" update=":formConciliacao:statusMovimentoContaContabilConciliados"/>  
                                                             <p:ajax event="rowUnselectCheckbox" update=":formConciliacao:statusMovimentoContaContabilConciliados"/>  
@@ -347,7 +347,7 @@
                                                     <p:dataTable id="tableContasBancariasConciliados" var="item2" value="#{conciliacaoManual.listaDeMovimentoContaBancariaConciliados}"
                                                                  rowKey="#{item2.idcontaBancariaMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasBancarias2"
                                                                  selection="#{conciliacaoManual.listaDeMovimentoContaBancariaConciliadosSelecionados}" resizableColumns="true"
-                                                                 scrollable="true" scrollHeight="500">
+                                                                 scrollable="true" scrollHeight="400">
 
                                                         <p:ajax event="rowSelectCheckbox" update=":formConciliacao:statusMovimentoContaBancariaConciliados"/>  
                                                         <p:ajax event="rowUnselectCheckbox" update=":formConciliacao:statusMovimentoContaBancariaConciliados"/>  
