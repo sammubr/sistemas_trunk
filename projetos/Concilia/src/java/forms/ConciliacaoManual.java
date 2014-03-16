@@ -9,6 +9,8 @@ import controls.RelContabilidadeBanco;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.faces.view.ViewScoped;
@@ -215,6 +217,7 @@ public class ConciliacaoManual implements Serializable {
 
         filtraMovimentosContasContabeis();
         filtraMovimentosContasBancarias();
+        ordenaConciliados();
         setGridVisivel(false);
     }
 
@@ -492,6 +495,8 @@ public class ConciliacaoManual implements Serializable {
 
         }
 
+        ordenaNaoConciliados();
+
     }
 
     public void salvaConciliacao() {
@@ -508,6 +513,61 @@ public class ConciliacaoManual implements Serializable {
         dataConciliacao = null;
         geraListaDeRelacionamentos();
         setGridVisivel(true);
+    }
+
+    public void ordenaConciliados() {
+        Collections.sort(listaDeMovimentoContaBancariaConciliados, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                ContaBancariaMovimento p1 = (ContaBancariaMovimento) o1;
+                ContaBancariaMovimento p2 = (ContaBancariaMovimento) o2;
+                return p1.getCombinacao() < p2.getCombinacao() ? -1 : (p1.getCombinacao() > p2.getCombinacao() ? +1 : 0);
+            }
+        });
+
+        Collections.sort(listaDeMovimentoContaContabilConciliados, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                ContaContabilMovimento p1 = (ContaContabilMovimento) o1;
+                ContaContabilMovimento p2 = (ContaContabilMovimento) o2;
+                return p1.getCombinacao() < p2.getCombinacao() ? -1 : (p1.getCombinacao() > p2.getCombinacao() ? +1 : 0);
+            }
+        });
+
+    }
+
+    public void ordenaNaoConciliados() {
+
+        Collections.sort(listaDeMovimentoContaContabilNaoConciliados, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                ContaContabilMovimento p1 = (ContaContabilMovimento) o1;
+                ContaContabilMovimento p2 = (ContaContabilMovimento) o2;
+                return p1.getIdcontaContabilMovimento() < p2.getIdcontaContabilMovimento() ? -1 : (p1.getIdcontaContabilMovimento() > p2.getIdcontaContabilMovimento() ? +1 : 0);
+            }
+        });
+
+        Collections.sort(listaDeMovimentoContaContabilNaoConciliados, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                ContaContabilMovimento p1 = (ContaContabilMovimento) o1;
+                ContaContabilMovimento p2 = (ContaContabilMovimento) o2;
+                return p1.getDataMov().before(p2.getDataMov()) ? -1 : (p1.getDataMov().after(p2.getDataMov()) ? +1 : 0);
+            }
+        });
+
+        Collections.sort(listaDeMovimentoContaBancariaNaoConciliados, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                ContaBancariaMovimento p1 = (ContaBancariaMovimento) o1;
+                ContaBancariaMovimento p2 = (ContaBancariaMovimento) o2;
+                return p1.getIdcontaBancariaMovimento() < p2.getIdcontaBancariaMovimento() ? -1 : (p1.getIdcontaBancariaMovimento() > p2.getIdcontaBancariaMovimento() ? +1 : 0);
+            }
+        });
+
+        Collections.sort(listaDeMovimentoContaBancariaNaoConciliados, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                ContaBancariaMovimento p1 = (ContaBancariaMovimento) o1;
+                ContaBancariaMovimento p2 = (ContaBancariaMovimento) o2;
+                return p1.getDataMov().before(p2.getDataMov()) ? -1 : (p1.getDataMov().after(p2.getDataMov()) ? +1 : 0);
+            }
+        });
+
     }
 
 }
