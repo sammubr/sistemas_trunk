@@ -446,26 +446,51 @@ public class ConciliacaoManual implements Serializable {
 
     public void desconcilia() {
 
-        if (listaDeMovimentoContaContabilConciliadosSelecionados.size() > 0 && listaDeMovimentoContaBancariaConciliadosSelecionados.size() > 0) {
+        if (listaDeMovimentoContaContabilConciliadosSelecionados.size() > 0 || listaDeMovimentoContaBancariaConciliadosSelecionados.size() > 0) {
+
+            List<Integer> combinacoes = new ArrayList<>();
 
             for (ContaContabilMovimento movimento : listaDeMovimentoContaContabilConciliadosSelecionados) {
-                movimento.setDataConciliacao(null);
-                movimento.setCombinacao(null);
-                listaDeMovimentoContaContabilConciliados.remove(movimento);
-                listaDeMovimentoContaContabilNaoConciliados.add(movimento);
+                if (!combinacoes.contains(movimento.getCombinacao())) {
+                    combinacoes.add(movimento.getCombinacao());
+                }
             }
 
             for (ContaBancariaMovimento movimento : listaDeMovimentoContaBancariaConciliadosSelecionados) {
-                movimento.setDataConciliacao(null);
-                movimento.setCombinacao(null);
-                listaDeMovimentoContaBancariaConciliados.remove(movimento);
-                listaDeMovimentoContaBancariaNaoConciliados.add(movimento);
+                if (!combinacoes.contains(movimento.getCombinacao())) {
+                    combinacoes.add(movimento.getCombinacao());
+                }
             }
 
-        }
+            List<ContaContabilMovimento> movimentosContabeisADesconciliar = new ArrayList<>();
+            List<ContaBancariaMovimento> movimentosBancariosADesconciliar = new ArrayList<>();
 
-        listaDeMovimentoContaContabilConciliadosSelecionados.clear();
-        listaDeMovimentoContaBancariaConciliadosSelecionados.clear();
+            for (Integer combinacao : combinacoes) {
+
+                for (ContaContabilMovimento movimento : listaDeMovimentoContaContabilConciliados) {
+                    if (movimento.getCombinacao() == combinacao) {
+                        movimentosContabeisADesconciliar.add(movimento);
+                    }
+                }
+
+                for (ContaBancariaMovimento movimento : listaDeMovimentoContaBancariaConciliados) {
+                    if (movimento.getCombinacao() == combinacao) {
+                        movimentosBancariosADesconciliar.add(movimento);
+                    }
+                }
+
+            }
+
+            listaDeMovimentoContaContabilConciliados.removeAll(movimentosContabeisADesconciliar);
+            listaDeMovimentoContaContabilNaoConciliados.addAll(movimentosContabeisADesconciliar);
+
+            listaDeMovimentoContaBancariaConciliados.removeAll(movimentosBancariosADesconciliar);
+            listaDeMovimentoContaBancariaNaoConciliados.addAll(movimentosBancariosADesconciliar);
+
+            listaDeMovimentoContaContabilConciliadosSelecionados.clear();
+            listaDeMovimentoContaBancariaConciliadosSelecionados.clear();
+
+        }
 
     }
 
@@ -478,7 +503,7 @@ public class ConciliacaoManual implements Serializable {
         concilia.setListaDeMovimentoContaContabilNaoConciliados(listaDeMovimentoContaContabilNaoConciliados);
         concilia.setConciliacao(conciliacao);
         concilia.salva();
-        
+
         relacionamento = null;
         dataConciliacao = null;
         geraListaDeRelacionamentos();

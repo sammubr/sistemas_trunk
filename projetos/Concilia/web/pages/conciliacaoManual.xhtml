@@ -69,7 +69,7 @@
 
                                         <h:panelGroup id="naoConciliados">
 
-                                            <p:commandLink title="#{bundle.SaveLink}" value="Conciliar movimentos selecionados" styleClass="btn btn-large btn-primary" 
+                                            <p:commandLink title="#{bundle.SaveLink}" value="Conciliar" styleClass="btn btn-large btn-primary" 
                                                            actionListener="#{conciliacaoManual.concilia}" update="naoConciliados conciliados"
                                                            style="width:25%; display:block; margin: 0 auto; margin-bottom: 10px" partialSubmit="true" process="naoConciliados" />
 
@@ -259,7 +259,7 @@
 
                                         <h:panelGroup id="conciliados">
 
-                                            <p:commandLink title="#{bundle.SaveLink}" value="Desconciliar mov. selecionados" styleClass="btn btn-large btn-primary" 
+                                            <p:commandLink title="#{bundle.SaveLink}" value="Desconciliar" styleClass="btn btn-large btn-primary" 
                                                            actionListener="#{conciliacaoManual.desconcilia}" update="naoConciliados conciliados"
                                                            style="width:25%; display:block; margin: 0 auto; margin-bottom: 10px" partialSubmit="true" process="conciliados" />                                          
 
@@ -284,6 +284,10 @@
                                                             </f:facet>                                                         
 
                                                             <p:column selectionMode="multiple" style="width:7%" />  
+
+                                                            <p:column sortBy="combinacao" headerText="#{bundle.ListContaBancariaMovimentoTitle_combinacao}" style="width: 100px">  
+                                                                <h:outputText value="#{item2.combinacao}"/>  
+                                                            </p:column>                                                                 
 
                                                             <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" style="width: 100px">  
                                                                 <h:outputText value="#{item2.dataMov}">
@@ -355,6 +359,10 @@
                                                         </f:facet>  
 
                                                         <p:column selectionMode="multiple" style="width:7%" />
+
+                                                        <p:column sortBy="combinacao" headerText="#{bundle.ListContaContabilMovimentoTitle_combinacao}" style="width: 100px">  
+                                                            <h:outputText value="#{item2.combinacao}"/>  
+                                                        </p:column>                                                         
 
                                                         <p:column sortBy="dataMov" headerText="#{bundle.ListContaContabilMovimentoTitle_data}" style="width: 100px">
                                                             <h:outputText value="#{item2.dataMov}">
