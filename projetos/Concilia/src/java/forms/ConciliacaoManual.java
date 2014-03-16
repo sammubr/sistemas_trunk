@@ -16,6 +16,7 @@ import javax.inject.Named;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import persistencia.PersistenciaConciliacao;
 
 @Named("conciliacaoManual")
 @ViewScoped
@@ -470,24 +471,14 @@ public class ConciliacaoManual implements Serializable {
 
     public void salvaConciliacao() {
 
-        for (ContaContabilMovimento movimento : listaDeMovimentoContaContabilNaoConciliados) {
-            movimento.persiste();
-        }
-
-        for (ContaContabilMovimento movimento : listaDeMovimentoContaContabilConciliados) {
-            movimento.persiste();
-        }
-
-        for (ContaBancariaMovimento movimento : listaDeMovimentoContaBancariaNaoConciliados) {
-            movimento.persiste();
-        }
-
-        for (ContaBancariaMovimento movimento : listaDeMovimentoContaBancariaConciliados) {
-            movimento.persiste();
-        }
-
-        conciliacao.persiste();
-
+        PersistenciaConciliacao concilia = new PersistenciaConciliacao();
+        concilia.setListaDeMovimentoContaBancariaConciliados(listaDeMovimentoContaBancariaConciliados);
+        concilia.setListaDeMovimentoContaBancariaNaoConciliados(listaDeMovimentoContaBancariaNaoConciliados);
+        concilia.setListaDeMovimentoContaContabilConciliados(listaDeMovimentoContaContabilConciliados);
+        concilia.setListaDeMovimentoContaContabilNaoConciliados(listaDeMovimentoContaContabilNaoConciliados);
+        concilia.setConciliacao(conciliacao);
+        concilia.salva();
+        
         relacionamento = null;
         dataConciliacao = null;
         geraListaDeRelacionamentos();

@@ -14,7 +14,8 @@
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.poolsize">10</property>
     <property name="hibernate.current_session_context_class">thread</property>
-    <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
+    <property name="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory</property>
+    <property name="hibernate.jdbc.batch_size">50</property>
     <mapping class="controls.Usuario"/>
     <mapping class="controls.Banco"/>
     <mapping class="controls.ContaBancaria"/>
