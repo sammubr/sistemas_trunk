@@ -499,6 +499,15 @@ public class ConciliacaoManual implements Serializable {
 
     }
 
+    public void cancelaConciliacao() {
+
+        relacionamento = null;
+        dataConciliacao = null;
+        geraListaDeRelacionamentos();
+        setGridVisivel(true);
+
+    }
+
     public void salvaConciliacao() {
 
         PersistenciaConciliacao concilia = new PersistenciaConciliacao();

@@ -56,8 +56,19 @@
 
                             <h:form id="formConciliacao">
 
-                                <p:commandLink id="botaoSalvar"  value="#{bundle.SaveLink}" title="#{bundle.SaveLink}" styleClass="btn btn-primary navbar-btn" 
-                                               actionListener="#{conciliacaoManual.salvaConciliacao}" update=":panelConciliacao"/>
+                                <nav class="navbar navbar-default" role="navigation">
+                                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                                        <ul class="nav navbar-left">  
+                                            <div class="btn-group ">
+                                                <p:commandLink id="botaoSalvar"  value="#{bundle.SaveLink}" title="#{bundle.SaveLink}" styleClass="btn btn-primary navbar-btn" 
+                                                               actionListener="#{conciliacaoManual.salvaConciliacao}" update=":panelConciliacao"/>
+                                                <p:commandLink id="botaoCancelar" value="#{bundle.CancelLink}" title="#{bundle.CancelLink}" styleClass="btn btn-default navbar-btn" 
+                                                               actionListener="#{conciliacaoManual.cancelaConciliacao}" update=":panelConciliacao"/>
+
+                                            </div>
+                                        </ul>
+                                    </div><!-- /.navbar-collapse -->
+                                </nav>
 
                                 <ul class="nav nav-tabs" id="myTab">
                                     <li><a href="#movimentosNaoConciliados" data-toggle="tab">Movimentos não conciliados</a></li>
