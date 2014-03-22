@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.primefaces.context.RequestContext;
 import util.JsfUtil;
 
@@ -29,13 +31,13 @@ public class BancoCadastro implements Serializable {
         geraLista();
     }
 
-    private void geraLista() {        
-        
+    private void geraLista() {
+
         Banco consulta = new Banco();
-        
-        List<Order> ordem = new ArrayList<>();        
+
+        List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("descricao"));
-        
+
         lista = consulta.obterLista(null, ordem);
     }
 
@@ -74,10 +76,14 @@ public class BancoCadastro implements Serializable {
     }
 
     public void persiste() {
-        getItem().persiste();
-        geraLista();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
-        RequestContext.getCurrentInstance().execute("$('#myModal').modal('hide')");
+        if (codigoBancoNaoCadastrado()) {
+            getItem().persiste();
+            geraLista();
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
+            RequestContext.getCurrentInstance().execute("$('#myModal').modal('hide')");
+        } else {
+            JsfUtil.addErrorMessage("Erro de validação de banco.", "Código de banco já cadastrado!");
+        }
     }
 
     public void exclui() {
@@ -100,5 +106,14 @@ public class BancoCadastro implements Serializable {
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
                 break;
         }
+    }
+
+    private boolean codigoBancoNaoCadastrado() {
+
+        Banco consulta = new Banco();
+        List<Criterion> filtro = new ArrayList<>();
+        filtro.add(Restrictions.and(Restrictions.eq("codigo", getItem().getCodigo()), Restrictions.ne("id", getItem().getIdbanco())));
+
+        return consulta.obterLista(filtro, null).isEmpty();
     }
 }
