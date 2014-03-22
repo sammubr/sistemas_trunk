@@ -35,6 +35,7 @@
                     <label for="saldoInicial">#{bundle.CreateContaContabilLabel_saldoInicial}</label>                            
                     <p:inputText id="saldoInicial" styleClass="form-control" value="#{contaContabilCadastro.item.saldoInicial}" title="#{bundle.CreateContaContabilTitle_saldoInicial}"
                                  required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_saldoInicial}">
+                        <p:watermark value="#{bundle.CreateContaContabilTitle_saldoInicial}" for="saldoInicial"/>
                         <f:convertNumber pattern="#0.00"/>                              
                         <p:ajax event="blur" update="saldoInicial"/>                  
                     </p:inputText>

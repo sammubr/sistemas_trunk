@@ -28,8 +28,9 @@
                 <div class="form-group">
                     <label for="dataMov">#{bundle.CreateContaContabilLabel_dataMov}</label>
                     <p:inputText id="dataMov" styleClass="form-control" value="#{contaContabilMovimentoCadastro.item.dataMov}" title="#{bundle.CreateContaContabilMovimentoTitle_dataMov}"
-                                  required="true" requiredMessage="#{bundle.CreateContaContabilMovimentoRequiredMessage_dataMov}">
+                                 required="true" requiredMessage="#{bundle.CreateContaContabilMovimentoRequiredMessage_dataMov}">
                         <f:convertDateTime type="date" dateStyle="short"/>
+                        <p:watermark value="#{bundle.CreateContaContabilMovimentoTitle_dataMov}" for="dataMov"/>
                     </p:inputText>
                 </div>                
 
@@ -37,6 +38,7 @@
                     <label for="valor">#{bundle.CreateContaContabilLabel_valor}</label>
                     <p:inputText id="valor" styleClass="form-control" value="#{contaContabilMovimentoCadastro.item.valor}" title="#{bundle.CreateContaContabilMovimentoTitle_valor}" 
                                  required="true" requiredMessage="#{bundle.CreateContaContabilMovimentoRequiredMessage_valor}">
+                        <p:watermark value="#{bundle.CreateContaContabilMovimentoTitle_valor}" for="valor"/>
                         <f:convertNumber pattern="#0.00"/>                              
                         <p:ajax event="blur" update="valor"/>
                     </p:inputText>

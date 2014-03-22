@@ -30,6 +30,7 @@
                     <p:inputText id="dataMov" styleClass="form-control" value="#{contaBancariaMovimentoCadastro.item.dataMov}" title="#{bundle.CreateContaBancariaMovimentoTitle_dataMov}"
                                  required="true" requiredMessage="#{bundle.CreateContaBancariaMovimentoRequiredMessage_dataMov}">                                              
                         <f:convertDateTime type="date" dateStyle="short"/>
+                        <p:watermark value="#{bundle.CreateContaBancariaMovimentoTitle_dataMov}" for="dataMov"/>
                     </p:inputText>
                 </div>                
 
@@ -37,6 +38,7 @@
                     <label for="valor">#{bundle.CreateContaBancariaLabel_valor}</label>
                     <p:inputText id="valor" styleClass="form-control" value="#{contaBancariaMovimentoCadastro.item.valor}" title="#{bundle.CreateContaBancariaMovimentoTitle_valor}" 
                                  required="true" requiredMessage="#{bundle.CreateContaBancariaMovimentoRequiredMessage_valor}">
+                        <p:watermark value="#{bundle.CreateContaBancariaMovimentoTitle_valor}" for="valor"/>
                         <f:convertNumber pattern="#0.00"/>                              
                         <p:ajax event="blur" update="valor" partialSubmit="true" process="@this"/>
                     </p:inputText>

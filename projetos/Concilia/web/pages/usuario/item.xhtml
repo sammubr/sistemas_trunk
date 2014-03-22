@@ -53,6 +53,7 @@
                     <p:inputText id="nivel" type="number" styleClass="form-control" value="#{usuarioCadastro.item.nivel}" title="#{bundle.CreateUsuarioTitle_nivel}" 
                                  required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nivel}">                    
                         <f:passThroughAttribute name="min" value="0"/>
+                        <p:watermark value="#{bundle.CreateUsuarioTitle_nivel}" for="nivel"/>
                     </p:inputText>
                 </div>
 

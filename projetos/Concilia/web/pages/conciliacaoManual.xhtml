@@ -37,8 +37,9 @@
                                 <div class="form-group">
                                     <label for="dataConciliacao">Data da conciliação:</label>
                                     <p:inputText id="dataConciliacao" styleClass="form-control" value="#{conciliacaoManual.dataConciliacao}" 
-                                                 title="Data conciliação" required="true"                                                  
+                                                 title="Data da conciliação" required="true"                                                  
                                                  requiredMessage="#{bundle.ConciliacaoManualDataConciliacaoRequiredMessage}">
+                                        <p:watermark value="Data da conciliação" for="dataConciliacao"/>
                                         <f:convertDateTime type="date" dateStyle="short"/>                                    
                                     </p:inputText>
                                 </div>                            
