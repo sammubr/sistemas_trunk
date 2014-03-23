@@ -43,13 +43,7 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaBancaria.findByNumeroDigito", query = "SELECT c FROM ContaBancaria c WHERE c.numeroDigito = :numeroDigito"),
     @NamedQuery(name = "ContaBancaria.findByIdcontaBancaria", query = "SELECT c FROM ContaBancaria c WHERE c.idcontaBancaria = :idcontaBancaria"),
     @NamedQuery(name = "ContaBancaria.findByDescricao", query = "SELECT c FROM ContaBancaria c WHERE c.descricao = :descricao"),
-    @NamedQuery(name = "ContaBancaria.findBySaldoInicial", query = "SELECT c FROM ContaBancaria c WHERE c.saldoInicial = :saldoInicial"),
-    @NamedQuery(name = "ContaBancaria.findByTagValor", query = "SELECT c FROM ContaBancaria c WHERE c.tagValor = :tagValor"),
-    @NamedQuery(name = "ContaBancaria.findByTagData", query = "SELECT c FROM ContaBancaria c WHERE c.tagData = :tagData"),
-    @NamedQuery(name = "ContaBancaria.findByTagNumDoc", query = "SELECT c FROM ContaBancaria c WHERE c.tagNumDoc = :tagNumDoc"),
-    @NamedQuery(name = "ContaBancaria.findByTagHistorico", query = "SELECT c FROM ContaBancaria c WHERE c.tagHistorico = :tagHistorico"),
-    @NamedQuery(name = "ContaBancaria.findByTagInicioMovimento", query = "SELECT c FROM ContaBancaria c WHERE c.tagInicioMovimento = :tagInicioMovimento"),
-    @NamedQuery(name = "ContaBancaria.findByTagFimMovimento", query = "SELECT c FROM ContaBancaria c WHERE c.tagFimMovimento = :tagFimMovimento")})
+    @NamedQuery(name = "ContaBancaria.findBySaldoInicial", query = "SELECT c FROM ContaBancaria c WHERE c.saldoInicial = :saldoInicial")})
 public class ContaBancaria extends Persistencia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Column(name = "agencia")
@@ -75,24 +69,6 @@ public class ContaBancaria extends Persistencia implements Serializable {
     @NotNull
     @Column(name = "saldo_inicial")
     private BigDecimal saldoInicial;
-    @Size(max = 20)
-    @Column(name = "tag_valor")
-    private String tagValor;
-    @Size(max = 20)
-    @Column(name = "tag_data")
-    private String tagData;
-    @Size(max = 20)
-    @Column(name = "tag_num_doc")
-    private String tagNumDoc;
-    @Size(max = 20)
-    @Column(name = "tag_historico")
-    private String tagHistorico;
-    @Size(max = 20)
-    @Column(name = "tag_inicio_movimento")
-    private String tagInicioMovimento;
-    @Size(max = 20)
-    @Column(name = "tag_fim_movimento")
-    private String tagFimMovimento;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "conta")
     private Collection<ContaBancariaMovimento> contaBancariaMovimentoCollection;
     @JoinColumn(name = "rel_contabilidade_banco", referencedColumnName = "id")
@@ -169,54 +145,6 @@ public class ContaBancaria extends Persistencia implements Serializable {
 
     public void setSaldoInicial(BigDecimal saldoInicial) {
         this.saldoInicial = saldoInicial;
-    }
-
-    public String getTagValor() {
-        return tagValor;
-    }
-
-    public void setTagValor(String tagValor) {
-        this.tagValor = tagValor;
-    }
-
-    public String getTagData() {
-        return tagData;
-    }
-
-    public void setTagData(String tagData) {
-        this.tagData = tagData;
-    }
-
-    public String getTagNumDoc() {
-        return tagNumDoc;
-    }
-
-    public void setTagNumDoc(String tagNumDoc) {
-        this.tagNumDoc = tagNumDoc;
-    }
-
-    public String getTagHistorico() {
-        return tagHistorico;
-    }
-
-    public void setTagHistorico(String tagHistorico) {
-        this.tagHistorico = tagHistorico;
-    }
-
-    public String getTagInicioMovimento() {
-        return tagInicioMovimento;
-    }
-
-    public void setTagInicioMovimento(String tagInicioMovimento) {
-        this.tagInicioMovimento = tagInicioMovimento;
-    }
-
-    public String getTagFimMovimento() {
-        return tagFimMovimento;
-    }
-
-    public void setTagFimMovimento(String tagFimMovimento) {
-        this.tagFimMovimento = tagFimMovimento;
     }
 
     @XmlTransient

@@ -36,8 +36,32 @@ import persistencia.Persistencia;
     @NamedQuery(name = "Banco.findAll", query = "SELECT b FROM Banco b"),
     @NamedQuery(name = "Banco.findByCodigo", query = "SELECT b FROM Banco b WHERE b.codigo = :codigo"),
     @NamedQuery(name = "Banco.findByIdbanco", query = "SELECT b FROM Banco b WHERE b.idbanco = :idbanco"),
-    @NamedQuery(name = "Banco.findByDescricao", query = "SELECT b FROM Banco b WHERE b.descricao = :descricao")})
+    @NamedQuery(name = "Banco.findByDescricao", query = "SELECT b FROM Banco b WHERE b.descricao = :descricao"),
+    @NamedQuery(name = "Banco.findByTagValor", query = "SELECT c FROM Banco c WHERE c.tagValor = :tagValor"),
+    @NamedQuery(name = "Banco.findByTagData", query = "SELECT c FROM Banco c WHERE c.tagData = :tagData"),
+    @NamedQuery(name = "Banco.findByTagNumDoc", query = "SELECT c FROM Banco c WHERE c.tagNumDoc = :tagNumDoc"),
+    @NamedQuery(name = "Banco.findByTagHistorico", query = "SELECT c FROM Banco c WHERE c.tagHistorico = :tagHistorico"),
+    @NamedQuery(name = "Banco.findByTagInicioMovimento", query = "SELECT c FROM Banco c WHERE c.tagInicioMovimento = :tagInicioMovimento"),
+    @NamedQuery(name = "Banco.findByTagFimMovimento", query = "SELECT c FROM Banco c WHERE c.tagFimMovimento = :tagFimMovimento")})
 public class Banco extends Persistencia implements Serializable {
+    @Size(max = 20)
+    @Column(name = "tag_valor")
+    private String tagValor;
+    @Size(max = 20)
+    @Column(name = "tag_data")
+    private String tagData;
+    @Size(max = 20)
+    @Column(name = "tag_num_doc")
+    private String tagNumDoc;
+    @Size(max = 20)
+    @Column(name = "tag_historico")
+    private String tagHistorico;
+    @Size(max = 20)
+    @Column(name = "tag_inicio_movimento")
+    private String tagInicioMovimento;
+    @Size(max = 20)
+    @Column(name = "tag_fim_movimento")
+    private String tagFimMovimento;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -125,6 +149,54 @@ public class Banco extends Persistencia implements Serializable {
     @Override
     public String toString() {
         return "controls.Banco[ idbanco=" + idbanco + " ]";
+    }
+
+    public String getTagValor() {
+        return tagValor;
+    }
+
+    public void setTagValor(String tagValor) {
+        this.tagValor = tagValor;
+    }
+
+    public String getTagData() {
+        return tagData;
+    }
+
+    public void setTagData(String tagData) {
+        this.tagData = tagData;
+    }
+
+    public String getTagNumDoc() {
+        return tagNumDoc;
+    }
+
+    public void setTagNumDoc(String tagNumDoc) {
+        this.tagNumDoc = tagNumDoc;
+    }
+
+    public String getTagHistorico() {
+        return tagHistorico;
+    }
+
+    public void setTagHistorico(String tagHistorico) {
+        this.tagHistorico = tagHistorico;
+    }
+
+    public String getTagInicioMovimento() {
+        return tagInicioMovimento;
+    }
+
+    public void setTagInicioMovimento(String tagInicioMovimento) {
+        this.tagInicioMovimento = tagInicioMovimento;
+    }
+
+    public String getTagFimMovimento() {
+        return tagFimMovimento;
+    }
+
+    public void setTagFimMovimento(String tagFimMovimento) {
+        this.tagFimMovimento = tagFimMovimento;
     }
     
 }
