@@ -23,17 +23,17 @@
                     <ui:define name="list_toolbar">
 
                         <p:commandLink value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" 
-                                       actionListener="#{usuarioCadastro.criaNovo}" oncomplete="$('#myModal').modal('show')" update=":formItem" resetValues="true" />
+                                       actionListener="#{formCadastroUsuario.criaNovo}" oncomplete="$('#myModal').modal('show')" update=":formItem" resetValues="true" />
                         <p:commandLink value="#{bundle.DestroyLink}" title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" 
-                                       actionListener="#{usuarioCadastro.exclui}" update="list_table :messages"/>
+                                       actionListener="#{formCadastroUsuario.exclui}" update="list_table :messages"/>
 
                     </ui:define>
 
                     <ui:define name="list_conteudo">
 
-                        <p:dataTable id="list_table" var="item" value="#{usuarioCadastro.lista}"
+                        <p:dataTable id="list_table" var="item" value="#{formCadastroUsuario.lista}"
                                      rowKey="#{item.idusuario}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="list_widgetVar"
-                                     selection="#{usuarioCadastro.itensSelecionados}" selectionMode="multiple"
+                                     selection="#{formCadastroUsuario.itensSelecionados}" selectionMode="multiple"
                                      scrollable="true" scrollHeight="500">         
 
                             <f:facet name="header" >  
@@ -57,7 +57,7 @@
 
                             <p:column style="width: 40px; text-align: center">  
 
-                                <p:commandLink title="#{bundle.EditLink}" update=":formItem" actionListener="#{usuarioCadastro.edita(item)}" 
+                                <p:commandLink title="#{bundle.EditLink}" update=":formItem" actionListener="#{formCadastroUsuario.edita(item)}" 
                                                oncomplete="$('#myModal').modal('show')" immediate="true" resetValues="true">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </p:commandLink>   

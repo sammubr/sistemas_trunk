@@ -20,23 +20,23 @@
 
                     <p:outputPanel id="panelConciliacao">
 
-                        <p:outputPanel rendered="#{conciliacaoManual.gridVisivel}">                                      
+                        <p:outputPanel rendered="#{formConciliacaoManual.gridVisivel}">                                      
 
                             <h:form id="formSelecionaRelacionamento">
 
                                 <div class="form-group">
                                     <label for="relacionamento">#{bundle.ConciliacaoManualLabel_selectRelacionamento}</label>
 
-                                    <h:selectOneMenu id="relacionamento" value="#{conciliacaoManual.relacionamento}" converter="converterRelacionamento" class="form-control" 
+                                    <h:selectOneMenu id="relacionamento" value="#{formConciliacaoManual.relacionamento}" converter="converterRelacionamento" class="form-control" 
                                                      required="true" requiredMessage="#{bundle.ConciliacaoManualRelacionamentoRequiredMessage}">
                                         <f:selectItem itemLabel="#{bundle.SelecionarRelacionamento}" itemValue="" />
-                                        <f:selectItems value="#{conciliacaoManual.listaDeRelacionamentos}" var="item" itemValue="#{item}" itemLabel="#{item.descricao}" />
+                                        <f:selectItems value="#{formConciliacaoManual.listaDeRelacionamentos}" var="item" itemValue="#{item}" itemLabel="#{item.descricao}" />
                                     </h:selectOneMenu>                          
                                 </div>                       
 
                                 <div class="form-group">
                                     <label for="dataConciliacao">Data da conciliação:</label>
-                                    <p:inputText id="dataConciliacao" styleClass="form-control" value="#{conciliacaoManual.dataConciliacao}" 
+                                    <p:inputText id="dataConciliacao" styleClass="form-control" value="#{formConciliacaoManual.dataConciliacao}" 
                                                  title="Data da conciliação" required="true"                                                  
                                                  requiredMessage="#{bundle.ConciliacaoManualDataConciliacaoRequiredMessage}">
                                         <p:watermark value="Data da conciliação" for="dataConciliacao"/>
@@ -45,14 +45,14 @@
                                 </div>                            
 
                                 <div class="btn-group ">
-                                    <p:commandLink title="OK" value="OK" styleClass="btn btn-primary" actionListener="#{conciliacaoManual.filtraMovimentos}" update=":panelConciliacao"/>
+                                    <p:commandLink title="OK" value="OK" styleClass="btn btn-primary" actionListener="#{formConciliacaoManual.filtraMovimentos}" update=":panelConciliacao"/>
                                     <p:commandLink title="Cancelar" value="Cancelar" styleClass="btn btn-default" action="index.xhtml" />
                                 </div>
                             </h:form>
 
                         </p:outputPanel>                    
 
-                        <p:outputPanel rendered="#{!conciliacaoManual.gridVisivel}">    
+                        <p:outputPanel rendered="#{!formConciliacaoManual.gridVisivel}">    
 
                             <h:form id="formConciliacao">
 
@@ -61,9 +61,9 @@
                                         <ul class="nav navbar-left">  
                                             <div class="btn-group ">
                                                 <p:commandLink id="botaoSalvar"  value="#{bundle.SaveLink}" title="#{bundle.SaveLink}" styleClass="btn btn-primary navbar-btn" 
-                                                               actionListener="#{conciliacaoManual.salvaConciliacao}" update=":panelConciliacao"/>
+                                                               actionListener="#{formConciliacaoManual.salvaConciliacao}" update=":panelConciliacao"/>
                                                 <p:commandLink id="botaoCancelar" value="#{bundle.CancelLink}" title="#{bundle.CancelLink}" styleClass="btn btn-default navbar-btn" 
-                                                               actionListener="#{conciliacaoManual.cancelaConciliacao}" update=":panelConciliacao"/>
+                                                               actionListener="#{formConciliacaoManual.cancelaConciliacao}" update=":panelConciliacao"/>
 
                                             </div>
                                         </ul>
@@ -82,7 +82,7 @@
                                         <h:panelGroup id="naoConciliados">
 
                                             <p:commandLink title="#{bundle.SaveLink}" value="Conciliar" styleClass="btn btn-large btn-primary" 
-                                                           actionListener="#{conciliacaoManual.concilia}" update="naoConciliados conciliados"
+                                                           actionListener="#{formConciliacaoManual.concilia}" update="naoConciliados conciliados"
                                                            style="width:25%; display:block; margin: 0 auto; margin-bottom: 10px" partialSubmit="true" process="naoConciliados" />
 
                                             <div class="row">
@@ -91,9 +91,9 @@
 
                                                     <div class="table-responsive">
 
-                                                        <p:dataTable id="tableContasContabeisNaoConciliados" var="item" value="#{conciliacaoManual.listaDeMovimentoContaContabilNaoConciliados}"
+                                                        <p:dataTable id="tableContasContabeisNaoConciliados" var="item" value="#{formConciliacaoManual.listaDeMovimentoContaContabilNaoConciliados}"
                                                                      rowKey="#{item.idcontaContabilMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasContabeis"
-                                                                     selection="#{conciliacaoManual.listaDeMovimentoContaContabilNaoConciliadosSelecionados}" resizableColumns="true"
+                                                                     selection="#{formConciliacaoManual.listaDeMovimentoContaContabilNaoConciliadosSelecionados}" resizableColumns="true"
                                                                      scrollable="true" scrollHeight="400">    
 
                                                             <p:ajax event="rowSelectCheckbox" update=":formConciliacao:statusMovimentoContaContabilNaoConciliados"/>  
@@ -128,7 +128,7 @@
 
                                                             <f:facet name="footer">                                                              
                                                                 Saldo contábil: 
-                                                                <h:outputText value="#{conciliacaoManual.saldoContaContabil}">                             
+                                                                <h:outputText value="#{formConciliacaoManual.saldoContaContabil}">                             
                                                                     <f:convertNumber pattern="#,##0.00"/>
                                                                 </h:outputText>
                                                             </f:facet>  
@@ -141,21 +141,21 @@
 
                                                     <p:outputPanel id="statusMovimentoContaContabilNaoConciliados"  styleClass="alert alert-info">
 
-                                                        <h:outputText value="Movimentos não conciliados: (#{conciliacaoManual.listaDeMovimentoContaContabilNaoConciliados.size()}) ">                             
+                                                        <h:outputText value="Movimentos não conciliados: (#{formConciliacaoManual.listaDeMovimentoContaContabilNaoConciliados.size()}) ">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 
-                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaContabilNaoConciliados()}">                             
+                                                        <h:outputText value="#{formConciliacaoManual.totalMovimentosContaContabilNaoConciliados()}">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 
                                                         <br></br>
 
-                                                        <h:outputText value="Movimentos não conciliados selecionados: (#{conciliacaoManual.listaDeMovimentoContaContabilNaoConciliadosSelecionados.size()}) ">                             
+                                                        <h:outputText value="Movimentos não conciliados selecionados: (#{formConciliacaoManual.listaDeMovimentoContaContabilNaoConciliadosSelecionados.size()}) ">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 
-                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaContabilNaoConciliadosSelecionados()}">                             
+                                                        <h:outputText value="#{formConciliacaoManual.totalMovimentosContaContabilNaoConciliadosSelecionados()}">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 
@@ -165,9 +165,9 @@
 
                                                 <div class="col-md-6">
 
-                                                    <p:dataTable id="tableContasBancariasNaoConciliados" var="item" value="#{conciliacaoManual.listaDeMovimentoContaBancariaNaoConciliados}"
+                                                    <p:dataTable id="tableContasBancariasNaoConciliados" var="item" value="#{formConciliacaoManual.listaDeMovimentoContaBancariaNaoConciliados}"
                                                                  rowKey="#{item.idcontaBancariaMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasBancarias"
-                                                                 selection="#{conciliacaoManual.listaDeMovimentoContaBancariaNaoConciliadosSelecionados}" resizableColumns="true"
+                                                                 selection="#{formConciliacaoManual.listaDeMovimentoContaBancariaNaoConciliadosSelecionados}" resizableColumns="true"
                                                                  scrollable="true" scrollHeight="400">
 
                                                         <p:ajax event="rowSelectCheckbox" update=":formConciliacao:statusMovimentoContaBancariaNaoConciliados"/>  
@@ -200,7 +200,7 @@
 
                                                         <f:facet name="footer">                                                              
                                                             Saldo bancário: 
-                                                            <h:outputText value="#{conciliacaoManual.saldoContaBancaria}">                             
+                                                            <h:outputText value="#{formConciliacaoManual.saldoContaBancaria}">                             
                                                                 <f:convertNumber pattern="#,##0.00"/>
                                                             </h:outputText>
                                                         </f:facet>                                                      
@@ -211,21 +211,21 @@
 
                                                     <p:outputPanel id="statusMovimentoContaBancariaNaoConciliados"  styleClass="alert alert-info">
 
-                                                        <h:outputText value="Movimentos não conciliados: (#{conciliacaoManual.listaDeMovimentoContaBancariaNaoConciliados.size()}) ">                             
+                                                        <h:outputText value="Movimentos não conciliados: (#{formConciliacaoManual.listaDeMovimentoContaBancariaNaoConciliados.size()}) ">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 
-                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaBancariaNaoConciliados()}">                             
+                                                        <h:outputText value="#{formConciliacaoManual.totalMovimentosContaBancariaNaoConciliados()}">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 
                                                         <br></br>
 
-                                                        <h:outputText value="Movimentos não conciliados selecionados: (#{conciliacaoManual.listaDeMovimentoContaBancariaNaoConciliadosSelecionados.size()}) ">                             
+                                                        <h:outputText value="Movimentos não conciliados selecionados: (#{formConciliacaoManual.listaDeMovimentoContaBancariaNaoConciliadosSelecionados.size()}) ">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 
-                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaBancariaNaoConciliadosSelecionados()}">                             
+                                                        <h:outputText value="#{formConciliacaoManual.totalMovimentosContaBancariaNaoConciliadosSelecionados()}">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 
@@ -272,7 +272,7 @@
                                         <h:panelGroup id="conciliados">
 
                                             <p:commandLink title="#{bundle.SaveLink}" value="Desconciliar" styleClass="btn btn-large btn-primary" 
-                                                           actionListener="#{conciliacaoManual.desconcilia}" update="naoConciliados conciliados"
+                                                           actionListener="#{formConciliacaoManual.desconcilia}" update="naoConciliados conciliados"
                                                            style="width:25%; display:block; margin: 0 auto; margin-bottom: 10px" partialSubmit="true" process="conciliados" />                                          
 
                                             <div class="row">
@@ -281,9 +281,9 @@
 
                                                     <div class="table-responsive">
 
-                                                        <p:dataTable id="tableContasContabeisConciliados" var="item2" value="#{conciliacaoManual.listaDeMovimentoContaContabilConciliados}"
+                                                        <p:dataTable id="tableContasContabeisConciliados" var="item2" value="#{formConciliacaoManual.listaDeMovimentoContaContabilConciliados}"
                                                                      rowKey="#{item2.idcontaContabilMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasContabeis2"
-                                                                     selection="#{conciliacaoManual.listaDeMovimentoContaContabilConciliadosSelecionados}" resizableColumns="true"
+                                                                     selection="#{formConciliacaoManual.listaDeMovimentoContaContabilConciliadosSelecionados}" resizableColumns="true"
                                                                      scrollable="true" scrollHeight="400">    
 
                                                             <p:ajax event="rowSelectCheckbox" update=":formConciliacao:statusMovimentoContaContabilConciliados"/>  
@@ -319,7 +319,7 @@
 
                                                             <f:facet name="footer">                                                              
                                                                 Saldo contábil: 
-                                                                <h:outputText value="#{conciliacaoManual.saldoContaContabil}">                             
+                                                                <h:outputText value="#{formConciliacaoManual.saldoContaContabil}">                             
                                                                     <f:convertNumber pattern="#,##0.00"/>
                                                                 </h:outputText>
                                                             </f:facet>              
@@ -332,21 +332,21 @@
 
                                                     <p:outputPanel id="statusMovimentoContaContabilConciliados"  styleClass="alert alert-info">
 
-                                                        <h:outputText value="Movimentos conciliados: (#{conciliacaoManual.listaDeMovimentoContaContabilConciliados.size()}) ">                             
+                                                        <h:outputText value="Movimentos conciliados: (#{formConciliacaoManual.listaDeMovimentoContaContabilConciliados.size()}) ">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 
-                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaContabilConciliados()}">                             
+                                                        <h:outputText value="#{formConciliacaoManual.totalMovimentosContaContabilConciliados()}">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 
                                                         <br></br>
 
-                                                        <h:outputText value="Movimentos conciliados selecionados: (#{conciliacaoManual.listaDeMovimentoContaContabilConciliadosSelecionados.size()}) ">                             
+                                                        <h:outputText value="Movimentos conciliados selecionados: (#{formConciliacaoManual.listaDeMovimentoContaContabilConciliadosSelecionados.size()}) ">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 
-                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaContabilConciliadosSelecionados()}">                             
+                                                        <h:outputText value="#{formConciliacaoManual.totalMovimentosContaContabilConciliadosSelecionados()}">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 
@@ -356,9 +356,9 @@
 
                                                 <div class="col-md-6">
 
-                                                    <p:dataTable id="tableContasBancariasConciliados" var="item2" value="#{conciliacaoManual.listaDeMovimentoContaBancariaConciliados}"
+                                                    <p:dataTable id="tableContasBancariasConciliados" var="item2" value="#{formConciliacaoManual.listaDeMovimentoContaBancariaConciliados}"
                                                                  rowKey="#{item2.idcontaBancariaMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="widgetVarContasBancarias2"
-                                                                 selection="#{conciliacaoManual.listaDeMovimentoContaBancariaConciliadosSelecionados}" resizableColumns="true"
+                                                                 selection="#{formConciliacaoManual.listaDeMovimentoContaBancariaConciliadosSelecionados}" resizableColumns="true"
                                                                  scrollable="true" scrollHeight="400">
 
                                                         <p:ajax event="rowSelectCheckbox" update=":formConciliacao:statusMovimentoContaBancariaConciliados"/>  
@@ -394,7 +394,7 @@
 
                                                         <f:facet name="footer">                                                              
                                                             Saldo bancário: 
-                                                            <h:outputText value="#{conciliacaoManual.saldoContaBancaria}">                             
+                                                            <h:outputText value="#{formConciliacaoManual.saldoContaBancaria}">                             
                                                                 <f:convertNumber pattern="#,##0.00"/>
                                                             </h:outputText>
                                                         </f:facet>              
@@ -405,21 +405,21 @@
 
                                                     <p:outputPanel id="statusMovimentoContaBancariaConciliados"  styleClass="alert alert-info">
 
-                                                        <h:outputText value="Movimentos conciliados: (#{conciliacaoManual.listaDeMovimentoContaBancariaConciliados.size()}) ">                             
+                                                        <h:outputText value="Movimentos conciliados: (#{formConciliacaoManual.listaDeMovimentoContaBancariaConciliados.size()}) ">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 
-                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaBancariaConciliados()}">                             
+                                                        <h:outputText value="#{formConciliacaoManual.totalMovimentosContaBancariaConciliados()}">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 
                                                         <br></br>
 
-                                                        <h:outputText value="Movimentos conciliados selecionados: (#{conciliacaoManual.listaDeMovimentoContaBancariaConciliadosSelecionados.size()}) ">                             
+                                                        <h:outputText value="Movimentos conciliados selecionados: (#{formConciliacaoManual.listaDeMovimentoContaBancariaConciliadosSelecionados.size()}) ">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 
-                                                        <h:outputText value="#{conciliacaoManual.totalMovimentosContaBancariaConciliadosSelecionados()}">                             
+                                                        <h:outputText value="#{formConciliacaoManual.totalMovimentosContaBancariaConciliadosSelecionados()}">                             
                                                             <f:convertNumber pattern="#,##0.00"/>
                                                         </h:outputText>
 

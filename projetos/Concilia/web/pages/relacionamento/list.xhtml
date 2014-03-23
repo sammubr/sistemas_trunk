@@ -23,26 +23,26 @@
                     <ui:define name="list_toolbar">
 
                         <p:commandLink value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" 
-                                       action="#{relacionamentoCadastro.criaNovo}" rendered="#{relacionamentoCadastro.gridVisivel}" update=":formList"/>
+                                       action="#{formCadastroRelacionamento.criaNovo}" rendered="#{formCadastroRelacionamento.gridVisivel}" update=":formList"/>
 
                         <p:commandLink value="#{bundle.DestroyLink}" title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" 
-                                       actionListener="#{relacionamentoCadastro.exclui}" rendered="#{relacionamentoCadastro.gridVisivel}" update=":formList"/>
+                                       actionListener="#{formCadastroRelacionamento.exclui}" rendered="#{formCadastroRelacionamento.gridVisivel}" update=":formList"/>
 
                         <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary navbar-btn"
-                                       actionListener="#{relacionamentoCadastro.persiste}" rendered="#{!relacionamentoCadastro.gridVisivel}" update=":formList"/>
+                                       actionListener="#{formCadastroRelacionamento.persiste}" rendered="#{!formCadastroRelacionamento.gridVisivel}" update=":formList"/>
 
                         <p:commandLink title="#{bundle.CancelLink}" value="#{bundle.CancelLink}" styleClass="btn btn-default navbar-btn"
-                                       actionListener="#{relacionamentoCadastro.cancela}" immediate="true" rendered="#{!relacionamentoCadastro.gridVisivel}" update=":formList"/>           
+                                       actionListener="#{formCadastroRelacionamento.cancela}" immediate="true" rendered="#{!formCadastroRelacionamento.gridVisivel}" update=":formList"/>           
 
                     </ui:define>
 
                     <ui:define name="list_conteudo">
 
-                        <p:outputPanel rendered="#{relacionamentoCadastro.gridVisivel}">
+                        <p:outputPanel rendered="#{formCadastroRelacionamento.gridVisivel}">
 
-                            <p:dataTable id="tableRelacionamentos" var="item" value="#{relacionamentoCadastro.listaDeRelacionamentos}"
+                            <p:dataTable id="tableRelacionamentos" var="item" value="#{formCadastroRelacionamento.listaDeRelacionamentos}"
                                          rowKey="#{item.id}" emptyMessage="#{bundle.RecordsEmpty}"
-                                         selection="#{relacionamentoCadastro.relacionamentosSelecionados}" selectionMode="multiple"
+                                         selection="#{formCadastroRelacionamento.relacionamentosSelecionados}" selectionMode="multiple"
                                          scrollable="true" scrollHeight="500">         
 
                             <f:facet name="header" >  
@@ -58,7 +58,7 @@
 
                                 <p:column style="width: 40px; text-align: center">  
 
-                                    <p:commandLink title="#{bundle.EditLink}" actionListener="#{relacionamentoCadastro.edita(item)}" update=":formList" immediate="true">
+                                    <p:commandLink title="#{bundle.EditLink}" actionListener="#{formCadastroRelacionamento.edita(item)}" update=":formList" immediate="true">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </p:commandLink>   
 
@@ -72,11 +72,11 @@
 
                     <ui:define name="list_item">
 
-                        <p:outputPanel rendered="#{!relacionamentoCadastro.gridVisivel}">                        
+                        <p:outputPanel rendered="#{!formCadastroRelacionamento.gridVisivel}">                        
 
                             <div class="form-group">
                                 <label for="descricao">#{bundle.CreateRelacionamentoLabel_descricao}</label>
-                                <p:inputText id="descricao" styleClass="form-control" value="#{relacionamentoCadastro.relacionamento.descricao}" 
+                                <p:inputText id="descricao" styleClass="form-control" value="#{formCadastroRelacionamento.relacionamento.descricao}" 
                                              title="#{bundle.CreateRelacionamentoTitle_descricao}" required="true" 
                                              requiredMessage="#{bundle.CreateRelacionamentoRequiredMessage_descricao}">
                                     <p:focus/>

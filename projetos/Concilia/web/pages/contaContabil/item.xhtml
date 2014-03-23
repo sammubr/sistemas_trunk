@@ -19,7 +19,7 @@
             <ui:define name="dialogo_toolbar">
 
                 <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary" 
-                               actionListener="#{contaContabilCadastro.persiste}" update=":formList:list_table"/>
+                               actionListener="#{formCadastroContaContabil.persiste}" update=":formList:list_table"/>
 
             </ui:define>
 
@@ -27,13 +27,13 @@
 
                 <div class="form-group">
                     <label for="descricao">#{bundle.CreateContaContabilLabel_descricao}</label>
-                    <p:inputText id="descricao" styleClass="form-control" value="#{contaContabilCadastro.item.descricao}" title="#{bundle.CreateContaContabilTitle_descricao}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_descricao}"/>
+                    <p:inputText id="descricao" styleClass="form-control" value="#{formCadastroContaContabil.item.descricao}" title="#{bundle.CreateContaContabilTitle_descricao}" required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_descricao}"/>
                     <p:watermark value="#{bundle.CreateContaContabilTitle_descricao}" for="descricao"/>
                 </div>
 
                 <div class="form-group">
                     <label for="saldoInicial">#{bundle.CreateContaContabilLabel_saldoInicial}</label>                            
-                    <p:inputText id="saldoInicial" styleClass="form-control" value="#{contaContabilCadastro.item.saldoInicial}" title="#{bundle.CreateContaContabilTitle_saldoInicial}"
+                    <p:inputText id="saldoInicial" styleClass="form-control" value="#{formCadastroContaContabil.item.saldoInicial}" title="#{bundle.CreateContaContabilTitle_saldoInicial}"
                                  required="true" requiredMessage="#{bundle.CreateContaContabilRequiredMessage_saldoInicial}">
                         <p:watermark value="#{bundle.CreateContaContabilTitle_saldoInicial}" for="saldoInicial"/>
                         <f:convertNumber pattern="#0.00"/>                              
@@ -43,37 +43,37 @@
 
                 <div class="form-group">
                     <label for="tagValor">#{bundle.CreateContaContabilLabel_tagValor}</label>                            
-                    <p:inputText id="tagValor" styleClass="form-control" value="#{contaContabilCadastro.item.tagValor}" title="#{bundle.CreateContaContabilTitle_tagValor}"/>
+                    <p:inputText id="tagValor" styleClass="form-control" value="#{formCadastroContaContabil.item.tagValor}" title="#{bundle.CreateContaContabilTitle_tagValor}"/>
                     <p:watermark value="#{bundle.CreateContaContabilTitle_tagValor}" for="tagValor"/>
                 </div>
 
                 <div class="form-group">
                     <label for="tagData">#{bundle.CreateContaContabilLabel_tagData}</label>                            
-                    <p:inputText id="tagData" styleClass="form-control" value="#{contaContabilCadastro.item.tagData}" title="#{bundle.CreateContaContabilTitle_tagData}"/>
+                    <p:inputText id="tagData" styleClass="form-control" value="#{formCadastroContaContabil.item.tagData}" title="#{bundle.CreateContaContabilTitle_tagData}"/>
                     <p:watermark value="#{bundle.CreateContaContabilTitle_tagData}" for="tagData"/>
                 </div>
 
                 <div class="form-group">
                     <label for="tagNumDoc">#{bundle.CreateContaContabilLabel_tagNumDoc}</label>                            
-                    <p:inputText id="tagNumDoc" styleClass="form-control" value="#{contaContabilCadastro.item.tagNumDoc}" title="#{bundle.CreateContaContabilTitle_tagNumDoc}"/>
+                    <p:inputText id="tagNumDoc" styleClass="form-control" value="#{formCadastroContaContabil.item.tagNumDoc}" title="#{bundle.CreateContaContabilTitle_tagNumDoc}"/>
                     <p:watermark value="#{bundle.CreateContaContabilTitle_tagNumDoc}" for="tagNumDoc"/>
                 </div>
 
                 <div class="form-group">
                     <label for="tagHistorico">#{bundle.CreateContaContabilLabel_tagHistorico}</label>                            
-                    <p:inputText id="tagHistorico" styleClass="form-control" value="#{contaContabilCadastro.item.tagHistorico}" title="#{bundle.CreateContaContabilTitle_tagHistorico}"/>
+                    <p:inputText id="tagHistorico" styleClass="form-control" value="#{formCadastroContaContabil.item.tagHistorico}" title="#{bundle.CreateContaContabilTitle_tagHistorico}"/>
                     <p:watermark value="#{bundle.CreateContaContabilTitle_tagHistorico}" for="tagHistorico"/>
                 </div>
 
                 <div class="form-group">
                     <label for="tagInicioMovimento">#{bundle.CreateContaContabilLabel_tagInicioMovimento}</label>                            
-                    <p:inputText id="tagInicioMovimento" styleClass="form-control" value="#{contaContabilCadastro.item.tagInicioMovimento}" title="#{bundle.CreateContaContabilTitle_tagInicioMovimento}"/>
+                    <p:inputText id="tagInicioMovimento" styleClass="form-control" value="#{formCadastroContaContabil.item.tagInicioMovimento}" title="#{bundle.CreateContaContabilTitle_tagInicioMovimento}"/>
                     <p:watermark value="#{bundle.CreateContaContabilTitle_tagInicioMovimento}" for="tagInicioMovimento"/>
                 </div>
 
                 <div class="form-group">
                     <label for="tagFimMovimento">#{bundle.CreateContaContabilLabel_tagFimMovimento}</label>                            
-                    <p:inputText id="tagFimMovimento" styleClass="form-control" value="#{contaContabilCadastro.item.tagFimMovimento}" title="#{bundle.CreateContaContabilTitle_tagFimMovimento}"/>
+                    <p:inputText id="tagFimMovimento" styleClass="form-control" value="#{formCadastroContaContabil.item.tagFimMovimento}" title="#{bundle.CreateContaContabilTitle_tagFimMovimento}"/>
                     <p:watermark value="#{bundle.CreateContaContabilTitle_tagFimMovimento}" for="tagFimMovimento"/>
                 </div>
 

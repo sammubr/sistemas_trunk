@@ -19,7 +19,7 @@
             <ui:define name="dialogo_toolbar">
 
                 <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary" 
-                               actionListener="#{usuarioCadastro.persiste}" update=":formList:list_table"/>
+                               actionListener="#{formCadastroUsuario.persiste}" update=":formList:list_table"/>
 
             </ui:define>
 
@@ -27,7 +27,7 @@
 
                 <div class="form-group">
                     <label for="nome">#{bundle.CreateUsuarioLabel_nome}</label>
-                    <p:inputText id="nome" styleClass="form-control" value="#{usuarioCadastro.item.nome}" title="#{bundle.CreateUsuarioTitle_nome}" 
+                    <p:inputText id="nome" styleClass="form-control" value="#{formCadastroUsuario.item.nome}" title="#{bundle.CreateUsuarioTitle_nome}" 
                                  required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nome}">
                         <f:passThroughAttribute name="placeholder" value="#{bundle.CreateUsuarioTitle_nome}"/>
                     </p:inputText>
@@ -36,21 +36,21 @@
 
                 <div class="form-group">
                     <label for="login">#{bundle.CreateUsuarioLabel_login}</label>
-                    <p:inputText id="login" styleClass="form-control" value="#{usuarioCadastro.item.login}" title="#{bundle.CreateUsuarioTitle_login}" 
+                    <p:inputText id="login" styleClass="form-control" value="#{formCadastroUsuario.item.login}" title="#{bundle.CreateUsuarioTitle_login}" 
                                  required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_login}"/>
                     <p:watermark value="#{bundle.CreateUsuarioTitle_login}" for="login"/>
                 </div>
 
                 <div class="form-group">
                     <label for="senha">#{bundle.CreateUsuarioLabel_senha}</label>
-                    <p:inputText type="password" id="senha" styleClass="form-control" value="#{usuarioCadastro.item.senha}" 
+                    <p:inputText type="password" id="senha" styleClass="form-control" value="#{formCadastroUsuario.item.senha}" 
                                  title="#{bundle.CreateUsuarioTitle_senha}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_senha}"/>
                     <p:watermark value="#{bundle.CreateUsuarioTitle_senha}" for="senha"/>
                 </div>
 
                 <div class="form-group">
                     <label for="nivel">#{bundle.CreateUsuarioLabel_nivel}</label>                            
-                    <p:inputText id="nivel" type="number" styleClass="form-control" value="#{usuarioCadastro.item.nivel}" title="#{bundle.CreateUsuarioTitle_nivel}" 
+                    <p:inputText id="nivel" type="number" styleClass="form-control" value="#{formCadastroUsuario.item.nivel}" title="#{bundle.CreateUsuarioTitle_nivel}" 
                                  required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nivel}">                    
                         <f:passThroughAttribute name="min" value="0"/>
                         <p:watermark value="#{bundle.CreateUsuarioTitle_nivel}" for="nivel"/>

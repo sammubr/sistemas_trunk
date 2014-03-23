@@ -23,17 +23,17 @@
                     <ui:define name="list_toolbar">
 
                         <p:commandLink value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" 
-                                       actionListener="#{contaContabilCadastro.criaNovo}" oncomplete="$('#myModal').modal('show')" update=":formItem" resetValues="true" />
+                                       actionListener="#{formCadastroContaContabil.criaNovo}" oncomplete="$('#myModal').modal('show')" update=":formItem" resetValues="true" />
                         <p:commandLink value="#{bundle.DestroyLink}" title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" 
-                                       actionListener="#{contaContabilCadastro.exclui}" update="list_table :messages"/>
+                                       actionListener="#{formCadastroContaContabil.exclui}" update="list_table :messages"/>
 
                     </ui:define>
 
                     <ui:define name="list_conteudo">
 
-                        <p:dataTable id="list_table" var="item" value="#{contaContabilCadastro.lista}"
+                        <p:dataTable id="list_table" var="item" value="#{formCadastroContaContabil.lista}"
                                      rowKey="#{item.idcontaContabil}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="list_widgetVar"
-                                     selection="#{contaContabilCadastro.itensSelecionados}" selectionMode="multiple"
+                                     selection="#{formCadastroContaContabil.itensSelecionados}" selectionMode="multiple"
                                      scrollable="true" scrollHeight="460">         
 
                             <f:facet name="header" >  
@@ -49,7 +49,7 @@
 
                             <p:column style="width: 40px; text-align: center">  
 
-                                <p:commandLink title="#{bundle.EditLink}" update=":formItem" actionListener="#{contaContabilCadastro.edita(item)}" 
+                                <p:commandLink title="#{bundle.EditLink}" update=":formItem" actionListener="#{formCadastroContaContabil.edita(item)}" 
                                                oncomplete="$('#myModal').modal('show')" immediate="true" resetValues="true">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </p:commandLink>   

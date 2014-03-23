@@ -19,7 +19,7 @@
             <ui:define name="dialogo_toolbar">
 
                 <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary" 
-                               actionListener="#{bancoCadastro.persiste}" update=":formList:list_table"/>
+                               actionListener="#{formCadastroBanco.persiste}" update=":formList:list_table"/>
 
             </ui:define>
 
@@ -27,13 +27,13 @@
 
                 <div class="form-group">
                     <label for="descricao">#{bundle.CreateBancoLabel_descricao}</label>
-                    <p:inputText id="descricao" styleClass="form-control" value="#{bancoCadastro.item.descricao}" title="#{bundle.CreateBancoTitle_descricao}" required="true" requiredMessage="#{bundle.CreateBancoRequiredMessage_descricao}"/>
+                    <p:inputText id="descricao" styleClass="form-control" value="#{formCadastroBanco.item.descricao}" title="#{bundle.CreateBancoTitle_descricao}" required="true" requiredMessage="#{bundle.CreateBancoRequiredMessage_descricao}"/>
                     <p:watermark value="#{bundle.CreateBancoTitle_descricao}" for="descricao"/>
                 </div>
 
                 <div class="form-group">
                     <label for="codigo">#{bundle.CreateBancoLabel_codigo}</label>                            
-                    <p:inputText id="codigo" type="number" styleClass="form-control" value="#{bancoCadastro.item.codigo}" title="#{bundle.CreateBancoTitle_codigo}"
+                    <p:inputText id="codigo" type="number" styleClass="form-control" value="#{formCadastroBanco.item.codigo}" title="#{bundle.CreateBancoTitle_codigo}"
                                  required="true" requiredMessage="#{bundle.CreateBancoRequiredMessage_codigo}">
                         <p:watermark value="#{bundle.CreateBancoTitle_codigo}" for="codigo"/>
                     </p:inputText>
@@ -41,37 +41,37 @@
 
                 <div class="form-group">
                     <label for="tagValor">#{bundle.CreateBancoLabel_tagValor}</label>                            
-                    <p:inputText id="tagValor" styleClass="form-control" value="#{bancoCadastro.item.tagValor}" title="#{bundle.CreateBancoTitle_tagValor}"/>
+                    <p:inputText id="tagValor" styleClass="form-control" value="#{formCadastroBanco.item.tagValor}" title="#{bundle.CreateBancoTitle_tagValor}"/>
                     <p:watermark value="#{bundle.CreateBancoTitle_tagValor}" for="tagValor"/>
                 </div>
 
                 <div class="form-group">
                     <label for="tagData">#{bundle.CreateBancoLabel_tagData}</label>                            
-                    <p:inputText id="tagData" styleClass="form-control" value="#{bancoCadastro.item.tagData}" title="#{bundle.CreateBancoTitle_tagData}"/>
+                    <p:inputText id="tagData" styleClass="form-control" value="#{formCadastroBanco.item.tagData}" title="#{bundle.CreateBancoTitle_tagData}"/>
                     <p:watermark value="#{bundle.CreateBancoTitle_tagData}" for="tagData"/>
                 </div>
 
                 <div class="form-group">
                     <label for="tagNumDoc">#{bundle.CreateBancoLabel_tagNumDoc}</label>                            
-                    <p:inputText id="tagNumDoc" styleClass="form-control" value="#{bancoCadastro.item.tagNumDoc}" title="#{bundle.CreateBancoTitle_tagNumDoc}"/>
+                    <p:inputText id="tagNumDoc" styleClass="form-control" value="#{formCadastroBanco.item.tagNumDoc}" title="#{bundle.CreateBancoTitle_tagNumDoc}"/>
                     <p:watermark value="#{bundle.CreateBancoTitle_tagNumDoc}" for="tagNumDoc"/>
                 </div>
 
                 <div class="form-group">
                     <label for="tagHistorico">#{bundle.CreateBancoLabel_tagHistorico}</label>                            
-                    <p:inputText id="tagHistorico" styleClass="form-control" value="#{bancoCadastro.item.tagHistorico}" title="#{bundle.CreateBancoTitle_tagHistorico}"/>
+                    <p:inputText id="tagHistorico" styleClass="form-control" value="#{formCadastroBanco.item.tagHistorico}" title="#{bundle.CreateBancoTitle_tagHistorico}"/>
                     <p:watermark value="#{bundle.CreateBancoTitle_tagHistorico}" for="tagHistorico"/>
                 </div>
 
                 <div class="form-group">
                     <label for="tagInicioMovimento">#{bundle.CreateBancoLabel_tagInicioMovimento}</label>                            
-                    <p:inputText id="tagInicioMovimento" styleClass="form-control" value="#{bancoCadastro.item.tagInicioMovimento}" title="#{bundle.CreateBancoTitle_tagInicioMovimento}"/>
+                    <p:inputText id="tagInicioMovimento" styleClass="form-control" value="#{formCadastroBanco.item.tagInicioMovimento}" title="#{bundle.CreateBancoTitle_tagInicioMovimento}"/>
                     <p:watermark value="#{bundle.CreateBancoTitle_tagInicioMovimento}" for="tagInicioMovimento"/>
                 </div>
 
                 <div class="form-group">
                     <label for="tagFimMovimento">#{bundle.CreateBancoLabel_tagFimMovimento}</label>                            
-                    <p:inputText id="tagFimMovimento" styleClass="form-control" value="#{bancoCadastro.item.tagFimMovimento}" title="#{bundle.CreateBancoTitle_tagFimMovimento}"/>
+                    <p:inputText id="tagFimMovimento" styleClass="form-control" value="#{formCadastroBanco.item.tagFimMovimento}" title="#{bundle.CreateBancoTitle_tagFimMovimento}"/>
                     <p:watermark value="#{bundle.CreateBancoTitle_tagFimMovimento}" for="tagFimMovimento"/>
                 </div>                
 

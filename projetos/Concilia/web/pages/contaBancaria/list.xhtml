@@ -23,17 +23,17 @@
                     <ui:define name="list_toolbar">
 
                         <p:commandLink value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" 
-                                       actionListener="#{contaBancariaCadastro.criaNovo}" oncomplete="$('#myModal').modal('show')" update=":formItem" resetValues="true" />
+                                       actionListener="#{formCadastroContaBancaria.criaNovo}" oncomplete="$('#myModal').modal('show')" update=":formItem" resetValues="true" />
                         <p:commandLink value="#{bundle.DestroyLink}" title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" 
-                                       actionListener="#{contaBancariaCadastro.exclui}" update="list_table :messages"/>
+                                       actionListener="#{formCadastroContaBancaria.exclui}" update="list_table :messages"/>
 
                     </ui:define>
 
                     <ui:define name="list_conteudo">
 
-                        <p:dataTable id="list_table" var="item" value="#{contaBancariaCadastro.lista}" 
+                        <p:dataTable id="list_table" var="item" value="#{formCadastroContaBancaria.lista}" 
                                      rowKey="#{item.idcontaBancaria}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="list_widgetVar"
-                                     selection="#{contaBancariaCadastro.itensSelecionados}" selectionMode="multiple"
+                                     selection="#{formCadastroContaBancaria.itensSelecionados}" selectionMode="multiple"
                                      scrollable="true" scrollHeight="500">         
 
                             <f:facet name="header" >  
@@ -75,7 +75,7 @@
 
                             <p:column style="width: 40px; text-align: center">  
 
-                                <p:commandLink title="#{bundle.EditLink}" update=":formItem" actionListener="#{contaBancariaCadastro.edita(item)}" 
+                                <p:commandLink title="#{bundle.EditLink}" update=":formItem" actionListener="#{formCadastroContaBancaria.edita(item)}" 
                                                oncomplete="$('#myModal').modal('show')" immediate="true" resetValues="true">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </p:commandLink>   

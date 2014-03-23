@@ -23,17 +23,17 @@
                     <ui:define name="list_toolbar">
 
                         <p:commandLink value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" 
-                                       actionListener="#{bancoCadastro.criaNovo}" oncomplete="$('#myModal').modal('show')" update=":formItem" resetValues="true"/>
+                                       actionListener="#{formCadastroBanco.criaNovo}" oncomplete="$('#myModal').modal('show')" update=":formItem" resetValues="true"/>
                         <p:commandLink value="#{bundle.DestroyLink}" title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" 
-                                       actionListener="#{bancoCadastro.exclui}" update="list_table :messages"/>
+                                       actionListener="#{formCadastroBanco.exclui}" update="list_table :messages"/>
 
                     </ui:define>
 
                     <ui:define name="list_conteudo">
 
-                        <p:dataTable id="list_table" var="item" value="#{bancoCadastro.lista}"
+                        <p:dataTable id="list_table" var="item" value="#{formCadastroBanco.lista}"
                                      rowKey="#{item.idbanco}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="list_widgetVar"
-                                     selection="#{bancoCadastro.itensSelecionados}" selectionMode="multiple"
+                                     selection="#{formCadastroBanco.itensSelecionados}" selectionMode="multiple"
                                      scrollable="true" scrollHeight="500">         
 
                             <f:facet name="header" >  
@@ -55,7 +55,7 @@
 
                             <p:column style="width: 40px; text-align: center">  
 
-                                <p:commandLink title="#{bundle.EditLink}" update=":formItem" actionListener="#{bancoCadastro.edita(item)}" 
+                                <p:commandLink title="#{bundle.EditLink}" update=":formItem" actionListener="#{formCadastroBanco.edita(item)}" 
                                                oncomplete="$('#myModal').modal('show')" immediate="true" resetValues="true">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </p:commandLink>   

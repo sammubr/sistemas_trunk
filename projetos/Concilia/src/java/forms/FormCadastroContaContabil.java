@@ -15,7 +15,7 @@ import org.hibernate.criterion.Order;
 import org.primefaces.context.RequestContext;
 import util.JsfUtil;
 
-@Named("contaContabilCadastro")
+@Named("formCadastroContaContabil")
 @ViewScoped
 public class FormCadastroContaContabil implements Serializable {
 

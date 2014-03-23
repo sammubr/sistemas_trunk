@@ -19,7 +19,7 @@
             <ui:define name="dialogo_toolbar">
 
                 <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary" 
-                               actionListener="#{contaContabilMovimentoCadastro.persiste}" update=":formList:list_table"/>
+                               actionListener="#{formCadastroContaContabilMovimento.persiste}" update=":formList:list_table"/>
 
             </ui:define>
 
@@ -27,7 +27,7 @@
 
                 <div class="form-group">
                     <label for="dataMov">#{bundle.CreateContaContabilLabel_dataMov}</label>
-                    <p:inputText id="dataMov" styleClass="form-control" value="#{contaContabilMovimentoCadastro.item.dataMov}" title="#{bundle.CreateContaContabilMovimentoTitle_dataMov}"
+                    <p:inputText id="dataMov" styleClass="form-control" value="#{formCadastroContaContabilMovimento.item.dataMov}" title="#{bundle.CreateContaContabilMovimentoTitle_dataMov}"
                                  required="true" requiredMessage="#{bundle.CreateContaContabilMovimentoRequiredMessage_dataMov}">
                         <f:convertDateTime type="date" dateStyle="short"/>
                         <p:watermark value="#{bundle.CreateContaContabilMovimentoTitle_dataMov}" for="dataMov"/>
@@ -36,7 +36,7 @@
 
                 <div class="form-group">
                     <label for="valor">#{bundle.CreateContaContabilLabel_valor}</label>
-                    <p:inputText id="valor" styleClass="form-control" value="#{contaContabilMovimentoCadastro.item.valor}" title="#{bundle.CreateContaContabilMovimentoTitle_valor}" 
+                    <p:inputText id="valor" styleClass="form-control" value="#{formCadastroContaContabilMovimento.item.valor}" title="#{bundle.CreateContaContabilMovimentoTitle_valor}" 
                                  required="true" requiredMessage="#{bundle.CreateContaContabilMovimentoRequiredMessage_valor}">
                         <p:watermark value="#{bundle.CreateContaContabilMovimentoTitle_valor}" for="valor"/>
                         <f:convertNumber pattern="#0.00"/>                              
@@ -46,14 +46,14 @@
 
                 <div class="form-group">
                     <label for="numdoc">#{bundle.CreateContaContabilLabel_numdoc}</label>
-                    <p:inputText id="numdoc" styleClass="form-control" value="#{contaContabilMovimentoCadastro.item.numdoc}" title="#{bundle.CreateContaContabilMovimentoTitle_numdoc}" 
+                    <p:inputText id="numdoc" styleClass="form-control" value="#{formCadastroContaContabilMovimento.item.numdoc}" title="#{bundle.CreateContaContabilMovimentoTitle_numdoc}" 
                                  required="false" requiredMessage="#{bundle.CreateContaContabilMovimentoRequiredMessage_numdoc}"/>
                     <p:watermark value="#{bundle.CreateContaContabilMovimentoTitle_numdoc}" for="numdoc"/>
                 </div>                    
 
                 <div class="form-group">
                     <label for="historico">#{bundle.CreateContaContabilLabel_historico}</label>
-                    <p:inputText id="historico" styleClass="form-control" value="#{contaContabilMovimentoCadastro.item.historico}" title="#{bundle.CreateContaContabilMovimentoTitle_historico}"/>
+                    <p:inputText id="historico" styleClass="form-control" value="#{formCadastroContaContabilMovimento.item.historico}" title="#{bundle.CreateContaContabilMovimentoTitle_historico}"/>
                     <p:watermark value="#{bundle.CreateContaContabilMovimentoTitle_historico}" for="historico"/>
                 </div>    
 

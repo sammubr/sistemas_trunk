@@ -19,7 +19,7 @@
             <ui:define name="dialogo_toolbar">
 
                 <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary" 
-                               actionListener="#{contaBancariaMovimentoCadastro.persiste}" update=":formList:list_table"/>
+                               actionListener="#{formCadastroContaBancariaMovimento.persiste}" update=":formList:list_table"/>
 
             </ui:define>
 
@@ -27,7 +27,7 @@
 
                 <div class="form-group">
                     <label for="dataMov">#{bundle.CreateContaBancariaLabel_dataMov}</label>
-                    <p:inputText id="dataMov" styleClass="form-control" value="#{contaBancariaMovimentoCadastro.item.dataMov}" title="#{bundle.CreateContaBancariaMovimentoTitle_dataMov}"
+                    <p:inputText id="dataMov" styleClass="form-control" value="#{formCadastroContaBancariaMovimento.item.dataMov}" title="#{bundle.CreateContaBancariaMovimentoTitle_dataMov}"
                                  required="true" requiredMessage="#{bundle.CreateContaBancariaMovimentoRequiredMessage_dataMov}">                                              
                         <f:convertDateTime type="date" dateStyle="short"/>
                         <p:watermark value="#{bundle.CreateContaBancariaMovimentoTitle_dataMov}" for="dataMov"/>
@@ -36,7 +36,7 @@
 
                 <div class="form-group">
                     <label for="valor">#{bundle.CreateContaBancariaLabel_valor}</label>
-                    <p:inputText id="valor" styleClass="form-control" value="#{contaBancariaMovimentoCadastro.item.valor}" title="#{bundle.CreateContaBancariaMovimentoTitle_valor}" 
+                    <p:inputText id="valor" styleClass="form-control" value="#{formCadastroContaBancariaMovimento.item.valor}" title="#{bundle.CreateContaBancariaMovimentoTitle_valor}" 
                                  required="true" requiredMessage="#{bundle.CreateContaBancariaMovimentoRequiredMessage_valor}">
                         <p:watermark value="#{bundle.CreateContaBancariaMovimentoTitle_valor}" for="valor"/>
                         <f:convertNumber pattern="#0.00"/>                              
@@ -46,14 +46,14 @@
 
                 <div class="form-group">
                     <label for="numdoc">#{bundle.CreateContaBancariaLabel_numdoc}</label>
-                    <p:inputText id="numdoc" styleClass="form-control" value="#{contaBancariaMovimentoCadastro.item.numdoc}" title="#{bundle.CreateContaBancariaMovimentoTitle_numdoc}" 
+                    <p:inputText id="numdoc" styleClass="form-control" value="#{formCadastroContaBancariaMovimento.item.numdoc}" title="#{bundle.CreateContaBancariaMovimentoTitle_numdoc}" 
                                  required="false" requiredMessage="#{bundle.CreateContaBancariaMovimentoRequiredMessage_numdoc}"/>
                     <p:watermark value="#{bundle.CreateContaBancariaMovimentoTitle_numdoc}" for="numdoc"/>
                 </div>                    
 
                 <div class="form-group">
                     <label for="historico">#{bundle.CreateContaBancariaLabel_historico}</label>
-                    <p:inputText id="historico" styleClass="form-control" value="#{contaBancariaMovimentoCadastro.item.historico}" title="#{bundle.CreateContaBancariaMovimentoTitle_historico}"/>
+                    <p:inputText id="historico" styleClass="form-control" value="#{formCadastroContaBancariaMovimento.item.historico}" title="#{bundle.CreateContaBancariaMovimentoTitle_historico}"/>
                     <p:watermark value="#{bundle.CreateContaBancariaMovimentoTitle_historico}" for="historico"/>
                 </div>    
 

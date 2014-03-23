@@ -22,10 +22,10 @@
 
                     <h:form id="formSelectConta">
 
-                        <h:selectOneMenu id="selectConta" value="#{contaContabilMovimentoCadastro.contaContabilSelecionada}" converter="converterContaContabil" class="form-control">
+                        <h:selectOneMenu id="selectConta" value="#{formCadastroContaContabilMovimento.contaContabilSelecionada}" converter="converterContaContabil" class="form-control">
                             <f:selectItem itemLabel="#{bundle.SelecionarContaContabil}" itemValue="" />
-                            <f:selectItems value="#{contaContabilMovimentoCadastro.listaDeContasContabeis}" var="item" itemLabel="#{item.descricao}" itemValue="#{item}"/>                   
-                            <f:ajax listener="#{contaContabilMovimentoCadastro.geraListaDeMovimentos}" 
+                            <f:selectItems value="#{formCadastroContaContabilMovimento.listaDeContasContabeis}" var="item" itemLabel="#{item.descricao}" itemValue="#{item}"/>                   
+                            <f:ajax listener="#{formCadastroContaContabilMovimento.geraListaDeMovimentos}" 
                                     render=":formList:botaoCriarNovo :formList:botaoExcluir :formList:list_table :formImportaArquivo:uploadFile"/>
                         </h:selectOneMenu>
 
@@ -53,12 +53,12 @@
                                         <div class="btn-group ">
 
                                             <p:commandLink id="botaoCriarNovo"  value="#{bundle.CreateLink}" title="#{bundle.CreateLink}" styleClass="btn btn-primary navbar-btn" 
-                                                           disabled="#{contaContabilMovimentoCadastro.contaContabilSelecionada==null}"
-                                                           actionListener="#{contaContabilMovimentoCadastro.criaNovo}" oncomplete="$('#myModal').modal('show')" update=":formItem" 
+                                                           disabled="#{formCadastroContaContabilMovimento.contaContabilSelecionada==null}"
+                                                           actionListener="#{formCadastroContaContabilMovimento.criaNovo}" oncomplete="$('#myModal').modal('show')" update=":formItem" 
                                                            resetValues="true" />
                                             <p:commandLink id="botaoExcluir" value="#{bundle.DestroyLink}" title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" 
-                                                           disabled="#{contaContabilMovimentoCadastro.contaContabilSelecionada==null}"
-                                                           actionListener="#{contaContabilMovimentoCadastro.exclui}" update="list_table :messages"
+                                                           disabled="#{formCadastroContaContabilMovimento.contaContabilSelecionada==null}"
+                                                           actionListener="#{formCadastroContaContabilMovimento.exclui}" update="list_table :messages"
                                                            onstart="document.body.style.cursor = 'wait';" oncomplete="document.body.style.cursor = 'default';"/>
 
                                         </div>
@@ -69,9 +69,9 @@
 
                             <div class="table-responsive">
 
-                                <p:dataTable id="list_table" var="item" value="#{contaContabilMovimentoCadastro.lista}"
+                                <p:dataTable id="list_table" var="item" value="#{formCadastroContaContabilMovimento.lista}"
                                              rowKey="#{item.idcontaContabilMovimento}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="list_widgetVar"
-                                             selection="#{contaContabilMovimentoCadastro.itensSelecionados}" selectionMode="multiple"
+                                             selection="#{formCadastroContaContabilMovimento.itensSelecionados}" selectionMode="multiple"
                                              scrollable="true" scrollHeight="460">         
 
                                     <f:facet name="header" >  
@@ -112,7 +112,7 @@
 
                                     <p:column style="width: 40px; text-align: center">  
 
-                                        <p:commandLink title="#{bundle.EditLink}" update=":formItem" actionListener="#{contaContabilMovimentoCadastro.edita(item)}" 
+                                        <p:commandLink title="#{bundle.EditLink}" update=":formItem" actionListener="#{formCadastroContaContabilMovimento.edita(item)}" 
                                                        oncomplete="$('#myModal').modal('show')" immediate="true" resetValues="true">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </p:commandLink>   
@@ -134,8 +134,8 @@
                             <div class="form-group">
                                 <p:fileUpload  id="uploadFile" onstart="document.body.style.cursor = 'wait';" oncomplete="document.body.style.cursor = 'default';" 
                                                label="#{bundle.SelectFile}"  uploadLabel="#{bundle.ImportFile}" cancelLabel="#{bundle.CancelLink}" 
-                                               fileUploadListener="#{contaContabilMovimentoCadastro.upload}" mode="advanced" dragDropSupport="false" 
-                                               update=":formList:list_table" disabled="#{contaContabilMovimentoCadastro.contaContabilSelecionada==null}"/>  
+                                               fileUploadListener="#{formCadastroContaContabilMovimento.upload}" mode="advanced" dragDropSupport="false" 
+                                               update=":formList:list_table" disabled="#{formCadastroContaContabilMovimento.contaContabilSelecionada==null}"/>  
                             </div>
                         </h:form>
 

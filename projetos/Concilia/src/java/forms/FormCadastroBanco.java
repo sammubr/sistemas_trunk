@@ -17,7 +17,7 @@ import org.hibernate.criterion.Restrictions;
 import org.primefaces.context.RequestContext;
 import util.JsfUtil;
 
-@Named("bancoCadastro")
+@Named("formCadastroBanco")
 @ViewScoped
 public class FormCadastroBanco implements Serializable {
 

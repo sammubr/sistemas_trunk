@@ -19,7 +19,7 @@
             <ui:define name="dialogo_toolbar">
 
                 <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary" 
-                               actionListener="#{contaBancariaCadastro.persiste}" update=":formList:list_table"/>
+                               actionListener="#{formCadastroContaBancaria.persiste}" update=":formList:list_table"/>
 
             </ui:define>
 
@@ -27,46 +27,46 @@
 
                 <div class="form-group">
                     <label for="descricao">#{bundle.CreateContaBancariaLabel_descricao}</label>
-                    <p:inputText id="descricao" styleClass="form-control" value="#{contaBancariaCadastro.item.descricao}" title="#{bundle.CreateContaBancariaTitle_descricao}" required="true" requiredMessage="#{bundle.CreateContaBancariaRequiredMessage_descricao}"/>
+                    <p:inputText id="descricao" styleClass="form-control" value="#{formCadastroContaBancaria.item.descricao}" title="#{bundle.CreateContaBancariaTitle_descricao}" required="true" requiredMessage="#{bundle.CreateContaBancariaRequiredMessage_descricao}"/>
                     <p:watermark value="#{bundle.CreateContaBancariaTitle_descricao}" for="descricao"/>
                 </div>
 
                 <div class="form-group">
                     <label for="banco">#{bundle.CreateContaBancariaLabel_banco}</label>
 
-                    <h:selectOneMenu id="banco" value="#{contaBancariaCadastro.item.banco}" converter="converterBanco" class="form-control" required="true" requiredMessage="#{bundle.CreateContaBancariaRequiredMessage_banco}">
+                    <h:selectOneMenu id="banco" value="#{formCadastroContaBancaria.item.banco}" converter="converterBanco" class="form-control" required="true" requiredMessage="#{bundle.CreateContaBancariaRequiredMessage_banco}">
                         <f:selectItem itemLabel="#{bundle.SelecionarBanco}" itemValue="" />
-                        <f:selectItems value="#{contaBancariaCadastro.listaDeBancos}" var="item" itemValue="#{item}" itemLabel="#{item.descricao}" />
+                        <f:selectItems value="#{formCadastroContaBancaria.listaDeBancos}" var="item" itemValue="#{item}" itemLabel="#{item.descricao}" />
                     </h:selectOneMenu>                          
                 </div>
 
                 <div class="form-group">
                     <label for="agencia">#{bundle.CreateContaBancariaLabel_agencia}</label>
-                    <p:inputText id="agencia" styleClass="form-control" value="#{contaBancariaCadastro.item.agencia}" title="#{bundle.CreateContaBancariaTitle_agencia}"/>
+                    <p:inputText id="agencia" styleClass="form-control" value="#{formCadastroContaBancaria.item.agencia}" title="#{bundle.CreateContaBancariaTitle_agencia}"/>
                     <p:watermark value="#{bundle.CreateContaBancariaTitle_agencia}" for="agencia"/>
                 </div>
 
                 <div class="form-group">
                     <label for="agenciaDigito">#{bundle.CreateContaBancariaLabel_agenciaDigito}</label>                            
-                    <p:inputText id="agenciaDigito" styleClass="form-control" value="#{contaBancariaCadastro.item.agenciaDigito}" title="#{bundle.CreateContaBancariaTitle_agenciaDigito}"/>
+                    <p:inputText id="agenciaDigito" styleClass="form-control" value="#{formCadastroContaBancaria.item.agenciaDigito}" title="#{bundle.CreateContaBancariaTitle_agenciaDigito}"/>
                     <p:watermark value="#{bundle.CreateContaBancariaTitle_agenciaDigito}" for="agenciaDigito"/>
                 </div>
 
                 <div class="form-group">
                     <label for="numero">#{bundle.CreateContaBancariaLabel_numero}</label>                            
-                    <p:inputText id="numero" styleClass="form-control" value="#{contaBancariaCadastro.item.numero}" title="#{bundle.CreateContaBancariaTitle_numero}"/>
+                    <p:inputText id="numero" styleClass="form-control" value="#{formCadastroContaBancaria.item.numero}" title="#{bundle.CreateContaBancariaTitle_numero}"/>
                     <p:watermark value="#{bundle.CreateContaBancariaTitle_numero}" for="numero"/>
                 </div>
 
                 <div class="form-group">
                     <label for="numeroDigito">#{bundle.CreateContaBancariaLabel_numeroDigito}</label>                            
-                    <p:inputText id="numeroDigito" styleClass="form-control" value="#{contaBancariaCadastro.item.numeroDigito}" title="#{bundle.CreateContaBancariaTitle_numeroDigito}"/>
+                    <p:inputText id="numeroDigito" styleClass="form-control" value="#{formCadastroContaBancaria.item.numeroDigito}" title="#{bundle.CreateContaBancariaTitle_numeroDigito}"/>
                     <p:watermark value="#{bundle.CreateContaBancariaTitle_numeroDigito}" for="numeroDigito"/>
                 </div>
 
                 <div class="form-group">
                     <label for="saldoInicial">#{bundle.CreateContaBancariaLabel_saldoInicial}</label>                            
-                    <p:inputText id="saldoInicial" styleClass="form-control" value="#{contaBancariaCadastro.item.saldoInicial}" title="#{bundle.CreateContaBancariaTitle_saldoInicial}" required="true" requiredMessage="#{bundle.CreateContaBancariaRequiredMessage_saldoInicial}">
+                    <p:inputText id="saldoInicial" styleClass="form-control" value="#{formCadastroContaBancaria.item.saldoInicial}" title="#{bundle.CreateContaBancariaTitle_saldoInicial}" required="true" requiredMessage="#{bundle.CreateContaBancariaRequiredMessage_saldoInicial}">
                         <f:convertNumber pattern="#0.00" />                              
                         <p:ajax event="blur" update="saldoInicial"  />                  
                     </p:inputText>

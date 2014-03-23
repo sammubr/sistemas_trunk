@@ -17,7 +17,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import util.JsfUtil;
 
-@Named("contaContabilMovimentoCadastro")
+@Named("formCadastroContaContabilMovimento")
 @ViewScoped
 public class FormCadastroContaContabilMovimento implements Serializable {
 

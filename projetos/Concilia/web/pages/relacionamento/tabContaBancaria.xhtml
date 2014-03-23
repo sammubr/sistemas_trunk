@@ -8,22 +8,22 @@
     <div class="btn-group ">
 
         <p:commandLink title="#{bundle.AddLink}" styleClass="btn btn-primary navbar-btn" 
-                       actionListener="#{relacionamentoCadastro.geraListaDeContasBancarias}" oncomplete="$('#modalContasBancarias').modal('show')" 
+                       actionListener="#{formCadastroRelacionamento.geraListaDeContasBancarias}" oncomplete="$('#modalContasBancarias').modal('show')" 
                        resetValues="true" update="tableSelecionaContasBancarias" partialSubmit="true" process="@this tableSelecionaContasBancarias">
             <span class="glyphicon glyphicon-plus"></span>
         </p:commandLink>
 
         <p:commandLink title="#{bundle.DestroyLink}" styleClass="btn btn-primary navbar-btn" 
-                       actionListener="#{relacionamentoCadastro.removeContasBancariasDoRelacionamentoSelecionadas}" update="tableContasBancarias" 
+                       actionListener="#{formCadastroRelacionamento.removeContasBancariasDoRelacionamentoSelecionadas}" update="tableContasBancarias" 
                        process="@this tableContasBancarias">
             <span class="glyphicon glyphicon-minus"></span>
         </p:commandLink>
 
     </div>
 
-    <p:dataTable id="tableContasBancarias" var="contaBancaria" value="#{relacionamentoCadastro.relacionamento.contaBancariaCollection}" 
+    <p:dataTable id="tableContasBancarias" var="contaBancaria" value="#{formCadastroRelacionamento.relacionamento.contaBancariaCollection}" 
                  rowKey="#{contaBancaria.idcontaBancaria}" emptyMessage="#{bundle.RecordsEmpty}"
-                 selection="#{relacionamentoCadastro.listaDeContasBancariasDoRelacionamentoSelecionadas}" selectionMode="multiple">         
+                 selection="#{formCadastroRelacionamento.listaDeContasBancariasDoRelacionamentoSelecionadas}" selectionMode="multiple">         
 
         <p:column sortBy="descricao" headerText="#{bundle.ListContaContabilTitle_descricao}" filterBy="descricao" filterMatchMode="contains">  
             <h:outputText value="#{contaBancaria.descricao}" />  
@@ -43,7 +43,7 @@
 
             <ui:define name="dialogo_toolbar">
 
-                <p:commandLink actionListener="#{relacionamentoCadastro.addContaBancaria}" styleClass="btn btn-primary" update="tableContasBancarias" 
+                <p:commandLink actionListener="#{formCadastroRelacionamento.addContaBancaria}" styleClass="btn btn-primary" update="tableContasBancarias" 
                                partialSubmit="true" process="@this tableSelecionaContasBancarias">
                     #{bundle.AddLink}
                 </p:commandLink>                
@@ -52,9 +52,9 @@
 
             <ui:define name="dialogo_conteudo">        
 
-                <p:dataTable id="tableSelecionaContasBancarias" var="item" value="#{relacionamentoCadastro.listaDeContasBancarias}" 
+                <p:dataTable id="tableSelecionaContasBancarias" var="item" value="#{formCadastroRelacionamento.listaDeContasBancarias}" 
                              rowKey="#{item.idcontaBancaria}" emptyMessage="#{bundle.RecordsEmpty}"
-                             selection="#{relacionamentoCadastro.listaDeContasBancariasSelecionadas}" selectionMode="multiple">        
+                             selection="#{formCadastroRelacionamento.listaDeContasBancariasSelecionadas}" selectionMode="multiple">        
 
                     <p:column sortBy="descricao" headerText="#{bundle.ListRelacionamentoTitle_descricao}" filterBy="descricao" filterMatchMode="contains">  
                         <h:outputText value="#{item.descricao}"/>  

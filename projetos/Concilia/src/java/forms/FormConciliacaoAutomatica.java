@@ -14,7 +14,7 @@ import javax.inject.Named;
  *
  * @author samuel
  */
-@Named("conciliacaoAutomatica")
+@Named("formConciliacaoAutomatica")
 @ViewScoped
 public class FormConciliacaoAutomatica implements Serializable {
     
