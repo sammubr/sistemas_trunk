@@ -4,9 +4,9 @@
  */
 package forms;
 
-import controls.ContaBancaria;
-import controls.ContaContabil;
-import controls.RelContabilidadeBanco;
+import tabelas.ContaBancaria;
+import tabelas.ContaContabil;
+import tabelas.RelContabilidadeBanco;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

@@ -4,7 +4,7 @@
  */
 package persistencia;
 
-import controls.Banco;
+import tabelas.Banco;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.component.UIComponent;

@@ -1,7 +1,7 @@
 package forms;
 
-import controls.ContaBancaria;
-import controls.ContaBancariaMovimento;
+import tabelas.ContaBancaria;
+import tabelas.ContaBancariaMovimento;
 import diversos.ArquivoMovimentoContaBancaria;
 import java.io.Serializable;
 import java.util.ArrayList;

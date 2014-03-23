@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package controls;
+package tabelas;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -118,7 +118,7 @@ public class RelContabilidadeBanco extends Persistencia implements Serializable 
 
     @Override
     public String toString() {
-        return "controls.RelContabilidadeBanco[ id=" + id + " ]";
+        return "tabelas.RelContabilidadeBanco[ id=" + id + " ]";
     }
     
 }

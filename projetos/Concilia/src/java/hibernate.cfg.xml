@@ -16,13 +16,13 @@
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.jdbc.batch_size">50</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory</property>
-    <mapping class="controls.Usuario"/>
-    <mapping class="controls.Banco"/>
-    <mapping class="controls.ContaBancaria"/>
-    <mapping class="controls.ContaContabil"/>
-    <mapping class="controls.ContaBancariaMovimento"/>
-    <mapping class="controls.ContaContabilMovimento"/>
-    <mapping class="controls.RelContabilidadeBanco"/>
-    <mapping class="controls.Conciliacao"/>
+    <mapping class="tabelas.Usuario"/>
+    <mapping class="tabelas.Banco"/>
+    <mapping class="tabelas.ContaBancaria"/>
+    <mapping class="tabelas.ContaContabil"/>
+    <mapping class="tabelas.ContaBancariaMovimento"/>
+    <mapping class="tabelas.ContaContabilMovimento"/>
+    <mapping class="tabelas.RelContabilidadeBanco"/>
+    <mapping class="tabelas.Conciliacao"/>
   </session-factory>
 </hibernate-configuration>

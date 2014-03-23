@@ -4,7 +4,7 @@
  */
 package forms;
 
-import controls.Usuario;
+import tabelas.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

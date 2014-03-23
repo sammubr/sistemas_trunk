@@ -4,8 +4,8 @@
  */
 package diversos;
 
-import controls.ContaBancaria;
-import controls.ContaBancariaMovimento;
+import tabelas.ContaBancaria;
+import tabelas.ContaBancariaMovimento;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;

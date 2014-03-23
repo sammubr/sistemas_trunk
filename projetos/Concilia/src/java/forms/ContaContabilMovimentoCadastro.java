@@ -1,7 +1,7 @@
 package forms;
 
-import controls.ContaContabil;
-import controls.ContaContabilMovimento;
+import tabelas.ContaContabil;
+import tabelas.ContaContabilMovimento;
 import diversos.ArquivoMovimentoContaContabil;
 import java.io.Serializable;
 import java.util.ArrayList;

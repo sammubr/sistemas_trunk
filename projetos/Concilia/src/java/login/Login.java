@@ -4,7 +4,7 @@
  */
 package login;
 
-import controls.Usuario;
+import tabelas.Usuario;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

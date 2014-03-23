@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package controls;
+package tabelas;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -32,20 +32,25 @@ import persistencia.Persistencia;
  * @author samuel
  */
 @Entity
-@Table(name = "conta_bancaria_movimento")
+@Table(name = "conta_contabil_movimento")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ContaBancariaMovimento.findAll", query = "SELECT c FROM ContaBancariaMovimento c"),
-    @NamedQuery(name = "ContaBancariaMovimento.findByDataMov", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.dataMov = :dataMov"),
-    @NamedQuery(name = "ContaBancariaMovimento.findByValor", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.valor = :valor"),
-    @NamedQuery(name = "ContaBancariaMovimento.findByNumdoc", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.numdoc = :numdoc"),
-    @NamedQuery(name = "ContaBancariaMovimento.findByHistorico", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.historico = :historico"),
-    @NamedQuery(name = "ContaBancariaMovimento.findByIdcontaBancariaMovimento", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.idcontaBancariaMovimento = :idcontaBancariaMovimento"),
-    @NamedQuery(name = "ContaBancariaMovimento.findBySaldo", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.saldo = :saldo"),
-    @NamedQuery(name = "ContaBancariaMovimento.findByCombinacao", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.combinacao = :combinacao"),
-    @NamedQuery(name = "ContaBancariaMovimento.findByDataConciliacao", query = "SELECT c FROM ContaBancariaMovimento c WHERE c.dataConciliacao = :dataConciliacao")})
-public class ContaBancariaMovimento extends Persistencia implements Serializable {
+    @NamedQuery(name = "ContaContabilMovimento.findAll", query = "SELECT c FROM ContaContabilMovimento c"),
+    @NamedQuery(name = "ContaContabilMovimento.findByIdcontaContabilMovimento", query = "SELECT c FROM ContaContabilMovimento c WHERE c.idcontaContabilMovimento = :idcontaContabilMovimento"),
+    @NamedQuery(name = "ContaContabilMovimento.findByDataMov", query = "SELECT c FROM ContaContabilMovimento c WHERE c.dataMov = :dataMov"),
+    @NamedQuery(name = "ContaContabilMovimento.findByValor", query = "SELECT c FROM ContaContabilMovimento c WHERE c.valor = :valor"),
+    @NamedQuery(name = "ContaContabilMovimento.findByNumdoc", query = "SELECT c FROM ContaContabilMovimento c WHERE c.numdoc = :numdoc"),
+    @NamedQuery(name = "ContaContabilMovimento.findByHistorico", query = "SELECT c FROM ContaContabilMovimento c WHERE c.historico = :historico"),
+    @NamedQuery(name = "ContaContabilMovimento.findBySaldo", query = "SELECT c FROM ContaContabilMovimento c WHERE c.saldo = :saldo"),
+    @NamedQuery(name = "ContaContabilMovimento.findByCombinacao", query = "SELECT c FROM ContaContabilMovimento c WHERE c.combinacao = :combinacao"),
+    @NamedQuery(name = "ContaContabilMovimento.findByDataConciliacao", query = "SELECT c FROM ContaContabilMovimento c WHERE c.dataConciliacao = :dataConciliacao")})
+public class ContaContabilMovimento extends Persistencia implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idconta_contabil_movimento")
+    private Integer idcontaContabilMovimento;
     @Basic(optional = false)
     @NotNull
     @Column(name = "data_mov")
@@ -62,11 +67,6 @@ public class ContaBancariaMovimento extends Persistencia implements Serializable
     @Size(max = 50)
     @Column(name = "historico")
     private String historico;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "idconta_bancaria_movimento")
-    private Integer idcontaBancariaMovimento;
     @Column(name = "saldo")
     private BigDecimal saldo;
     @Column(name = "combinacao")
@@ -74,21 +74,29 @@ public class ContaBancariaMovimento extends Persistencia implements Serializable
     @Column(name = "data_conciliacao")
     @Temporal(TemporalType.DATE)
     private Date dataConciliacao;
-    @JoinColumn(name = "conta", referencedColumnName = "idconta_bancaria")
+    @JoinColumn(name = "conta", referencedColumnName = "idconta_contabil")
     @ManyToOne(optional = false)
-    private ContaBancaria conta;
+    private ContaContabil conta;
 
-    public ContaBancariaMovimento() {
+    public ContaContabilMovimento() {
     }
 
-    public ContaBancariaMovimento(Integer idcontaBancariaMovimento) {
-        this.idcontaBancariaMovimento = idcontaBancariaMovimento;
+    public ContaContabilMovimento(Integer idcontaContabilMovimento) {
+        this.idcontaContabilMovimento = idcontaContabilMovimento;
     }
 
-    public ContaBancariaMovimento(Integer idcontaBancariaMovimento, Date dataMov, BigDecimal valor) {
-        this.idcontaBancariaMovimento = idcontaBancariaMovimento;
+    public ContaContabilMovimento(Integer idcontaContabilMovimento, Date dataMov, BigDecimal valor) {
+        this.idcontaContabilMovimento = idcontaContabilMovimento;
         this.dataMov = dataMov;
         this.valor = valor;
+    }
+
+    public Integer getIdcontaContabilMovimento() {
+        return idcontaContabilMovimento;
+    }
+
+    public void setIdcontaContabilMovimento(Integer idcontaContabilMovimento) {
+        this.idcontaContabilMovimento = idcontaContabilMovimento;
     }
 
     public Date getDataMov() {
@@ -123,14 +131,6 @@ public class ContaBancariaMovimento extends Persistencia implements Serializable
         this.historico = historico;
     }
 
-    public Integer getIdcontaBancariaMovimento() {
-        return idcontaBancariaMovimento;
-    }
-
-    public void setIdcontaBancariaMovimento(Integer idcontaBancariaMovimento) {
-        this.idcontaBancariaMovimento = idcontaBancariaMovimento;
-    }
-
     public BigDecimal getSaldo() {
         return saldo;
     }
@@ -155,29 +155,29 @@ public class ContaBancariaMovimento extends Persistencia implements Serializable
         this.dataConciliacao = dataConciliacao;
     }
 
-    public ContaBancaria getConta() {
+    public ContaContabil getConta() {
         return conta;
     }
 
-    public void setConta(ContaBancaria conta) {
+    public void setConta(ContaContabil conta) {
         this.conta = conta;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idcontaBancariaMovimento != null ? idcontaBancariaMovimento.hashCode() : 0);
+        hash += (idcontaContabilMovimento != null ? idcontaContabilMovimento.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ContaBancariaMovimento)) {
+        if (!(object instanceof ContaContabilMovimento)) {
             return false;
         }
-        ContaBancariaMovimento other = (ContaBancariaMovimento) object;
-        if ((this.idcontaBancariaMovimento == null && other.idcontaBancariaMovimento != null) || (this.idcontaBancariaMovimento != null && !this.idcontaBancariaMovimento.equals(other.idcontaBancariaMovimento))) {
+        ContaContabilMovimento other = (ContaContabilMovimento) object;
+        if ((this.idcontaContabilMovimento == null && other.idcontaContabilMovimento != null) || (this.idcontaContabilMovimento != null && !this.idcontaContabilMovimento.equals(other.idcontaContabilMovimento))) {
             return false;
         }
         return true;
@@ -185,7 +185,7 @@ public class ContaBancariaMovimento extends Persistencia implements Serializable
 
     @Override
     public String toString() {
-        return "controls.ContaBancariaMovimento[ idcontaBancariaMovimento=" + idcontaBancariaMovimento + " ]";
+        return "tabelas.ContaContabilMovimento[ idcontaContabilMovimento=" + idcontaContabilMovimento + " ]";
     }
     
 }

@@ -1,11 +1,11 @@
 package forms;
 
-import controls.Conciliacao;
-import controls.ContaBancaria;
-import controls.ContaBancariaMovimento;
-import controls.ContaContabil;
-import controls.ContaContabilMovimento;
-import controls.RelContabilidadeBanco;
+import tabelas.Conciliacao;
+import tabelas.ContaBancaria;
+import tabelas.ContaBancariaMovimento;
+import tabelas.ContaContabil;
+import tabelas.ContaContabilMovimento;
+import tabelas.RelContabilidadeBanco;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;

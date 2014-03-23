@@ -4,7 +4,7 @@
  */
 package forms;
 
-import controls.ContaContabil;
+import tabelas.ContaContabil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

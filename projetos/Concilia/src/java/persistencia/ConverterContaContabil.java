@@ -4,7 +4,7 @@
  */
 package persistencia;
 
-import controls.ContaContabil;
+import tabelas.ContaContabil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.component.UIComponent;

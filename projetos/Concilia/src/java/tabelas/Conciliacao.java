@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package controls;
+package tabelas;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -111,7 +111,7 @@ public class Conciliacao extends Persistencia implements Serializable {
 
     @Override
     public String toString() {
-        return "controls.Conciliacao[ idConciliacao=" + idConciliacao + " ]";
+        return "tabelas.Conciliacao[ idConciliacao=" + idConciliacao + " ]";
     }
     
 }

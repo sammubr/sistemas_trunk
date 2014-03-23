@@ -4,8 +4,8 @@
  */
 package diversos;
 
-import controls.ContaContabil;
-import controls.ContaContabilMovimento;
+import tabelas.ContaContabil;
+import tabelas.ContaContabilMovimento;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;

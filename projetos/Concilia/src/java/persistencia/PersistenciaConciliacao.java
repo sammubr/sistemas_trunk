@@ -5,9 +5,9 @@
  */
 package persistencia;
 
-import controls.Conciliacao;
-import controls.ContaBancariaMovimento;
-import controls.ContaContabilMovimento;
+import tabelas.Conciliacao;
+import tabelas.ContaBancariaMovimento;
+import tabelas.ContaContabilMovimento;
 import java.util.List;
 import java.util.ResourceBundle;
 import org.hibernate.Session;

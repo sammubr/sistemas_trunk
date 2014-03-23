@@ -4,8 +4,8 @@
  */
 package forms;
 
-import controls.Banco;
-import controls.ContaBancaria;
+import tabelas.Banco;
+import tabelas.ContaBancaria;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

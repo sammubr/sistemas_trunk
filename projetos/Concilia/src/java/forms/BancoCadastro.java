@@ -4,7 +4,7 @@
  */
 package forms;
 
-import controls.Banco;
+import tabelas.Banco;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

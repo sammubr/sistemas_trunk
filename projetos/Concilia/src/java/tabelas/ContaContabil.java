@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package controls;
+package tabelas;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -211,7 +211,7 @@ public class ContaContabil extends Persistencia implements Serializable {
 
     @Override
     public String toString() {
-        return "controls.ContaContabil[ idcontaContabil=" + idcontaContabil + " ]";
+        return "tabelas.ContaContabil[ idcontaContabil=" + idcontaContabil + " ]";
     }
     
 }

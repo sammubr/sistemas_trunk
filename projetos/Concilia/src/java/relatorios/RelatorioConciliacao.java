@@ -6,7 +6,7 @@
 package relatorios;
 
 import com.sun.xml.ws.util.UtilException;
-import controls.RelContabilidadeBanco;
+import tabelas.RelContabilidadeBanco;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;

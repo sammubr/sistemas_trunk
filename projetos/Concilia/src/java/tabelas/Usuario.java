@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package controls;
+package tabelas;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -139,7 +139,7 @@ public class Usuario extends Persistencia implements Serializable {
 
     @Override
     public String toString() {
-        return "controls.Usuario[ idusuario=" + idusuario + " ]";
+        return "tabelas.Usuario[ idusuario=" + idusuario + " ]";
     }
     
 }
