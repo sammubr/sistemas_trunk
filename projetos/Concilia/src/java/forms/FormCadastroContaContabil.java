@@ -4,7 +4,7 @@
  */
 package forms;
 
-import tabelas.Usuario;
+import tabelas.ContaContabil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,60 +15,61 @@ import org.hibernate.criterion.Order;
 import org.primefaces.context.RequestContext;
 import util.JsfUtil;
 
-@Named("usuarioCadastro")
+@Named("contaContabilCadastro")
 @ViewScoped
-public class UsuarioCadastro implements Serializable {
+public class FormCadastroContaContabil implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
-    private Usuario item;
-    private List<Usuario> lista;
-    private List<Usuario> itensSelecionados;
+    private ContaContabil item;
+    private List<ContaContabil> lista;
+    private List<ContaContabil> itensSelecionados;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
-    public UsuarioCadastro() {
+    public FormCadastroContaContabil() {
         geraLista();
     }
 
     private void geraLista() {
-        Usuario consulta = new Usuario();
-
+        
+        ContaContabil consulta = new ContaContabil();
+        
         List<Order> ordem = new ArrayList<>();
-        ordem.add(Order.asc("nome"));
-
+        ordem.add(Order.asc("descricao"));       
+                
         lista = consulta.obterLista(null, ordem);
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
-    public Usuario getItem() {
+    public ContaContabil getItem() {
         return item;
     }
 
-    public void setItem(Usuario item) {
+    public void setItem(ContaContabil item) {
         this.item = item;
     }
 
-    public List<Usuario> getLista() {
+    public List<ContaContabil> getLista() {
         return lista;
     }
 
-    public void setLista(List<Usuario> lista) {
+    public void setLista(List<ContaContabil> lista) {
         this.lista = lista;
     }
 
-    public List<Usuario> getItensSelecionados() {
+    public List<ContaContabil> getItensSelecionados() {
         return itensSelecionados;
     }
 
-    public void setItensSelecionados(List<Usuario> itensSelecionados) {
+    public void setItensSelecionados(List<ContaContabil> itensSelecionados) {
         this.itensSelecionados = itensSelecionados;
     }
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public void criaNovo() {
-        item = new Usuario();
+        item = new ContaContabil();
     }
 
-    public void edita(Usuario itemSelecionado) {
+    public void edita(ContaContabil itemSelecionado) {
         item = itemSelecionado;
     }
 
@@ -85,14 +86,14 @@ public class UsuarioCadastro implements Serializable {
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("EmptyRecordsToDelete"), "");
                 break;
             case 1:
-                for (Usuario itemSelecionado : itensSelecionados) {
+                for (ContaContabil itemSelecionado : itensSelecionados) {
                     itemSelecionado.exclui();
                 }
                 geraLista();
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
                 break;
             default:
-                for (Usuario itemSelecionado : itensSelecionados) {
+                for (ContaContabil itemSelecionado : itensSelecionados) {
                     itemSelecionado.exclui();
                 }
                 geraLista();

@@ -23,7 +23,7 @@ import persistencia.PersistenciaConciliacao;
 
 @Named("conciliacaoManual")
 @ViewScoped
-public class ConciliacaoManual implements Serializable {
+public class FormConciliacaoManual implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
     private boolean gridVisivel = true;
@@ -54,7 +54,7 @@ public class ConciliacaoManual implements Serializable {
     private Conciliacao conciliacao;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
-    public ConciliacaoManual() {
+    public FormConciliacaoManual() {
         geraListaDeRelacionamentos();
     }
 

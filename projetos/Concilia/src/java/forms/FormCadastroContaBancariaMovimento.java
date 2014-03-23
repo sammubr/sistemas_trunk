@@ -19,7 +19,7 @@ import util.JsfUtil;
 
 @Named("contaBancariaMovimentoCadastro")
 @ViewScoped
-public class ContaBancariaMovimentoCadastro implements Serializable {
+public class FormCadastroContaBancariaMovimento implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
     private ContaBancariaMovimento item;
@@ -30,7 +30,7 @@ public class ContaBancariaMovimentoCadastro implements Serializable {
     private UploadedFile file;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
-    public ContaBancariaMovimentoCadastro() {
+    public FormCadastroContaBancariaMovimento() {
         geraListaDeContasBancarias();
     }
 

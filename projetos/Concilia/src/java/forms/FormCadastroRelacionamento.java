@@ -19,7 +19,7 @@ import util.JsfUtil;
 
 @Named("relacionamentoCadastro")
 @ViewScoped
-public class RelacionamentoCadastro implements Serializable {
+public class FormCadastroRelacionamento implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
     private boolean gridVisivel = true;
@@ -36,7 +36,7 @@ public class RelacionamentoCadastro implements Serializable {
     private List<ContaBancaria> contasBancariasExcluidasDoRelacionamento;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
-    public RelacionamentoCadastro() {
+    public FormCadastroRelacionamento() {
         geraListaDeRelacionamentos();
     }
 

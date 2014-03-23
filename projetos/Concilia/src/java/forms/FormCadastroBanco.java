@@ -4,80 +4,86 @@
  */
 package forms;
 
-import tabelas.ContaContabil;
+import tabelas.Banco;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.primefaces.context.RequestContext;
 import util.JsfUtil;
 
-@Named("contaContabilCadastro")
+@Named("bancoCadastro")
 @ViewScoped
-public class ContaContabilCadastro implements Serializable {
+public class FormCadastroBanco implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
-    private ContaContabil item;
-    private List<ContaContabil> lista;
-    private List<ContaContabil> itensSelecionados;
+    private Banco item;
+    private List<Banco> lista;
+    private List<Banco> itensSelecionados;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
-    public ContaContabilCadastro() {
+    public FormCadastroBanco() {
         geraLista();
     }
 
     private void geraLista() {
-        
-        ContaContabil consulta = new ContaContabil();
-        
+
+        Banco consulta = new Banco();
+
         List<Order> ordem = new ArrayList<>();
-        ordem.add(Order.asc("descricao"));       
-                
+        ordem.add(Order.asc("descricao"));
+
         lista = consulta.obterLista(null, ordem);
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
-    public ContaContabil getItem() {
+    public Banco getItem() {
         return item;
     }
 
-    public void setItem(ContaContabil item) {
+    public void setItem(Banco item) {
         this.item = item;
     }
 
-    public List<ContaContabil> getLista() {
+    public List<Banco> getLista() {
         return lista;
     }
 
-    public void setLista(List<ContaContabil> lista) {
+    public void setLista(List<Banco> lista) {
         this.lista = lista;
     }
 
-    public List<ContaContabil> getItensSelecionados() {
+    public List<Banco> getItensSelecionados() {
         return itensSelecionados;
     }
 
-    public void setItensSelecionados(List<ContaContabil> itensSelecionados) {
+    public void setItensSelecionados(List<Banco> itensSelecionados) {
         this.itensSelecionados = itensSelecionados;
     }
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public void criaNovo() {
-        item = new ContaContabil();
+        item = new Banco();
     }
 
-    public void edita(ContaContabil itemSelecionado) {
+    public void edita(Banco itemSelecionado) {
         item = itemSelecionado;
     }
 
     public void persiste() {
-        getItem().persiste();
-        geraLista();
-        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
-        RequestContext.getCurrentInstance().execute("$('#myModal').modal('hide')");
+        if (codigoBancoNaoCadastrado()) {
+            getItem().persiste();
+            geraLista();
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
+            RequestContext.getCurrentInstance().execute("$('#myModal').modal('hide')");
+        } else {
+            JsfUtil.addErrorMessage("Erro de validação de banco.", "Código de banco já cadastrado!");
+        }
     }
 
     public void exclui() {
@@ -86,19 +92,28 @@ public class ContaContabilCadastro implements Serializable {
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("EmptyRecordsToDelete"), "");
                 break;
             case 1:
-                for (ContaContabil itemSelecionado : itensSelecionados) {
+                for (Banco itemSelecionado : itensSelecionados) {
                     itemSelecionado.exclui();
                 }
                 geraLista();
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
                 break;
             default:
-                for (ContaContabil itemSelecionado : itensSelecionados) {
+                for (Banco itemSelecionado : itensSelecionados) {
                     itemSelecionado.exclui();
                 }
                 geraLista();
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
                 break;
         }
+    }
+
+    private boolean codigoBancoNaoCadastrado() {
+
+        Banco consulta = new Banco();
+        List<Criterion> filtro = new ArrayList<>();
+        filtro.add(Restrictions.and(Restrictions.eq("codigo", getItem().getCodigo()), Restrictions.ne("id", getItem().getIdbanco())));
+
+        return consulta.obterLista(filtro, null).isEmpty();
     }
 }

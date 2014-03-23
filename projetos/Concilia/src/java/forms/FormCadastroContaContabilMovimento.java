@@ -19,7 +19,7 @@ import util.JsfUtil;
 
 @Named("contaContabilMovimentoCadastro")
 @ViewScoped
-public class ContaContabilMovimentoCadastro implements Serializable {
+public class FormCadastroContaContabilMovimento implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
     private ContaContabilMovimento item;
@@ -30,7 +30,7 @@ public class ContaContabilMovimentoCadastro implements Serializable {
     private UploadedFile file;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
-    public ContaContabilMovimentoCadastro() {
+    public FormCadastroContaContabilMovimento() {
         geraListaDeContasContabeis();
     }
 

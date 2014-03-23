@@ -5,85 +5,92 @@
 package forms;
 
 import tabelas.Banco;
+import tabelas.ContaBancaria;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import org.primefaces.context.RequestContext;
 import util.JsfUtil;
 
-@Named("bancoCadastro")
+@Named("contaBancariaCadastro")
 @ViewScoped
-public class BancoCadastro implements Serializable {
+public class FormCadastroContaBancaria implements Serializable {
 
 // ------------------------------------------------------------------ ATRIBUTOS
-    private Banco item;
-    private List<Banco> lista;
-    private List<Banco> itensSelecionados;
+    private ContaBancaria item;
+    private List<ContaBancaria> lista;
+    private List<ContaBancaria> itensSelecionados;
+    private List<Banco> listaDeBancos;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
-    public BancoCadastro() {
+    public FormCadastroContaBancaria() {
         geraLista();
     }
 
     private void geraLista() {
-
-        Banco consulta = new Banco();
-
-        List<Order> ordem = new ArrayList<>();
+        ContaBancaria consulta = new ContaBancaria();
+        List<Order> ordem = new ArrayList<>();        
         ordem.add(Order.asc("descricao"));
-
         lista = consulta.obterLista(null, ordem);
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
-    public Banco getItem() {
+    public ContaBancaria getItem() {
         return item;
     }
 
-    public void setItem(Banco item) {
+    public void setItem(ContaBancaria item) {
         this.item = item;
     }
 
-    public List<Banco> getLista() {
+    public List<ContaBancaria> getLista() {
         return lista;
     }
 
-    public void setLista(List<Banco> lista) {
+    public void setLista(List<ContaBancaria> lista) {
         this.lista = lista;
     }
 
-    public List<Banco> getItensSelecionados() {
+    public List<ContaBancaria> getItensSelecionados() {
         return itensSelecionados;
     }
 
-    public void setItensSelecionados(List<Banco> itensSelecionados) {
+    public void setItensSelecionados(List<ContaBancaria> itensSelecionados) {
         this.itensSelecionados = itensSelecionados;
+    }
+
+    public List<Banco> getListaDeBancos() {
+
+        Banco consulta = new Banco();
+        List<Order> ordem = new ArrayList<>();        
+        ordem.add(Order.asc("descricao"));
+        listaDeBancos = consulta.obterLista(null, ordem);
+
+        return listaDeBancos;
+    }
+
+    public void setListaDeBancos(List<Banco> listaDeBancos) {
+        this.listaDeBancos = listaDeBancos;
     }
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public void criaNovo() {
-        item = new Banco();
+        item = new ContaBancaria();
     }
 
-    public void edita(Banco itemSelecionado) {
+    public void edita(ContaBancaria itemSelecionado) {
         item = itemSelecionado;
     }
 
     public void persiste() {
-        if (codigoBancoNaoCadastrado()) {
-            getItem().persiste();
-            geraLista();
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
-            RequestContext.getCurrentInstance().execute("$('#myModal').modal('hide')");
-        } else {
-            JsfUtil.addErrorMessage("Erro de validação de banco.", "Código de banco já cadastrado!");
-        }
+        getItem().persiste();
+        geraLista();
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
+        RequestContext.getCurrentInstance().execute("$('#myModal').modal('hide')");
     }
 
     public void exclui() {
@@ -92,28 +99,19 @@ public class BancoCadastro implements Serializable {
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("EmptyRecordsToDelete"), "");
                 break;
             case 1:
-                for (Banco itemSelecionado : itensSelecionados) {
+                for (ContaBancaria itemSelecionado : itensSelecionados) {
                     itemSelecionado.exclui();
                 }
                 geraLista();
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
                 break;
             default:
-                for (Banco itemSelecionado : itensSelecionados) {
+                for (ContaBancaria itemSelecionado : itensSelecionados) {
                     itemSelecionado.exclui();
                 }
                 geraLista();
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
                 break;
         }
-    }
-
-    private boolean codigoBancoNaoCadastrado() {
-
-        Banco consulta = new Banco();
-        List<Criterion> filtro = new ArrayList<>();
-        filtro.add(Restrictions.and(Restrictions.eq("codigo", getItem().getCodigo()), Restrictions.ne("id", getItem().getIdbanco())));
-
-        return consulta.obterLista(filtro, null).isEmpty();
     }
 }
