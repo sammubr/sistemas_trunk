@@ -6,28 +6,19 @@
 package util;
 
 import com.sun.xml.ws.util.UtilException;
-import controls.ContaContabilMovimento;
-import controls.Usuario;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import javax.faces.context.FacesContext;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.JRHtmlExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
@@ -36,12 +27,6 @@ import net.sf.jasperreports.engine.export.JRTextExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.oasis.JROdsExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -69,12 +54,12 @@ public class RelatorioUtil {
             FacesContext context = FacesContext.getCurrentInstance();
             String caminhoRelatorio = context.getExternalContext().getRealPath("pages" + File.separator + "relatorios");
             String caminhoArquivoJasper = caminhoRelatorio + File.separator + nomeRelatorioJasper + ".jasper";
-            String caminhoArquivoRelatorio = null;
+            String caminhoArquivoRelatorio;
             JasperReport relatorioJasper = (JasperReport) JRLoader.loadObject(caminhoArquivoJasper);
             JasperPrint impressoraJasper = JasperFillManager.fillReport(relatorioJasper, parametrosRelatorio, conexao);
-            JRExporter tipoArquivoExportado = null;
-            String extensaoArquivoExportado = "";
-            File arquivoGerado = null;
+            JRExporter tipoArquivoExportado;
+            String extensaoArquivoExportado;
+            File arquivoGerado;
             switch (tipoRelatorio) {
                 case RelatorioUtil.RELATORIO_PDF:
                     tipoArquivoExportado = new JRPdfExporter();
@@ -95,8 +80,8 @@ public class RelatorioUtil {
                 case RelatorioUtil.RELATORIO_TXT:
                     tipoArquivoExportado = new JRTextExporter();
 
-                    tipoArquivoExportado.setParameter(JRTextExporterParameter.CHARACTER_WIDTH, new Float(6.55));//6.55 //6
-                    tipoArquivoExportado.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT, new Float(11.9)); //11//10 
+                    tipoArquivoExportado.setParameter(JRTextExporterParameter.CHARACTER_WIDTH, (float) 6.55);
+                    tipoArquivoExportado.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT, (float) 11.9);
 
                     extensaoArquivoExportado = "txt";
                     break;

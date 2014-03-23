@@ -20,6 +20,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class Login extends javax.servlet.http.HttpServlet {
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         if (request.getParameter("login").equalsIgnoreCase("admin") && request.getParameter("senha").equalsIgnoreCase("admin")) {

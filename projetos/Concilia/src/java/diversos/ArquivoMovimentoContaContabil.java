@@ -43,21 +43,21 @@ public class ArquivoMovimentoContaContabil {
                 contador++;
             }
 
-            if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagData()) != -1) {
+            if (linhasArquivo.get(i).contains(contaContabilSelecionada.getTagData())) {
                 String dataMov = linhasArquivo.get(i).substring(contaContabilSelecionada.getTagData().length());
                 movimento.setDataMov(tagStringToDate(dataMov));
             }
 
-            if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagValor()) != -1) {
+            if (linhasArquivo.get(i).contains(contaContabilSelecionada.getTagValor())) {
                 movimento.setValor(new BigDecimal(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagValor().length())));
             }
 
 
-            if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagNumDoc()) != -1) {
+            if (linhasArquivo.get(i).contains(contaContabilSelecionada.getTagNumDoc())) {
                 movimento.setNumdoc(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagNumDoc().length()));
             }
 
-            if (linhasArquivo.get(i).indexOf(contaContabilSelecionada.getTagHistorico()) != -1) {
+            if (linhasArquivo.get(i).contains(contaContabilSelecionada.getTagHistorico())) {
                 String historico = linhasArquivo.get(i).substring(contaContabilSelecionada.getTagHistorico().length());
                 if (historico.length() > 50) {
                     movimento.setHistorico(linhasArquivo.get(i).substring(contaContabilSelecionada.getTagHistorico().length(), 50));

@@ -9,7 +9,6 @@ import com.sun.xml.ws.util.UtilException;
 import controls.RelContabilidadeBanco;
 import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;

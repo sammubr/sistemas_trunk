@@ -44,21 +44,21 @@ public class ArquivoMovimentoContaBancaria {
                 contador++;
             }
 
-            if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getBanco().getTagData()) != -1) {
+            if (linhasArquivo.get(i).contains(contaBancariaSelecionada.getBanco().getTagData())) {
                 String dataMov = linhasArquivo.get(i).substring(contaBancariaSelecionada.getBanco().getTagData().length());
                 movimento.setDataMov(tagStringToDate(dataMov));
             }
 
-            if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getBanco().getTagValor()) != -1) {
+            if (linhasArquivo.get(i).contains(contaBancariaSelecionada.getBanco().getTagValor())) {
                 movimento.setValor(new BigDecimal(linhasArquivo.get(i).substring(contaBancariaSelecionada.getBanco().getTagValor().length())));
             }
 
 
-            if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getBanco().getTagNumDoc()) != -1) {
+            if (linhasArquivo.get(i).contains(contaBancariaSelecionada.getBanco().getTagNumDoc())) {
                 movimento.setNumdoc(linhasArquivo.get(i).substring(contaBancariaSelecionada.getBanco().getTagNumDoc().length()));
             }
 
-            if (linhasArquivo.get(i).indexOf(contaBancariaSelecionada.getBanco().getTagHistorico()) != -1) {
+            if (linhasArquivo.get(i).contains(contaBancariaSelecionada.getBanco().getTagHistorico())) {
                 String historico = linhasArquivo.get(i).substring(contaBancariaSelecionada.getBanco().getTagHistorico().length());
                 if (historico.length() > 50) {
                     movimento.setHistorico(linhasArquivo.get(i).substring(contaBancariaSelecionada.getBanco().getTagHistorico().length(), 50));

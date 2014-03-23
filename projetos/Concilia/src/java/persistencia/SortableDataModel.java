@@ -11,8 +11,9 @@ import javax.faces.model.DataModel;
 /**
  *
  * @author samuel
+ * @param <E>
  */
-public class SortableDataModel<E> extends DataModel<E>{
+public final class SortableDataModel<E> extends DataModel<E>{
  
 	DataModel<E> model;
 	private Integer[] rows;
@@ -34,6 +35,7 @@ public class SortableDataModel<E> extends DataModel<E>{
  
 	public void sortBy(final Comparator<E> comparator){
 		Comparator<Integer> rowComp = new Comparator<Integer>() {
+                        @Override
 			public int compare(Integer i1, Integer i2){
 				E o1 = getData(i1);
 				E o2 = getData(i2);

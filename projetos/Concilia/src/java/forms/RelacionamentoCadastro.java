@@ -13,9 +13,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import org.primefaces.context.RequestContext;
 import util.JsfUtil;
 

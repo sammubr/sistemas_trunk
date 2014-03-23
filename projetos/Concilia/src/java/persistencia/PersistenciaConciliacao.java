@@ -151,7 +151,6 @@ public class PersistenciaConciliacao {
             if (tx != null) {
                 tx.rollback();
             }
-            e.printStackTrace();
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"), e);
             throw e;
         } finally {

@@ -16,9 +16,11 @@ import javax.servlet.http.HttpSession;
 
 public class Logoff implements Filter {
 
+    @Override
     public void init(FilterConfig config) throws ServletException {
     }
 
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
@@ -29,6 +31,7 @@ public class Logoff implements Filter {
         chain.doFilter(request, response);
     }
 
+    @Override
     public void destroy() {
     }
 }

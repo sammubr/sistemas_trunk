@@ -22,6 +22,7 @@ public class FiltroSeguranca implements Filter {
 
     private static List<String> allowedURIs;
 
+    @Override
     public void init(FilterConfig config) throws ServletException {
         if (allowedURIs == null) {
             allowedURIs = new ArrayList<>();
@@ -29,6 +30,7 @@ public class FiltroSeguranca implements Filter {
         }
     }
 
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
@@ -43,6 +45,9 @@ public class FiltroSeguranca implements Filter {
         }
     }
 
+    @Override
     public void destroy() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

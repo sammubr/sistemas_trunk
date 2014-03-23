@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.hibernate.criterion.Criterion;
@@ -471,13 +472,13 @@ public class ConciliacaoManual implements Serializable {
             for (Integer combinacao : combinacoes) {
 
                 for (ContaContabilMovimento movimento : listaDeMovimentoContaContabilConciliados) {
-                    if (movimento.getCombinacao() == combinacao) {
+                    if (Objects.equals(movimento.getCombinacao(), combinacao)) {
                         movimentosContabeisADesconciliar.add(movimento);
                     }
                 }
 
                 for (ContaBancariaMovimento movimento : listaDeMovimentoContaBancariaConciliados) {
-                    if (movimento.getCombinacao() == combinacao) {
+                    if (Objects.equals(movimento.getCombinacao(), combinacao)) {
                         movimentosBancariosADesconciliar.add(movimento);
                     }
                 }
@@ -526,6 +527,7 @@ public class ConciliacaoManual implements Serializable {
 
     public void ordenaConciliados() {
         Collections.sort(listaDeMovimentoContaBancariaConciliados, new Comparator() {
+            @Override
             public int compare(Object o1, Object o2) {
                 ContaBancariaMovimento p1 = (ContaBancariaMovimento) o1;
                 ContaBancariaMovimento p2 = (ContaBancariaMovimento) o2;
@@ -534,6 +536,7 @@ public class ConciliacaoManual implements Serializable {
         });
 
         Collections.sort(listaDeMovimentoContaContabilConciliados, new Comparator() {
+            @Override
             public int compare(Object o1, Object o2) {
                 ContaContabilMovimento p1 = (ContaContabilMovimento) o1;
                 ContaContabilMovimento p2 = (ContaContabilMovimento) o2;
@@ -546,6 +549,7 @@ public class ConciliacaoManual implements Serializable {
     public void ordenaNaoConciliados() {
 
         Collections.sort(listaDeMovimentoContaContabilNaoConciliados, new Comparator() {
+            @Override
             public int compare(Object o1, Object o2) {
                 ContaContabilMovimento p1 = (ContaContabilMovimento) o1;
                 ContaContabilMovimento p2 = (ContaContabilMovimento) o2;
@@ -554,6 +558,7 @@ public class ConciliacaoManual implements Serializable {
         });
 
         Collections.sort(listaDeMovimentoContaContabilNaoConciliados, new Comparator() {
+            @Override
             public int compare(Object o1, Object o2) {
                 ContaContabilMovimento p1 = (ContaContabilMovimento) o1;
                 ContaContabilMovimento p2 = (ContaContabilMovimento) o2;
@@ -562,6 +567,7 @@ public class ConciliacaoManual implements Serializable {
         });
 
         Collections.sort(listaDeMovimentoContaBancariaNaoConciliados, new Comparator() {
+            @Override
             public int compare(Object o1, Object o2) {
                 ContaBancariaMovimento p1 = (ContaBancariaMovimento) o1;
                 ContaBancariaMovimento p2 = (ContaBancariaMovimento) o2;
@@ -570,6 +576,7 @@ public class ConciliacaoManual implements Serializable {
         });
 
         Collections.sort(listaDeMovimentoContaBancariaNaoConciliados, new Comparator() {
+            @Override
             public int compare(Object o1, Object o2) {
                 ContaBancariaMovimento p1 = (ContaBancariaMovimento) o1;
                 ContaBancariaMovimento p2 = (ContaBancariaMovimento) o2;

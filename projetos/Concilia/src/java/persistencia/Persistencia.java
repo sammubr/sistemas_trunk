@@ -7,6 +7,7 @@ package persistencia;
 import java.util.List;
 import java.util.ResourceBundle;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
@@ -28,11 +29,10 @@ public class Persistencia {
             session.saveOrUpdate(this);
             session.flush();
             tx.commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
-            e.printStackTrace();
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"), e);
             throw e;
         } finally {
@@ -48,11 +48,10 @@ public class Persistencia {
             session.delete(this);
             session.flush();
             tx.commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
-            e.printStackTrace();
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"), e);
             throw e;
         } finally {
@@ -84,11 +83,10 @@ public class Persistencia {
             lista = crit.list();
 
             tx.commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
-            e.printStackTrace();
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("ConsultaErrorOccured"), e);
             throw e;
         } finally {
@@ -123,11 +121,10 @@ public class Persistencia {
             }
 
             tx.commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
-            e.printStackTrace();
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("ConsultaErrorOccured"), e);
             throw e;
         } finally {
