@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Conciliacao" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="85308ccf-ed7c-4b39-aec5-59d97f1a2b5c">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="numeroRelacionamento" class="java.lang.Integer"/>
 	<parameter name="dataConciliacao" class="java.util.Date"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
@@ -255,7 +257,7 @@ where id =  $P{numeroRelacionamento}]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[($V{1retornado}.doubleValue()+$V{4retornado}.doubleValue())-($V{2retornado}.doubleValue()+$V{3retornado}.doubleValue())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($V{1retornado}.doubleValue()-$V{4retornado}.doubleValue())-$V{2retornado}.doubleValue()-$V{3retornado}.doubleValue()]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

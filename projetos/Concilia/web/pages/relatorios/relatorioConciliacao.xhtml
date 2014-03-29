@@ -34,11 +34,11 @@
 
                         <div class="form-group">
                             <label for="dataConciliacao">Data da conciliação:</label>
-                            <p:inputText id="dataConciliacao" styleClass="form-control" value="#{relatorioConciliacao.dataConciliacao}" 
+                            <p:inputMask mask="99/99/9999" id="dataConciliacao" styleClass="form-control" value="#{relatorioConciliacao.dataConciliacao}" 
                                          title="Data conciliação" required="true"                                                  
                                          requiredMessage="#{bundle.ConciliacaoManualDataConciliacaoRequiredMessage}">
                                 <f:convertDateTime type="date" dateStyle="short"/>                                    
-                            </p:inputText>
+                            </p:inputMask>
                         </div>            
 
                         <div class="row">
