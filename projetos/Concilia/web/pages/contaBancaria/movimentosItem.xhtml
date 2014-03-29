@@ -29,7 +29,7 @@
                     <label for="dataMov">#{bundle.CreateContaBancariaLabel_dataMov}</label>
                     <p:inputMask mask="99/99/9999" id="dataMov" styleClass="form-control" value="#{formCadastroContaBancariaMovimento.item.dataMov}" title="#{bundle.CreateContaBancariaMovimentoTitle_dataMov}"
                                  required="true" requiredMessage="#{bundle.CreateContaBancariaMovimentoRequiredMessage_dataMov}">                                              
-                        <f:convertDateTime type="date" dateStyle="short"/>
+                        <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
                         <p:watermark value="#{bundle.CreateContaBancariaMovimentoTitle_dataMov}" for="dataMov"/>
                     </p:inputMask>
                 </div>                

@@ -40,13 +40,13 @@
                                                  title="Data da conciliação" required="true"                                                  
                                                  requiredMessage="#{bundle.ConciliacaoManualDataConciliacaoRequiredMessage}">
                                         <p:watermark value="Data da conciliação" for="dataConciliacao"/>
-                                        <f:convertDateTime type="date" dateStyle="short"/>
+                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
                                     </p:inputMask>
                                 </div>                            
 
                                 <div class="btn-group ">
                                     <p:commandLink title="OK" value="OK" styleClass="btn btn-primary" actionListener="#{formConciliacaoManual.filtraMovimentos}" update=":panelConciliacao"/>
-                                    <p:commandLink title="Cancelar" value="Cancelar" styleClass="btn btn-default" action="index.xhtml" />
+                                    <p:commandLink title="Cancelar" value="Cancelar" styleClass="btn btn-default" action="index.xhtml" immediate="true"/>
                                 </div>
                             </h:form>
 

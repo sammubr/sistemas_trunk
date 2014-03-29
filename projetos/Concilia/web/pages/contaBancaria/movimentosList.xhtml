@@ -84,7 +84,7 @@
                                     <p:column sortBy="dataMov" headerText="#{bundle.ListContaBancariaMovimentoTitle_data}" filterBy="dataMov" filterMatchMode="contains"
                                               filterStyle="display:none" style="width: 100px">  
                                         <h:outputText value="#{item.dataMov}">                                                        
-                                            <f:convertDateTime type="date" dateStyle="short"/>
+                                            <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
                                         </h:outputText>
                                     </p:column>                             
 

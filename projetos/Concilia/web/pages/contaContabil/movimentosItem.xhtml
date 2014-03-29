@@ -29,7 +29,7 @@
                     <label for="dataMov">#{bundle.CreateContaContabilLabel_dataMov}</label>
                     <p:inputMask mask="99/99/9999" id="dataMov" styleClass="form-control" value="#{formCadastroContaContabilMovimento.item.dataMov}" title="#{bundle.CreateContaContabilMovimentoTitle_dataMov}"
                                  required="true" requiredMessage="#{bundle.CreateContaContabilMovimentoRequiredMessage_dataMov}">
-                        <f:convertDateTime type="date" dateStyle="short"/>
+                        <f:convertDateTime type="date" pattern="dd/MM/yyyy"/> 
                         <p:watermark value="#{bundle.CreateContaContabilMovimentoTitle_dataMov}" for="dataMov"/>
                     </p:inputMask>
                 </div>                

@@ -37,7 +37,8 @@
                             <p:inputMask mask="99/99/9999" id="dataConciliacao" styleClass="form-control" value="#{relatorioConciliacao.dataConciliacao}" 
                                          title="Data conciliação" required="true"                                                  
                                          requiredMessage="#{bundle.ConciliacaoManualDataConciliacaoRequiredMessage}">
-                                <f:convertDateTime type="date" dateStyle="short"/>                                    
+                                <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                                <p:watermark value="Data da conciliação" for="dataConciliacao"/>
                             </p:inputMask>
                         </div>            
 
