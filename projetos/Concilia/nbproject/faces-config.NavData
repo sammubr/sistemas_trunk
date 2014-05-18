@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
-    <Scope Scope="Project"/>
+    <Scope Scope="Project">
+        <Node id="pages/usuario/item.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="pages/index.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="pages/banco/item.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="pages/usuario/list.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="resources/templates/item.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="resources/templates/list.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="pages/contaContabil/list.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="erro.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="pages/relatorios/relatorioConciliacao.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="pages/contaBancaria/movimentosItem.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="pages/contaBancaria/movimentosList.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="pages/contaBancaria/list.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="pages/relacionamento/list.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="resources/templates/layoutPadrao.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="pages/banco/list.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="pages/contaContabil/movimentosItem.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="resources/templates/movimentosList.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="pages/contaContabil/movimentosList.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="pages/conciliacaoManual.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="login.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="pages/relacionamento/tabContaBancaria.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="resources/templates/dialogo.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="pages/relacionamento/tabContaContabil.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="pages/contaContabil/item.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="pages/contaBancaria/item.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="resources/templates/conciliacao.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="pages/conciliacaoAutomatica.xhtml" x="400" y="300" zoom="true"/>
+    </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>
