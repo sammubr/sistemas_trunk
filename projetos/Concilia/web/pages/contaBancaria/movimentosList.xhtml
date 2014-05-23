@@ -15,7 +15,7 @@
                 <ui:define name="list_titulo">
 
                     #{bundle.FormCadastroContaBancariaMovimento}  
-                    
+
                 </ui:define>  
 
                 <ui:define name="list_filtro">
@@ -108,8 +108,18 @@
                                         <h:outputText value="#{item.valor}" style="float:right">                                
                                             <f:convertNumber pattern="#,##0.00"/>
                                         </h:outputText>
-                                    </p:column>                                     
+                                    </p:column>
 
+                                    <p:column sortBy="credor.razaoSocialNome" headerText="#{bundle.ListContaBancariaMovimentoTitle_credor}" filterBy="credor.razaoSocialNome" filterMatchMode="contains" 
+                                              filterStyle="display:none" style="width: 150px">  
+                                        <h:outputText value="#{item.credor.razaoSocialNome}"/>  
+                                    </p:column>
+
+                                    <p:column sortBy="categoria.descricao" headerText="#{bundle.ListContaBancariaMovimentoTitle_categoria}" filterBy="categoria.descricao" filterMatchMode="contains" 
+                                              filterStyle="display:none" style="width: 150px">  
+                                        <h:outputText value="#{item.credor.razaoSocialNome}"/>  
+                                    </p:column>
+                                    
                                     <p:column style="width: 40px; text-align: center">  
 
                                         <p:commandLink title="#{bundle.EditLink}" update=":formItem" actionListener="#{formCadastroContaBancariaMovimento.edita(item)}" 
@@ -156,17 +166,17 @@
     </ui:composition>
 
     <script type="text/javascript">
-                                                window.onload = function() {
-                                                    document.getElementById('formList:list_table:globalFilter').focus();
-                                                };
-                                                $('#myModal').on('shown.bs.modal', function() {
-                                                    $('input:visible:first', this).focus();
-                                                });
-                                                $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-                                                    e.target; // activated tab
-                                                    e.relatedTarget; // previous tab
-                                                });
-                                                $('#tabs a:first').tab('show'); // Select first tab
+        window.onload = function() {
+            document.getElementById('formList:list_table:globalFilter').focus();
+        };
+        $('#myModal').on('shown.bs.modal', function() {
+            $('input:visible:first', this).focus();
+        });
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            e.target; // activated tab
+            e.relatedTarget; // previous tab
+        });
+        $('#tabs a:first').tab('show'); // Select first tab
     </script>
 
 </html>

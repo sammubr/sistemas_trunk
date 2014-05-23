@@ -1,7 +1,5 @@
 package forms;
 
-import tabelas.ContaBancaria;
-import tabelas.ContaBancariaMovimento;
 import diversos.ArquivoMovimentoContaBancaria;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +13,9 @@ import org.hibernate.criterion.Restrictions;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+import tabelas.ContaBancaria;
+import tabelas.ContaBancariaMovimento;
+import tabelas.Credor;
 import util.JsfUtil;
 
 @Named("formCadastroContaBancariaMovimento")
@@ -28,6 +29,7 @@ public class FormCadastroContaBancariaMovimento implements Serializable {
     private ContaBancaria contaBancariaSelecionada;
     private List<ContaBancaria> listaDeContasBancarias;
     private UploadedFile file;
+    private List<Credor> listaDeCredores;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
     public FormCadastroContaBancariaMovimento() {
@@ -88,6 +90,19 @@ public class FormCadastroContaBancariaMovimento implements Serializable {
 
     public void setFile(UploadedFile file) {
         this.file = file;
+    }
+        
+    public List<Credor> getListaDeCredores() {
+        Credor consulta = new Credor();
+        List<Order> ordem = new ArrayList<>();        
+        ordem.add(Order.asc("razaoSocialNome"));
+        listaDeCredores = consulta.obterLista(null, ordem);
+
+        return listaDeCredores;
+    }
+
+    public void setListaDeCredores(List<Credor> listaDeCredores) {
+        this.listaDeCredores = listaDeCredores;
     }
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR

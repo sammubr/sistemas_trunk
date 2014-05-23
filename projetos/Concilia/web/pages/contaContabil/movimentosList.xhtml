@@ -108,7 +108,12 @@
                                         <h:outputText value="#{item.valor}" style="float:right">                                
                                             <f:convertNumber pattern="#,##0.00"/>
                                         </h:outputText>
-                                    </p:column>                                     
+                                    </p:column>         
+                                    
+                                    <p:column sortBy="credor.razaoSocialNome" headerText="#{bundle.ListContaContabilMovimentoTitle_credor}" filterBy="credor.razaoSocialNome" filterMatchMode="contains" 
+                                              filterStyle="display:none" style="width: 150px">  
+                                        <h:outputText value="#{item.credor.razaoSocialNome}"/>  
+                                    </p:column>                                                                         
 
                                     <p:column style="width: 40px; text-align: center">  
 

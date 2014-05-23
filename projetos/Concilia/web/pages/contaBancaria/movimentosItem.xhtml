@@ -56,6 +56,15 @@
                     <p:inputText id="historico" styleClass="form-control" value="#{formCadastroContaBancariaMovimento.item.historico}" title="#{bundle.CreateContaBancariaMovimentoTitle_historico}"/>
                     <p:watermark value="#{bundle.CreateContaBancariaMovimentoTitle_historico}" for="historico"/>
                 </div>    
+                
+                <div class="form-group">
+                    <label for="credor">#{bundle.CreateContaBancariaLabel_credor}</label>
+
+                    <h:selectOneMenu id="credor" value="#{formCadastroContaBancariaMovimento.item.credor}" converter="converterCredor" class="form-control">
+                        <f:selectItem itemLabel="#{bundle.SelecionarCredor}" itemValue="" />
+                        <f:selectItems value="#{formCadastroContaBancariaMovimento.listaDeCredores}" var="item" itemValue="#{item}" itemLabel="#{item.razaoSocialNome}" />
+                    </h:selectOneMenu>                          
+                </div>                
 
             </ui:define>
 

@@ -7,9 +7,9 @@
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/concilia</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">123456</property>
-<!--        <property name="hibernate.connection.url">jdbc:postgresql://127.8.200.132:5432/meusite</property>
-        <property name="hibernate.connection.username">admin8meiznn</property>
-        <property name="hibernate.connection.password">LCWjv2YGYiiZ</property>-->
+<!--        <property name="hibernate.connection.url">jdbc:postgresql://127.12.233.2:5432/concilia1</property>
+        <property name="hibernate.connection.username">adminfxc117a</property>
+        <property name="hibernate.connection.password">g1Ga3Ge3RHpQ</property>-->
         <property name="hibernate.connection.useUnicode">true</property>
         <property name="hibernate.connection.characterEncoding">UTF-8</property>
         <property name="hibernate.connection.charSet">UTF-8</property>    
@@ -27,5 +27,10 @@
         <mapping class="tabelas.ContaContabilMovimento"/>
         <mapping class="tabelas.RelContabilidadeBanco"/>
         <mapping class="tabelas.Conciliacao"/>
+        <mapping class="tabelas.Credor"/>
+        <mapping class="tabelas.BancoCategoria"/>
+        <mapping class="tabelas.BancoSubcategoria"/>
+        <mapping class="tabelas.ContabilidadeCategoria"/>
+        <mapping class="tabelas.ContabilidadeSubcategoria"/>
     </session-factory>
 </hibernate-configuration>

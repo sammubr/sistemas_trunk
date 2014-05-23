@@ -77,6 +77,12 @@ public class ContaBancariaMovimento extends Persistencia implements Serializable
     @JoinColumn(name = "conta", referencedColumnName = "idconta_bancaria")
     @ManyToOne(optional = false)
     private ContaBancaria conta;
+    @JoinColumn(name = "subcategoria", referencedColumnName = "idbanco_subcategoria")
+    @ManyToOne
+    private BancoSubcategoria subcategoria;
+    @JoinColumn(name = "credor", referencedColumnName = "idcredor")
+    @ManyToOne
+    private Credor credor;
 
     public ContaBancariaMovimento() {
     }
@@ -186,6 +192,22 @@ public class ContaBancariaMovimento extends Persistencia implements Serializable
     @Override
     public String toString() {
         return "tabelas.ContaBancariaMovimento[ idcontaBancariaMovimento=" + idcontaBancariaMovimento + " ]";
+    }
+
+    public BancoSubcategoria getSubcategoria() {
+        return subcategoria;
+    }
+
+    public void setSubcategoria(BancoSubcategoria subcategoria) {
+        this.subcategoria = subcategoria;
+    }
+
+    public Credor getCredor() {
+        return credor;
+    }
+
+    public void setCredor(Credor credor) {
+        this.credor = credor;
     }
     
 }

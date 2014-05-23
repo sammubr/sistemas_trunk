@@ -15,6 +15,7 @@ import org.hibernate.criterion.Restrictions;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+import tabelas.Credor;
 import util.JsfUtil;
 
 @Named("formCadastroContaContabilMovimento")
@@ -28,6 +29,7 @@ public class FormCadastroContaContabilMovimento implements Serializable {
     private ContaContabil contaContabilSelecionada;
     private List<ContaContabil> listaDeContasContabeis;
     private UploadedFile file;
+    private List<Credor> listaDeCredores;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
     public FormCadastroContaContabilMovimento() {
@@ -36,11 +38,11 @@ public class FormCadastroContaContabilMovimento implements Serializable {
 
     private void geraListaDeContasContabeis() {
         ContaContabil contaContabil = new ContaContabil();
-           
+
         List<Order> ordem = new ArrayList<>();
-        ordem.add(Order.asc("descricao"));       
-                
-        setListaDeContasContabeis(contaContabil.obterLista( null, ordem));
+        ordem.add(Order.asc("descricao"));
+
+        setListaDeContasContabeis(contaContabil.obterLista(null, ordem));
     }
 
 // --------------------------------------------- GETTERS E SETTERS DESTA CLASSE
@@ -92,6 +94,19 @@ public class FormCadastroContaContabilMovimento implements Serializable {
         this.file = file;
     }
 
+    public List<Credor> getListaDeCredores() {
+        Credor consulta = new Credor();
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("razaoSocialNome"));
+        listaDeCredores = consulta.obterLista(null, ordem);
+
+        return listaDeCredores;
+    }
+
+    public void setListaDeCredores(List<Credor> listaDeCredores) {
+        this.listaDeCredores = listaDeCredores;
+    }
+
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public void criaNovo() {
         item = new ContaContabilMovimento();
@@ -134,13 +149,13 @@ public class FormCadastroContaContabilMovimento implements Serializable {
     public void geraListaDeMovimentos() {
 
         ContaContabilMovimento consulta = new ContaContabilMovimento();
-         
+
         List<Criterion> filtro = new ArrayList<>();
         filtro.add(Restrictions.eq("conta", contaContabilSelecionada));
         List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("dataMov"));
-        ordem.add(Order.asc("idcontaContabilMovimento"));               
-                
+        ordem.add(Order.asc("idcontaContabilMovimento"));
+
         lista = consulta.obterLista(filtro, ordem);
     }
 

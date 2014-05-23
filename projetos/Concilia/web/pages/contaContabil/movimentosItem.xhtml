@@ -56,7 +56,16 @@
                     <p:inputText id="historico" styleClass="form-control" value="#{formCadastroContaContabilMovimento.item.historico}" title="#{bundle.CreateContaContabilMovimentoTitle_historico}"/>
                     <p:watermark value="#{bundle.CreateContaContabilMovimentoTitle_historico}" for="historico"/>
                 </div>    
+                
+                <div class="form-group">
+                    <label for="credor">#{bundle.CreateContaContabilLabel_credor}</label>
 
+                    <h:selectOneMenu id="credor" value="#{formCadastroContaContabilMovimento.item.credor}" converter="converterCredor" class="form-control">
+                        <f:selectItem itemLabel="#{bundle.SelecionarCredor}" itemValue="" />
+                        <f:selectItems value="#{formCadastroContaContabilMovimento.listaDeCredores}" var="item" itemValue="#{item}" itemLabel="#{item.razaoSocialNome}" />
+                    </h:selectOneMenu>                          
+                </div>                
+                
             </ui:define>
 
         </ui:decorate>

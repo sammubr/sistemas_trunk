@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:form id="formItem">
+
+        <ui:decorate template="../../resources/templates/dialogo.xhtml">
+
+            <ui:define name="dialogo_titulo">
+
+                #{bundle.FormCadastroMovimentoBancarioCategoria}
+
+            </ui:define>            
+
+            <ui:define name="dialogo_toolbar">
+
+                <p:commandLink title="#{bundle.SaveLink}" value="#{bundle.SaveLink}" styleClass="btn btn-primary" 
+                               actionListener="#{formCadastroMovimentoBancarioCategoria.persiste}" update=":formList:list_table"/>
+
+            </ui:define>
+
+            <ui:define name="dialogo_conteudo">
+
+                <div class="form-group">
+                    <label for="descricao">#{bundle.CreateMovimentoBancarioCategoriaLabel_descricao}</label>
+                    <p:inputText id="descricao" styleClass="form-control" value="#{formCadastroMovimentoBancarioCategoria.item.descricao}" title="#{bundle.CreateMovimentoBancarioCategoriaTitle_descricao}" required="true" requiredMessage="#{bundle.CreateMovimentoBancarioCategoriaRequiredMessage_descricao}"/>
+                    <p:watermark value="#{bundle.CreateMovimentoBancarioCategoriaTitle_descricao}" for="descricao"/>
+                </div>                                   
+
+            </ui:define>
+
+        </ui:decorate>
+
+    </h:form>
+
+</html>

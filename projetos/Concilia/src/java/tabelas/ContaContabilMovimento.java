@@ -77,6 +77,12 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
     @JoinColumn(name = "conta", referencedColumnName = "idconta_contabil")
     @ManyToOne(optional = false)
     private ContaContabil conta;
+    @JoinColumn(name = "subcategoria", referencedColumnName = "idcontabilidade_subcategoria")
+    @ManyToOne
+    private ContabilidadeSubcategoria subcategoria;
+    @JoinColumn(name = "credor", referencedColumnName = "idcredor")
+    @ManyToOne
+    private Credor credor;    
 
     public ContaContabilMovimento() {
     }
@@ -186,6 +192,22 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
     @Override
     public String toString() {
         return "tabelas.ContaContabilMovimento[ idcontaContabilMovimento=" + idcontaContabilMovimento + " ]";
+    }
+
+    public ContabilidadeSubcategoria getSubcategoria() {
+        return subcategoria;
+    }
+
+    public void setSubcategoria(ContabilidadeSubcategoria subcategoria) {
+        this.subcategoria = subcategoria;
+    }
+
+    public Credor getCredor() {
+        return credor;
+    }
+
+    public void setCredor(Credor credor) {
+        this.credor = credor;
     }
     
 }
