@@ -45,6 +45,9 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContaContabilMovimento.findByCombinacao", query = "SELECT c FROM ContaContabilMovimento c WHERE c.combinacao = :combinacao"),
     @NamedQuery(name = "ContaContabilMovimento.findByDataConciliacao", query = "SELECT c FROM ContaContabilMovimento c WHERE c.dataConciliacao = :dataConciliacao")})
 public class ContaContabilMovimento extends Persistencia implements Serializable {
+    @JoinColumn(name = "categoria", referencedColumnName = "idcontabilidade_categoria")
+    @ManyToOne
+    private ContabilidadeCategoria categoria;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -208,6 +211,14 @@ public class ContaContabilMovimento extends Persistencia implements Serializable
 
     public void setCredor(Credor credor) {
         this.credor = credor;
+    }
+
+    public ContabilidadeCategoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(ContabilidadeCategoria categoria) {
+        this.categoria = categoria;
     }
     
 }

@@ -37,6 +37,8 @@ import persistencia.Persistencia;
     @NamedQuery(name = "ContabilidadeCategoria.findByIdcontabilidadeCategoria", query = "SELECT c FROM ContabilidadeCategoria c WHERE c.idcontabilidadeCategoria = :idcontabilidadeCategoria"),
     @NamedQuery(name = "ContabilidadeCategoria.findByDescricao", query = "SELECT c FROM ContabilidadeCategoria c WHERE c.descricao = :descricao")})
 public class ContabilidadeCategoria extends Persistencia implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
+    private Collection<ContaContabilMovimento> contaContabilMovimentoCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -111,6 +113,15 @@ public class ContabilidadeCategoria extends Persistencia implements Serializable
     @Override
     public String toString() {
         return "tabelas.ContabilidadeCategoria[ idcontabilidadeCategoria=" + idcontabilidadeCategoria + " ]";
+    }
+
+    @XmlTransient
+    public Collection<ContaContabilMovimento> getContaContabilMovimentoCollection() {
+        return contaContabilMovimentoCollection;
+    }
+
+    public void setContaContabilMovimentoCollection(Collection<ContaContabilMovimento> contaContabilMovimentoCollection) {
+        this.contaContabilMovimentoCollection = contaContabilMovimentoCollection;
     }
     
 }

@@ -13,7 +13,7 @@
             <ui:define name="dialogo_titulo">
 
                 #{bundle.FormCadastroContaBancariaMovimento}
-                
+
             </ui:define>            
 
             <ui:define name="dialogo_toolbar">
@@ -55,16 +55,35 @@
                     <label for="historico">#{bundle.CreateContaBancariaLabel_historico}</label>
                     <p:inputText id="historico" styleClass="form-control" value="#{formCadastroContaBancariaMovimento.item.historico}" title="#{bundle.CreateContaBancariaMovimentoTitle_historico}"/>
                     <p:watermark value="#{bundle.CreateContaBancariaMovimentoTitle_historico}" for="historico"/>
-                </div>    
-                
+                </div>
+
                 <div class="form-group">
                     <label for="credor">#{bundle.CreateContaBancariaLabel_credor}</label>
-
                     <h:selectOneMenu id="credor" value="#{formCadastroContaBancariaMovimento.item.credor}" converter="converterCredor" class="form-control">
                         <f:selectItem itemLabel="#{bundle.SelecionarCredor}" itemValue="" />
-                        <f:selectItems value="#{formCadastroContaBancariaMovimento.listaDeCredores}" var="item" itemValue="#{item}" itemLabel="#{item.razaoSocialNome}" />
-                    </h:selectOneMenu>                          
-                </div>                
+                        <f:selectItems value="#{formCadastroContaBancariaMovimento.listaDeCredores}" var="item1" itemValue="#{item1}" itemLabel="#{item1.razaoSocialNome}" />
+                    </h:selectOneMenu>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoria">#{bundle.CreateContaBancariaLabel_categoria}</label>
+                    <h:selectOneMenu id="categoria" value="#{formCadastroContaBancariaMovimento.item.categoria}" converter="converterBancoCategoria" class="form-control">
+                        <f:selectItem itemLabel="#{bundle.SelecionarCategoria}" itemValue="" />
+                        <f:selectItems value="#{formCadastroContaBancariaMovimento.listaDeCategorias}" var="item2" itemValue="#{item2}" itemLabel="#{item2.descricao}"/>
+
+                        <f:ajax listener="#{formCadastroContaBancariaMovimento.geraListaDeSubcategorias}" 
+                                render=":formItem:subcategoria"/>
+
+                    </h:selectOneMenu>
+                </div>
+
+                <div class="form-group">
+                    <label for="subcategoria">#{bundle.CreateContaBancariaLabel_subcategoria}</label>
+                    <h:selectOneMenu id="subcategoria" value="#{formCadastroContaBancariaMovimento.item.subcategoria}" converter="converterBancoSubcategoria" class="form-control">
+                        <f:selectItem itemLabel="#{bundle.SelecionarSubcategoria}" itemValue="" />
+                        <f:selectItems value="#{formCadastroContaBancariaMovimento.listaDeSubcategorias}" var="item3" itemValue="#{item3}" itemLabel="#{item3.descricao}"/>
+                    </h:selectOneMenu>
+                </div>
 
             </ui:define>
 

@@ -13,6 +13,8 @@ import org.hibernate.criterion.Restrictions;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+import tabelas.BancoCategoria;
+import tabelas.BancoSubcategoria;
 import tabelas.ContaBancaria;
 import tabelas.ContaBancariaMovimento;
 import tabelas.Credor;
@@ -30,6 +32,8 @@ public class FormCadastroContaBancariaMovimento implements Serializable {
     private List<ContaBancaria> listaDeContasBancarias;
     private UploadedFile file;
     private List<Credor> listaDeCredores;
+    private List<BancoCategoria> listaDeCategorias;
+    private List<BancoSubcategoria> listaDeSubcategorias;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
     public FormCadastroContaBancariaMovimento() {
@@ -38,7 +42,7 @@ public class FormCadastroContaBancariaMovimento implements Serializable {
 
     private void geraListaDeContasBancarias() {
         ContaBancaria contaBancaria = new ContaBancaria();
-        List<Order> ordem = new ArrayList<>();        
+        List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("descricao"));
         setListaDeContasBancarias(contaBancaria.obterLista(null, ordem));
     }
@@ -91,10 +95,10 @@ public class FormCadastroContaBancariaMovimento implements Serializable {
     public void setFile(UploadedFile file) {
         this.file = file;
     }
-        
+
     public List<Credor> getListaDeCredores() {
         Credor consulta = new Credor();
-        List<Order> ordem = new ArrayList<>();        
+        List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("razaoSocialNome"));
         listaDeCredores = consulta.obterLista(null, ordem);
 
@@ -103,6 +107,27 @@ public class FormCadastroContaBancariaMovimento implements Serializable {
 
     public void setListaDeCredores(List<Credor> listaDeCredores) {
         this.listaDeCredores = listaDeCredores;
+    }
+
+    public List<BancoCategoria> getListaDeCategorias() {
+        BancoCategoria consulta = new BancoCategoria();
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("descricao"));
+        listaDeCategorias = consulta.obterLista(null, ordem);
+
+        return listaDeCategorias;
+    }
+
+    public void setListaDeCategorias(List<BancoCategoria> listaDeCategorias) {
+        this.listaDeCategorias = listaDeCategorias;
+    }
+
+    public List<BancoSubcategoria> getListaDeSubcategorias() {
+        return listaDeSubcategorias;
+    }
+
+    public void setListaDeSubcategorias(List<BancoSubcategoria> listaDeSubcategorias) {
+        this.listaDeSubcategorias = listaDeSubcategorias;
     }
 
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
@@ -147,13 +172,13 @@ public class FormCadastroContaBancariaMovimento implements Serializable {
     public void geraListaDeMovimentos() {
 
         ContaBancariaMovimento consulta = new ContaBancariaMovimento();
-                
+
         List<Criterion> filtro = new ArrayList<>();
         filtro.add(Restrictions.eq("conta", contaBancariaSelecionada));
         List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("dataMov"));
-        ordem.add(Order.asc("idcontaBancariaMovimento"));        
-        
+        ordem.add(Order.asc("idcontaBancariaMovimento"));
+
         lista = consulta.obterLista(filtro, ordem);
     }
 
@@ -167,5 +192,17 @@ public class FormCadastroContaBancariaMovimento implements Serializable {
         } catch (Exception ex) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("LeituraArquivoErro"), ex);
         }
+    }
+    
+    public void geraListaDeSubcategorias(){
+        BancoSubcategoria consulta = new BancoSubcategoria();
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("descricao"));        
+
+        List<Criterion> filtro = new ArrayList<>();
+        filtro.add(Restrictions.eq("categoria", item.getCategoria()));
+        
+        listaDeSubcategorias = consulta.obterLista(filtro, ordem);
+     
     }
 }
