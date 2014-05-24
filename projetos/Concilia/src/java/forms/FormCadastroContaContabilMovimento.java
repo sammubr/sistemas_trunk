@@ -1,7 +1,5 @@
 package forms;
 
-import tabelas.ContaContabil;
-import tabelas.ContaContabilMovimento;
 import diversos.ArquivoMovimentoContaContabil;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +13,10 @@ import org.hibernate.criterion.Restrictions;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+import tabelas.ContaContabil;
+import tabelas.ContaContabilMovimento;
+import tabelas.ContabilidadeCategoria;
+import tabelas.ContabilidadeSubcategoria;
 import tabelas.Credor;
 import util.JsfUtil;
 
@@ -30,6 +32,8 @@ public class FormCadastroContaContabilMovimento implements Serializable {
     private List<ContaContabil> listaDeContasContabeis;
     private UploadedFile file;
     private List<Credor> listaDeCredores;
+    private List<ContabilidadeCategoria> listaDeCategorias;
+    private List<ContabilidadeSubcategoria> listaDeSubcategorias;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
     public FormCadastroContaContabilMovimento() {
@@ -107,6 +111,27 @@ public class FormCadastroContaContabilMovimento implements Serializable {
         this.listaDeCredores = listaDeCredores;
     }
 
+    public List<ContabilidadeCategoria> getListaDeCategorias() {
+        ContabilidadeCategoria consulta = new ContabilidadeCategoria();
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("descricao"));
+        listaDeCategorias = consulta.obterLista(null, ordem);
+
+        return listaDeCategorias;
+    }
+
+    public void setListaDeCategorias(List<ContabilidadeCategoria> listaDeCategorias) {
+        this.listaDeCategorias = listaDeCategorias;
+    }
+
+    public List<ContabilidadeSubcategoria> getListaDeSubcategorias() {
+        return listaDeSubcategorias;
+    }
+
+    public void setListaDeSubcategorias(List<ContabilidadeSubcategoria> listaDeSubcategorias) {
+        this.listaDeSubcategorias = listaDeSubcategorias;
+    }
+
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public void criaNovo() {
         item = new ContaContabilMovimento();
@@ -169,5 +194,17 @@ public class FormCadastroContaContabilMovimento implements Serializable {
         } catch (Exception ex) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("LeituraArquivoErro"), ex);
         }
+    }
+
+    public void geraListaDeSubcategorias() {
+        ContabilidadeSubcategoria consulta = new ContabilidadeSubcategoria();
+        List<Order> ordem = new ArrayList<>();
+        ordem.add(Order.asc("descricao"));
+
+        List<Criterion> filtro = new ArrayList<>();
+        filtro.add(Restrictions.eq("categoria", item.getCategoria()));
+
+        listaDeSubcategorias = consulta.obterLista(filtro, ordem);
+
     }
 }

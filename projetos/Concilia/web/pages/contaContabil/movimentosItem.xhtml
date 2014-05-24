@@ -62,8 +62,28 @@
 
                     <h:selectOneMenu id="credor" value="#{formCadastroContaContabilMovimento.item.credor}" converter="converterCredor" class="form-control">
                         <f:selectItem itemLabel="#{bundle.SelecionarCredor}" itemValue="" />
-                        <f:selectItems value="#{formCadastroContaContabilMovimento.listaDeCredores}" var="item" itemValue="#{item}" itemLabel="#{item.razaoSocialNome}" />
+                        <f:selectItems value="#{formCadastroContaContabilMovimento.listaDeCredores}" var="item1" itemValue="#{item1}" itemLabel="#{item1.razaoSocialNome}" />
                     </h:selectOneMenu>                          
+                </div>
+                
+                <div class="form-group">
+                    <label for="categoria">#{bundle.CreateContaContabilLabel_categoria}</label>
+                    <h:selectOneMenu id="categoria" value="#{formCadastroContaContabilMovimento.item.categoria}" converter="converterContabilidadeCategoria" class="form-control">
+                        <f:selectItem itemLabel="#{bundle.SelecionarCategoria}" itemValue="" />
+                        <f:selectItems value="#{formCadastroContaContabilMovimento.listaDeCategorias}" var="item2" itemValue="#{item2}" itemLabel="#{item2.descricao}"/>
+
+                        <f:ajax listener="#{formCadastroContaContabilMovimento.geraListaDeSubcategorias}" 
+                                render=":formItem:subcategoria"/>
+
+                    </h:selectOneMenu>
+                </div>
+
+                <div class="form-group">
+                    <label for="subcategoria">#{bundle.CreateContaContabilLabel_subcategoria}</label>
+                    <h:selectOneMenu id="subcategoria" value="#{formCadastroContaContabilMovimento.item.subcategoria}" converter="converterContabilidadeSubcategoria" class="form-control">
+                        <f:selectItem itemLabel="#{bundle.SelecionarSubcategoria}" itemValue="" />
+                        <f:selectItems value="#{formCadastroContaContabilMovimento.listaDeSubcategorias}" var="item3" itemValue="#{item3}" itemLabel="#{item3.descricao}"/>
+                    </h:selectOneMenu>
                 </div>                
                 
             </ui:define>
