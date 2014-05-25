@@ -24,6 +24,9 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import persistencia.Persistencia;
+import javax.persistence.FetchType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -52,9 +55,11 @@ public class Credor extends Persistencia implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "razao_social_nome")
     private String razaoSocialNome;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "credor")
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "credor")
+    @Fetch(FetchMode.SUBSELECT)    
     private Collection<ContaContabilMovimento> contaContabilMovimentoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "credor")
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "credor")
+    @Fetch(FetchMode.SUBSELECT)    
     private Collection<ContaBancariaMovimento> contaBancariaMovimentoCollection;
 
     public Credor() {

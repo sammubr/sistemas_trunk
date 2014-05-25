@@ -42,10 +42,8 @@ public class FormCadastroContaContabilMovimento implements Serializable {
 
     private void geraListaDeContasContabeis() {
         ContaContabil contaContabil = new ContaContabil();
-
         List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("descricao"));
-
         setListaDeContasContabeis(contaContabil.obterLista(null, ordem));
     }
 
@@ -103,7 +101,6 @@ public class FormCadastroContaContabilMovimento implements Serializable {
         List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("razaoSocialNome"));
         listaDeCredores = consulta.obterLista(null, ordem);
-
         return listaDeCredores;
     }
 
@@ -125,6 +122,16 @@ public class FormCadastroContaContabilMovimento implements Serializable {
     }
 
     public List<ContabilidadeSubcategoria> getListaDeSubcategorias() {
+        if (item == null || item.getCategoria() == null) {
+            listaDeSubcategorias = null;
+        } else {
+            ContabilidadeSubcategoria consulta = new ContabilidadeSubcategoria();
+            List<Order> ordem = new ArrayList<>();
+            ordem.add(Order.asc("descricao"));
+            List<Criterion> filtro = new ArrayList<>();
+            filtro.add(Restrictions.eq("categoria", item.getCategoria()));
+            listaDeSubcategorias = consulta.obterLista(filtro, ordem);
+        }
         return listaDeSubcategorias;
     }
 
@@ -174,13 +181,11 @@ public class FormCadastroContaContabilMovimento implements Serializable {
     public void geraListaDeMovimentos() {
 
         ContaContabilMovimento consulta = new ContaContabilMovimento();
-
         List<Criterion> filtro = new ArrayList<>();
         filtro.add(Restrictions.eq("conta", contaContabilSelecionada));
         List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("dataMov"));
         ordem.add(Order.asc("idcontaContabilMovimento"));
-
         lista = consulta.obterLista(filtro, ordem);
     }
 
@@ -196,15 +201,4 @@ public class FormCadastroContaContabilMovimento implements Serializable {
         }
     }
 
-    public void geraListaDeSubcategorias() {
-        ContabilidadeSubcategoria consulta = new ContabilidadeSubcategoria();
-        List<Order> ordem = new ArrayList<>();
-        ordem.add(Order.asc("descricao"));
-
-        List<Criterion> filtro = new ArrayList<>();
-        filtro.add(Restrictions.eq("categoria", item.getCategoria()));
-
-        listaDeSubcategorias = consulta.obterLista(filtro, ordem);
-
-    }
 }

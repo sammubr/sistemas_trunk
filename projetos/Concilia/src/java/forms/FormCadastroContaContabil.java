@@ -87,17 +87,25 @@ public class FormCadastroContaContabil implements Serializable {
                 break;
             case 1:
                 for (ContaContabil itemSelecionado : itensSelecionados) {
-                    itemSelecionado.exclui();
+                    if (itemSelecionado.getRelContabilidadeBanco() == null) {
+                        itemSelecionado.exclui();
+                        geraLista();
+                        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
+                    } else {
+                        JsfUtil.addErrorMessage("Impossível excluir", "Existem relacionamentos com o registro selecionado!");
+                    }
                 }
-                geraLista();
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
                 break;
             default:
                 for (ContaContabil itemSelecionado : itensSelecionados) {
-                    itemSelecionado.exclui();
+                    if (itemSelecionado.getRelContabilidadeBanco() == null) {
+                        itemSelecionado.exclui();
+                        geraLista();
+                        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
+                    } else {
+                        JsfUtil.addErrorMessage("Impossível excluir", "Existem relacionamentos com o registro selecionado!");
+                    }
                 }
-                geraLista();
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
                 break;
         }
     }

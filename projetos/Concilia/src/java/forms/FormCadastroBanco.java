@@ -93,17 +93,25 @@ public class FormCadastroBanco implements Serializable {
                 break;
             case 1:
                 for (Banco itemSelecionado : itensSelecionados) {
-                    itemSelecionado.exclui();
+                    if (itemSelecionado.getContaBancariaCollection().isEmpty()) {
+                        itemSelecionado.exclui();
+                        geraLista();
+                        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
+                    } else {
+                        JsfUtil.addErrorMessage("Impossível excluir", "Existem relacionamentos com o registro selecionado!");
+                    }
                 }
-                geraLista();
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
                 break;
             default:
                 for (Banco itemSelecionado : itensSelecionados) {
-                    itemSelecionado.exclui();
+                    if (itemSelecionado.getContaBancariaCollection().isEmpty()) {
+                        itemSelecionado.exclui();
+                        geraLista();
+                        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
+                    } else {
+                        JsfUtil.addErrorMessage("Impossível excluir", "Existem relacionamentos com o registro selecionado!");
+                    }
                 }
-                geraLista();
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
                 break;
         }
     }

@@ -33,7 +33,7 @@ public class FormCadastroContaBancaria implements Serializable {
 
     private void geraLista() {
         ContaBancaria consulta = new ContaBancaria();
-        List<Order> ordem = new ArrayList<>();        
+        List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("descricao"));
         lista = consulta.obterLista(null, ordem);
     }
@@ -66,7 +66,7 @@ public class FormCadastroContaBancaria implements Serializable {
     public List<Banco> getListaDeBancos() {
 
         Banco consulta = new Banco();
-        List<Order> ordem = new ArrayList<>();        
+        List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("descricao"));
         listaDeBancos = consulta.obterLista(null, ordem);
 
@@ -100,17 +100,25 @@ public class FormCadastroContaBancaria implements Serializable {
                 break;
             case 1:
                 for (ContaBancaria itemSelecionado : itensSelecionados) {
-                    itemSelecionado.exclui();
+                    if (itemSelecionado.getRelContabilidadeBanco() == null) {
+                        itemSelecionado.exclui();
+                        geraLista();
+                        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
+                    } else {
+                        JsfUtil.addErrorMessage("Impossível excluir", "Existem relacionamentos com o registro selecionado!");
+                    }
                 }
-                geraLista();
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
                 break;
             default:
                 for (ContaBancaria itemSelecionado : itensSelecionados) {
-                    itemSelecionado.exclui();
+                    if (itemSelecionado.getRelContabilidadeBanco() == null) {
+                        itemSelecionado.exclui();
+                        geraLista();
+                        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
+                    } else {
+                        JsfUtil.addErrorMessage("Impossível excluir", "Existem relacionamentos com o registro selecionado!");
+                    }
                 }
-                geraLista();
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
                 break;
         }
     }

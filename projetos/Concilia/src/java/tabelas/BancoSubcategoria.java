@@ -26,6 +26,9 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import persistencia.Persistencia;
+import javax.persistence.FetchType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -53,7 +56,8 @@ public class BancoSubcategoria extends Persistencia implements Serializable {
     @JoinColumn(name = "categoria", referencedColumnName = "idbanco_categoria")
     @ManyToOne(optional = false)
     private BancoCategoria categoria;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subcategoria")
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "subcategoria")
+    @Fetch(FetchMode.SUBSELECT)
     private Collection<ContaBancariaMovimento> contaBancariaMovimentoCollection;
 
     public BancoSubcategoria() {

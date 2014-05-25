@@ -83,17 +83,25 @@ public class FormCadastroMovimentoContabilCategoria implements Serializable {
                 break;
             case 1:
                 for (ContabilidadeCategoria itemSelecionado : itensSelecionados) {
-                    itemSelecionado.exclui();
+                    if (itemSelecionado.getContaContabilMovimentoCollection().isEmpty()) {
+                        itemSelecionado.exclui();
+                        geraLista();
+                        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
+                    } else {
+                        JsfUtil.addErrorMessage("Impossível excluir", "Existem relacionamentos com o registro selecionado!");
+                    }
                 }
-                geraLista();
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
                 break;
             default:
                 for (ContabilidadeCategoria itemSelecionado : itensSelecionados) {
-                    itemSelecionado.exclui();
+                    if (itemSelecionado.getContaContabilMovimentoCollection().isEmpty()) {
+                        itemSelecionado.exclui();
+                        geraLista();
+                        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
+                    } else {
+                        JsfUtil.addErrorMessage("Impossível excluir", "Existem relacionamentos com o registro selecionado!");
+                    }
                 }
-                geraLista();
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
                 break;
         }
     }

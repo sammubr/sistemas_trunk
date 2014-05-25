@@ -70,10 +70,7 @@
                     <h:selectOneMenu id="categoria" value="#{formCadastroContaBancariaMovimento.item.categoria}" converter="converterBancoCategoria" class="form-control">
                         <f:selectItem itemLabel="#{bundle.SelecionarCategoria}" itemValue="" />
                         <f:selectItems value="#{formCadastroContaBancariaMovimento.listaDeCategorias}" var="item2" itemValue="#{item2}" itemLabel="#{item2.descricao}"/>
-
-                        <f:ajax listener="#{formCadastroContaBancariaMovimento.geraListaDeSubcategorias}" 
-                                render=":formItem:subcategoria"/>
-
+                        <f:ajax render=":formItem:subcategoria"/>
                     </h:selectOneMenu>
                 </div>
 

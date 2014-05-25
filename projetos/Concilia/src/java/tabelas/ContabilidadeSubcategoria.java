@@ -26,6 +26,9 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import persistencia.Persistencia;
+import javax.persistence.FetchType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -50,7 +53,8 @@ public class ContabilidadeSubcategoria extends Persistencia implements Serializa
     @Size(min = 1, max = 30)
     @Column(name = "descricao")
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subcategoria")
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "subcategoria")
+    @Fetch(FetchMode.SUBSELECT)
     private Collection<ContaContabilMovimento> contaContabilMovimentoCollection;
     @JoinColumn(name = "categoria", referencedColumnName = "idcontabilidade_categoria")
     @ManyToOne(optional = false)

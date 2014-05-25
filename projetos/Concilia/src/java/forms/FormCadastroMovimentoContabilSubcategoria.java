@@ -91,24 +91,32 @@ public class FormCadastroMovimentoContabilSubcategoria implements Serializable {
         RequestContext.getCurrentInstance().execute("$('#myModal').modal('hide')");
     }
 
-    public void exclui() {
+        public void exclui() {
         switch (itensSelecionados.size()) {
             case 0:
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("EmptyRecordsToDelete"), "");
                 break;
             case 1:
                 for (ContabilidadeSubcategoria itemSelecionado : itensSelecionados) {
-                    itemSelecionado.exclui();
+                    if (itemSelecionado.getContaContabilMovimentoCollection().isEmpty()) {
+                        itemSelecionado.exclui();
+                        geraLista();
+                        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
+                    } else {
+                        JsfUtil.addErrorMessage("Impossível excluir", "Existem relacionamentos com o registro selecionado!");
+                    }
                 }
-                geraLista();
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordDeleted"), "");
                 break;
             default:
                 for (ContabilidadeSubcategoria itemSelecionado : itensSelecionados) {
-                    itemSelecionado.exclui();
+                    if (itemSelecionado.getContaContabilMovimentoCollection().isEmpty()) {
+                        itemSelecionado.exclui();
+                        geraLista();
+                        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
+                    } else {
+                        JsfUtil.addErrorMessage("Impossível excluir", "Existem relacionamentos com o registro selecionado!");
+                    }
                 }
-                geraLista();
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordsDeleted"), "");
                 break;
         }
     }

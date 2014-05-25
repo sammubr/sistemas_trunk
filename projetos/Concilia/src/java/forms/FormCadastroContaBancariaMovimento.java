@@ -101,7 +101,6 @@ public class FormCadastroContaBancariaMovimento implements Serializable {
         List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("razaoSocialNome"));
         listaDeCredores = consulta.obterLista(null, ordem);
-
         return listaDeCredores;
     }
 
@@ -114,7 +113,6 @@ public class FormCadastroContaBancariaMovimento implements Serializable {
         List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("descricao"));
         listaDeCategorias = consulta.obterLista(null, ordem);
-
         return listaDeCategorias;
     }
 
@@ -123,6 +121,16 @@ public class FormCadastroContaBancariaMovimento implements Serializable {
     }
 
     public List<BancoSubcategoria> getListaDeSubcategorias() {
+        if (item == null || item.getCategoria() == null) {
+            listaDeSubcategorias = null;
+        } else {
+            BancoSubcategoria consulta = new BancoSubcategoria();
+            List<Order> ordem = new ArrayList<>();
+            ordem.add(Order.asc("descricao"));
+            List<Criterion> filtro = new ArrayList<>();
+            filtro.add(Restrictions.eq("categoria", item.getCategoria()));
+            listaDeSubcategorias = consulta.obterLista(filtro, ordem);
+        }
         return listaDeSubcategorias;
     }
 
@@ -172,13 +180,11 @@ public class FormCadastroContaBancariaMovimento implements Serializable {
     public void geraListaDeMovimentos() {
 
         ContaBancariaMovimento consulta = new ContaBancariaMovimento();
-
         List<Criterion> filtro = new ArrayList<>();
         filtro.add(Restrictions.eq("conta", contaBancariaSelecionada));
         List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("dataMov"));
         ordem.add(Order.asc("idcontaBancariaMovimento"));
-
         lista = consulta.obterLista(filtro, ordem);
     }
 
@@ -193,16 +199,5 @@ public class FormCadastroContaBancariaMovimento implements Serializable {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("LeituraArquivoErro"), ex);
         }
     }
-    
-    public void geraListaDeSubcategorias(){
-        BancoSubcategoria consulta = new BancoSubcategoria();
-        List<Order> ordem = new ArrayList<>();
-        ordem.add(Order.asc("descricao"));        
 
-        List<Criterion> filtro = new ArrayList<>();
-        filtro.add(Restrictions.eq("categoria", item.getCategoria()));
-        
-        listaDeSubcategorias = consulta.obterLista(filtro, ordem);
-     
-    }
 }

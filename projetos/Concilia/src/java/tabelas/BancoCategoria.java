@@ -24,6 +24,9 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import persistencia.Persistencia;
+import javax.persistence.FetchType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -37,8 +40,6 @@ import persistencia.Persistencia;
     @NamedQuery(name = "BancoCategoria.findByIdbancoCategoria", query = "SELECT b FROM BancoCategoria b WHERE b.idbancoCategoria = :idbancoCategoria"),
     @NamedQuery(name = "BancoCategoria.findByDescricao", query = "SELECT b FROM BancoCategoria b WHERE b.descricao = :descricao")})
 public class BancoCategoria extends Persistencia implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
-    private Collection<ContaBancariaMovimento> contaBancariaMovimentoCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,6 +53,9 @@ public class BancoCategoria extends Persistencia implements Serializable {
     private String descricao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
     private Collection<BancoSubcategoria> bancoSubcategoriaCollection;
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "categoria")
+    @Fetch(FetchMode.SUBSELECT)
+    private Collection<ContaBancariaMovimento> contaBancariaMovimentoCollection;
 
     public BancoCategoria() {
     }

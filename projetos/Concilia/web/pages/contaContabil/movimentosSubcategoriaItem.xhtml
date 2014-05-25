@@ -34,7 +34,8 @@
                 <div class="form-group">
                     <label for="categoria">#{bundle.CreateContaBancariaLabel_categoriaDescricao}</label>
 
-                    <h:selectOneMenu id="categoria" value="#{formCadastroMovimentoContabilSubcategoria.item.categoria}" converter="converterContabilidadeCategoria" class="form-control" required="true" requiredMessage="#{bundle.CreateMovimentoContabilSubcategoriaRequiredMessage_categoria}">
+                    <h:selectOneMenu id="categoria" value="#{formCadastroMovimentoContabilSubcategoria.item.categoria}" converter="converterContabilidadeCategoria" class="form-control" required="true" requiredMessage="#{bundle.CreateMovimentoContabilSubcategoriaRequiredMessage_categoria}"
+                                     disabled="#{item.contaContabilMovimentoCollection.size() != 0}" readonly="#{item.contaContabilMovimentoCollection.size() != 0}">
                         <f:selectItem itemLabel="#{bundle.SelecionarCategoria}" itemValue="" />
                         <f:selectItems value="#{formCadastroMovimentoContabilSubcategoria.listaDeCategorias}" var="item" itemValue="#{item}" itemLabel="#{item.descricao}" />
                     </h:selectOneMenu>                          

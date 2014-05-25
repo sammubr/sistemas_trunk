@@ -34,7 +34,7 @@ public class Persistencia {
                 tx.rollback();
             }
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"), e);
-            throw e;
+//            throw e;
         } finally {
             session.close();
         }
@@ -53,7 +53,7 @@ public class Persistencia {
                 tx.rollback();
             }
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"), e);
-            throw e;
+//            throw e;
         } finally {
             session.close();
         }
@@ -88,7 +88,7 @@ public class Persistencia {
                 tx.rollback();
             }
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("ConsultaErrorOccured"), e);
-            throw e;
+//            throw e;
         } finally {
             session.close();
         }
@@ -126,7 +126,7 @@ public class Persistencia {
                 tx.rollback();
             }
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("ConsultaErrorOccured"), e);
-            throw e;
+//            throw e;
         } finally {
             session.close();
         }
