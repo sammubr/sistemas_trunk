@@ -33,7 +33,7 @@ LEFT JOIN conta_bancaria_movimento as a
      	ORDER BY b.data_mov DESC, b.idconta_bancaria_movimento desc
      	LIMIT 1
        )
-where c.rel_contabilidade_banco =  $P{numeroRelacionamento} ]]>
+where c.rel_contabilidade_banco =  $P{numeroRelacionamento}]]>
 	</queryString>
 	<field name="descricao" class="java.lang.String"/>
 	<field name="saldo_final" class="java.math.BigDecimal"/>
@@ -114,13 +114,17 @@ where c.rel_contabilidade_banco =  $P{numeroRelacionamento} ]]>
 				<box leftPadding="5" rightPadding="5">
 					<leftPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{idconta_bancaria}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="70" y="0" width="110" height="15" uuid="99484a9f-5f59-4500-9130-60838483c465"/>
 				<box leftPadding="5" rightPadding="5"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#">
@@ -128,7 +132,9 @@ where c.rel_contabilidade_banco =  $P{numeroRelacionamento} ]]>
 				<box leftPadding="5" rightPadding="5">
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{saldo_final}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -166,7 +172,7 @@ where c.rel_contabilidade_banco =  $P{numeroRelacionamento} ]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="SansSerif" isBold="true"/>
+					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{saldoFinalBanco}]]></textFieldExpression>
 			</textField>

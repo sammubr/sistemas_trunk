@@ -33,7 +33,7 @@ LEFT JOIN conta_contabil_movimento as a
      	ORDER BY b.data_mov DESC, b.idconta_contabil_movimento desc
      	LIMIT 1
        )
-where c.rel_contabilidade_banco =  $P{numeroRelacionamento} ]]>
+where c.rel_contabilidade_banco =  $P{numeroRelacionamento}]]>
 	</queryString>
 	<field name="idconta_contabil" class="java.lang.Integer"/>
 	<field name="descricao" class="java.lang.String"/>
@@ -116,7 +116,7 @@ where c.rel_contabilidade_banco =  $P{numeroRelacionamento} ]]>
 					<leftPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="SansSerif"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{idconta_contabil}]]></textFieldExpression>
 			</textField>
@@ -127,7 +127,7 @@ where c.rel_contabilidade_banco =  $P{numeroRelacionamento} ]]>
 				</reportElement>
 				<box leftPadding="5" rightPadding="5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 			</textField>
@@ -139,7 +139,7 @@ where c.rel_contabilidade_banco =  $P{numeroRelacionamento} ]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="SansSerif"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{saldo_final}]]></textFieldExpression>
 			</textField>
@@ -156,7 +156,7 @@ where c.rel_contabilidade_banco =  $P{numeroRelacionamento} ]]>
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="SansSerif" isBold="true"/>
+					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{saldoFinalContabilidade}]]></textFieldExpression>
 			</textField>

@@ -88,7 +88,7 @@ order by conta_bancaria_movimento.data_mov, conta_bancaria_movimento.idconta_ban
 		<band height="15">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="0" y="0" width="70" height="15" uuid="0d55aeaa-2bf1-4c75-8682-52cca4a590a8"/>
 				<box leftPadding="5" rightPadding="5">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -97,11 +97,11 @@ order by conta_bancaria_movimento.data_mov, conta_bancaria_movimento.idconta_ban
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="10"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{data_mov}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField isBlankWhenNull="true">
 				<reportElement x="70" y="0" width="110" height="15" uuid="c1204d49-09a2-41ee-8b48-6b632c6ef245"/>
 				<box leftPadding="5" rightPadding="5">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -110,11 +110,11 @@ order by conta_bancaria_movimento.data_mov, conta_bancaria_movimento.idconta_ban
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{historico}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="#,##0.00#">
+			<textField pattern="#,##0.00#">
 				<reportElement x="180" y="0" width="70" height="15" uuid="4c971e6e-a468-45c1-91ab-c44aa71c78fa"/>
 				<box leftPadding="5" rightPadding="5">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -123,7 +123,7 @@ order by conta_bancaria_movimento.data_mov, conta_bancaria_movimento.idconta_ban
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
 			</textField>
@@ -166,7 +166,7 @@ order by conta_bancaria_movimento.data_mov, conta_bancaria_movimento.idconta_ban
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalValor}]]></textFieldExpression>
 			</textField>

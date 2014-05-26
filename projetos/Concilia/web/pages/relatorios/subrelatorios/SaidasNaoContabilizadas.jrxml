@@ -97,13 +97,17 @@ order by conta_bancaria_movimento.data_mov, conta_bancaria_movimento.idconta_ban
 				<box leftPadding="5" rightPadding="5">
 					<leftPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{data_mov}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="70" y="0" width="110" height="15" uuid="d1cf3020-0a45-4cf7-ab74-c0dc44ac06c4"/>
 				<box leftPadding="5" rightPadding="5"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{historico}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#">
@@ -111,7 +115,9 @@ order by conta_bancaria_movimento.data_mov, conta_bancaria_movimento.idconta_ban
 				<box leftPadding="5" rightPadding="5">
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -127,7 +133,7 @@ order by conta_bancaria_movimento.data_mov, conta_bancaria_movimento.idconta_ban
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalValor}]]></textFieldExpression>
 			</textField>
