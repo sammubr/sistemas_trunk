@@ -67,6 +67,7 @@
                 <div class="form-group">
                     <label for="saldoInicial">#{bundle.CreateContaBancariaLabel_saldoInicial}</label>                            
                     <p:inputText id="saldoInicial" styleClass="form-control" value="#{formCadastroContaBancaria.item.saldoInicial}" title="#{bundle.CreateContaBancariaTitle_saldoInicial}" required="true" requiredMessage="#{bundle.CreateContaBancariaRequiredMessage_saldoInicial}">
+                        <p:watermark value="#{bundle.CreateContaBancariaTitle_saldoInicial}" for="saldoInicial"/>
                         <f:convertNumber pattern="#0.00" />                              
                         <p:ajax event="blur" update="saldoInicial"  />                  
                     </p:inputText>

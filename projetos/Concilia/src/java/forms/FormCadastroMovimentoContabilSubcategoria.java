@@ -21,6 +21,7 @@ public class FormCadastroMovimentoContabilSubcategoria implements Serializable {
     private List<ContabilidadeSubcategoria> lista;
     private List<ContabilidadeSubcategoria> itensSelecionados;
     private List<ContabilidadeCategoria> listaDeCategorias;
+    private boolean inabilitaSelecaoCategoria;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
     public FormCadastroMovimentoContabilSubcategoria() {
@@ -64,7 +65,7 @@ public class FormCadastroMovimentoContabilSubcategoria implements Serializable {
 
     public List<ContabilidadeCategoria> getListaDeCategorias() {
         ContabilidadeCategoria consulta = new ContabilidadeCategoria();
-        List<Order> ordem = new ArrayList<>();        
+        List<Order> ordem = new ArrayList<>();
         ordem.add(Order.asc("descricao"));
         listaDeCategorias = consulta.obterLista(null, ordem);
 
@@ -73,8 +74,16 @@ public class FormCadastroMovimentoContabilSubcategoria implements Serializable {
 
     public void setListaDeCredores(List<ContabilidadeCategoria> listaDeCategorias) {
         this.listaDeCategorias = listaDeCategorias;
-    }    
-    
+    }
+
+    public boolean isInabilitaSelecaoCategoria() {
+        return inabilitaSelecaoCategoria;
+    }
+
+    public void setInabilitaSelecaoCategoria(boolean inabilitaSelecaoCategoria) {
+        this.inabilitaSelecaoCategoria = inabilitaSelecaoCategoria;
+    }
+
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public void criaNovo() {
         item = new ContabilidadeSubcategoria();
@@ -82,6 +91,7 @@ public class FormCadastroMovimentoContabilSubcategoria implements Serializable {
 
     public void edita(ContabilidadeSubcategoria itemSelecionado) {
         item = itemSelecionado;
+        setInabilitaSelecaoCategoria(item.getContaContabilMovimentoCollection().size() > 0);
     }
 
     public void persiste() {
@@ -91,7 +101,7 @@ public class FormCadastroMovimentoContabilSubcategoria implements Serializable {
         RequestContext.getCurrentInstance().execute("$('#myModal').modal('hide')");
     }
 
-        public void exclui() {
+    public void exclui() {
         switch (itensSelecionados.size()) {
             case 0:
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("EmptyRecordsToDelete"), "");

@@ -21,6 +21,7 @@ public class FormCadastroMovimentoBancarioSubcategoria implements Serializable {
     private List<BancoSubcategoria> lista;
     private List<BancoSubcategoria> itensSelecionados;
     private List<BancoCategoria> listaDeCategorias;
+    private boolean inabilitaSelecaoCategoria;
 
 // ---------------------------------------------------------------- CONSTRUCTOR    
     public FormCadastroMovimentoBancarioSubcategoria() {
@@ -73,7 +74,15 @@ public class FormCadastroMovimentoBancarioSubcategoria implements Serializable {
 
     public void setListaDeCredores(List<BancoCategoria> listaDeCategorias) {
         this.listaDeCategorias = listaDeCategorias;
-    }    
+    }
+    
+    public boolean isInabilitaSelecaoCategoria() {
+        return inabilitaSelecaoCategoria;
+    }
+
+    public void setInabilitaSelecaoCategoria(boolean inabilitaSelecaoCategoria) {
+        this.inabilitaSelecaoCategoria = inabilitaSelecaoCategoria;
+    }
     
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public void criaNovo() {
@@ -82,6 +91,7 @@ public class FormCadastroMovimentoBancarioSubcategoria implements Serializable {
 
     public void edita(BancoSubcategoria itemSelecionado) {
         item = itemSelecionado;
+        setInabilitaSelecaoCategoria(item.getContaBancariaMovimentoCollection().size() > 0);
     }
 
     public void persiste() {
