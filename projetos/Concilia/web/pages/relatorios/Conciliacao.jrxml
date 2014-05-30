@@ -258,7 +258,7 @@ where id =  $P{numeroRelacionamento}]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[($V{1retornado}.doubleValue()-$V{4retornado}.doubleValue())-$V{2retornado}.doubleValue()-$V{3retornado}.doubleValue()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($V{1retornado}.doubleValue()+$V{4retornado}.doubleValue())-($V{2retornado}.doubleValue()+$V{3retornado}.doubleValue())]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

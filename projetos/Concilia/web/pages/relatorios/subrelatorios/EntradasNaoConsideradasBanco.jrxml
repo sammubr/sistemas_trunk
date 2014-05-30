@@ -17,6 +17,7 @@
 		<![CDATA[select * from conta_contabil_movimento, conta_contabil
 where conta_contabil.idconta_contabil = conta_contabil_movimento.conta
 and conta_contabil_movimento.valor > 0
+and conta_contabil_movimento.data_conciliacao is null
 and conta_contabil.rel_contabilidade_banco =  $P{numeroRelacionamento} 
 and conta_contabil_movimento.data_mov <=  $P{dataConciliacao}
 order by conta_contabil_movimento.data_mov, conta_contabil_movimento.idconta_contabil_movimento]]>
