@@ -55,7 +55,7 @@ public class RelatorioUtil {
             String caminhoRelatorio = context.getExternalContext().getRealPath("pages" + File.separator + "relatorios");
             String caminhoArquivoJasper = caminhoRelatorio + File.separator + nomeRelatorioJasper + ".jasper";
             String caminhoArquivoRelatorio;
-            JasperReport relatorioJasper = (JasperReport) JRLoader.loadObject(caminhoArquivoJasper);
+            JasperReport relatorioJasper = (JasperReport) JRLoader.loadObjectFromFile(caminhoArquivoJasper);
             JasperPrint impressoraJasper = JasperFillManager.fillReport(relatorioJasper, parametrosRelatorio, conexao);
             JRExporter tipoArquivoExportado;
             String extensaoArquivoExportado;
