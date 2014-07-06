@@ -14,7 +14,7 @@
 	<parameter name="numeroRelacionamento" class="java.lang.Integer" isForPrompting="false"/>
 	<parameter name="dataConciliacao" class="java.util.Date" isForPrompting="false"/>
 	<queryString language="SQL">
-		<![CDATA[select * from conta_contabil_movimento, conta_contabil
+		<![CDATA[select data_mov, historico, abs(valor) as valor from conta_contabil_movimento, conta_contabil
 where conta_contabil.idconta_contabil = conta_contabil_movimento.conta
 and conta_contabil_movimento.valor < 0
 and conta_contabil_movimento.data_conciliacao is null

@@ -473,12 +473,14 @@ public class FormConciliacaoManual implements Serializable {
 
                 for (ContaContabilMovimento movimento : listaDeMovimentoContaContabilConciliados) {
                     if (Objects.equals(movimento.getCombinacao(), combinacao)) {
+                        movimento.setCombinacao(null);
                         movimentosContabeisADesconciliar.add(movimento);
                     }
                 }
 
                 for (ContaBancariaMovimento movimento : listaDeMovimentoContaBancariaConciliados) {
                     if (Objects.equals(movimento.getCombinacao(), combinacao)) {
+                        movimento.setCombinacao(null);
                         movimentosBancariosADesconciliar.add(movimento);
                     }
                 }
