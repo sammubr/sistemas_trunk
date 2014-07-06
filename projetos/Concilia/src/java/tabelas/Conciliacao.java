@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -36,6 +38,9 @@ import persistencia.Persistencia;
     @NamedQuery(name = "Conciliacao.findByDataConciliacao", query = "SELECT c FROM Conciliacao c WHERE c.dataConciliacao = :dataConciliacao"),
     @NamedQuery(name = "Conciliacao.findByNumeroCombinacoes", query = "SELECT c FROM Conciliacao c WHERE c.numeroCombinacoes = :numeroCombinacoes")})
 public class Conciliacao extends Persistencia implements Serializable {
+    @JoinColumn(name = "relacionamento", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private RelContabilidadeBanco relacionamento;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -112,6 +117,14 @@ public class Conciliacao extends Persistencia implements Serializable {
     @Override
     public String toString() {
         return "tabelas.Conciliacao[ idConciliacao=" + idConciliacao + " ]";
+    }
+
+    public RelContabilidadeBanco getRelacionamento() {
+        return relacionamento;
+    }
+
+    public void setRelacionamento(RelContabilidadeBanco relacionamento) {
+        this.relacionamento = relacionamento;
     }
     
 }

@@ -208,12 +208,14 @@ public class FormConciliacaoManual implements Serializable {
         Conciliacao consulta = new Conciliacao();
         List<Criterion> filtro = new ArrayList<>();
         filtro.add(Restrictions.eq("dataConciliacao", dataConciliacao));
+        filtro.add(Restrictions.eq("relacionamento", relacionamento));
 
         conciliacao = (Conciliacao) consulta.obterObjeto(filtro, null);
 
         if (conciliacao == null) {
             conciliacao = new Conciliacao();
             conciliacao.setDataConciliacao(dataConciliacao);
+            conciliacao.setRelacionamento(relacionamento);
         }
 
         filtraMovimentosContasContabeis();
@@ -517,8 +519,9 @@ public class FormConciliacaoManual implements Serializable {
         concilia.setListaDeMovimentoContaBancariaConciliados(listaDeMovimentoContaBancariaConciliados);
         concilia.setListaDeMovimentoContaBancariaNaoConciliados(listaDeMovimentoContaBancariaNaoConciliados);
         concilia.setListaDeMovimentoContaContabilConciliados(listaDeMovimentoContaContabilConciliados);
-        concilia.setListaDeMovimentoContaContabilNaoConciliados(listaDeMovimentoContaContabilNaoConciliados);
+        concilia.setListaDeMovimentoContaContabilNaoConciliados(listaDeMovimentoContaContabilNaoConciliados);        
         concilia.setConciliacao(conciliacao);
+        
         concilia.salva();
 
         relacionamento = null;
