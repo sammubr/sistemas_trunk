@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MovimentosContabeis" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6f71fa27-ba37-47a7-9318-6f592815247a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<parameter name="numeroRelacionamento" class="java.lang.Integer"/>
+	<parameter name="dataInicial" class="java.util.Date"/>
+	<parameter name="dataFinal" class="java.util.Date"/>
+	<queryString language="SQL">
+		<![CDATA[select data_mov, historico, valor, categoria.descricao as categoria, 
+	subcategoria.descricao as subcategoria, credor.razao_social_nome as credor,
+	conta_bancaria.descricao as conta,
+	rel_contabilidade_banco.descricao as relacionamento,
+	case when combinacao<>0 then 'Sim'
+		else 'Não'
+	end as conciliado
+from conta_bancaria_movimento as mov
+	left join banco_categoria categoria on mov.categoria = categoria.idbanco_categoria
+	left join banco_subcategoria subcategoria on mov.subcategoria = subcategoria.idbanco_subcategoria
+	left join credor credor on mov.credor = credor.idcredor
+	left join conta_bancaria on mov.conta = conta_bancaria.idconta_bancaria
+	left join rel_contabilidade_banco on conta_bancaria.rel_contabilidade_banco = rel_contabilidade_banco.id
+where
+	rel_contabilidade_banco.id = $P{numeroRelacionamento}
+	and mov.data_mov <= $P{dataFinal}
+	and mov.data_mov >= $P{dataInicial}
+order by data_mov]]>
+	</queryString>
+	<field name="data_mov" class="java.sql.Date"/>
+	<field name="historico" class="java.lang.String"/>
+	<field name="valor" class="java.math.BigDecimal"/>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="subcategoria" class="java.lang.String"/>
+	<field name="credor" class="java.lang.String"/>
+	<field name="conciliado" class="java.lang.String"/>
+	<field name="conta" class="java.lang.String"/>
+	<field name="relacionamento" class="java.lang.String"/>
+	<title>
+		<band height="36" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="a09a3668-69a2-436d-9f9e-a40c3e7de812"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Movimentos Bancários]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="20" width="60" height="16" uuid="e9526a58-6424-45a0-b13a-d32c800ea01c">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Data inicial:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="20" width="60" height="16" uuid="636ff9ea-629c-4ef0-a200-aa7157da2551">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Data final:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="210" y="20" width="60" height="16" uuid="3799a9db-9791-4fa1-9697-fa267dd71082">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{dataInicial}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="360" y="20" width="60" height="16" uuid="293fce9f-cbaf-46a3-9fbc-5fb719a907d6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{dataFinal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="9388d72b-640d-43e1-a4ca-51269b51d2ae"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="0" width="70" height="15" uuid="bae92a24-a458-4f2d-af81-f23aa75d9115"/>
+				<textElement markup="html">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="0" width="90" height="15" uuid="7fb19376-abf8-4715-a226-75dec68008f5"/>
+				<textElement markup="html">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Histórico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="60" height="15" uuid="2270831f-97be-47a1-91c8-0cec51c2f01b"/>
+				<textElement textAlignment="Right" markup="html">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="0" width="60" height="15" uuid="4f87dcf8-0989-4596-a787-7109466af682"/>
+				<textElement markup="html">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="0" width="80" height="15" uuid="af03d303-dd59-43ba-a332-374b3bede4ae"/>
+				<textElement markup="html">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subcategoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="0" width="70" height="15" uuid="b989b9f3-0c36-4ecd-a6f9-9b1acd4418d6"/>
+				<textElement markup="html">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Credor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="0" width="65" height="15" uuid="def345d8-aeb4-4778-9efa-3583a9bf9f81"/>
+				<textElement markup="html">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Conciliado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="4d0f9abf-b5c7-4898-8047-918ebb48aebc"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="70" height="15" uuid="ceab78cf-5145-4e17-87e2-540f0447eef7"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data_mov}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="90" height="15" uuid="a2758ee3-2bc4-4730-8491-c37e3c1a712d"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{historico}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement x="180" y="0" width="60" height="15" uuid="1adb881f-2990-4df2-af1c-5532c779d622"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="250" y="0" width="60" height="15" uuid="b9731a1b-db5b-4c72-8ff0-2bb0bb65c409"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="320" y="0" width="80" height="15" uuid="8a73748c-f1ef-4671-8932-ab26ad5d59cf"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subcategoria}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="410" y="0" width="70" height="15" uuid="169e2793-8a47-4025-98c4-63c723f9152a"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{credor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="0" width="65" height="15" uuid="4bdfe44b-f0b8-4c63-ac80-bc58e83c492b"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conciliado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
