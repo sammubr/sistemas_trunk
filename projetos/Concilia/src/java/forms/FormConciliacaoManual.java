@@ -426,7 +426,7 @@ public class FormConciliacaoManual implements Serializable {
 
     public void concilia() {
 
-        if (listaDeMovimentoContaContabilNaoConciliadosSelecionados.size() > 0 && listaDeMovimentoContaBancariaNaoConciliadosSelecionados.size() > 0) {
+        if (listaDeMovimentoContaContabilNaoConciliadosSelecionados.size() > 0 || listaDeMovimentoContaBancariaNaoConciliadosSelecionados.size() > 0) {
 
             for (ContaContabilMovimento movimento : listaDeMovimentoContaContabilNaoConciliadosSelecionados) {
                 movimento.setDataConciliacao(dataConciliacao);
