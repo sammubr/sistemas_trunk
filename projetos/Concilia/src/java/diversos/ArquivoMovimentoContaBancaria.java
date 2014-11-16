@@ -32,7 +32,7 @@ public class ArquivoMovimentoContaBancaria {
         ContaBancariaMovimento movimento = new ContaBancariaMovimento();
         Integer contador = 0;
 
-        for (int i = 0; i < linhasArquivo.size() - 1; i++) {
+        for (int i = 0; i <= linhasArquivo.size() - 1; i++) {
 
             if (linhasArquivo.get(i).equals(contaBancariaSelecionada.getBanco().getTagInicioMovimento())) {
                 movimento = new ContaBancariaMovimento();

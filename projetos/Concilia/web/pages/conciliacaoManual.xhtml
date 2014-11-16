@@ -73,6 +73,7 @@
                                 <ul class="nav nav-tabs" id="myTab">
                                     <li><a href="#movimentosNaoConciliados" data-toggle="tab">Movimentos não conciliados</a></li>
                                     <li><a href="#movimentosConciliados" data-toggle="tab">Movimentos conciliados</a></li>
+                                    <li><a href="#historicos" data-toggle="tab">Históricos</a></li>
                                 </ul>
 
                                 <div class="tab-content">
@@ -441,14 +442,138 @@
 
                                     </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    <div class="tab-pane" id="historicos">
+
+                                        <h:panelGroup id="panelHistoricos">
+
+                                            <div class="text-center">
+                                                <div class="btn-group">
+                                                    <p:commandLink title="#{bundle.SaveLink}" value="Conciliar" styleClass="btn btn-large btn-primary" 
+                                                                   actionListener="#{formConciliacaoManual.conciliaHistoricos}" update="naoConciliados conciliados panelHistoricos"
+                                                                   partialSubmit="true" process="panelHistoricos" />
+
+                                                    <p:commandLink title="Limpar formulário" value="Limpar formulário" styleClass="btn btn-large btn-default" 
+                                                                   actionListener="#{formConciliacaoManual.limpaHistoricos}" update="naoConciliados conciliados panelHistoricos"
+                                                                   partialSubmit="true" process="panelHistoricos" />                                            
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+
+
+                                                    <label for="dataInicial">Data inicial:</label>
+                                                    <p:inputMask mask="99/99/9999" id="dataInicial" styleClass="form-control" value="#{formConciliacaoManual.dataInicial}" 
+                                                                 title="Data inicial">
+                                                        <p:watermark value="Data inicial" for="dataInicial"/>
+                                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                                                    </p:inputMask>   
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+
+                                                    <label for="dataFinal">Data final:</label>
+                                                    <p:inputMask mask="99/99/9999" id="dataFinal" styleClass="form-control" value="#{formConciliacaoManual.dataFinal}" 
+                                                                 title="Data final">
+                                                        <p:watermark value="Data final" for="dataFinal"/>
+                                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                                                    </p:inputMask>
+
+                                                </div>
+
+                                            </div>
+
+                                            <br></br>
+
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+
+                                                    <h:outputLabel value="Históricos contábeis" style="text-align: center"/>
+
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosContabeis[0]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosContabeis[1]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosContabeis[2]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosContabeis[3]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosContabeis[4]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosContabeis[5]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosContabeis[6]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosContabeis[7]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosContabeis[8]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosContabeis[9]}"/>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <h:outputLabel value="Históricos bancários" style="text-align: center"/>
+
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosBancarios[0]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosBancarios[1]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosBancarios[2]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosBancarios[3]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosBancarios[4]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosBancarios[5]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosBancarios[6]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosBancarios[7]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosBancarios[8]}"/>
+                                                    <h:inputText styleClass="form-control" value="#{formConciliacaoManual.listaDeHistoricosBancarios[9]}"/>
+
+                                                </div>
+
+                                            </div>
+
+                                        </h:panelGroup>   
+
+
+
+
+
+
+                                    </div>                                    
+
+
+
+
+
+
+
+
+
                                 </div>
 
                                 <script>
-                                    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                                    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                                         e.target; // activated tab
                                         e.relatedTarget; // previous tab
                                     });
-                                    $(function() {
+                                    $(function () {
                                         $('#myTab a:first').tab('show')
                                     })
                                 </script>

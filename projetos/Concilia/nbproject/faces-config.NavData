@@ -20,8 +20,8 @@
         <Node id="pages/contaContabil/movimentosItem.xhtml" x="400" y="600" zoom="true"/>
         <Node id="resources/templates/movimentosList.xhtml" x="400" y="150" zoom="true"/>
         <Node id="pages/contaContabil/movimentosList.xhtml" x="1150" y="450" zoom="true"/>
-        <Node id="pages/conciliacaoManual.xhtml" x="400" y="900" zoom="true"/>
         <Node id="login.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="pages/conciliacaoManual.xhtml" x="400" y="900" zoom="true"/>
         <Node id="pages/relacionamento/tabContaBancaria.xhtml" x="150" y="150" zoom="true"/>
         <Node id="resources/templates/dialogo.xhtml" x="650" y="150" zoom="true"/>
         <Node id="pages/relacionamento/tabContaContabil.xhtml" x="150" y="300" zoom="true"/>

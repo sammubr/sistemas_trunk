@@ -55,6 +55,11 @@ public class FormConciliacaoManual implements Serializable {
 
     private Conciliacao conciliacao;
 
+    private List<String> listaDeHistoricosContabeis;
+    private List<String> listaDeHistoricosBancarios;
+    private Date dataInicial;
+    private Date dataFinal;
+
 // ---------------------------------------------------------------- CONSTRUCTOR    
     public FormConciliacaoManual() {
         geraListaDeRelacionamentos();
@@ -204,6 +209,50 @@ public class FormConciliacaoManual implements Serializable {
         this.conciliacao = conciliacao;
     }
 
+    public List<String> getListaDeHistoricosContabeis() {
+        return listaDeHistoricosContabeis;
+    }
+
+    public void setListaDeHistoricosContabeis(List<String> listaDeHistoricosContabeis) {
+        this.listaDeHistoricosContabeis = listaDeHistoricosContabeis;
+    }
+
+    public List<String> getListaDeHistoricosBancarios() {
+        return listaDeHistoricosBancarios;
+    }
+
+    public void setListaDeHistoricosBancarios(List<String> listaDeHistoricosBancarios) {
+        this.listaDeHistoricosBancarios = listaDeHistoricosBancarios;
+    }
+
+    /**
+     * @return the dataInicial
+     */
+    public Date getDataInicial() {
+        return dataInicial;
+    }
+
+    /**
+     * @param dataInicial the dataInicial to set
+     */
+    public void setDataInicial(Date dataInicial) {
+        this.dataInicial = dataInicial;
+    }
+
+    /**
+     * @return the dataFinal
+     */
+    public Date getDataFinal() {
+        return dataFinal;
+    }
+
+    /**
+     * @param dataFinal the dataFinal to set
+     */
+    public void setDataFinal(Date dataFinal) {
+        this.dataFinal = dataFinal;
+    }
+
 // ----------------------------------------------------- MÉTODOS PARA PERSISTIR
     public void filtraMovimentos() {
 
@@ -223,7 +272,35 @@ public class FormConciliacaoManual implements Serializable {
         filtraMovimentosContasContabeis();
         filtraMovimentosContasBancarias();
         ordenaConciliados();
+        limpaHistoricos();
         setGridVisivel(false);
+    }
+
+    public void limpaHistoricos() {
+
+        if (listaDeHistoricosContabeis == null) {
+            listaDeHistoricosContabeis = new ArrayList<>();
+        }
+
+        if (listaDeHistoricosBancarios == null) {
+            listaDeHistoricosBancarios = new ArrayList<>();
+        }
+
+        listaDeHistoricosContabeis.clear();
+
+        for (int i = 0; i < 10; i++) {
+            listaDeHistoricosContabeis.add("");
+        }
+
+        listaDeHistoricosBancarios.clear();
+
+        for (int i = 0; i < 10; i++) {
+            listaDeHistoricosBancarios.add("");
+        }
+
+        dataInicial = null;
+        dataFinal = null;
+
     }
 
     private List<ContaBancaria> getContasBancarias() {
@@ -521,9 +598,9 @@ public class FormConciliacaoManual implements Serializable {
         concilia.setListaDeMovimentoContaBancariaConciliados(listaDeMovimentoContaBancariaConciliados);
         concilia.setListaDeMovimentoContaBancariaNaoConciliados(listaDeMovimentoContaBancariaNaoConciliados);
         concilia.setListaDeMovimentoContaContabilConciliados(listaDeMovimentoContaContabilConciliados);
-        concilia.setListaDeMovimentoContaContabilNaoConciliados(listaDeMovimentoContaContabilNaoConciliados);        
+        concilia.setListaDeMovimentoContaContabilNaoConciliados(listaDeMovimentoContaContabilNaoConciliados);
         concilia.setConciliacao(conciliacao);
-        
+
         concilia.salva();
         JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RecordSaved"), "");
 
@@ -591,6 +668,125 @@ public class FormConciliacaoManual implements Serializable {
                 return p1.getDataMov().before(p2.getDataMov()) ? -1 : (p1.getDataMov().after(p2.getDataMov()) ? +1 : 0);
             }
         });
+
+    }
+
+    public void insereHistoricoContabil() {
+        listaDeHistoricosContabeis.add("");
+    }
+
+    public void excluiHistoricoContabil(String historico) {
+        listaDeHistoricosContabeis.remove(historico);
+    }
+
+    public void conciliaHistoricos() {
+
+        List<ContaContabilMovimento> listaDeMovimentoContaContabilNaoConciliadosTemp = new ArrayList();
+        List<ContaBancariaMovimento> listaDeMovimentoContaBancariaNaoConciliadosTemp = new ArrayList();
+
+        if ((dataInicial == null) && dataFinal == null) {
+            listaDeMovimentoContaContabilNaoConciliadosTemp = listaDeMovimentoContaContabilNaoConciliados;
+            listaDeMovimentoContaBancariaNaoConciliadosTemp = listaDeMovimentoContaBancariaNaoConciliados;
+        };
+
+        if ((dataInicial != null) && dataFinal == null) {
+
+            for (ContaContabilMovimento movimentoContabilNaoConciliado : listaDeMovimentoContaContabilNaoConciliados) {
+                if ((movimentoContabilNaoConciliado.getDataMov().after(dataInicial)) || (movimentoContabilNaoConciliado.getDataMov().equals(dataInicial))) {
+                    listaDeMovimentoContaContabilNaoConciliadosTemp.add(movimentoContabilNaoConciliado);
+                }
+            }
+
+            for (ContaBancariaMovimento movimentoContaBancariaNaoConciliado : listaDeMovimentoContaBancariaNaoConciliados) {
+                if ((movimentoContaBancariaNaoConciliado.getDataMov().after(dataInicial)) || (movimentoContaBancariaNaoConciliado.getDataMov().equals(dataInicial))) {
+                    listaDeMovimentoContaBancariaNaoConciliadosTemp.add(movimentoContaBancariaNaoConciliado);
+                }
+            }
+
+        };
+
+        if ((dataInicial == null) && dataFinal != null) {
+
+            for (ContaContabilMovimento movimentoContabilNaoConciliado : listaDeMovimentoContaContabilNaoConciliados) {
+                if ((movimentoContabilNaoConciliado.getDataMov().before(dataFinal)) || (movimentoContabilNaoConciliado.getDataMov().equals(dataFinal))) {
+                    listaDeMovimentoContaContabilNaoConciliadosTemp.add(movimentoContabilNaoConciliado);
+                }
+            }
+
+            for (ContaBancariaMovimento movimentoContaBancariaNaoConciliado : listaDeMovimentoContaBancariaNaoConciliados) {
+                if ((movimentoContaBancariaNaoConciliado.getDataMov().before(dataFinal)) || (movimentoContaBancariaNaoConciliado.getDataMov().equals(dataFinal))) {
+                    listaDeMovimentoContaBancariaNaoConciliadosTemp.add(movimentoContaBancariaNaoConciliado);
+                }
+            }
+
+        };
+
+        if ((dataInicial != null) && dataFinal != null) {
+
+            for (ContaContabilMovimento movimentoContabilNaoConciliado : listaDeMovimentoContaContabilNaoConciliados) {
+                if ((movimentoContabilNaoConciliado.getDataMov().equals(dataInicial))
+                        || (movimentoContabilNaoConciliado.getDataMov().equals(dataFinal))
+                        || ((movimentoContabilNaoConciliado.getDataMov().after(dataInicial)) && (movimentoContabilNaoConciliado.getDataMov().before(dataFinal)))) {
+
+                    listaDeMovimentoContaContabilNaoConciliadosTemp.add(movimentoContabilNaoConciliado);
+                }
+            }
+
+            for (ContaBancariaMovimento movimentoContaBancariaNaoConciliado : listaDeMovimentoContaBancariaNaoConciliados) {
+                if ((movimentoContaBancariaNaoConciliado.getDataMov().equals(dataInicial))
+                        || (movimentoContaBancariaNaoConciliado.getDataMov().equals(dataFinal))
+                        || ((movimentoContaBancariaNaoConciliado.getDataMov().after(dataInicial)) && (movimentoContaBancariaNaoConciliado.getDataMov().before(dataFinal)))) {
+
+                    listaDeMovimentoContaBancariaNaoConciliadosTemp.add(movimentoContaBancariaNaoConciliado);
+                }
+            }
+
+        };
+
+        conciliaPorHistorico(listaDeMovimentoContaContabilNaoConciliadosTemp, listaDeMovimentoContaBancariaNaoConciliadosTemp);
+
+    }
+
+    private void conciliaPorHistorico(List<ContaContabilMovimento> pListaDeMovimentoContaContabilNaoConciliados, List<ContaBancariaMovimento> pListaDeMovimentoContaBancariaNaoConciliados) {
+
+        //SOMA LANÇAMENTOS CONTABEIS
+        List<ContaContabilMovimento> listaMovimentoContaContabilTemp = new ArrayList<>();
+        BigDecimal totalMovimentoContaContabilTemp = new BigDecimal(0);
+
+        for (ContaContabilMovimento movimentoContabilNaoConciliado : pListaDeMovimentoContaContabilNaoConciliados) {
+            for (String historicoContabil : listaDeHistoricosContabeis) {
+                if ((movimentoContabilNaoConciliado.getHistorico().equalsIgnoreCase(historicoContabil)) && (historicoContabil != null)) {
+                    listaMovimentoContaContabilTemp.add(movimentoContabilNaoConciliado);
+                    totalMovimentoContaContabilTemp = totalMovimentoContaContabilTemp.add(movimentoContabilNaoConciliado.getValor());
+                }
+            }
+        }
+
+        //SOMA LANÇAMENTOS BANCÁRIOS
+        List<ContaBancariaMovimento> listaMovimentoContaBancariaTemp = new ArrayList<>();
+        BigDecimal totalMovimentoContaBancariaTemp = new BigDecimal(0);
+
+        for (ContaBancariaMovimento movimentoContaBancariaNaoConciliado : pListaDeMovimentoContaBancariaNaoConciliados) {
+            for (String historicoContaBancaria : listaDeHistoricosBancarios) {
+                if ((movimentoContaBancariaNaoConciliado.getHistorico().equalsIgnoreCase(historicoContaBancaria)) && (historicoContaBancaria != null)) {
+                    listaMovimentoContaBancariaTemp.add(movimentoContaBancariaNaoConciliado);
+                    totalMovimentoContaBancariaTemp = totalMovimentoContaBancariaTemp.add(movimentoContaBancariaNaoConciliado.getValor());
+                }
+            }
+        }
+
+        if ((!listaMovimentoContaContabilTemp.isEmpty())
+                && (!listaMovimentoContaBancariaTemp.isEmpty())
+                && (totalMovimentoContaContabilTemp.equals(totalMovimentoContaBancariaTemp))) {
+
+            listaDeMovimentoContaContabilNaoConciliadosSelecionados = listaMovimentoContaContabilTemp;
+            listaDeMovimentoContaBancariaNaoConciliadosSelecionados = listaMovimentoContaBancariaTemp;
+            concilia();
+            limpaHistoricos();
+            JsfUtil.addSuccessMessage("Movimentos conciliados com sucesso", "");
+        } else {
+            JsfUtil.addErrorMessage("Nenhum movimento encontrado para conciliar!", "");
+        }
 
     }
 
