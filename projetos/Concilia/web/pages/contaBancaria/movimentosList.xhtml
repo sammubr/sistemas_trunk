@@ -42,7 +42,7 @@
 
                 <ui:define name="list_tab_conteudo">
 
-                    <div class="tab-pane" id="cadastroIndividual">
+                    <div class="tab-pane active" id="cadastroIndividual">
 
                         <h:form id="formList">
 
@@ -77,33 +77,33 @@
                                     <f:facet name="header" >  
                                         <p:outputPanel>  
                                             <h:outputText value="#{bundle.FilterTable} "/>  
-                                            <p:inputText id="globalFilter" onkeyup="list_widgetVar.filter();" style="width:20%" />  
+                                            <p:inputText id="globalFilter" onkeyup="PF('list_widgetVar').filter()" style="width:20%" />  
                                         </p:outputPanel>  
                                     </f:facet>
 
-                                    <p:column sortBy="dataMov" headerText="#{bundle.ListContaBancariaMovimentoTitle_data}" filterBy="dataMov" filterMatchMode="contains"
+                                    <p:column sortBy="dataMov" headerText="#{bundle.ListContaBancariaMovimentoTitle_data}" filterBy="#{item.dataMov}" filterMatchMode="contains"
                                               filterStyle="display:none" style="width: 100px">  
                                         <h:outputText value="#{item.dataMov}">                                                        
                                             <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
                                         </h:outputText>
                                     </p:column>                             
 
-                                    <p:column sortBy="idcontaBancariaMovimento" headerText="#{bundle.ListContaBancariaMovimentoTitle_id}" filterBy="idcontaBancariaMovimento" 
+                                    <p:column sortBy="idcontaBancariaMovimento" headerText="#{bundle.ListContaBancariaMovimentoTitle_id}" filterBy="#{item.idcontaBancariaMovimento}" 
                                               filterMatchMode="contains" filterStyle="display:none" style="width: 100px">
                                         <h:outputText value="#{item.idcontaBancariaMovimento}" style="float:right"/>  
                                     </p:column>                                     
 
-                                    <p:column sortBy="numdoc" headerText="#{bundle.ListContaBancariaMovimentoTitle_numDoc}" filterBy="numdoc" filterMatchMode="contains"
+                                    <p:column sortBy="numdoc" headerText="#{bundle.ListContaBancariaMovimentoTitle_numDoc}" filterBy="#{item.numdoc}" filterMatchMode="contains"
                                               filterStyle="display:none" style="width: 100px">
                                         <h:outputText value="#{item.numdoc}" style="float:right"/>  
                                     </p:column> 
 
-                                    <p:column sortBy="historico" headerText="#{bundle.ListContaBancariaMovimentoTitle_Historico}" filterBy="historico" filterMatchMode="contains"
+                                    <p:column sortBy="historico" headerText="#{bundle.ListContaBancariaMovimentoTitle_Historico}" filterBy="#{item.historico}" filterMatchMode="contains"
                                               filterStyle="display:none">  
                                         <h:outputText value="#{item.historico}"/>  
                                     </p:column>     
 
-                                    <p:column sortBy="valor" headerText="#{bundle.ListContaBancariaMovimentoTitle_valor}" filterBy="valor" filterMatchMode="contains"
+                                    <p:column sortBy="valor" headerText="#{bundle.ListContaBancariaMovimentoTitle_valor}" filterBy="#{item.valor}" filterMatchMode="contains"
                                               filterStyle="display:none" style="width: 150px">
                                         <h:outputText value="#{item.valor}" style="float:right">                                
                                             <f:convertNumber pattern="#,##0.00"/>

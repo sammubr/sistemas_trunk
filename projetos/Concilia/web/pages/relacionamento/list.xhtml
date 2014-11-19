@@ -41,18 +41,18 @@
                         <p:outputPanel rendered="#{formCadastroRelacionamento.gridVisivel}">
 
                             <p:dataTable id="tableRelacionamentos" var="item" value="#{formCadastroRelacionamento.listaDeRelacionamentos}"
-                                         rowKey="#{item.id}" emptyMessage="#{bundle.RecordsEmpty}"
+                                         rowKey="#{item.id}" emptyMessage="#{bundle.RecordsEmpty}" widgetVar="list_widgetVar"
                                          selection="#{formCadastroRelacionamento.relacionamentosSelecionados}" selectionMode="multiple"
                                          scrollable="true" scrollHeight="290">         
 
                             <f:facet name="header" >  
                                 <p:outputPanel>  
                                     <h:outputText value="#{bundle.FilterTable} " />  
-                                    <p:inputText id="globalFilter" onkeyup="list_widgetVar.filter();" style="width:20%" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('list_widgetVar').filter()" style="width:20%" />  
                                 </p:outputPanel>  
                             </f:facet>                                
                                 
-                                <p:column sortBy="descricao" headerText="#{bundle.ListRelacionamentoTitle_descricao}" filterBy="descricao" filterMatchMode="contains" filterStyle="display:none">  
+                                <p:column sortBy="descricao" headerText="#{bundle.ListRelacionamentoTitle_descricao}" filterBy="#{item.descricao}" filterMatchMode="contains" filterStyle="display:none">  
                                     <h:outputText value="#{item.descricao}" />  
                                 </p:column>  
 
